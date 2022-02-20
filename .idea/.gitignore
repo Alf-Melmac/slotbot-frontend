@@ -3,3 +3,10 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+#Sonarlint
+sonarlint-state.xml
+sonarlint/
+
+#Discord Integration
+discord.xml
