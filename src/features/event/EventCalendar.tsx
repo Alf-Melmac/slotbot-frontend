@@ -1,13 +1,15 @@
-import FullCalendar, {EventContentArg} from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import de from "@fullcalendar/core/locales/de";
 import {ColorSwatch, Group, Text, Tooltip} from "@mantine/core";
+import {Calendar, momentLocalizer} from "react-big-calendar";
+import moment from "moment";
+import "moment/locale/de";
+
+require('react-big-calendar/lib/css/react-big-calendar.css');
 
 type EventCalendarProps = {};
 
 export function EventCalendar(props: EventCalendarProps): JSX.Element {
 	const {} = props;
-	const eventContent = (arg: EventContentArg) => {
+	const eventContent = (arg: any) => {
 		return (
 			<Group noWrap style={{minWidth: 0, gap: 2, overflow: "hidden"}}>
 				<ColorSwatch color={arg.backgroundColor} size={10} style={{minWidth: 10}}/>
@@ -18,18 +20,28 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 		);
 	}
 
+
+	const events = [
+		{
+			start: moment().toDate(),
+			end: moment()
+				.add(1, "hour")
+				.toDate(),
+			title: "Some title"
+		}
+	];
+
+	moment.locale("de");
 	return (
-		<FullCalendar
-			plugins={[dayGridPlugin]}
-			initialView="dayGridMonth"
-			locale={de}
-			eventSources={[
-				{
-					url: 'http://localhost:8090/events/list',
-					color: 'blue'
-				}
-			]}
-			eventContent={eventContent}
+		<Calendar
+			localizer={momentLocalizer(moment)}
+			events={events}
+			defaultView="month"
+			/*components={{
+				event: eventContent
+			}}*/
+			toolbar={false}
+			style={{height: 500}}
 		/>
 	);
 }
