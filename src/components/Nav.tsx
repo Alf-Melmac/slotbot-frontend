@@ -1,7 +1,6 @@
-import {AppShell, Box, Group, Header, Image, Text} from "@mantine/core";
+import {AppShell, Box, Container, Group, Header, Image, Text} from "@mantine/core";
 import {useViewportSize} from "@mantine/hooks";
 import {ThemeSwitch} from "./ThemeSwitch";
-import {DefaultContainer} from "./DefaultContainer";
 
 type NavProps = {
 	children: JSX.Element
@@ -13,8 +12,8 @@ export function Nav(props: NavProps): JSX.Element {
 	return (
 		<AppShell
 			header={
-				<Header height={100} padding="xs">
-					<DefaultContainer sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+				<Header height={100} p="xs">
+					<Container sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
 						<Group noWrap>
 							<Image width={80} src="https://armamachtbock.de/assets/img/amb-logo.jpg"
 								   withPlaceholder/>
@@ -29,7 +28,7 @@ export function Nav(props: NavProps): JSX.Element {
 						<Box styles={{alignSelf: "flex-end"}}>
 							<ThemeSwitch/>
 						</Box>
-					</DefaultContainer>
+					</Container>
 				</Header>
 			}
 			padding="md"

@@ -1,6 +1,5 @@
 import {Nav} from "../../components/Nav";
-import {DefaultContainer} from "../../components/DefaultContainer";
-import {Center, Title} from "@mantine/core";
+import {Center, Container, Title} from "@mantine/core";
 import {EventCalendar} from "./EventCalendar";
 
 type EventsProps = {};
@@ -10,12 +9,12 @@ export function Events(props: EventsProps): JSX.Element {
 
 	return (
 		<Nav>
-			<DefaultContainer>
+			<Container>
 				<Center>
 					<Title>Events</Title>
 				</Center>
 				<EventCalendar/>
-			</DefaultContainer>
+			</Container>
 		</Nav>
 	);
 }

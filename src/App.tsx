@@ -14,7 +14,9 @@ export function App(): JSX.Element {
 	return (
 		<Suspense fallback={<Skeleton/>}>
 			<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-				<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles>
+				<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles defaultProps={{
+					Container: {size: 'lg'}
+				}}>
 					<Global styles={(themes) => ({
 						body: {
 							backgroundColor: themes.colorScheme !== 'dark' ? themes.colors.gray[0] : themes.colors.dark[7],
