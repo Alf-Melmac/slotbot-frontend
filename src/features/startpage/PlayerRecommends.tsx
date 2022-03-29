@@ -2,6 +2,13 @@ import {Avatar, Box, Card, createStyles, Group, Text} from "@mantine/core";
 
 type PlayerRecommendsProps = {};
 
+type PlayerQuote = {
+	firstEventDate: string;
+	quote: string;
+	avatar?: string;
+	name: string;
+};
+
 /*Inspired by https://css-tricks.com article cards*/
 export function PlayerRecommends(props: PlayerRecommendsProps): JSX.Element {
 	const {} = props;
@@ -56,7 +63,7 @@ export function PlayerRecommends(props: PlayerRecommendsProps): JSX.Element {
 	}));
 	const {classes} = useStyles();
 
-	const playerFeedback = [
+	const quotes: Array<PlayerQuote> = [
 		{
 			firstEventDate: '03.05.2020',
 			quote: 'Ich kann so mitspielen, dass ich nicht mal ein Funkgerät brauche!',
@@ -100,20 +107,20 @@ export function PlayerRecommends(props: PlayerRecommendsProps): JSX.Element {
 	return (
 		<Box className={classes.wrapper}>
 			<Box className={classes.container}>
-				{playerFeedback.map((feedback) =>
+				{quotes.map((quote) =>
 					<Card className={classes.card} radius={'lg'}>
 						<header className={classes.cardBody}>
 							<Text size={'sm'} className={classes.cardDetails}>
 								Dabei seit <span
-								className={classes.cardDetailsDate}>{feedback.firstEventDate}</span>
+								className={classes.cardDetailsDate}>{quote.firstEventDate}</span>
 							</Text>
 							<h2 className={classes.quote}>
-								{feedback.quote}
+								{quote.quote}
 							</h2>
 						</header>
 						<Group>
-							<Avatar radius={'xl'} src={feedback.avatar}></Avatar>
-							<Text color={'dimmed'}>{feedback.name}</Text>
+							<Avatar radius={'xl'} src={quote.avatar}></Avatar>
+							<Text color={'dimmed'}>{quote.name}</Text>
 						</Group>
 					</Card>
 				)}
