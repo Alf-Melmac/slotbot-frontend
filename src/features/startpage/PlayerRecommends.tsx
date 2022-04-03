@@ -29,7 +29,7 @@ export function PlayerRecommends(props: PlayerRecommendsProps): JSX.Element {
 			minWidth: 300,
 			height: 350,
 			backgroundColor: theme.colors.dark[8],
-			boxShadow: '-1rem 0 3rem #000',
+			boxShadow: '-1rem 0 2.3rem #000',
 			display: 'flex',
 			flexDirection: 'column',
 			padding: theme.spacing.sm,
@@ -84,7 +84,7 @@ export function PlayerRecommends(props: PlayerRecommendsProps): JSX.Element {
 		}, {
 			firstEventDate: '07.02.2021',
 			quote: 'Ich bin cool 😎',
-			avatar: 'https://cdn.discordapp.com/avatars/793276451049832470/6430b74a88dea686fb17afe7d3bf7590.png?size=40',
+			avatar: 'https://cdn.discordapp.com/avatars/793276451049832470/9146f76d7f79ed22f8972cabbe41ff46.png?size=40',
 			name: 'Mäxo'
 		},
 		{
