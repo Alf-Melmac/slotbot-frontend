@@ -27,8 +27,8 @@ export function StatCounter({className, countEnd, info}: StatCounterProps): JSX.
 				left: '50%',
 				height: 1,
 				background: theme.fn.linearGradient(45, theme.primaryColor, theme.colors.cyan[4]),
-			}
-		}
+			},
+		},
 	}));
 	const {classes} = useStyles();
 

@@ -24,16 +24,16 @@ export function useDiscordQuery<T>(endpoint: string, options?: QueryOptions): Di
 
 	const {params, useSuspense} = {...options};
 
-	if (!endpoint.startsWith("/")) {
-		throw new Error("Endpoints must start with a slash (/)");
+	if (!endpoint.startsWith('/')) {
+		throw new Error('Endpoints must start with a slash (/)');
 	}
 
 	const loadData = () => {
 		setIsLoading(true);
 
 		const defaultHeaders = {
-			"Content-Type": "application/json",
-			Accept: "application/json",
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
 		};
 		const headers: Headers = new Headers(defaultHeaders);
 
@@ -59,7 +59,7 @@ export function useDiscordQuery<T>(endpoint: string, options?: QueryOptions): Di
 				})
 				.finally(() => {
 					setIsLoading(false);
-				})
+				}),
 		);
 	};
 	useShallowEffect(loadData, [endpoint, params]);

@@ -7,9 +7,7 @@ type AnchorBlankProps = {
 };
 
 export function AnchorBlank(props: AnchorBlankProps): JSX.Element {
-	const {href, children} = props;
-
 	return (
-		<Anchor href={href} target={"_blank"} rel={"noopener noreferrer"}>{children}</Anchor>
+		<Anchor href={props.href} target={'_blank'} rel={'noopener noreferrer'}>{props.children}</Anchor>
 	);
 }
