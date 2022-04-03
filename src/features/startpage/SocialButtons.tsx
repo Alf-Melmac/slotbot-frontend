@@ -2,42 +2,41 @@ import {ActionIcon, createStyles, Group} from "@mantine/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiscord, faTwitch, faTwitter, faYoutube} from "@fortawesome/free-brands-svg-icons";
 
-type SocialButtonsProps = {};
+const useStyles = createStyles((theme) => ({
+	social: {
+		listStyle: 'none',
+		fontSize: theme.fontSizes.sm,
+		fontWeight: 'bold',
+		color: theme.white,
 
-export function SocialButtons(props: SocialButtonsProps): JSX.Element {
-	const useStyles = createStyles((theme) => ({
-		social: {
-			listStyle: 'none',
-			fontSize: theme.fontSizes.sm,
-			fontWeight: 'bold',
-			color: theme.white,
-
-			[theme.fn.smallerThan('lg')]: {
-				left: 'unset'
-			},
-
-			'li': {
-				display: 'inline-block',
-			}
+		[theme.fn.smallerThan('lg')]: {
+			left: 'unset',
 		},
 
-		socialTitle: {
-			paddingRight: '40px',
-			marginRight: 20,
-			position: 'relative',
-
-			'&:after': {
-				display: 'block',
-				content: '""',
-				width: '24px',
-				height: '2px',
-				backgroundColor: 'rgba(255,255,255,0.1)',
-				position: 'absolute',
-				right: 0,
-				top: '50%',
-			},
+		'li': {
+			display: 'inline-block',
 		},
-	}));
+	},
+
+	socialTitle: {
+		paddingRight: '40px',
+		marginRight: 20,
+		position: 'relative',
+
+		'&:after': {
+			display: 'block',
+			content: '""',
+			width: '24px',
+			height: '2px',
+			backgroundColor: 'rgba(255,255,255,0.1)',
+			position: 'absolute',
+			right: 0,
+			top: '50%',
+		},
+	},
+}));
+
+export function SocialButtons(): JSX.Element {
 	const {classes} = useStyles();
 
 	return (

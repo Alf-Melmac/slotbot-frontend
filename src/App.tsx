@@ -15,26 +15,26 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
 				<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles defaultProps={{
-					Container: {size: 'lg'}
+					Container: {size: 'lg'},
 				}}>
 					<Global styles={(themes) => ({
 						body: {
 							backgroundColor: themes.colorScheme !== 'dark' ? themes.colors.gray[0] : themes.colors.dark[7],
-							margin: 0 //????
+							margin: 0, //????
 						},
-						"*::-webkit-scrollbar": {
+						'*::-webkit-scrollbar': {
 							width: 8,
 						},
-						"*::-webkit-scrollbar-thumb": {
+						'*::-webkit-scrollbar-thumb': {
 							backgroundColor: themes.colors.gray[5],
 							borderRadius: "6px",
 						},
-						"@supports (-moz-appearance:none)": {
+						'@supports (-moz-appearance:none)': {
 							"*": {
 								/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
 								So that nothing is broken in potential future support, these values are set only for Firefox.*/
 								scrollbarColor: `${themes.colors.gray[5]} transparent`,
-								scrollbarWidth: "thin",
+								scrollbarWidth: 'thin',
 							},
 						},
 					})}/>

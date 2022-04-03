@@ -54,7 +54,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 	};
 });
 
-interface ImageCardProps {
+type ImageCardProps = {
 	link: string;
 	image: string;
 	title: string;
@@ -68,21 +68,22 @@ export function KnownFromLinkCard({image, title, author, link}: ImageCardProps):
 		<Card
 			p="lg"
 			shadow="lg"
-			className={classes.card}
 			radius="md"
+			className={classes.card}
 			component="a"
 			href={link}
 			target="_blank"
+			rel="noopener,noreferrer"
 		>
 			<div className={classes.image} style={{backgroundImage: `url(${image})`}}/>
 			<div className={classes.overlay}/>
 
 			<div className={classes.content}>
-				<Text size="lg" className={classes.title} weight={500}>
+				<Text size={'lg'} className={classes.title} weight={500}>
 					{title}
 				</Text>
 
-				<Text size="sm" className={classes.author}>
+				<Text size={'sm'} className={classes.author}>
 					{author}
 				</Text>
 			</div>
