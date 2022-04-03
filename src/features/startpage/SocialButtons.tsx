@@ -1,6 +1,7 @@
 import {ActionIcon, createStyles, Group} from "@mantine/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiscord, faTwitch, faTwitter, faYoutube} from "@fortawesome/free-brands-svg-icons";
+import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 
 const useStyles = createStyles((theme) => ({
 	social: {
@@ -36,30 +37,43 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
+type GroupType = {
+	icon: IconDefinition;
+	href: string;
+}
+
 export function SocialButtons(): JSX.Element {
 	const {classes} = useStyles();
+
+	const groups: Array<GroupType> = [
+		{
+			icon: faDiscord,
+			href: 'https://armamachtbock.de/discord',
+		},
+		{
+			icon: faTwitter,
+			href: 'https://twitter.com/ArmaMachtBock',
+		},
+		{
+			icon: faYoutube,
+			href: 'https://armamachtbock.de/youtube',
+		},
+		{
+			icon: faTwitch,
+			href: 'https://www.twitch.tv/ArmaMachtBock',
+		},
+	];
 
 	return (
 		<ul className={classes.social}>
 			<li className={classes.socialTitle}>Folge uns</li>
 			<li>
 				<Group>
-					<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'}
-								href={"https://armamachtbock.de/discord"}>
-						<FontAwesomeIcon icon={faDiscord} size={"lg"}/>
-					</ActionIcon>
-					<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'}
-								href={"https://twitter.com/ArmaMachtBock"}>
-						<FontAwesomeIcon icon={faTwitter} size={"lg"}/>
-					</ActionIcon>
-					<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'}
-								href={"https://armamachtbock.de/youtube"}>
-						<FontAwesomeIcon icon={faYoutube} size={"lg"}/>
-					</ActionIcon>
-					<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'}
-								href={"https://www.twitch.tv/ArmaMachtBock"}>
-						<FontAwesomeIcon icon={faTwitch} size={"lg"}/>
-					</ActionIcon>
+					{groups.map((group) =>
+						<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'} href={group.href}>
+							<FontAwesomeIcon icon={group.icon} size={'lg'}/>
+						</ActionIcon>,
+					)}
 				</Group>
 			</li>
 		</ul>
