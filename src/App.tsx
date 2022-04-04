@@ -1,7 +1,7 @@
 import {ColorScheme, ColorSchemeProvider, Global, MantineProvider, Skeleton} from '@mantine/core';
 import {Suspense, useState} from 'react';
 import {Router} from "./routes/Router";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {theme} from "./contexts/Theme";
 import {useColorScheme} from "@mantine/hooks";
 
@@ -38,9 +38,9 @@ export function App(): JSX.Element {
 							},
 						},
 					})}/>
-					<BrowserRouter>
+					<HashRouter>
 						<Router/>
-					</BrowserRouter>
+					</HashRouter>
 				</MantineProvider>
 			</ColorSchemeProvider>
 		</Suspense>
