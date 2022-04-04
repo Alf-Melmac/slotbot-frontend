@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/slotbot-frontend/static/css/main.53d22f69.css",
+    "main.js": "/slotbot-frontend/static/js/main.d0edec80.js",
+    "index.html": "/slotbot-frontend/index.html",
+    "main.53d22f69.css.map": "/slotbot-frontend/static/css/main.53d22f69.css.map",
+    "main.d0edec80.js.map": "/slotbot-frontend/static/js/main.d0edec80.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.53d22f69.css",
+    "static/js/main.d0edec80.js"
+  ]
+}
