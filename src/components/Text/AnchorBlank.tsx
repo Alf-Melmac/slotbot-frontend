@@ -3,11 +3,13 @@ import {ReactNode} from "react";
 
 type AnchorBlankProps = {
 	href: string;
+	className?: string;
 	children: ReactNode;
 };
 
 export function AnchorBlank(props: AnchorBlankProps): JSX.Element {
 	return (
-		<Anchor href={props.href} target={'_blank'} rel={'noopener noreferrer'}>{props.children}</Anchor>
+		<Anchor href={props.href} className={props.className} target={'_blank'}
+				rel={'noopener noreferrer'}>{props.children}</Anchor>
 	);
 }

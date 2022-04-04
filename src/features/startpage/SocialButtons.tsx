@@ -2,6 +2,7 @@ import {ActionIcon, createStyles, Group} from "@mantine/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiscord, faTwitch, faTwitter, faYoutube} from "@fortawesome/free-brands-svg-icons";
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
+import {AnchorBlank} from '../../components/Text/AnchorBlank';
 
 const useStyles = createStyles((theme) => ({
 	social: {
@@ -70,7 +71,7 @@ export function SocialButtons(): JSX.Element {
 			<li>
 				<Group>
 					{groups.map((group) =>
-						<ActionIcon component={'a'} target={'_blank'} rel={'noopener noreferrer'} href={group.href}>
+						<ActionIcon component={AnchorBlank} href={group.href}>
 							<FontAwesomeIcon icon={group.icon} size={'lg'}/>
 						</ActionIcon>,
 					)}
