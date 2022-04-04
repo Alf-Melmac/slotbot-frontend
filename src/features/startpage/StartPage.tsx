@@ -10,7 +10,7 @@ import {
 	Overlay,
 	Text,
 	Title,
-	useMantineColorScheme
+	useMantineColorScheme,
 } from "@mantine/core";
 import {Link} from "react-router-dom";
 import {useScrollIntoView} from "@mantine/hooks";
@@ -22,6 +22,7 @@ import {ThemeSwitch} from "../../components/ThemeSwitch";
 import {StatCounter} from "./StatCounter";
 import {BeforeStartChecklist} from "./BeforeStartChecklist";
 import {DiscordInviteBox} from "../../components/DiscordInvite/DiscordInviteBox";
+import {PageFooter} from '../../components/PageFooter';
 
 type StartPageProps = {};
 
@@ -100,7 +101,7 @@ export function StartPage(props: StartPageProps): JSX.Element {
 				[theme.fn.smallerThan('xs')]: {
 					width: '2rem',
 				},
-			}
+			},
 		},
 
 		side: {
@@ -167,9 +168,9 @@ export function StartPage(props: StartPageProps): JSX.Element {
 						[theme.fn.smallerThan('lg')]: {
 							fontSize: theme.fontSizes.md,
 						},
-					}
-				}
-			}
+					},
+				},
+			},
 		},
 
 		bottomLeft: {
@@ -193,9 +194,9 @@ export function StartPage(props: StartPageProps): JSX.Element {
 			marginBottom: theme.spacing.xs,
 
 			'&:before': {
-				content: '"/ "'
-			}
-		}
+				content: '"/ "',
+			},
+		},
 	}));
 
 	const {classes} = useStyles();
@@ -355,6 +356,8 @@ export function StartPage(props: StartPageProps): JSX.Element {
 					<DiscordInviteBox inviteCode={'zMwnQgQ'}/>
 				</Center>
 			</Box>
+
+			<PageFooter/>
 		</>
 	);
 }
