@@ -18,7 +18,6 @@ import {SocialButtons} from "./SocialButtons";
 import {Scroller} from "./Scroller";
 import {PlayerRecommends} from "./PlayerRecommends";
 import {KnownFromLinkCard} from "./KnownFromLinkCard";
-import {ThemeSwitch} from "../../components/ThemeSwitch";
 import {StatCounter} from "./StatCounter";
 import {BeforeStartChecklist} from "./BeforeStartChecklist";
 import {DiscordInviteBox} from "../../components/DiscordInvite/DiscordInviteBox";
@@ -306,8 +305,6 @@ export function StartPage(props: StartPageProps): JSX.Element {
 				<Title order={3} className={classes.subHeading}>Das sagen unsere Spieler</Title>
 				<PlayerRecommends/>
 			</Container>
-
-			<ThemeSwitch/>
 
 			<Box py={180} style={{
 				position: 'relative',

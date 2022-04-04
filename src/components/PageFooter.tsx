@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from './Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
+import {ThemeSwitch} from './ThemeSwitch';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
@@ -95,6 +96,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 				<Group spacing={'xs'}>
 					<Image className={classes.logo} src={'assets/amb-256-256.png'}/>
 					<Text size={'lg'} className={classes.title}>Arma macht Bock</Text>
+					<ThemeSwitch/>
 				</Group>
 				<Text size={'sm'} className={classes.description}>© 2022 Alf. All rights reserved.</Text>
 			</Stack>
