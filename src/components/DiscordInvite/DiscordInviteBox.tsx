@@ -1,16 +1,16 @@
-import {Box, createStyles} from "@mantine/core";
+import {Box, createStyles, useMantineColorScheme} from "@mantine/core";
 import React from "react";
 import {DiscordJoinButton} from "./DiscordJoinButton";
 import {DiscordGuildDetails} from "./DiscordGuildDetails";
 import {ellipsis} from "../../contexts/CommonStylings";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles((theme, dark: boolean) => ({
 	flex: {
 		display: 'flex',
 	},
 
 	inviteBox: {
-		backgroundColor: '#2f3136',
+		backgroundColor: dark ? '#2f3136' : '#f2f3f5',
 		borderRadius: 4,
 		width: 432,
 		padding: 16,
@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
 	},
 
 	header: {
-		color: '#b9bbbe',
+		color: dark ? '#b9bbbe' : '#4f5660',
 		fontSize: 12,
 		lineHeight: '16px',
 		textTransform: 'uppercase',
@@ -38,7 +38,10 @@ export function DiscordInviteBox(props: DiscordInviteBoxProps): JSX.Element {
 		window.open(`https://discordapp.com/invite/${inviteCode}`, '_blank', 'noopener,noreferrer');
 	}
 
-	const {classes} = useStyles();
+	const {colorScheme} = useMantineColorScheme();
+	const dark = colorScheme === 'dark';
+
+	const {classes} = useStyles(dark);
 
 	return (
 		<Box className={classes.inviteBox}>
