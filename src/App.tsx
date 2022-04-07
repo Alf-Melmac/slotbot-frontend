@@ -19,7 +19,7 @@ export function App(): JSX.Element {
 				}}>
 					<Global styles={(themes) => ({
 						body: {
-							backgroundColor: themes.colorScheme !== 'dark' ? themes.colors.gray[0] : themes.colors.dark[7],
+							backgroundColor: themes.colorScheme !== 'dark' ? themes.colors.gray[1] : themes.colors.dark[7],
 							margin: 0, //????
 						},
 						'*::-webkit-scrollbar': {
