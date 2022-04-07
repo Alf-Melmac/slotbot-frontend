@@ -58,10 +58,10 @@ type ImageCardProps = {
 	link: string;
 	image: string;
 	title: string;
-	author: string;
+	description: string;
 }
 
-export function KnownFromLinkCard({image, title, author, link}: ImageCardProps): JSX.Element {
+export function KnownFromLinkCard({image, title, description, link}: ImageCardProps): JSX.Element {
 	const {classes} = useStyles();
 
 	return (
@@ -84,7 +84,7 @@ export function KnownFromLinkCard({image, title, author, link}: ImageCardProps):
 				</Text>
 
 				<Text size={'sm'} className={classes.author}>
-					{author}
+					{description}
 				</Text>
 			</div>
 		</Card>

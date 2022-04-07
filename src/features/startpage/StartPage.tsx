@@ -19,7 +19,8 @@ import {StatCounter} from "./StatCounter";
 import {BeforeStartChecklist} from "./BeforeStartChecklist";
 import {DiscordInviteBox} from "../../components/DiscordInvite/DiscordInviteBox";
 import {PageFooter} from '../../components/PageFooter/PageFooter';
-import daaLogo from './1024-1024_DAA_trans.png';
+import daaLogo from './280-280_DAA_trans.png';
+import ntfLogo from './260-320_NTF_trans.png';
 import {Section} from './Section';
 import {StartPageHeader} from './StartPageHeader';
 
@@ -120,10 +121,10 @@ export function StartPage(): JSX.Element {
 						<KnownFromLinkCard link={"https://deutsche-arma-allianz.de"}
 										   image={daaLogo}
 										   title={"Deutsche Arma Allianz"}
-										   author={"Größte Zusammenschluss deutschsprachiger Arma 3 Gruppen"}/>
+										   description={"Größte Zusammenschluss deutschsprachiger Arma 3 Gruppen"}/>
 						<KnownFromLinkCard link={"https://forum.nato-taskforce.com"}
-										   image={"https://cloud.nato-taskforce.com/apps/files_sharing/publicpreview/efeAyPHpkwpepJw?x=2552&y=965&a=true&file=NTF_Logo4k.png&scalingup=0"}
-										   title={"Nato Task Force"} author={"Partnerclan"}/>
+										   image={ntfLogo}
+										   title={"Nato Task Force"} description={"Partnerclan"}/>
 					</Group>
 
 					<Divider/>
