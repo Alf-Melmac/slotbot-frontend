@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 		padding: theme.spacing.sm,
 		transition: '0.2s',
 
-		'&:not(:first-child)': {
+		'&:not(:first-of-type)': {
 			marginLeft: -130,
 		},
 
