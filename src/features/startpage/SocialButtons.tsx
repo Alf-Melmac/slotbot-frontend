@@ -30,15 +30,19 @@ const useStyles = createStyles((theme) => ({
 			content: '""',
 			width: '24px',
 			height: '2px',
-			backgroundColor: 'rgba(255,255,255,0.1)',
+			backgroundColor: theme.colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)',
 			position: 'absolute',
 			right: 0,
 			top: '50%',
 		},
 	},
+
+	socialIcon: {
+		color: theme.colors.gray[0],
+	},
 }));
 
-type GroupType = {
+type SocialType = {
 	icon: IconDefinition;
 	href: string;
 }
@@ -46,7 +50,7 @@ type GroupType = {
 export function SocialButtons(): JSX.Element {
 	const {classes} = useStyles();
 
-	const groups: Array<GroupType> = [
+	const socials: Array<SocialType> = [
 		{
 			icon: faDiscord,
 			href: 'https://armamachtbock.de/discord',
@@ -67,12 +71,12 @@ export function SocialButtons(): JSX.Element {
 
 	return (
 		<ul className={classes.social}>
-			<li className={classes.socialTitle}>Folge uns</li>
-			<li>
+			<li key={'title'} className={classes.socialTitle}>Folge uns</li>
+			<li key={'socials'}>
 				<Group>
-					{groups.map((group) =>
-						<ActionIcon component={AnchorBlank} href={group.href}>
-							<FontAwesomeIcon icon={group.icon} size={'lg'}/>
+					{socials.map((social) =>
+						<ActionIcon component={AnchorBlank} href={social.href}>
+							<FontAwesomeIcon icon={social.icon} className={classes.socialIcon} size={'lg'}/>
 						</ActionIcon>,
 					)}
 				</Group>
