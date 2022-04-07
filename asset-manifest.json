@@ -1,13 +1,15 @@
 {
   "files": {
     "main.css": "/slotbot-frontend/static/css/main.53d22f69.css",
-    "main.js": "/slotbot-frontend/static/js/main.084ddbd4.js",
+    "main.js": "/slotbot-frontend/static/js/main.3dd99495.js",
+    "static/media/1024-1024_DAA_trans.png": "/slotbot-frontend/static/media/1024-1024_DAA_trans.6f991e2f856f98670c56.png",
+    "static/media/amb-256-256.png": "/slotbot-frontend/static/media/amb-256-256.e9d5bd2ae0c6ceaa9ae8.png",
     "index.html": "/slotbot-frontend/index.html",
     "main.53d22f69.css.map": "/slotbot-frontend/static/css/main.53d22f69.css.map",
-    "main.084ddbd4.js.map": "/slotbot-frontend/static/js/main.084ddbd4.js.map"
+    "main.3dd99495.js.map": "/slotbot-frontend/static/js/main.3dd99495.js.map"
   },
   "entrypoints": [
     "static/css/main.53d22f69.css",
-    "static/js/main.084ddbd4.js"
+    "static/js/main.3dd99495.js"
   ]
 }
