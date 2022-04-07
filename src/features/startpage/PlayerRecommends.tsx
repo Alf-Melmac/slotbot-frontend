@@ -10,14 +10,14 @@ const useStyles = createStyles((theme) => ({
 		overflowX: 'scroll',
 		display: 'flex',
 		padding: '3rem',
-		background: theme.colors.dark[7],
+		background: theme.colorScheme !== 'dark' ? theme.colors.gray[2] : theme.colors.dark[7],
 	},
 
 	card: {
 		minWidth: 300,
 		height: 350,
-		backgroundColor: theme.colors.dark[8],
-		boxShadow: '-1rem 0 2.3rem #000',
+		backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[3] : theme.colors.dark[8],
+		boxShadow: theme.colorScheme !== 'dark' ? `-0.5rem 0 1.5rem ${theme.colors.gray[5]}` : '-1rem 0 2.3rem #000',
 		display: 'flex',
 		flexDirection: 'column',
 		padding: theme.spacing.sm,
@@ -39,7 +39,7 @@ const useStyles = createStyles((theme) => ({
 		marginBottom: 'auto',
 	},
 	cardDetails: {
-		color: theme.colors.gray[0],
+		color: theme.colorScheme !== 'dark' ? theme.colors.gray[9] : theme.colors.gray[0],
 	},
 	cardDetailsDate: {
 		color: theme.colors.gray[6],
