@@ -17,23 +17,23 @@ export function App(): JSX.Element {
 				<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles defaultProps={{
 					Container: {size: 'lg'},
 				}}>
-					<Global styles={(themes) => ({
+					<Global styles={(theme) => ({
 						body: {
-							backgroundColor: themes.colorScheme !== 'dark' ? themes.colors.gray[1] : themes.colors.dark[7],
+							backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[2] : theme.colors.dark[7],
 							margin: 0, //????
 						},
 						'*::-webkit-scrollbar': {
 							width: 8,
 						},
 						'*::-webkit-scrollbar-thumb': {
-							backgroundColor: themes.colors.gray[5],
+							backgroundColor: theme.colors.gray[5],
 							borderRadius: "6px",
 						},
 						'@supports (-moz-appearance:none)': {
 							"*": {
 								/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
 								So that nothing is broken in potential future support, these values are set only for Firefox.*/
-								scrollbarColor: `${themes.colors.gray[5]} transparent`,
+								scrollbarColor: `${theme.colors.gray[5]} transparent`,
 								scrollbarWidth: 'thin',
 							},
 						},
