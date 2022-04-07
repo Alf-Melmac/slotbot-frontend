@@ -103,8 +103,8 @@ export function PageFooter(props: FooterProps): JSX.Element {
 			<Stack spacing={'xs'}>
 				<Group spacing={'xl'} position={'right'}>
 					{icons.map((icon) =>
-						<ActionIcon component={AnchorBlank} className={cx(classes.iconLink, icon.iconClass)}
-									href={icon.href}>
+						<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
+									className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
 							<FontAwesomeIcon icon={icon.icon} size={'lg'}/>
 						</ActionIcon>,
 					)}

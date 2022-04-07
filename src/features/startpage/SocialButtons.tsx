@@ -71,11 +71,11 @@ export function SocialButtons(): JSX.Element {
 
 	return (
 		<ul className={classes.social}>
-			<li key={'title'} className={classes.socialTitle}>Folge uns</li>
-			<li key={'socials'}>
+			<li className={classes.socialTitle}>Folge uns</li>
+			<li>
 				<Group>
 					{socials.map((social) =>
-						<ActionIcon component={AnchorBlank} href={social.href}>
+						<ActionIcon component={AnchorBlank} key={social.icon.iconName} href={social.href}>
 							<FontAwesomeIcon icon={social.icon} className={classes.socialIcon} size={'lg'}/>
 						</ActionIcon>,
 					)}

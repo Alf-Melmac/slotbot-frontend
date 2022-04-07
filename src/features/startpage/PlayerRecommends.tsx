@@ -106,7 +106,7 @@ export function PlayerRecommends(): JSX.Element {
 		<Box className={classes.wrapper}>
 			<Box className={classes.container}>
 				{quotes.map((quote) =>
-					<Card className={classes.card} radius={'lg'}>
+					<Card key={quote.name} className={classes.card} radius={'lg'}>
 						<header className={classes.cardBody}>
 							<Text size={'sm'} className={classes.cardDetails}>
 								Dabei seit <span

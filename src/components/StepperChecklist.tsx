@@ -15,7 +15,7 @@ export function StepperChecklist(props: StepperChecklistProps): JSX.Element {
 	return (
 		<Stepper active={active} onStepClick={setActive} orientation={'vertical'}>
 			{props.steps.map((step) =>
-				<Stepper.Step label={step.label} description={step.description}/>,
+				<Stepper.Step key={step.label?.toString()} label={step.label} description={step.description}/>,
 			)}
 		</Stepper>
 	);
