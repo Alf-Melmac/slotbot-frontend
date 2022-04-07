@@ -11,17 +11,13 @@ const useStyles = createStyles((theme) => ({
 		fontWeight: 'bold',
 		color: theme.white,
 
-		[theme.fn.smallerThan('lg')]: {
-			left: 'unset',
-		},
-
 		'li': {
 			display: 'inline-block',
 		},
 	},
 
 	socialTitle: {
-		paddingRight: '40px',
+		paddingRight: 40,
 		marginRight: 20,
 		position: 'relative',
 
@@ -73,7 +69,7 @@ export function SocialButtons(): JSX.Element {
 		<ul className={classes.social}>
 			<li className={classes.socialTitle}>Folge uns</li>
 			<li>
-				<Group>
+				<Group noWrap>
 					{socials.map((social) =>
 						<ActionIcon component={AnchorBlank} key={social.icon.iconName} href={social.href}>
 							<FontAwesomeIcon icon={social.icon} className={classes.socialIcon} size={'lg'}/>

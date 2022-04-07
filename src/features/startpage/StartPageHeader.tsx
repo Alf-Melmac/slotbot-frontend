@@ -33,8 +33,7 @@ const useStyles = createStyles((theme) => ({
 		},
 
 		[theme.fn.smallerThan('xs')]: {
-			fontSize: 28,
-			lineHeight: 1.3,
+			fontSize: 40,
 		},
 	},
 
@@ -148,6 +147,10 @@ const useStyles = createStyles((theme) => ({
 		position: 'absolute',
 		bottom: edgeDistanceY,
 		left: edgeDistanceX,
+
+		[theme.fn.smallerThan('md')]: {
+			left: 'unset',
+		},
 	},
 
 	bottomRight: {
@@ -175,8 +178,8 @@ export function StartPageHeader(props: HeaderProps): JSX.Element {
 			backgroundImage: 'url(https://cdn.discordapp.com/attachments/819969938562220053/934588485648646214/ArmA_3_Screenshot_2022.01.23_-_00.16.14.22.png)',
 			backgroundSize: 'cover',
 			backgroundPosition: 'center',
-			backgroundRepeat: "no-repeat",
-			backgroundAttachment: "scroll",
+			backgroundRepeat: 'no-repeat',
+			backgroundAttachment: 'scroll',
 		}}>
 			<Overlay
 				gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)"
@@ -190,7 +193,7 @@ export function StartPageHeader(props: HeaderProps): JSX.Element {
 				</Text>
 			</Container>
 
-			<MediaQuery smallerThan={"md"} styles={{display: "none"}}>
+			<MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
 				<ul className={classes.side}>
 					<li><a onClick={scrollerAbout}>Über uns<span>wer wir sind</span></a></li>
 					<li><a onClick={scrollerEvents}>Events<span>wann wir spielen</span></a></li>
@@ -202,7 +205,7 @@ export function StartPageHeader(props: HeaderProps): JSX.Element {
 				<SocialButtons/>
 			</Box>
 
-			<MediaQuery smallerThan={"xs"} styles={{display: "none"}}>
+			<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
 				<Box className={classes.bottomRight}>
 					<Scroller onClick={scrollerAbout}/>
 				</Box>

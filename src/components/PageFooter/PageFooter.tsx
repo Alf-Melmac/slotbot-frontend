@@ -1,4 +1,4 @@
-import {ActionIcon, Container, createStyles, Group, Image, Stack, Text} from '@mantine/core';
+import {ActionIcon, Container, createStyles, Group, Image, MediaQuery, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
@@ -95,7 +95,9 @@ export function PageFooter(props: FooterProps): JSX.Element {
 		<Container className={classes.container} py={40}>
 			<Stack>
 				<Group spacing={'xs'}>
-					<Image className={classes.logo} src={logo}/>
+					<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+						<Image className={classes.logo} src={logo}/>
+					</MediaQuery>
 					<Text size={'lg'} className={classes.title}>Arma macht Bock</Text>
 					<ThemeSwitch/>
 				</Group>
