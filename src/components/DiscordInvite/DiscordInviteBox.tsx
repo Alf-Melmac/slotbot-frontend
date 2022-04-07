@@ -13,6 +13,7 @@ const useStyles = createStyles((theme, dark: boolean) => ({
 		backgroundColor: dark ? '#2f3136' : '#f2f3f5',
 		borderRadius: 4,
 		width: 432,
+		maxWidth: '100%',
 		padding: 16,
 		userSelect: 'none',
 	},
