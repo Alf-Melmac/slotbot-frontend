@@ -47,8 +47,8 @@ const useStyles = createStyles((theme) => ({
 		filter: `drop-shadow(${iconTextShadow} #9147ff)`,
 	},
 	wiki: {
-		color: '#e6e6e6',
-		filter: `drop-shadow(${iconTextShadow} #e6e6e6)`,
+		color: theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333',
+		filter: `drop-shadow(${iconTextShadow} ${theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333'})`,
 	},
 
 	link: {
