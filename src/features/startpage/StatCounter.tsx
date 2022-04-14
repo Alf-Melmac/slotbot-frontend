@@ -5,9 +5,10 @@ type StatCounterProps = {
 	className?: string; //To be embeddable in group
 	countEnd: number;
 	info: string;
+	isCounting?: boolean;
 };
 
-export function StatCounter({className, countEnd, info}: StatCounterProps): JSX.Element {
+export function StatCounter({className, countEnd, info, isCounting}: StatCounterProps): JSX.Element {
 	const useStyles = createStyles((theme) => ({
 		paper: {
 			fontSize: 80,
@@ -36,7 +37,7 @@ export function StatCounter({className, countEnd, info}: StatCounterProps): JSX.
 		<Paper withBorder p={'lg'} radius={'md'} className={className}>
 			<Box className={classes.paper}>
 				<Center className={classes.counterWrapper}>
-					<CountUp isCounting end={countEnd}/>
+					<CountUp isCounting={isCounting} end={countEnd}/>
 				</Center>
 			</Box>
 			<Text color={'muted'} mt={'sm'} align={'center'} style={{fontSize: 20}}>{info}</Text>
