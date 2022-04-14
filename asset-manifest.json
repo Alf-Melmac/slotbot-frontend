@@ -1,16 +1,21 @@
 {
   "files": {
     "main.css": "/slotbot-frontend/static/css/main.53d22f69.css",
-    "main.js": "/slotbot-frontend/static/js/main.ee27d9fc.js",
+    "main.js": "/slotbot-frontend/static/js/main.f1437490.js",
+    "static/media/eventsBackground.jpg": "/slotbot-frontend/static/media/eventsBackground.af3c2797f4495fc80025.jpg",
+    "static/media/knownFromBackground.jpg": "/slotbot-frontend/static/media/knownFromBackground.61566b8105e0beb29d4d.jpg",
+    "static/media/discordBackgroundLight.jpg": "/slotbot-frontend/static/media/discordBackgroundLight.88a9e95c9e0488838676.jpg",
+    "static/media/headerBackground.jpg": "/slotbot-frontend/static/media/headerBackground.2fad8a642275602422c2.jpg",
+    "static/media/discordBackgroundDark.jpg": "/slotbot-frontend/static/media/discordBackgroundDark.c37de634ad6d483f8502.jpg",
     "static/media/amb-256-256.png": "/slotbot-frontend/static/media/amb-256-256.e9d5bd2ae0c6ceaa9ae8.png",
     "static/media/260-320_NTF_trans.png": "/slotbot-frontend/static/media/260-320_NTF_trans.9cd1227396ba67671a6b.png",
     "static/media/280-280_DAA_trans.png": "/slotbot-frontend/static/media/280-280_DAA_trans.415c40486fdf1836c24d.png",
     "index.html": "/slotbot-frontend/index.html",
     "main.53d22f69.css.map": "/slotbot-frontend/static/css/main.53d22f69.css.map",
-    "main.ee27d9fc.js.map": "/slotbot-frontend/static/js/main.ee27d9fc.js.map"
+    "main.f1437490.js.map": "/slotbot-frontend/static/js/main.f1437490.js.map"
   },
   "entrypoints": [
     "static/css/main.53d22f69.css",
-    "static/js/main.ee27d9fc.js"
+    "static/js/main.f1437490.js"
   ]
 }
