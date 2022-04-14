@@ -14,7 +14,6 @@ import {Link} from "react-router-dom";
 import {useScrollIntoView} from "@mantine/hooks";
 import {PlayerRecommends} from "./PlayerRecommends";
 import {KnownFromLinkCard} from "./KnownFromLinkCard";
-import {StatCounter} from "./StatCounter";
 import {BeforeStartChecklist} from "./BeforeStartChecklist";
 import {DiscordInviteBox} from "../../components/DiscordInvite/DiscordInviteBox";
 import {PageFooter} from '../../components/PageFooter/PageFooter';
@@ -27,6 +26,7 @@ import daaLogo from './images/280-280_DAA_trans.png';
 import ntfLogo from './images/260-320_NTF_trans.png';
 import discordBackgroundDark from './images/discordBackgroundDark.jpg';
 import discordBackgroundLight from './images/discordBackgroundLight.jpg';
+import {EventStats} from './EventStats';
 
 export function StartPage(): JSX.Element {
 	const {colorScheme} = useMantineColorScheme();
@@ -128,10 +128,7 @@ export function StartPage(): JSX.Element {
 
 					<Divider/>
 
-					<Group grow mt={'xl'}>
-						<StatCounter countEnd={198} info={"Events in den letzten 365 Tagen"}/>
-						<StatCounter countEnd={2059} info={"Belegte Slots in den letzten 365 Tagen"}/>
-					</Group>
+					<EventStats/>
 				</Container>
 			</Section>
 
