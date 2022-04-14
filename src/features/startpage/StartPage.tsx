@@ -129,8 +129,8 @@ export function StartPage(): JSX.Element {
 					<Divider/>
 
 					<Group grow mt={'xl'}>
-						<StatCounter countEnd={129} info={"Events in den letzten 356 Tagen"}/>
-						<StatCounter countEnd={2025} info={"Belegte Slots in den letzten 356 Tagen"}/>
+						<StatCounter countEnd={198} info={"Events in den letzten 365 Tagen"}/>
+						<StatCounter countEnd={2059} info={"Belegte Slots in den letzten 365 Tagen"}/>
 					</Group>
 				</Container>
 			</Section>
