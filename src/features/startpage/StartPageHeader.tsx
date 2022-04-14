@@ -1,7 +1,9 @@
-import {Box, Container, createStyles, MediaQuery, Overlay, Text, Title} from '@mantine/core';
+import {Box, Container, createStyles, MediaQuery, Text, Title} from '@mantine/core';
 import {SocialButtons} from './SocialButtons';
 import {Scroller} from './Scroller';
 import React from 'react';
+import headerBackground from './images/headerBackground.jpg';
+import {StartPageImageOverlay} from './StartPageImageOverlay';
 
 const edgeDistanceX = 110;
 const edgeDistanceY = 66;
@@ -175,17 +177,13 @@ export function StartPageHeader(props: HeaderProps): JSX.Element {
 	return (
 		<header style={{
 			position: 'relative',
-			backgroundImage: 'url(https://cdn.discordapp.com/attachments/819969938562220053/934588485648646214/ArmA_3_Screenshot_2022.01.23_-_00.16.14.22.png)',
+			backgroundImage: `url(${headerBackground})`,
 			backgroundSize: 'cover',
 			backgroundPosition: 'center',
 			backgroundRepeat: 'no-repeat',
 			backgroundAttachment: 'scroll',
 		}}>
-			<Overlay
-				gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)"
-				opacity={1}
-				zIndex={0}
-			/>
+			<StartPageImageOverlay startingAlpha={.25}/>
 			<Container className={classes.container}>
 				<Title className={classes.title}>Hallo Mitspieler, wir sind <br/> Arma macht Bock.</Title>
 				<Text className={classes.description} size="xl" mt="xl">
