@@ -3,11 +3,9 @@ import {Suspense, useState} from 'react';
 import {Router} from "./routes/Router";
 import {HashRouter} from "react-router-dom";
 import {theme} from "./contexts/Theme";
-import {useColorScheme} from "@mantine/hooks";
 
 export function App(): JSX.Element {
-	const preferredColorScheme = useColorScheme();
-	const [colorScheme, setColorScheme] = useState<ColorScheme>(preferredColorScheme);
+	const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
