@@ -6,7 +6,6 @@ import {
 	createStyles,
 	Divider,
 	Group,
-	Overlay,
 	Text,
 	Title,
 	useMantineColorScheme,
@@ -19,10 +18,15 @@ import {StatCounter} from "./StatCounter";
 import {BeforeStartChecklist} from "./BeforeStartChecklist";
 import {DiscordInviteBox} from "../../components/DiscordInvite/DiscordInviteBox";
 import {PageFooter} from '../../components/PageFooter/PageFooter';
-import daaLogo from './280-280_DAA_trans.png';
-import ntfLogo from './260-320_NTF_trans.png';
 import {Section} from './Section';
 import {StartPageHeader} from './StartPageHeader';
+import {StartPageImageOverlay} from './StartPageImageOverlay';
+import eventsBackground from './images/eventsBackground.jpg';
+import knownFromBackground from './images/knownFromBackground.jpg';
+import daaLogo from './images/280-280_DAA_trans.png';
+import ntfLogo from './images/260-320_NTF_trans.png';
+import discordBackgroundDark from './images/discordBackgroundDark.jpg';
+import discordBackgroundLight from './images/discordBackgroundLight.jpg';
 
 export function StartPage(): JSX.Element {
 	const {colorScheme} = useMantineColorScheme();
@@ -82,13 +86,8 @@ export function StartPage(): JSX.Element {
 				</Container>
 			</Section>
 
-			<Section boxRef={eventsRef}
-					 backgroundImage={'https://cdn.discordapp.com/attachments/798864031246581760/949790943580667944/20220305230611_1.jpg'}>
-				<Overlay
-					gradient="linear-gradient(180deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .65) 40%)"
-					opacity={1}
-					zIndex={0}
-				/>
+			<Section boxRef={eventsRef} backgroundImage={eventsBackground}>
+				<StartPageImageOverlay opacity={dark ? 1 : .75}/>
 				<Container style={{zIndex: 1, position: "relative"}}>
 					<Title order={3} className={classes.subHeading}>Wann gehts los?</Title>
 					<Text size={'lg'} mb={'lg'} className={classes.textWithBackgroundImage}>
@@ -113,9 +112,9 @@ export function StartPage(): JSX.Element {
 				<PlayerRecommends/>
 			</Container>
 
-			<Section
-				backgroundImage={'https://cdn.discordapp.com/attachments/798864031246581760/949790915034226718/20220305224910_1.jpg'}>
-				<Container>
+			<Section backgroundImage={knownFromBackground}>
+				<StartPageImageOverlay opacity={0.5}/>
+				<Container style={{zIndex: 1, position: "relative"}}>
 					<Title order={3} className={classes.subHeading}>Auch bekannt durch</Title>
 					<Group spacing={'xl'} position={'center'} m={'xl'}>
 						<KnownFromLinkCard link={"https://deutsche-arma-allianz.de"}
@@ -142,9 +141,7 @@ export function StartPage(): JSX.Element {
 				</Center>
 			</Section>
 
-			{/*boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05),rgba(0, 0, 0, 0.05) 0px 36px 28px -7px,rgba(0, 0, 0, 0.04) 0px 17px 17px -7px',*/}
-			<Section boxRef={discordRef}
-					 backgroundImage={'https://cdn.discordapp.com/attachments/819969938562220053/934212375383511080/20220121222728_1.jpg'}>
+			<Section boxRef={discordRef} backgroundImage={dark ? discordBackgroundDark : discordBackgroundLight}>
 				<Center>
 					<DiscordInviteBox inviteCode={'zMwnQgQ'}/>
 				</Center>
