@@ -3,6 +3,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import de from "@fullcalendar/core/locales/de";
 import {ColorSwatch, createStyles, Text, Tooltip} from "@mantine/core";
 import {Bold} from '../../components/Text/Bold';
+import {EventTooltip} from './EventTooltip';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {
@@ -22,12 +23,14 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 	const {classes} = useStyles();
 
 	const eventContent = (arg: EventContentArg) => {
+		const {event, backgroundColor} = arg;
+
 		return (
 			<>
-				<ColorSwatch color={arg.backgroundColor} size={10} className={classes.eventType} mx={2}/>
+				<ColorSwatch color={backgroundColor} size={10} className={classes.eventType} mx={2}/>
 				<Tooltip className={classes.eventTitleWrapper}
-						 label={<span dangerouslySetInnerHTML={{__html: arg.event.extendedProps.description}}></span>}>
-					<Text>{arg.timeText} <Bold>{arg.event.title}</Bold></Text>
+						 label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
+					<Text>{arg.timeText} <Bold>{event.title}</Bold></Text>
 				</Tooltip>
 			</>
 		);
