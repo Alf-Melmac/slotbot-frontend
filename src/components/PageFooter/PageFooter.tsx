@@ -1,4 +1,14 @@
-import {ActionIcon, Container, createStyles, Group, Image, MediaQuery, Stack, Text} from '@mantine/core';
+import {
+	ActionIcon,
+	Container,
+	createStyles,
+	Group,
+	Image,
+	MantineStyleSystemProps,
+	MediaQuery,
+	Stack,
+	Text,
+} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
@@ -56,7 +66,9 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-type FooterProps = {};
+type FooterProps = {
+	mt?: MantineStyleSystemProps['mt'];
+};
 
 type IconType = {
 	icon: IconDefinition;
@@ -65,7 +77,7 @@ type IconType = {
 }
 
 export function PageFooter(props: FooterProps): JSX.Element {
-	const {} = props;
+	const {mt} = props;
 	const {classes, cx} = useStyles();
 
 	const icons: Array<IconType> = [
@@ -92,7 +104,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 	];
 
 	return (
-		<Container className={classes.container} py={40}>
+		<Container className={classes.container} py={40} mt={mt}>
 			<Stack>
 				<Group spacing={'xs'}>
 					<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>

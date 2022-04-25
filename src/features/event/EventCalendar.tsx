@@ -5,6 +5,7 @@ import {ColorSwatch, createStyles, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
 import {Bold} from '../../components/Text/Bold';
 import {EventTooltip} from './EventTooltip';
+import {AnchorLink} from '../../components/Text/AnchorLink';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {
@@ -12,7 +13,15 @@ const useStyles = createStyles((theme) => ({
 		minHeight: 10,
 	},
 
-	eventTitleWrapper: {
+	eventWrapper: {
+		all: 'inherit',
+		overflow: 'hidden',
+	},
+
+	eventLink: {
+		display: 'inherit',
+		alignItems: 'inherit',
+		textDecoration: 'none !important',
 		overflow: 'hidden',
 	},
 }));
@@ -30,13 +39,13 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 		const {event, backgroundColor} = arg;
 
 		return (
-			<>
-				<ColorSwatch color={backgroundColor} size={10} className={classes.eventType} mx={2}/>
-				<Tooltip className={classes.eventTitleWrapper}
+			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
+				<Tooltip className={classes.eventWrapper}
 						 label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
+					<ColorSwatch color={backgroundColor} size={10} className={classes.eventType} mx={2}/>
 					<Text>{arg.timeText} <Bold>{event.title}</Bold></Text>
 				</Tooltip>
-			</>
+			</AnchorLink>
 		);
 	};
 
