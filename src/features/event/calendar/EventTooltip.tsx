@@ -1,4 +1,4 @@
-import {Bold} from '../../components/Text/Bold';
+import {Bold} from '../../../components/Text/Bold';
 import {Stack, Text} from '@mantine/core';
 
 type EventTooltipProps = {
