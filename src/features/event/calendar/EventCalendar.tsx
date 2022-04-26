@@ -3,9 +3,9 @@ import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {ColorSwatch, createStyles, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
-import {Bold} from '../../components/Text/Bold';
+import {Bold} from '../../../components/Text/Bold';
 import {EventTooltip} from './EventTooltip';
-import {AnchorLink} from '../../components/Text/AnchorLink';
+import {AnchorLink} from '../../../components/Text/AnchorLink';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {

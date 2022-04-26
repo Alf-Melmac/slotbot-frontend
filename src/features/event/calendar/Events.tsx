@@ -1,7 +1,7 @@
-import {Nav} from "../../components/Nav";
+import {Nav} from "../../../components/Nav";
 import {Center, Container, Title} from "@mantine/core";
 import {EventCalendarPage} from "./EventCalendarPage";
-import {PageFooter} from '../../components/PageFooter/PageFooter';
+import {PageFooter} from '../../../components/PageFooter/PageFooter';
 
 type EventsProps = {};
 
