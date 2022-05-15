@@ -38,7 +38,7 @@ interface EventDiscordInformationDto {
 	channelUrl: string;
 }
 
-interface EventFieldReferencelessDto extends AbstractIdEntityDto {
+export interface EventFieldReferencelessDto extends AbstractIdEntityDto {
 	title: string;
 	text: string;
 	link: string;

@@ -8,6 +8,7 @@ import {fetchEventDetails} from './EventDetailsFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';
+import {EventFields} from './EventFields';
 
 type EventDetailsProps = {
 	eventId: string,
@@ -54,9 +55,11 @@ export function EventDetails(): JSX.Element {
                         <Tabs.Tab label={'Beschreibung'} icon={<FontAwesomeIcon icon={faFileLines}/>}
                                   ref={descriptionRef}>{event.description}</Tabs.Tab>
 					}
-					<Tabs.Tab label={'Weitere Details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
-						{event.details.toString()}
-					</Tabs.Tab>
+					{event.details.length !== 0 &&
+                        <Tabs.Tab label={'Weitere Details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                            <EventFields fields={event.details}/>
+                        </Tabs.Tab>
+					}
 				</Tabs>
 			</Container>
 		</Nav>
