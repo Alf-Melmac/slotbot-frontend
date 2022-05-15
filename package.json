@@ -13,7 +13,7 @@
     "@fullcalendar/react": "^5.11.1",
     "@mantine/core": "^4.2.2",
     "@mantine/hooks": "^4.2.2",
-    "@mantine/notifications": "^4.2.2",
+    "@mantine/notifications": "^4.2.5",
     "axios": "^0.27.2",
     "dayjs": "^1.11.1",
     "react": "^18.1.0",
