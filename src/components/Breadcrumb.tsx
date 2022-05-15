@@ -2,7 +2,7 @@ import {Breadcrumbs, Text} from '@mantine/core';
 import {AnchorLink} from './Text/AnchorLink';
 
 type BreadcrumbItem = {
-	title: JSX.Element;
+	title: JSX.Element | string;
 	href?: string;
 }
 
@@ -11,13 +11,12 @@ type BreadcrumbProps = {
 };
 
 export function Breadcrumb(props: BreadcrumbProps): JSX.Element {
-	const {items} = props;
-
-	const breadcrumbItems = items.map((item, index) => (
+	const breadcrumbItems = props.items.map((item, index) => (
+		//Double text to center vertically
 		item.href ?
-			<AnchorLink to={item.href} key={index}>{item.title}</AnchorLink>
+			<AnchorLink to={item.href} key={index}><Text>{item.title}</Text></AnchorLink>
 			:
-			<Text key={index}>{item.title}</Text>
+			<Text key={index}><Text>{item.title}</Text></Text>
 	));
 
 	return (

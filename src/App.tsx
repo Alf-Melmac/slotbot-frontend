@@ -9,7 +9,13 @@ import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
 
 export function App(): JSX.Element {
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: false,
+			},
+		},
+	});
 	const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
