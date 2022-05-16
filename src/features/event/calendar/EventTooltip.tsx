@@ -13,7 +13,7 @@ export function EventTooltip(props: EventTooltipProps): JSX.Element {
 	const {eventName, emptySlotsCount, slotCount, emptyReserveSlotsCount, missionLength} = props;
 
 	return (
-		<Stack align={'center'} style={{gap: 0}}>
+		<Stack align={'center'} spacing={0}>
 			<Bold>{eventName}</Bold>
 			<Text><Text weight={emptySlotsCount > 0 ? 'bold' : ''}
 						component={'span'}>{emptySlotsCount}/{slotCount}</Text> Slots frei</Text>
