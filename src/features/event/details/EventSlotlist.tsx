@@ -1,5 +1,5 @@
-import {EventDetailsSquadDto} from '../eventTypes';
-import {Card, Center, createStyles, Grid, Text} from '@mantine/core';
+import {EventDetailsSquadDto, GuildDto} from '../eventTypes';
+import {Card, Center, createStyles, Grid, Group, Image, Text, useMantineTheme} from '@mantine/core';
 import {Italic} from '../../../components/Text/Italic';
 import {Bold} from '../../../components/Text/Bold';
 
@@ -16,7 +16,7 @@ type EventSlotlistProps = {
 	squadList: Array<EventDetailsSquadDto>
 };
 
-function getSlotText(text: string, blocked: boolean) {
+function getSlotText(text: string, blocked: boolean): JSX.Element {
 	if (text) {
 		return blocked ? <Italic>{text}</Italic> : <Text>{text}</Text>;
 	}
@@ -25,20 +25,44 @@ function getSlotText(text: string, blocked: boolean) {
 
 export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	const {classes} = useStyles();
+
+	const theme = useMantineTheme();
+
+	function getReservedFor(reservedFor: GuildDto): JSX.Element {
+		if (reservedFor) {
+			if (reservedFor.emojiUrl) {
+				return <Image src={reservedFor.emojiUrl}
+							  title={reservedFor.groupIdentifier}
+							  alt={reservedFor.groupIdentifier}
+							  placeholder={<Text align={'center'}>{reservedFor.groupIdentifier}</Text>}
+							  height={theme.fontSizes.md}/>;
+			}
+			return <Text>[{reservedFor.groupIdentifier}]</Text>;
+		}
+		return <></>;
+	}
+
 	return (
 		<>
 			{props.squadList.length === 0 && <Center><Text>Keine Slotliste vorhanden.</Text></Center>}
 
 			{props.squadList.map((squad, squadIndex) => (
 				<Card mb={'md'} key={squadIndex}>
-					<Text pb={'xs'}>{squad.name}</Text>
+					<Group noWrap spacing={5} pb={'xs'}>
+						<Text>{squad.name}</Text>
+						{getReservedFor(squad.reservedFor)}
+					</Group>
+
 					{squad.slotList.map((slot, slotIndex) => (
 						<Grid key={slotIndex}>
 							<Grid.Col py={4} className={classes.slotNumberWrapper}>
 								<Text className={classes.slotNumber}>{slot.number}</Text>
 							</Grid.Col>
 							<Grid.Col span={5} py={4}>
-								<Text>{slot.name}</Text>
+								<Group noWrap spacing={5}>
+									<Text>{slot.name}</Text>
+									{getReservedFor(slot.reservedFor)}
+								</Group>
 							</Grid.Col>
 							<Grid.Col span={6} py={4}>
 								{getSlotText(slot.text, slot.blocked)}

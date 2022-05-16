@@ -56,7 +56,7 @@ export interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	reserve: boolean;
 }
 
-interface GuildDto {
+export interface GuildDto {
 	id: string;
 	groupIdentifier: string;
 	emojiUrl: string;
