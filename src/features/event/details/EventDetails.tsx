@@ -9,6 +9,7 @@ import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventFields} from './EventFields';
+import {EventSlotlist} from './EventSlotlist';
 
 type EventDetailsProps = {
 	eventId: string,
@@ -49,7 +50,7 @@ export function EventDetails(): JSX.Element {
 
 				<Tabs mt={'xs'}>
 					<Tabs.Tab label={'Slotliste'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
-						{event.squadList.toString()}
+						<EventSlotlist squadList={event.squadList}/>
 					</Tabs.Tab>
 					{event.description &&
                         <Tabs.Tab label={'Beschreibung'} icon={<FontAwesomeIcon icon={faFileLines}/>}

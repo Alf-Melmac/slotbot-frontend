@@ -48,7 +48,7 @@ interface AbstractIdEntityDto {
 	id: number;
 }
 
-interface EventDetailsSquadDto extends AbstractIdEntityDto {
+export interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	name: string;
 	reservedFor: GuildDto;
 	slotList: EventDetailsSlotDto[];
