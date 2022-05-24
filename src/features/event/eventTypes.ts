@@ -1,41 +1,19 @@
-export interface EventDetailsDto extends AbstractEventDto {
-	channelUrl: string;
-	details: EventFieldReferencelessDto[];
-	squadList: EventDetailsSquadDto[];
-}
-
-interface AbstractEventDto extends AbstractIdEntityDto {
-	hidden: boolean;
-	shareable: boolean;
-	name: string;
-	date: Date;
-	startTime: Date;
-	creator: string;
-	eventType: EventTypeDto;
-	description: string;
+export interface EventDetailsDto extends AbstractIdEntityDto {
 	missionType: string;
-	missionLength: string;
+	eventType: EventTypeDto;
 	pictureUrl: string;
-	reserveParticipating: boolean;
-	discordInformation: EventDiscordInformationDto[];
-	ownerGuild: string;
-	rawPictureUrl: string;
-	missionTypesFiltered: string[];
+	name: string;
+	missionLength: string;
 	dateTimeZoned: Date;
+	descriptionAsHtml: string;
+	creator: string;
+	squadList: EventDetailsSquadDto[];
+	details: EventFieldReferencelessDto[];
 }
 
 interface EventTypeDto extends AbstractIdEntityDto {
 	name: string;
 	color: string;
-}
-
-interface EventDiscordInformationDto {
-	channel: string;
-	guild: string;
-	infoMsg: string;
-	slotListMsgPartOne: string;
-	slotListMsgPartTwo: string;
-	channelUrl: string;
 }
 
 export interface EventFieldReferencelessDto extends AbstractIdEntityDto {

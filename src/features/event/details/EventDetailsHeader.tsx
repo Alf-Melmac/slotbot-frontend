@@ -36,13 +36,13 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 						}
 					</Group>
 					{
-						event.description &&
+						event.descriptionAsHtml &&
                         <Card mt={'sm'}>
                             <MediaQuery largerThan={'md'} styles={{display: 'none'}}>
-                                <Text lineClamp={1}>{event.description}</Text>
+                                <Text lineClamp={1} dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}/>
                             </MediaQuery>
                             <MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
-                                <Text lineClamp={4}>{event.description}</Text>
+                                <Text lineClamp={4} dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}/>
                             </MediaQuery>
                             <Button variant={'default'} mt={'sm'}
                                     onClick={() => {

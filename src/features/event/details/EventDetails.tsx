@@ -1,6 +1,6 @@
 import {useParams} from 'react-router';
 import {Nav} from '../../../components/Nav';
-import {ColorSwatch, Container, Group, Skeleton, Tabs, useMantineTheme} from '@mantine/core';
+import {ColorSwatch, Container, Group, Skeleton, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useScrollIntoView} from '@mantine/hooks';
@@ -52,9 +52,11 @@ export function EventDetails(): JSX.Element {
 					<Tabs.Tab label={'Slotliste'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
 						<EventSlotlist squadList={event.squadList}/>
 					</Tabs.Tab>
-					{event.description &&
+					{event.descriptionAsHtml &&
                         <Tabs.Tab label={'Beschreibung'} icon={<FontAwesomeIcon icon={faFileLines}/>}
-                                  ref={descriptionRef}>{event.description}</Tabs.Tab>
+                                  ref={descriptionRef}>
+                            <Text dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}></Text>
+                        </Tabs.Tab>
 					}
 					{event.details.length !== 0 &&
                         <Tabs.Tab label={'Weitere Details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
