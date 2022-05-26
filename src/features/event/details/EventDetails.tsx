@@ -1,6 +1,6 @@
 import {useParams} from 'react-router';
 import {Nav} from '../../../components/Nav';
-import {ColorSwatch, Container, Group, Skeleton, Tabs, Text, useMantineTheme} from '@mantine/core';
+import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useScrollIntoView} from '@mantine/hooks';
@@ -10,6 +10,7 @@ import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventFields} from './EventFields';
 import {EventSlotlist} from './EventSlotlist';
+import {EventDetailsLoading} from './EventDetailsLoading';
 
 type EventDetailsProps = {
 	eventId: string,
@@ -23,14 +24,13 @@ export function EventDetails(): JSX.Element {
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
 
 	const {event, eventDate, loading, error} = fetchEventDetails(eventId);
-	if (loading) return <Container><Skeleton width={'100%'} height={500}></Skeleton></Container>; //TODO improve loading animation
+	if (loading) return <EventDetailsLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 
 	const breadcrumbItems = [
 		{
 			title: 'Event-Kalender',
 			href: '/events',
-			staticItem: true,
 		},
 		{
 			title: <Group noWrap spacing={6}>
