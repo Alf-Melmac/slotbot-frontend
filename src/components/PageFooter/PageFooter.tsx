@@ -1,37 +1,16 @@
-import {
-	ActionIcon,
-	Container,
-	createStyles,
-	Group,
-	Image,
-	MantineStyleSystemProps,
-	MediaQuery,
-	Stack,
-	Text,
-} from '@mantine/core';
+import {ActionIcon, Container, createStyles, Group, MantineStyleSystemProps, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
-import logo from './amb-256-256.png';
+import {AmbLogo} from '../logo/AmbLogo';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
 	container: {
 		display: 'flex',
 		justifyContent: 'space-between',
-	},
-
-	logo: {
-		height: 27.9,
-		width: 27.9,
-	},
-
-	title: {
-		textTransform: 'uppercase',
-		fontWeight: 700,
-		letterSpacing: 1,
 	},
 
 	description: {
@@ -107,10 +86,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 		<Container className={classes.container} py={40} mt={mt}>
 			<Stack>
 				<Group spacing={'xs'}>
-					<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
-						<Image className={classes.logo} src={logo}/>
-					</MediaQuery>
-					<Text size={'lg'} className={classes.title}>Arma macht Bock</Text>
+					<AmbLogo height={27.9}/>
 					<ThemeSwitch/>
 				</Group>
 				<Text size={'sm'} className={classes.description}>© 2022 Alf. All rights reserved.</Text>

@@ -1,9 +1,10 @@
 import {Box, Container, Grid, MediaQuery, Skeleton, Text, Title} from '@mantine/core';
+import {NAV_HEIGHT} from '../../../components/Nav';
 
 export function EventDetailsLoading(): JSX.Element {
 	return (
 		<>
-			<Skeleton height={100}>Nav placeholder</Skeleton>
+			<Skeleton height={NAV_HEIGHT}>Nav placeholder</Skeleton>
 			<Container p={16}>
 				<Skeleton>
 					<Text>Loading breadcrumb</Text>
