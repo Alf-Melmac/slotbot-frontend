@@ -1,4 +1,4 @@
-import {Nav} from "../../../components/Nav";
+import {Nav} from "../../../components/nav/Nav";
 import {Center, Container, Title} from "@mantine/core";
 import {EventCalendarPage} from "./EventCalendarPage";
 import {PageFooter} from '../../../components/PageFooter/PageFooter';

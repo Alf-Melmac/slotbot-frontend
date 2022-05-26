@@ -1,5 +1,5 @@
 import {Box, Container, Grid, MediaQuery, Skeleton, Text, Title} from '@mantine/core';
-import {NAV_HEIGHT} from '../../../components/Nav';
+import {NAV_HEIGHT} from '../../../components/nav/Nav';
 
 export function EventDetailsLoading(): JSX.Element {
 	return (

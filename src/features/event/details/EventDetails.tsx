@@ -1,5 +1,5 @@
 import {useParams} from 'react-router';
-import {Nav} from '../../../components/Nav';
+import {Nav} from '../../../components/nav/Nav';
 import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
