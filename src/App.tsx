@@ -25,9 +25,7 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
 				<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-					<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles defaultProps={{
-						Container: {size: 'lg'},
-					}}>
+					<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles>
 						<NotificationsProvider>
 							<Global styles={(theme) => ({
 								body: {

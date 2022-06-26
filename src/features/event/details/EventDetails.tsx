@@ -48,20 +48,36 @@ export function EventDetails(): JSX.Element {
 				<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
 									scrollToDescription={scrollToDescription}/>
 
-				<Tabs mt={'xs'}>
-					<Tabs.Tab label={'Slotliste'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
+				<Tabs mt={'xs'} defaultValue={'slotlist'}>
+					<Tabs.List>
+						<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
+							Slotliste
+						</Tabs.Tab>
+						{event.descriptionAsHtml &&
+                            <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
+                                      ref={descriptionRef}>
+                                Beschreibung
+                            </Tabs.Tab>
+						}
+						{event.details.length !== 0 &&
+                            <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                                Weitere Details
+                            </Tabs.Tab>
+						}
+					</Tabs.List>
+
+					<Tabs.Panel value={'slotlist'}>
 						<EventSlotlist squadList={event.squadList}/>
-					</Tabs.Tab>
+					</Tabs.Panel>
 					{event.descriptionAsHtml &&
-                        <Tabs.Tab label={'Beschreibung'} icon={<FontAwesomeIcon icon={faFileLines}/>}
-                                  ref={descriptionRef}>
+                        <Tabs.Panel value={'description'}>
                             <Text dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}></Text>
-                        </Tabs.Tab>
+                        </Tabs.Panel>
 					}
 					{event.details.length !== 0 &&
-                        <Tabs.Tab label={'Weitere Details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                        <Tabs.Panel value={'details'}>
                             <EventFields fields={event.details}/>
-                        </Tabs.Tab>
+                        </Tabs.Panel>
 					}
 				</Tabs>
 			</Container>

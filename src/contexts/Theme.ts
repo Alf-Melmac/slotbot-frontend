@@ -9,4 +9,10 @@ export const theme: MantineThemeOverride = {
 			h1: {fontSize: 40},
 		},
 	},
+
+	components: {
+		Container: {
+			defaultProps: {size: 'lg'}
+		}
+	}
 };
