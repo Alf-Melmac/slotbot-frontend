@@ -17,6 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {DatePicker, TimeInput} from '@mantine/dates';
 import {IconSwitch} from '../../../components/Form/IconSwitch';
+import {EventTypeMask} from './EventTypeMask';
 
 type EventWizardProps = {};
 
@@ -116,16 +117,18 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 						<Grid>
 							<Grid.Col span={4}>
 								<DatePicker allowFreeInput minDate={new Date()} clearable={false} required
-											label={'Datum'} icon={<FontAwesomeIcon icon={faCalendarDay}/>} placeholder={'Event Datum'}/>
+											label={'Datum'} icon={<FontAwesomeIcon icon={faCalendarDay}/>}
+											placeholder={'Event Datum'}/>
 							</Grid.Col>
 							<Grid.Col span={4}>
-								<TimeInput required clearable={false} icon={<FontAwesomeIcon icon={faClock}/>} label={'Startzeit'}
-										   placeholder={'Event Datum'}/>
+								<TimeInput clearable={false} required label={'Startzeit'}
+										   icon={<FontAwesomeIcon icon={faClock}/>} placeholder={'Event Datum'}/>
 							</Grid.Col>
 							<Grid.Col span={4}>
 								<TextInputMaxLength label={'Ersteller'} maxLength={TEXT} required/>
 							</Grid.Col>
 						</Grid>
+						<EventTypeMask/>
 					</Stepper.Step>
 					<Stepper.Step label={'Event'} description={'Details'}>
 						Step 2

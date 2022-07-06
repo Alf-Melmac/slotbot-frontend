@@ -11,7 +11,7 @@ export interface EventDetailsDto extends AbstractIdEntityDto {
 	details: EventFieldReferencelessDto[];
 }
 
-interface EventTypeDto extends AbstractIdEntityDto {
+export interface EventTypeDto {
 	name: string;
 	color: string;
 }
