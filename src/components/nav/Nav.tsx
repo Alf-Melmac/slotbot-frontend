@@ -43,7 +43,8 @@ export function Nav(props: NavProps): JSX.Element {
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
 								<NavIcon link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
-								<NavIcon link={''} text={'Login'} icon={faArrowRightToBracket} width={90}/>
+								<NavIcon link={'http://localhost:8090/oauth2/authorization/discord'} text={'Login'}
+										 icon={faArrowRightToBracket} width={90}/>
 								<ThemeSwitch/>
 							</Group>
 						</Box>
