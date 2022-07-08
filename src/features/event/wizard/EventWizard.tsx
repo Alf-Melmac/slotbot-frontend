@@ -1,10 +1,23 @@
 import {useForm} from '@mantine/form';
-import {Box, Button, Code, Container, Grid, Group, Stack, Stepper, Tooltip} from '@mantine/core';
+import {
+	Autocomplete,
+	Box,
+	Button,
+	Code,
+	Container,
+	Grid,
+	Group,
+	Select,
+	Stack,
+	Stepper,
+	TextInput,
+	Tooltip,
+} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useState} from 'react';
-import {TEXT} from '../../../utils/maxLength';
-import {TextInputMaxLength} from '../../../components/Form/TextInputMaxLength';
+import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
+import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMaxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
 	faCalendarDay,
@@ -18,6 +31,9 @@ import {
 import {DatePicker, TimeInput} from '@mantine/dates';
 import {IconSwitch} from '../../../components/Form/IconSwitch';
 import {EventTypeMask} from './EventTypeMask';
+import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
+import {EventPostDto} from '../eventTypes';
+import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 
 type EventWizardProps = {};
 
@@ -38,14 +54,40 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 	const query = useQuery<EventDetailsDto, Error>('event', getEvents);
 	const event = query.data;*/
 
-	const form = useForm({
+	const form = useForm<EventPostDto>({
 		initialValues: {
-			title: '',
+			hidden: false,
+			shareable: true,
+			name: '',
+			date: new Date(),
+			startTime: new Date(),
+			creator: '',
+			eventType: {
+				name: '',
+				color: '',
+			},
+			description: '',
+			missionType: '',
+			missionLength: '',
+			pictureUrl: '',
 		},
 		validate: (values) => {
+			console.log(values);
+			console.log(active);
 			if (active === 0) {
 				return {
-					title: values.title.length > 80 ? 'Nicht größer als 80' : null,
+					name: requiredFieldWithMaxLength(values.name.trim().length, TEXT),
+					date: validate(values.date?.getDate() < new Date().getDate(), 'Muss in der Zukunft liegen'),
+					creator: requiredFieldWithMaxLength(values.creator.trim().length, TEXT),
+					'eventType.name': 'requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT)',
+					/*eventType: {
+						name: requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT),
+						color: validate(/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
+					},*/
+					description: maxLengthField(values.description.trim().length, EMBEDDABLE_DESCRIPTION),
+					missionType: maxLengthField(values.missionType.trim().length, TEXT),
+					missionLength: maxLengthField(values.missionLength.trim().length, TEXT),
+					pictureUrl: maxLengthField(values.pictureUrl.trim().length, URL),
 				};
 			}
 
@@ -78,13 +120,12 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			<Container>
 				<Breadcrumb items={breadcrumbItems}/>
 
-				{/*https://v5.mantine.dev/form/receipts/*/}
 				<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
 					<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
 						<Grid>
 							<Grid.Col span={9}>
-								<TextInputMaxLength label={'Titel'} placeholder={'Event Name'}
-													{...form.getInputProps('title')} maxLength={TEXT} required/>
+								<TextInputMaxLength label={'Titel'} placeholder={'Event Name'} maxLength={TEXT} required
+													useFormReturn={form} inputProp={'name'}/>
 							</Grid.Col>
 							<Grid.Col span={3}>
 								<Stack align={'flex-start'} spacing={'xs'}>
@@ -98,7 +139,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 												</Box>
 											</Tooltip>
 										</Group>
-									} defaultChecked={false}/>
+									} useFormReturn={form} inputProp={'shareable'}/>
 
 									<IconSwitch onIcon={faEye} offIcon={faEyeSlash} label={
 										<Group spacing={'xs'}>
@@ -110,7 +151,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 												</Box>
 											</Tooltip>
 										</Group>
-									} defaultChecked={true}/>
+									} useFormReturn={form} inputProp={'hidden'}/>
 								</Stack>
 							</Grid.Col>
 						</Grid>
@@ -118,17 +159,37 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 							<Grid.Col span={4}>
 								<DatePicker allowFreeInput minDate={new Date()} clearable={false} required
 											label={'Datum'} icon={<FontAwesomeIcon icon={faCalendarDay}/>}
-											placeholder={'Event Datum'}/>
+											placeholder={'Event Datum'} {...form.getInputProps('date')}/>
 							</Grid.Col>
 							<Grid.Col span={4}>
 								<TimeInput clearable={false} required label={'Startzeit'}
-										   icon={<FontAwesomeIcon icon={faClock}/>} placeholder={'Event Datum'}/>
+										   icon={<FontAwesomeIcon icon={faClock}/>} placeholder={'Event Datum'}
+										   {...form.getInputProps('startTime')}/>
 							</Grid.Col>
 							<Grid.Col span={4}>
-								<TextInputMaxLength label={'Ersteller'} maxLength={TEXT} required/>
+								<TextInputMaxLength label={'Ersteller'} maxLength={TEXT} required
+													useFormReturn={form} inputProp={'creator'}/>
 							</Grid.Col>
 						</Grid>
 						<EventTypeMask/>
+						<TextareaMaxLength label={'Beschreibung'} placeholder={'Beschreibung'} autosize minRows={3}
+										   maxLength={EMBEDDABLE_DESCRIPTION}
+										   useFormReturn={form} inputProp={'description'}/>
+						<Grid>
+							<Grid.Col span={4}>
+								<Select label={'Missionstyp'} placeholder={'Auswählen...'}
+										data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', 'Spezial', 'Anderes']}
+										{...form.getInputProps('missionType')}/>
+							</Grid.Col>
+							<Grid.Col span={4}>
+								<Autocomplete label={'Missionslänge'} placeholder={'Freitext'} maxLength={TEXT}
+											  data={['2 Stunden', '3 Stunden', 'über 4 Stunden']}
+											  {...form.getInputProps('missionLength')}/>
+							</Grid.Col>
+							<Grid.Col span={4}>
+								<TextInput label={'Bild-URL'} maxLength={URL} {...form.getInputProps('pictureUrl')}/>
+							</Grid.Col>
+						</Grid>
 					</Stepper.Step>
 					<Stepper.Step label={'Event'} description={'Details'}>
 						Step 2

@@ -48,3 +48,18 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	occupied: boolean;
 	blocked: boolean;
 }
+
+//E
+export interface EventPostDto {
+	hidden: boolean;
+	shareable: boolean;
+	name: string;
+	date: Date;
+	startTime: Date;
+	creator: string;
+	eventType: EventTypeDto;
+	description: string;
+	missionType: string;
+	missionLength: string;
+	pictureUrl: string;
+}

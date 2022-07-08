@@ -1,7 +1,8 @@
 import {createStyles, Switch, SwitchProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-import {useState} from 'react';
+import {UseFormReturnType} from '@mantine/form';
+import {EventPostDto} from '../../features/event/eventTypes';
 
 const useStyles = createStyles((theme) => ({
 	root: {
@@ -31,23 +32,24 @@ type IconSwitchProps = {
 	onIcon: IconProp;
 	offIcon: IconProp;
 	label: SwitchProps['label'];
-	defaultChecked?: boolean;
+	useFormReturn: UseFormReturnType<EventPostDto>;
+	inputProp: keyof EventPostDto;
 };
 
 export function IconSwitch(props: IconSwitchProps): JSX.Element {
-	const {onIcon, offIcon, label, defaultChecked = false} = props;
+	const {onIcon, offIcon, label, useFormReturn, inputProp} = props;
 
-	const [checked, setChecked] = useState(defaultChecked);
 	const {classes, cx} = useStyles();
 
 	return (
 		<div className={classes.root}>
-			{checked ?
+			{useFormReturn.values[inputProp] ?
 				<FontAwesomeIcon icon={onIcon} className={cx(classes.icon, classes.iconOn)} size={'sm'}/>
 				:
 				<FontAwesomeIcon icon={offIcon} className={cx(classes.icon, classes.iconOff)} size={'sm'}/>
 			}
-			<Switch size="md" checked={checked} onChange={() => setChecked(prevState => !prevState)} label={label}/>
+			<Switch size="md" label={label} checked={useFormReturn.values[inputProp]}
+					{...useFormReturn?.getInputProps(inputProp)}/>
 		</div>
 	);
 }
