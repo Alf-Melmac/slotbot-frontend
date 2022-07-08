@@ -1,24 +1,38 @@
 import {Alert, ColorInput, Grid, Select} from '@mantine/core';
 import {UseQueryResult} from 'react-query';
-import {EventTypeDto} from '../eventTypes';
+import {EventPostDto, EventTypeDto} from '../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../utils/maxLength';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {UseFormReturnType} from '@mantine/form';
 
-const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 type EventTypeInputsProps = {
-	query: UseQueryResult<Array<EventTypeDto>, Error>
+	query: UseQueryResult<Array<EventTypeDto>, Error>;
+	useFormReturn: UseFormReturnType<EventPostDto>;
 };
 
 export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
-	const {query} = props;
+	const {query, useFormReturn} = props;
 	const eventTypes = query.data;
-	const [eventTypeName, setEventTypeName] = useState('');
-	const [eventTypeColor, setEventTypeColor] = useState(randomColor());
+	function setEventTypeColor(color: EventTypeDto['color']): void {
+		useFormReturn.setFieldValue('eventType.color', color);
+	}
 	const [disabledColorInput, disableColorInput] = useState(false);
 	const [data, setData] = useState(eventTypes?.map(type => type.name) || []);
+
+	useEffect(() => {
+		const existingEventType = eventTypes?.find(value => useFormReturn.values.eventType.name === value.name);
+		if (existingEventType) {
+			setEventTypeColor(existingEventType.color);
+			disableColorInput(true);
+		} else {
+			setEventTypeColor(randomColor());
+			disableColorInput(false);
+		}
+	}, [useFormReturn.values.eventType.name])
 
 	return (
 		<>
@@ -33,18 +47,6 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 					<Select label={'Event-Typ-Name'}
 							maxLength={TEXT}
 							required
-							value={eventTypeName}
-							onChange={changedValue => {
-								const existingEventType = eventTypes?.find(value => changedValue === value.name);
-								if (existingEventType) {
-									setEventTypeColor(existingEventType.color);
-									disableColorInput(true);
-								} else {
-									setEventTypeColor(randomColor());
-									disableColorInput(false);
-								}
-								setEventTypeName(changedValue || '');
-							}}
 							data={data}
 							searchable
 							creatable
@@ -53,13 +55,13 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 								const item = {value: input, label: input};
 								setData((current) => [...current, input]);
 								return item;
-							}}/>
+							}}
+							{...useFormReturn.getInputProps('eventType.name')}/>
 				</Grid.Col>
 				<Grid.Col span={4}>
 					<ColorInput label={'Event-Typ-Farbe'}
-								value={eventTypeColor}
-								onChange={setEventTypeColor}
-								disabled={disabledColorInput}/>
+								disabled={disabledColorInput}
+								{...useFormReturn.getInputProps('eventType.color')}/>
 				</Grid.Col>
 			</Grid>
 		</>

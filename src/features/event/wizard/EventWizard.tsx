@@ -34,6 +34,7 @@ import {EventTypeMask} from './EventTypeMask';
 import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
 import {EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
+import {randomColor} from './EventTypeInputs';
 
 type EventWizardProps = {};
 
@@ -64,7 +65,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			creator: '',
 			eventType: {
 				name: '',
-				color: '',
+				color: randomColor(),
 			},
 			description: '',
 			missionType: '',
@@ -79,11 +80,8 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 					name: requiredFieldWithMaxLength(values.name.trim().length, TEXT),
 					date: validate(values.date?.getDate() < new Date().getDate(), 'Muss in der Zukunft liegen'),
 					creator: requiredFieldWithMaxLength(values.creator.trim().length, TEXT),
-					'eventType.name': 'requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT)',
-					/*eventType: {
-						name: requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT),
-						color: validate(/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
-					},*/
+					'eventType.name': requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT),
+					'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
 					description: maxLengthField(values.description.trim().length, EMBEDDABLE_DESCRIPTION),
 					missionType: maxLengthField(values.missionType.trim().length, TEXT),
 					missionLength: maxLengthField(values.missionLength.trim().length, TEXT),
@@ -171,7 +169,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 													useFormReturn={form} inputProp={'creator'}/>
 							</Grid.Col>
 						</Grid>
-						<EventTypeMask/>
+						<EventTypeMask useFormReturn={form}/>
 						<TextareaMaxLength label={'Beschreibung'} placeholder={'Beschreibung'} autosize minRows={3}
 										   maxLength={EMBEDDABLE_DESCRIPTION}
 										   useFormReturn={form} inputProp={'description'}/>
