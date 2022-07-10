@@ -1,9 +1,9 @@
-import {TextInput} from '@mantine/core';
 import {TextInputProps} from '@mantine/core/lib/components/TextInput/TextInput';
 import {UseFormReturnType} from '@mantine/form';
 import {EventPostDto} from '../../../features/event/eventTypes';
-import {MaxLengthHelper} from './MaxLengthHelper';
+import {TextInput} from '@mantine/core';
 import {omit} from 'lodash';
+import {MaxLengthHelper} from './MaxLengthHelper';
 
 export function TextInputMaxLength(props: TextInputProps & { useFormReturn: UseFormReturnType<EventPostDto>, inputProp: keyof EventPostDto }): JSX.Element {
 	const {maxLength, useFormReturn, inputProp} = props;
