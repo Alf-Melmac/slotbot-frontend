@@ -62,4 +62,10 @@ export interface EventPostDto {
 	missionType: string;
 	missionLength: string;
 	pictureUrl: string;
+	details: EventFieldDto[];
+}
+
+interface EventFieldDto extends AbstractIdEntityDto {
+	title: string;
+	text: string;
 }

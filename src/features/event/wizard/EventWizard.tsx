@@ -48,6 +48,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			missionType: '',
 			missionLength: '',
 			pictureUrl: '',
+			details: [],
 		},
 		validate: (values) => {
 			console.log(values);
@@ -100,7 +101,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 						<EventWizardStepOne form={form}/>
 					</Stepper.Step>
 					<Stepper.Step label={'Event'} description={'Details'}>
-						Step 2
+						<EventWizardStepTwo form={form}/>
 					</Stepper.Step>
 					<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
 						Step 3
