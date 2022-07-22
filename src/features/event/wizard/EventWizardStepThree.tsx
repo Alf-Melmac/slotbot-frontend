@@ -16,18 +16,23 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 				<TextInput placeholder={'Squad Name'} maxLength={TEXT} required
 						   styles={{root: {flexGrow: '1 !important'}}}
 						   {...form.getInputProps(`squadList.${squadIndex}.name`)}/>
-				<SquadListEntrySettings entry={form.values.squadList[squadIndex]}/>
+				<SquadListEntrySettings entry={form.values.squadList[squadIndex]} form={form}
+										path={'squadList'} index={squadIndex}/>
 			</Group>
 			<Box ml={'md'}>
-				{form.values.squadList[squadIndex].slotList?.map((slot, slotIndex) => (
-					<Group key={slot.id} mt={'xs'}>
-						<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
-									 {...form.getInputProps(`squadList.${squadIndex}.slotList.${slotIndex}.number`)}/>
-						<TextInput styles={{root: {flexGrow: '1 !important'}}}
-								   {...form.getInputProps(`squadList.${squadIndex}.slotList.${slotIndex}.name`)}/>
-						<SquadListEntrySettings entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot/>
-					</Group>
-				))}
+				{form.values.squadList[squadIndex].slotList?.map((slot, slotIndex) => {
+					const slotList = `squadList.${squadIndex}.slotList`;
+					return (
+						<Group key={slot.id} mt={'xs'}>
+							<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
+										 {...form.getInputProps(`${slotList}.${slotIndex}.number`)}/>
+							<TextInput styles={{root: {flexGrow: '1 !important'}}}
+									   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
+							<SquadListEntrySettings entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot
+													form={form} path={slotList} index={slotIndex}/>
+						</Group>
+					);
+				})}
 				<AddButton label={'Slot hinzufügen'} mt={'xs'}
 						   onClick={() => form.insertListItem(`squadList.${squadIndex}.slotList`, buildNewSlot(form))}/>
 			</Box>

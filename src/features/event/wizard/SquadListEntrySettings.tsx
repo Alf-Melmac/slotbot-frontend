@@ -3,14 +3,18 @@ import {useState} from 'react';
 import {ActionIcon, Menu, Modal, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
+import {EventWizardStepProps} from './EventWizard';
 
 type SquadListEntrySettingsProps = {
 	entry: SquadDto | SlotDto;
+	form: EventWizardStepProps['form'];
+	path: string;
+	index: number;
 	slot?: boolean;
 };
 
 export function SquadListEntrySettings(props: SquadListEntrySettingsProps): JSX.Element {
-	const {entry, slot = false} = props;
+	const {entry, form, path, index, slot = false} = props;
 	const [opened, setOpened] = useState(false);
 
 	return <>
@@ -28,7 +32,8 @@ export function SquadListEntrySettings(props: SquadListEntrySettingsProps): JSX.
 						   onClick={() => setOpened(true)}>
 					Regeln
 				</Menu.Item>
-				<Menu.Item icon={<FontAwesomeIcon icon={faTrashCan}/>}>Löschen</Menu.Item>
+				<Menu.Item icon={<FontAwesomeIcon icon={faTrashCan}/>}
+						   onClick={() => form.removeListItem(path, index)}>Löschen</Menu.Item>
 			</Menu.Dropdown>
 		</Menu>
 	</>;
