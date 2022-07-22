@@ -63,9 +63,29 @@ export interface EventPostDto {
 	missionLength: string;
 	pictureUrl: string;
 	details: EventFieldDto[];
+	squadList: SquadDto[];
+	reserveParticipating?: boolean;
 }
 
-interface EventFieldDto extends AbstractIdEntityDto {
+interface FrontendIdDto {
+	id: string;
+}
+
+interface EventFieldDto extends FrontendIdDto {
 	title: string;
 	text: string;
+}
+
+export interface SquadDto extends FrontendIdDto {
+	name: string;
+	slotList: SlotDto[];
+	reservedFor?: string;
+}
+
+export interface SlotDto extends FrontendIdDto {
+	name: string;
+	number: number;
+	reservedFor?: string;
+	user?: string;
+	replacementText?: string;
 }

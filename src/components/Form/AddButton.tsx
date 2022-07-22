@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {createStyles, Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
+import {createStyles, Group, Text, ThemeIcon, UnstyledButton, UnstyledButtonProps} from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
 	actionIcon: { /*Copy pasta from mantine ActionIcon*/
@@ -23,15 +23,16 @@ type AddButtonProps = {
 	label: string;
 	onClick: () => void;
 	disabled?: boolean;
+	mt?: UnstyledButtonProps['mt'];
 };
 
 export function AddButton(props: AddButtonProps): JSX.Element {
-	const {label, onClick, disabled} = props;
+	const {label, onClick, disabled, mt} = props;
 
 	const {classes} = useStyles();
 
 	return (
-		<UnstyledButton onClick={onClick} disabled={disabled}>
+		<UnstyledButton onClick={onClick} disabled={disabled} mt={mt}>
 			<Group spacing={6}>
 				<ThemeIcon color={'green'} variant={'filled'} radius={'xl'} className={classes.actionIcon}
 						   data-disabled={disabled}>

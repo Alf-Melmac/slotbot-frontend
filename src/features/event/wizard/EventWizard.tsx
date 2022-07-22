@@ -9,6 +9,7 @@ import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../uti
 import {randomColor} from './EventTypeInputs';
 import {EventWizardStepOne} from './EventWizardStepOne';
 import {EventWizardStepTwo} from './EventWizardStepTwo';
+import {EventWizardStepThree} from './EventWizardStepThree';
 
 type EventWizardProps = {};
 export type EventWizardStepProps = {
@@ -49,6 +50,8 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			missionLength: '',
 			pictureUrl: '',
 			details: [],
+			squadList: [],
+			reserveParticipating: undefined,
 		},
 		validate: (values) => {
 			console.log(values);
@@ -104,7 +107,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 						<EventWizardStepTwo form={form}/>
 					</Stepper.Step>
 					<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
-						Step 3
+						<EventWizardStepThree form={form}/>
 					</Stepper.Step>
 
 					<Stepper.Completed>
