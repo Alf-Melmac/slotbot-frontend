@@ -26,7 +26,8 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 			{guildsQuery.isLoading ?
 				<Skeleton width={'100%'} height={60}/>
 				:
-				<SlotListEntryReservationSetting data={guildsQuery.data} form={form} path={path} index={index}/>
+				<SlotListEntryReservationSetting data={guildsQuery.data} form={form} path={path} index={index}
+												 slot={slot}/>
 			}
 			{slot &&
                 <SlotBlockedSetting form={form} path={path} index={index}/>

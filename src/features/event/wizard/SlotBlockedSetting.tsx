@@ -5,6 +5,7 @@ import {TEXT} from '../../../utils/maxLength';
 import {flexGrow} from '../../../contexts/CommonStylings';
 import {EventWizardStepProps} from './EventWizard';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
+import {getFormFieldValue} from '../../../utils/formHelper';
 
 type SlotBlockedSettingProps = {
 	form: EventWizardStepProps['form'];
@@ -14,12 +15,13 @@ type SlotBlockedSettingProps = {
 
 export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element {
 	const {form, path, index} = props;
-	const blocked = form.getInputProps(`${path}.${index}.blocked`).value;
+	const blocked = getFormFieldValue(form, `${path}.${index}.blocked`);
 
 	return (
 		<Input.Wrapper label={'Blockierung'} mt={'sm'}>
 			<Group spacing={'xs'}>
-				<ActionIcon onClick={() => form.setFieldValue(`${path}.${index}.blocked`, !blocked)}>
+				<ActionIcon variant={'transparent'} size={'lg'}
+							onClick={() => form.setFieldValue(`${path}.${index}.blocked`, !blocked)}>
 					<FontAwesomeIcon icon={blocked ? faLock : faLockOpen} size={'lg'}/>
 				</ActionIcon>
 				{blocked &&
