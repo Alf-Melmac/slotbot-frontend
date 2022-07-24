@@ -18,8 +18,10 @@ export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element 
 	const blocked = getFormFieldValue(form, `${path}.${index}.blocked`);
 
 	return (
-		<Input.Wrapper label={'Blockierung'} mt={'sm'}>
-			<Group spacing={'xs'}>
+		<Input.Wrapper label={'Blockierung'}
+					   description={'Niemand kann sich für diesen Platz anmelden. Optional kann ein Ersatztext angezeigt werden.'}
+					   mt={'sm'}>
+			<Group spacing={'xs'} mt={6}>
 				<ActionIcon variant={'transparent'} size={'lg'}
 							onClick={() => form.setFieldValue(`${path}.${index}.blocked`, !blocked)}>
 					<FontAwesomeIcon icon={blocked ? faLock : faLockOpen} size={'lg'}/>

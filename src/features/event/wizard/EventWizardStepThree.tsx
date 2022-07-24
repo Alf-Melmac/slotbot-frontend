@@ -31,7 +31,7 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 						<Group key={slot.id} spacing={'xs'} mt={'xs'}>
 							<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
 										 {...form.getInputProps(`${slotList}.${slotIndex}.number`)}/>
-							<TextInput placeholder={'Slot Name'} styles={{root: {flexGrow: '1 !important'}}}
+							<TextInput placeholder={'Slot Name'} styles={{root: {flexGrow: flexGrow}}}
 									   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
 							<SlotListEntrySettings entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot
 												   form={form} path={slotList} index={slotIndex}

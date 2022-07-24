@@ -1,5 +1,5 @@
 import {useForm, UseFormReturnType} from '@mantine/form';
-import {Button, Code, Container, Group, Stepper} from '@mantine/core';
+import {Button, Center, Code, Container, Group, Loader, Stack, Stepper, Text} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useState} from 'react';
@@ -10,15 +10,13 @@ import {randomColor} from './EventTypeInputs';
 import {EventWizardStepOne} from './EventWizardStepOne';
 import {EventWizardStepTwo} from './EventWizardStepTwo';
 import {EventWizardStepThree} from './EventWizardStepThree';
+import {AnchorLink} from '../../../components/Text/AnchorLink';
 
-type EventWizardProps = {};
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
 };
 
-export function EventWizard(props: EventWizardProps): JSX.Element {
-	const {} = props;
-
+export function EventWizard(): JSX.Element {
 	const breadcrumbItems = [
 		{
 			title: 'Event-Kalender',
@@ -28,10 +26,6 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			title: 'Neues Event',
 		},
 	];
-
-	/*const getEvents = () => slotbotServerClient.get(`http://localhost:8090/events/test`).then((res) => res.data);
-	const query = useQuery<EventDetailsDto, Error>('event', getEvents);
-	const event = query.data;*/
 
 	const form = useForm<EventPostDto>({
 		initialValues: {
@@ -54,8 +48,6 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			reserveParticipating: undefined,
 		},
 		validate: (values) => {
-			console.log(values);
-			console.log(active);
 			if (active === 0) {
 				return {
 					name: requiredFieldWithMaxLength(values.name.trim().length, TEXT),
@@ -88,7 +80,7 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 			if (form.validate().hasErrors) {
 				return current;
 			}
-			return current < 3 ? current + 1 : current;
+			return current < 4 ? current + 1 : current;
 		});
 
 	const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
@@ -111,26 +103,28 @@ export function EventWizard(props: EventWizardProps): JSX.Element {
 					</Stepper.Step>
 
 					<Stepper.Completed>
-						Completed! Form values:
-						<Code block mt="xl">
+						<Code block sx={{display: 'none'}}>
 							{JSON.stringify(form.values, null, 2)}
 						</Code>
+
+						<Stack mt={'xl'}>
+							<Center>
+								<Loader size={'xl'} variant={'bars'}/>
+							</Center>
+							<Text align={'center'}>
+								Das Event wird gerade gespeichert. Bei Erfolg wirst du automatisch weitergeleitet.
+								Falls dies nicht funktioniert, kommst du <AnchorLink
+								to={'/events'}>hier</AnchorLink>wieder zum Kalender.
+							</Text>
+						</Stack>
 					</Stepper.Completed>
 				</Stepper>
 
 				<Group position="right" mt="xl">
-					{active !== 0 && (
-						<Button variant="default" onClick={prevStep}>
-							Vorherige
-						</Button>
-					)}
-					{active !== 3 && <Button onClick={nextStep}>Weiter</Button>}
+					{active !== 0 && active !== 3 && <Button variant="default" onClick={prevStep}>Vorherige</Button>}
+					{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
+					{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
 				</Group>
-
-				<div>
-					Moin!
-					{/*{event?.name}*/}
-				</div>
 			</Container>
 		</Nav>
 	);

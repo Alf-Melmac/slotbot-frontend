@@ -24,7 +24,9 @@ export function SlotListEntryReservationSetting(props: SlotListEntryReservationS
 					Du kannst ohne Reservierungen fortfahren, aber vielleicht nicht speichern. Durch Navigation auf den
 					vorherigen Schritt und wieder auf die Slotliste zurück wird versucht erneut zu laden.
 				</Alert>
-				<Select label={'Reservierung'} placeholder={'Nicht reserviert'} data={[]} disabled/>
+				<Select label={'Reservierung'} placeholder={'Nicht reserviert'}
+						description={'Nur Mitglieder der ausgewählten Gruppe können sich hier eintragen.'}
+						data={[]} disabled/>
 			</>
 			:
 			<SlotListEntryReservationSettingSelect {...props}/>
