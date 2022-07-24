@@ -3,12 +3,17 @@ import {EventWizardStepProps} from './EventWizard';
 import {TEXT} from '../../../utils/maxLength';
 import {randomId} from '@mantine/hooks';
 import {AddButton} from '../../../components/Form/AddButton';
-import {SlotDto, SquadDto} from '../eventTypes';
+import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
 import {includes, sortBy} from 'lodash';
 import {SquadListEntrySettings} from './SquadListEntrySettings';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import {useQuery} from 'react-query';
 
 export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 	const {form} = props;
+
+	const getGuilds = () => slotbotServerClient.get(`http://localhost:8090/guilds`).then((res) => res.data);
+	const guildsQuery = useQuery<Array<GuildDto>, Error>('guilds', getGuilds);
 
 	const squadList = form.values.squadList.map((squad, squadIndex) => (
 		<Box key={squad.id} mt={'sm'} mb={'xs'}>
@@ -17,19 +22,20 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 						   styles={{root: {flexGrow: '1 !important'}}}
 						   {...form.getInputProps(`squadList.${squadIndex}.name`)}/>
 				<SquadListEntrySettings entry={form.values.squadList[squadIndex]} form={form}
-										path={'squadList'} index={squadIndex}/>
+										path={'squadList'} index={squadIndex} guildsQuery={guildsQuery}/>
 			</Group>
-			<Box ml={'md'}>
+			<Box ml={'lg'}>
 				{form.values.squadList[squadIndex].slotList?.map((slot, slotIndex) => {
 					const slotList = `squadList.${squadIndex}.slotList`;
 					return (
-						<Group key={slot.id} mt={'xs'}>
+						<Group key={slot.id} spacing={'xs'} mt={'xs'}>
 							<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
 										 {...form.getInputProps(`${slotList}.${slotIndex}.number`)}/>
-							<TextInput styles={{root: {flexGrow: '1 !important'}}}
+							<TextInput placeholder={'Slot Name'} styles={{root: {flexGrow: '1 !important'}}}
 									   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
 							<SquadListEntrySettings entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot
-													form={form} path={slotList} index={slotIndex}/>
+													form={form} path={slotList} index={slotIndex}
+													guildsQuery={guildsQuery}/>
 						</Group>
 					);
 				})}
@@ -48,6 +54,7 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 					   onClick={() => form.insertListItem('squadList', {
 						   name: '',
 						   slotList: [buildNewSlot(form)],
+						   reservedFor: '',
 						   id: randomId(),
 					   })}/>
 
@@ -62,6 +69,8 @@ function buildNewSlot(form: EventWizardStepProps['form']): SlotDto {
 	return {
 		number: findFirstUnusedSlotNumber(form.values.squadList),
 		name: '',
+		reservedFor: '',
+		// replacementText: '',
 		id: randomId(),
 	};
 }

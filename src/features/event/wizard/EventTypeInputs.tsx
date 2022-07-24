@@ -1,25 +1,27 @@
 import {Alert, ColorInput, Grid, Select} from '@mantine/core';
 import {UseQueryResult} from 'react-query';
-import {EventPostDto, EventTypeDto} from '../eventTypes';
+import {EventTypeDto} from '../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../utils/maxLength';
 import {useEffect, useState} from 'react';
-import {UseFormReturnType} from '@mantine/form';
+import {EventWizardStepProps} from './EventWizard';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 type EventTypeInputsProps = {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;
-	useFormReturn: UseFormReturnType<EventPostDto>;
+	useFormReturn: EventWizardStepProps['form'];
 };
 
 export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 	const {query, useFormReturn} = props;
 	const eventTypes = query.data;
+
 	function setEventTypeColor(color: EventTypeDto['color']): void {
 		useFormReturn.setFieldValue('eventType.color', color);
 	}
+
 	const [disabledColorInput, disableColorInput] = useState(false);
 	const [data, setData] = useState(eventTypes?.map(type => type.name) || []);
 
@@ -32,7 +34,7 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 			setEventTypeColor(randomColor());
 			disableColorInput(false);
 		}
-	}, [useFormReturn.values.eventType.name])
+	}, [useFormReturn.values.eventType.name]);
 
 	return (
 		<>
