@@ -1,12 +1,14 @@
 import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
 import {useState} from 'react';
-import {ActionIcon, Alert, Menu, Modal, Select, Skeleton} from '@mantine/core';
+import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleExclamation, faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
+import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
 import {EventWizardStepProps} from './EventWizard';
 import {UseQueryResult} from 'react-query';
+import {SlotBlockedSetting} from './SlotBlockedSetting';
+import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 
-type SquadListEntrySettingsProps = {
+export type SlotListEntrySettingsProps = {
 	entry: SquadDto | SlotDto;
 	form: EventWizardStepProps['form'];
 	path: string;
@@ -15,34 +17,19 @@ type SquadListEntrySettingsProps = {
 	guildsQuery: UseQueryResult<GuildDto[], Error>
 };
 
-export function SquadListEntrySettings(props: SquadListEntrySettingsProps): JSX.Element {
+export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.Element {
 	const {entry, form, path, index, slot = false, guildsQuery} = props;
 	const [opened, setOpened] = useState(false);
 
 	return <>
-		<Modal opened={opened} onClose={() => setOpened(false)} title={getHeader(entry, slot)}>
+		<Modal opened={opened} onClose={() => setOpened(false)} title={buildHeader(entry, slot)}>
 			{guildsQuery.isLoading ?
 				<Skeleton width={'100%'} height={60}/>
 				:
-				!guildsQuery.data ?
-					<>
-						<Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'}>
-							Die möglichen Reservierungen konnten nicht geladen werden. Bitte überprüfe deine
-							Internetverbindung. Du kannst ohne Reservierungen fortfahren, aber vielleicht nicht
-							speichern. Durch Navigation auf den vorherigen Schritt und zurück auf die Slotliste wird
-							versucht erneut zu laden.
-						</Alert>
-						<Select label={'Reservierung'} placeholder={'Nicht reserviert'} data={[]} disabled/>
-					</>
-					:
-					<Select label={'Reservierung'} placeholder={'Nicht reserviert'} clearable
-							data={guildsQuery.data.map(guild => {
-								return {
-									value: guild.id,
-									label: guild.groupIdentifier,
-								};
-							})}
-							{...form.getInputProps(`${path}.${index}.reservedFor`)}/>
+				<SlotListEntryReservationSetting data={guildsQuery.data} form={form} path={path} index={index}/>
+			}
+			{slot &&
+                <SlotBlockedSetting form={form} path={path} index={index}/>
 			}
 		</Modal>
 		<Menu>
@@ -63,7 +50,7 @@ export function SquadListEntrySettings(props: SquadListEntrySettingsProps): JSX.
 	</>;
 }
 
-function getHeader(entry: SquadDto | SlotDto, isSlot: boolean): string {
+function buildHeader(entry: SquadDto | SlotDto, isSlot: boolean): string {
 	let header = 'Regeln für';
 	const slot: SlotDto | undefined = isSlot ? entry as SlotDto : undefined;
 	if (isSlot && slot?.number && !isNaN(slot.number)) {

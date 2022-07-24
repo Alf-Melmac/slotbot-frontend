@@ -86,6 +86,6 @@ export interface SlotDto extends FrontendIdDto {
 	name: string;
 	number: number;
 	reservedFor?: string;
-	user?: string;
+	blocked: boolean;
 	replacementText?: string;
 }

@@ -5,3 +5,7 @@ export const ellipsis: CSSObject = {
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 };
+
+export const flexGrow = {
+	flexGrow: '1 !important',
+}
