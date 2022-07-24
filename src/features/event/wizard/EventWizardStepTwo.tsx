@@ -13,14 +13,14 @@ export function EventWizardStepTwo(props: EventWizardStepProps): JSX.Element {
 	const details = form.values.details.map((item, index) => (
 		<Group key={item.id} mt="xs">
 			<TextInput
-				placeholder="Titel"
+				placeholder={'Titel'}
 				maxLength={EMBEDDABLE_TITLE}
 				required
 				{...form.getInputProps(`details.${index}.title`)}
 			/>
 
 			<TextInput
-				placeholder="Information"
+				placeholder={'Information'}
 				maxLength={EMBEDDABLE_VALUE}
 				required
 				sx={{flex: 1}}

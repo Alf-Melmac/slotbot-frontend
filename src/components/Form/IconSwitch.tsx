@@ -48,7 +48,7 @@ export function IconSwitch(props: IconSwitchProps): JSX.Element {
 				:
 				<FontAwesomeIcon icon={offIcon} className={cx(classes.icon, classes.iconOff)} size={'sm'}/>
 			}
-			<Switch size="md" label={label} {...useFormReturn?.getInputProps(inputProp, { type: 'checkbox' })}/>
+			<Switch size="md" label={label} {...useFormReturn.getInputProps(inputProp, {type: 'checkbox'})}/>
 		</div>
 	);
 }
