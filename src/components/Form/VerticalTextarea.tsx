@@ -1,5 +1,4 @@
-import {createStyles, Textarea} from '@mantine/core';
-import {TextareaProps} from '@mantine/core/lib/components/Textarea/Textarea';
+import {createStyles, Textarea, TextareaProps} from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
 	textarea: {

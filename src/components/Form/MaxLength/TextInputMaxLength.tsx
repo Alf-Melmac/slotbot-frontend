@@ -1,7 +1,6 @@
-import {TextInputProps} from '@mantine/core/lib/components/TextInput/TextInput';
 import {UseFormReturnType} from '@mantine/form';
 import {EventPostDto} from '../../../features/event/eventTypes';
-import {TextInput} from '@mantine/core';
+import {TextInput, TextInputProps} from '@mantine/core';
 import {omit} from 'lodash';
 import {MaxLengthHelper} from './MaxLengthHelper';
 

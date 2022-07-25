@@ -1,9 +1,9 @@
-import {TextareaProps} from '@mantine/core/lib/components/Textarea/Textarea';
 import {VerticalTextarea} from '../VerticalTextarea';
 import {UseFormReturnType} from '@mantine/form';
 import {EventPostDto} from '../../../features/event/eventTypes';
 import {omit} from 'lodash';
 import {MaxLengthHelper} from './MaxLengthHelper';
+import {TextareaProps} from '@mantine/core';
 
 export function TextareaMaxLength(props: TextareaProps & { useFormReturn: UseFormReturnType<EventPostDto>, inputProp: keyof EventPostDto }): JSX.Element {
 	const {maxLength, useFormReturn, inputProp} = props;
