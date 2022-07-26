@@ -1,7 +1,6 @@
 import {Anchor} from '@mantine/core';
-import {Link} from 'react-router-dom';
+import {Link, To} from 'react-router-dom';
 import {ReactNode} from 'react';
-import {To} from 'react-router';
 
 type ReactRouterAnchorProps = {
 	to: To;

@@ -1,4 +1,4 @@
-import {useParams} from 'react-router';
+import {useParams} from 'react-router-dom';
 import {Nav} from '../../../components/nav/Nav';
 import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
