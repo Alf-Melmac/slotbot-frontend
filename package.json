@@ -16,7 +16,7 @@
     "@mantine/dates": "^5.0.0-alpha.22",
     "@mantine/form": "^5.0.0-alpha.22",
     "@mantine/hooks": "^5.0.0-alpha.22",
-    "@mantine/notifications": "^5.0.0-alpha.22",
+    "@mantine/notifications": "^5.0.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4",
     "lodash": "^4.17.21",
