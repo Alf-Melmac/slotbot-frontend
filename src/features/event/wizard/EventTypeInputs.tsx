@@ -31,7 +31,9 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 			setEventTypeColor(existingEventType.color);
 			disableColorInput(true);
 		} else {
-			setEventTypeColor(randomColor());
+			if (disabledColorInput) {
+				setEventTypeColor(randomColor());
+			}
 			disableColorInput(false);
 		}
 	}, [useFormReturn.values.eventType.name]);
