@@ -54,8 +54,8 @@ export interface EventPostDto {
 	hidden: boolean;
 	shareable: boolean;
 	name: string;
-	date: Date;
-	startTime: Date;
+	date: Date | string;
+	startTime: Date | string;
 	creator: string;
 	eventType: EventTypeDto;
 	description: string;

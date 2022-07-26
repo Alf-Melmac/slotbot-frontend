@@ -1,5 +1,5 @@
 import {useForm, UseFormReturnType} from '@mantine/form';
-import {Button, Center, Code, Container, Group, Loader, Stack, Stepper, Text} from '@mantine/core';
+import {Button, Container, Group, Stepper} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useState} from 'react';
@@ -10,7 +10,7 @@ import {randomColor} from './EventTypeInputs';
 import {EventWizardStepOne} from './EventWizardStepOne';
 import {EventWizardStepTwo} from './EventWizardStepTwo';
 import {EventWizardStepThree} from './EventWizardStepThree';
-import {AnchorLink} from '../../../components/Text/AnchorLink';
+import {EventWizardFinish} from './EventWizardFinish';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
@@ -27,13 +27,15 @@ export function EventWizard(): JSX.Element {
 		},
 	];
 
+	const date = new Date();
+	date.setSeconds(0);
 	const form = useForm<EventPostDto>({
 		initialValues: {
 			hidden: false,
 			shareable: true,
 			name: '',
-			date: new Date(),
-			startTime: new Date(),
+			date: date,
+			startTime: date,
 			creator: '',
 			eventType: {
 				name: '',
@@ -51,7 +53,7 @@ export function EventWizard(): JSX.Element {
 			if (active === 0) {
 				return {
 					name: requiredFieldWithMaxLength(values.name.trim().length, TEXT),
-					date: validate(values.date?.getDate() < new Date().getDate(), 'Muss in der Zukunft liegen'),
+					date: validate(values.date instanceof Date && values.date?.getDate() < new Date().getDate(), 'Muss in der Zukunft liegen'),
 					creator: requiredFieldWithMaxLength(values.creator.trim().length, TEXT),
 					'eventType.name': requiredFieldWithMaxLength(values.eventType.name.trim().length, TEXT),
 					'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
@@ -103,20 +105,7 @@ export function EventWizard(): JSX.Element {
 					</Stepper.Step>
 
 					<Stepper.Completed>
-						<Code block sx={{display: 'none'}}>
-							{JSON.stringify(form.values, null, 2)}
-						</Code>
-
-						<Stack mt={'xl'}>
-							<Center>
-								<Loader size={'xl'} variant={'bars'}/>
-							</Center>
-							<Text align={'center'}>
-								Das Event wird gerade gespeichert. Bei Erfolg wirst du automatisch weitergeleitet.
-								Falls dies nicht funktioniert, kommst du <AnchorLink
-								to={'/events'}>hier</AnchorLink>wieder zum Kalender.
-							</Text>
-						</Stack>
+						<EventWizardFinish form={form}/>
 					</Stepper.Completed>
 				</Stepper>
 
