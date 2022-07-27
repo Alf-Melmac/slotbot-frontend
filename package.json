@@ -11,7 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@fullcalendar/core": "^5.11.0",
     "@fullcalendar/daygrid": "^5.11.0",
-    "@fullcalendar/react": "^5.11.1",
+    "@fullcalendar/react": "^5.11.2",
     "@mantine/core": "^5.0.0",
     "@mantine/dates": "^5.0.0",
     "@mantine/form": "^5.0.0",
