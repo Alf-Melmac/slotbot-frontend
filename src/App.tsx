@@ -4,9 +4,9 @@ import {Router} from "./Router";
 import {HashRouter} from "react-router-dom";
 import {theme} from "./contexts/Theme";
 import {NotificationsProvider} from '@mantine/notifications';
-import {QueryClient, QueryClientProvider} from 'react-query';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 export function App(): JSX.Element {
 	const queryClient = new QueryClient({

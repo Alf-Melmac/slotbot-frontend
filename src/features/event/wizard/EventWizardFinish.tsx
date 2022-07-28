@@ -2,7 +2,6 @@ import {Alert, Center, Code, Loader, Stack, Text} from '@mantine/core';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {EventWizardStepProps} from './EventWizard';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useMutation} from 'react-query';
 import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHandshakeSlash} from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +10,7 @@ import {EventPostDto} from '../eventTypes';
 import {AxiosError} from 'axios';
 import {cloneDeep} from 'lodash';
 import {parseToIsoDate, parseToIsoTime} from '../../../utils/dateHelper';
+import {useMutation} from '@tanstack/react-query';
 
 export function EventWizardFinish(props: EventWizardStepProps): JSX.Element {
 	const {form} = props;

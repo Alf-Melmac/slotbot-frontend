@@ -1,9 +1,9 @@
-import {useQuery} from 'react-query';
 import {EventDetailsDto} from '../eventTypes';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import localeData from 'dayjs/plugin/localeData';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import {useQuery} from '@tanstack/react-query';
 
 type EventDetail = {
 	event: EventDetailsDto | undefined;
@@ -14,7 +14,7 @@ type EventDetail = {
 
 export function fetchEventDetails(eventId: string): EventDetail {
 	const getEvents = () => slotbotServerClient.get(`/events/${eventId}/details`).then((res) => res.data);
-	const query = useQuery<EventDetailsDto, Error>('event', getEvents);
+	const query = useQuery<EventDetailsDto, Error>(['event', eventId], getEvents);
 	const event = query.data;
 
 	dayjs.extend(localizedFormat);

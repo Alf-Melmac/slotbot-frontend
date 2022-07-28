@@ -1,13 +1,13 @@
 import {Skeleton} from '@mantine/core';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useQuery} from 'react-query';
 import {EventTypeDto} from '../eventTypes';
 import {EventTypeInputs} from './EventTypeInputs';
 import {EventWizardStepProps} from './EventWizard';
+import {useQuery} from '@tanstack/react-query';
 
 export function EventTypeMask(props: EventWizardStepProps): JSX.Element {
 	const getEventTypes = () => slotbotServerClient.get(`http://localhost:8090/events/types`).then((res) => res.data);
-	const query = useQuery<Array<EventTypeDto>, Error>('eventTypes', getEventTypes);
+	const query = useQuery<Array<EventTypeDto>, Error>(['eventTypes'], getEventTypes);
 
 	return (
 		<>

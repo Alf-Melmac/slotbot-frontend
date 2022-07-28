@@ -1,11 +1,11 @@
 import {Alert, ColorInput, Grid, Select} from '@mantine/core';
-import {UseQueryResult} from 'react-query';
 import {EventTypeDto} from '../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../utils/maxLength';
 import {useEffect, useState} from 'react';
 import {EventWizardStepProps} from './EventWizard';
+import {UseQueryResult} from '@tanstack/react-query';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 

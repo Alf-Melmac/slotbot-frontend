@@ -7,14 +7,14 @@ import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
 import {includes, sortBy} from 'lodash';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useQuery} from 'react-query';
 import {flexGrow} from '../../../contexts/CommonStylings';
+import {useQuery} from '@tanstack/react-query';
 
 export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 	const {form} = props;
 
 	const getGuilds = () => slotbotServerClient.get(`http://localhost:8090/guilds`).then((res) => res.data);
-	const guildsQuery = useQuery<Array<GuildDto>, Error>('guilds', getGuilds);
+	const guildsQuery = useQuery<Array<GuildDto>, Error>(['guilds'], getGuilds);
 
 	const squadList = form.values.squadList.map((squad, squadIndex) => (
 		<Box key={squad.id} mt={'sm'} mb={'xs'}>
