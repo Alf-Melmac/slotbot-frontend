@@ -1,7 +1,7 @@
 import {ColorScheme, ColorSchemeProvider, Global, MantineProvider, Skeleton} from '@mantine/core';
 import {Suspense, useState} from 'react';
 import {Router} from "./Router";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {theme} from "./contexts/Theme";
 import {NotificationsProvider} from '@mantine/notifications';
 import dayjs from 'dayjs';
@@ -48,9 +48,9 @@ export function App(): JSX.Element {
 									},
 								},
 							})}/>
-							<HashRouter>
+							<BrowserRouter>
 								<Router/>
-							</HashRouter>
+							</BrowserRouter>
 						</NotificationsProvider>
 					</MantineProvider>
 				</ColorSchemeProvider>
