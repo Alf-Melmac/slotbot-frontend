@@ -6,12 +6,23 @@ type ReactRouterAnchorProps = {
 	to: To;
 	children: ReactNode;
 	className?: string;
+	externalLink?: boolean;
 };
 
 export function AnchorLink(props: ReactRouterAnchorProps): JSX.Element {
+	const {to, children, className, externalLink = false} = props;
+
 	return (
-		<Anchor component={Link} to={props.to} className={props.className}>
-			{props.children}
-		</Anchor>
+		<>
+			{externalLink ?
+				<Anchor href={to as string} className={className}>
+					{children}
+				</Anchor>
+				:
+				<Anchor component={Link} to={to} className={className}>
+					{children}
+				</Anchor>
+			}
+		</>
 	);
 }

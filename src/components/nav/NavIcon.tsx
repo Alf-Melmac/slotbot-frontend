@@ -32,6 +32,7 @@ type NavIconProps = {
 	text: string;
 	icon: IconProp;
 	width: number;
+	externalLink?: boolean;
 };
 
 export function NavIcon(props: NavIconProps): JSX.Element {
@@ -41,6 +42,7 @@ export function NavIcon(props: NavIconProps): JSX.Element {
 		<AnchorLink
 			className={classes.wrapper}
 			to={props.link}
+			externalLink={props.externalLink}
 		>
 			<Text size="sm">{props.text}</Text>
 			<Center className={classes.icon}>
