@@ -3,9 +3,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {AnchorLink} from '../Text/AnchorLink';
 
+export const NAV_ICON_WRAPPER_HEIGHT = 36;
+export const NAV_ICON_SIZE = 28;
 const useStyles = createStyles((theme, width: number) => ({
 	wrapper: {
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
@@ -13,16 +14,18 @@ const useStyles = createStyles((theme, width: number) => ({
 		paddingLeft: theme.spacing.sm,
 		paddingRight: 4,
 		width: width,
-		height: 36,
+		flexShrink: 0,
+		height: NAV_ICON_WRAPPER_HEIGHT,
 		textDecoration: 'none',
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
 	},
 
 	icon: {
-		height: 28,
-		width: 28,
-		borderRadius: 28,
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.gray[2] : theme.black,
+		height: NAV_ICON_SIZE,
+		width: NAV_ICON_SIZE,
+		borderRadius: NAV_ICON_SIZE,
+		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.gray[2] : theme.colors.dark[4],
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
 	},
 }));
