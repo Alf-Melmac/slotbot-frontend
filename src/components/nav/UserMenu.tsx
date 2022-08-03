@@ -47,7 +47,8 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 					Mein Profil
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
-				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>}>
+				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>}
+						   component={'a'} href={'http://localhost:8090/logout'}>
 					Logout
 				</Menu.Item>
 			</Menu.Dropdown>
