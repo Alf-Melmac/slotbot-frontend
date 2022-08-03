@@ -4,16 +4,8 @@ import {AmbLogo} from '../logo/AmbLogo';
 import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {NavIcon} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
-import {useQuery} from '@tanstack/react-query';
-import {AuthenticatedUserDto} from '../../features/authentication/authenticationTypes';
 import {UserMenu} from './UserMenu';
-
-type NavProps = {
-	children: JSX.Element
-};
-
-export const NAV_HEIGHT = 100;
+import userQuery from '../../features/user/userQuery';
 
 const useStyles = createStyles((theme) => ({
 	outer: {
@@ -33,14 +25,17 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
+type NavProps = {
+	children: JSX.Element
+};
+export const NAV_HEIGHT = 100;
+
 export function Nav(props: NavProps): JSX.Element {
 	const {classes} = useStyles();
 
 	const {height} = useViewportSize();
 
-	const getAuth = () => slotbotServerClient.get(`/authentication`).then((res) => res.data);
-	const query = useQuery<AuthenticatedUserDto, Error>(['authentication'], getAuth);
-	const user = query.data;
+	const {query, user} = userQuery();
 
 	return (
 		<AppShell

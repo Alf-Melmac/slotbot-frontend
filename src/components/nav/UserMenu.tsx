@@ -1,9 +1,10 @@
 import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from "@mantine/core";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRightFromBracket, faChevronDown, faUser} from '@fortawesome/free-solid-svg-icons';
-import {AuthenticatedUserDto} from '../../features/authentication/authenticationTypes';
+import {DiscordUserDto} from '../../features/user/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
 import {NAV_ICON_SIZE, NAV_ICON_WRAPPER_HEIGHT} from './NavIcon';
+import {Link} from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -21,7 +22,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type UserMenuProps = {
-	user: AuthenticatedUserDto;
+	user: DiscordUserDto;
 };
 
 export function UserMenu(props: UserMenuProps): JSX.Element {
@@ -43,7 +44,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 				</UnstyledButton>
 			</Menu.Target>
 			<Menu.Dropdown>
-				<Menu.Item icon={<FontAwesomeIcon icon={faUser}/>}>
+				<Menu.Item icon={<FontAwesomeIcon icon={faUser}/>} component={Link} to={`/profile/${user.id}`}>
 					Mein Profil
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
