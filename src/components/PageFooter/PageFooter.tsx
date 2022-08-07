@@ -86,7 +86,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 		<Container className={classes.container} py={40} mt={mt}>
 			<Stack>
 				<Group spacing={'xs'}>
-					<AmbLogo height={27.9}/>
+					<AmbLogo width={27.9}/>
 					<ThemeSwitch/>
 				</Group>
 				<Text size={'sm'} className={classes.description}>© 2022 Alf. All rights reserved.</Text>

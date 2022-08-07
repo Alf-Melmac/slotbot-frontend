@@ -10,17 +10,17 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type AmbLogoProps = {
-	height?: number;
+	width?: number;
 };
 
 export function AmbLogo(props: AmbLogoProps): JSX.Element {
-	const {height = 70} = props;
+	const {width = 70} = props;
 	const {classes} = useStyles();
 
 	return (
 		<Group spacing={'xs'} noWrap>
 			<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
-				<Image height={height} src={logo}/>
+				<Image width={width} src={logo}/>
 			</MediaQuery>
 			<Text size={'lg'} className={classes.title}>Arma macht Bock</Text>
 		</Group>
