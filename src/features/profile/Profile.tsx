@@ -1,10 +1,10 @@
 import {useParams} from 'react-router-dom';
 import {Nav} from '../../components/nav/Nav';
-import {Avatar, Center, Container, createStyles, Paper, Stack, Text, TextInput, Title} from '@mantine/core';
+import {Center, Container, createStyles, Paper} from '@mantine/core';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
-import {useAuth} from '../../contexts/authentication/AuthProvider';
+import {ProfileInfo} from './ProfileInfo';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -31,28 +31,13 @@ export function Profile(): JSX.Element {
 	const query = useQuery<UserProfileDto, Error>(['user', userId], getAuth);
 	const profileInfo = query.data;
 
-	const {user} = useAuth();
-
 	return (
 		<Nav>
 			<Container>
 				<Center>
 					<Paper withBorder className={classes.userCard} p={'lg'}>
 						{profileInfo &&
-                            <>
-                                <Stack align={'center'} spacing={'xs'}>
-                                    <Avatar src={profileInfo.user.avatarUrl} size={'xl'} radius={1000}/>
-                                    <Title order={2} align={'center'}>{profileInfo.user.name}</Title>
-									{user &&
-                                        <Text color={'dimmed'} align={'center'}>{profileInfo.roles}</Text>
-									}
-									{profileInfo.ownProfile &&
-                                        <TextInput label={'Steam-ID'} value={profileInfo.steamId64}/>
-									}
-                                    <Text mt={'xl'} size={'xl'}>{profileInfo.participatedEventsCount}</Text>
-                                    <Title order={5}>Event-Teilnahmen</Title>
-                                </Stack>
-                            </>
+                            <ProfileInfo profileInfo={profileInfo}/>
 						}
 					</Paper>
 				</Center>
