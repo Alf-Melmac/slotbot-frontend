@@ -1,7 +1,8 @@
-import {Center, createStyles, Text} from '@mantine/core';
+import {Box, Center, createStyles, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {AnchorLink} from '../Text/AnchorLink';
+import {underlineOnHover} from '../../contexts/CommonStylings';
 
 export const NAV_ICON_WRAPPER_HEIGHT = 36;
 export const NAV_ICON_SIZE = 28;
@@ -19,6 +20,8 @@ const useStyles = createStyles((theme, width: number) => ({
 		textDecoration: 'none',
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+
+		...underlineOnHover,
 	},
 
 	icon: {
@@ -30,27 +33,49 @@ const useStyles = createStyles((theme, width: number) => ({
 	},
 }));
 
-type NavIconProps = {
-	link: string;
+interface NavIconProps {
 	text: string;
 	icon: IconProp;
 	width: number;
-	externalLink?: boolean;
-};
+}
 
-export function NavIcon(props: NavIconProps): JSX.Element {
+interface NavIconLinkProps extends NavIconProps {
+	link: string;
+}
+
+interface NavIconActionProps extends NavIconProps {
+	onClick?: () => void;
+}
+
+function NavIcon(props: NavIconProps): JSX.Element {
 	const {classes} = useStyles(props.width);
 
 	return (
-		<AnchorLink
-			className={classes.wrapper}
-			to={props.link}
-			externalLink={props.externalLink}
-		>
+		<>
 			<Text size="sm">{props.text}</Text>
 			<Center className={classes.icon}>
 				<FontAwesomeIcon icon={props.icon}/>
 			</Center>
+		</>
+	);
+}
+
+export function NavIconLink(props: NavIconLinkProps): JSX.Element {
+	const {classes} = useStyles(props.width);
+
+	return (
+		<AnchorLink className={classes.wrapper} to={props.link}>
+			<NavIcon {...props}/>
 		</AnchorLink>
+	);
+}
+
+export function NavIconAction(props: NavIconActionProps): JSX.Element {
+	const {classes} = useStyles(props.width);
+
+	return (
+		<Box component={'a'} className={classes.wrapper} onClick={props.onClick}>
+			<NavIcon {...props}/>
+		</Box>
 	);
 }

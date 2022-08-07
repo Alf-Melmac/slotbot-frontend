@@ -5,6 +5,8 @@ import {DiscordUserDto} from '../../features/user/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
 import {NAV_ICON_SIZE, NAV_ICON_WRAPPER_HEIGHT} from './NavIcon';
 import {Link} from 'react-router-dom';
+import {useAuth} from '../../features/user/AuthProvider';
+import {underlineOnHover} from '../../contexts/CommonStylings';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -15,9 +17,7 @@ const useStyles = createStyles((theme) => ({
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
 
-		'&:hover': {
-			textDecoration: 'underline',
-		},
+		...underlineOnHover,
 	},
 }));
 
@@ -28,6 +28,7 @@ type UserMenuProps = {
 export function UserMenu(props: UserMenuProps): JSX.Element {
 	const {user} = props;
 	const {classes} = useStyles();
+	const auth = useAuth();
 
 	return (
 		<Menu position={'bottom-end'}>
@@ -48,8 +49,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 					Mein Profil
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
-				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>}
-						   component={'a'} href={'http://localhost:8090/logout'}>
+				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={auth.logout}>
 					Logout
 				</Menu.Item>
 			</Menu.Dropdown>

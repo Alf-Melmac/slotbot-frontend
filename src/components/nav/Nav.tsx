@@ -2,10 +2,10 @@ import {AppShell, Box, Container, createStyles, Group, Header} from "@mantine/co
 import {useViewportSize} from "@mantine/hooks";
 import {AmbLogo} from '../logo/AmbLogo';
 import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
-import {NavIcon} from './NavIcon';
+import {NavIconAction, NavIconLink} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
-import userQuery from '../../features/user/userQuery';
+import {useAuth} from '../../features/user/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
 	outer: {
@@ -35,7 +35,7 @@ export function Nav(props: NavProps): JSX.Element {
 
 	const {height} = useViewportSize();
 
-	const {query, user} = userQuery();
+	const auth = useAuth();
 
 	return (
 		<AppShell
@@ -45,13 +45,13 @@ export function Nav(props: NavProps): JSX.Element {
 						<AmbLogo/>
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
-								<NavIcon link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
-								{(query.isFetched && user) ?
-									<UserMenu user={user}/>
+								<NavIconLink link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
+								{(auth.user) ?
+									<UserMenu user={auth.user}/>
 									:
 									<>
-										<NavIcon link={'http://localhost:8090/oauth2/authorization/discord'}
-												 externalLink text={'Login'} icon={faArrowRightToBracket} width={90}/>
+										<NavIconAction onClick={auth.login} text={'Login'} icon={faArrowRightToBracket}
+													   width={90}/>
 										<ThemeSwitch/>
 									</>
 								}

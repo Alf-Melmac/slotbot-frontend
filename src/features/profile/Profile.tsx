@@ -4,7 +4,7 @@ import {Avatar, Center, Container, createStyles, Paper, Stack, Text, TextInput, 
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
-import userQuery from '../user/userQuery';
+import {useAuth} from '../user/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -31,7 +31,7 @@ export function Profile(): JSX.Element {
 	const query = useQuery<UserProfileDto, Error>(['user', userId], getAuth);
 	const profileInfo = query.data;
 
-	const {user} = userQuery();
+	const {user} = useAuth();
 
 	return (
 		<Nav>
