@@ -35,7 +35,7 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 							  title={reservedFor.groupIdentifier}
 							  alt={reservedFor.groupIdentifier}
 							  placeholder={<Text align={'center'}>{reservedFor.groupIdentifier}</Text>}
-							  height={theme.fontSizes.md}/>;
+							  width={theme.fontSizes.md}/>;
 			}
 			return <Text>[{reservedFor.groupIdentifier}]</Text>;
 		}
