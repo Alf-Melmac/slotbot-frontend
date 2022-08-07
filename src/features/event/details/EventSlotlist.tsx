@@ -3,7 +3,7 @@ import {Card, Center, createStyles, Grid, Group, Image, Text, useMantineTheme} f
 import {Italic} from '../../../components/Text/Italic';
 import {Bold} from '../../../components/Text/Bold';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	slotNumberWrapper: {
 		flexBasis: '6%',
 	},

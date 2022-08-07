@@ -3,16 +3,13 @@ import {useCallback, useRef, useState} from 'react';
 import {EventCalendar} from './EventCalendar';
 import {LoadingCalendar} from './LoadingCalendar';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	hidden: {
 		display: 'none',
 	},
 }));
 
-type EventCalendarProps = {};
-
-export function EventCalendarPage(props: EventCalendarProps): JSX.Element {
-	const {} = props;
+export function EventCalendarPage(): JSX.Element {
 	const {classes} = useStyles();
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);

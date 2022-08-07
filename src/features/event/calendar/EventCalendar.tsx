@@ -7,7 +7,7 @@ import {Bold} from '../../../components/Text/Bold';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {EventTooltip} from './EventTooltip';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	eventType: {
 		minWidth: 11,
 	},
@@ -53,7 +53,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 			plugins={[dayGridPlugin]}
 			initialView="dayGridMonth"
 			locale={de}
-			viewDidMount={(arg) => toggleVisible(true)}
+			viewDidMount={(_arg) => toggleVisible(true)}
 			eventSources={[
 				{
 					url: '/events/list',
@@ -61,7 +61,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 				},
 			]}
 			eventContent={eventContent}
-			eventSourceSuccess={(content, xhr) => toggleVisible(false)}
+			eventSourceSuccess={(_content, _xhr) => toggleVisible(false)}
 			eventSourceFailure={(error) => {
 				showNotification({
 					title: 'Oops',

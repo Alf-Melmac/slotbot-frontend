@@ -1,6 +1,6 @@
 import {createStyles, Textarea, TextareaProps} from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	textarea: {
 		resize: 'vertical',
 	},

@@ -3,11 +3,7 @@ import {Center, Container, Title} from "@mantine/core";
 import {EventCalendarPage} from "./EventCalendarPage";
 import {PageFooter} from '../../../components/PageFooter/PageFooter';
 
-type EventsProps = {};
-
-export function Events(props: EventsProps): JSX.Element {
-	const {} = props;
-
+export function Events(): JSX.Element {
 	return (
 		<Nav>
 			<>

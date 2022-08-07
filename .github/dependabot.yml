@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: "daily"
 
-  # Enable version updates for Github Actions
+  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

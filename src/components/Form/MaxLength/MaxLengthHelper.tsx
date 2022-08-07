@@ -7,6 +7,7 @@ export function MaxLengthHelper(maxLength: number | undefined, value: string): a
 		throw Error('MaxLength is missing.');
 	}
 
+	// noinspection JSUnusedGlobalSymbols False positive
 	return {
 		maxLength: maxLength,
 		rightSection: showRightSection ? <CounterBadge currentValue={value.length} maxValue={maxLength}/> : null,

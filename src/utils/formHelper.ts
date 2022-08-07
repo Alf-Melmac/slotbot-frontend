@@ -17,7 +17,7 @@ export function validate(check: boolean, error: string): React.ReactNode {
 }
 
 /**
- * Workaround method if the path is too complex to be used by direct access to form.values
+ * Workaround method if the path is too complex to be used by direct access to `form.values`
  */
 export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
 	return form.getInputProps(path).value;

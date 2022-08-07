@@ -4,7 +4,7 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {UseFormReturnType} from '@mantine/form';
 import {EventPostDto} from '../../features/event/eventTypes';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	root: {
 		position: 'relative',
 		'& *': {

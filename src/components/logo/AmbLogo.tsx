@@ -1,7 +1,7 @@
 import {createStyles, Group, Image, MediaQuery, Text} from '@mantine/core';
 import logo from './amb-256-256.png';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	title: {
 		textTransform: 'uppercase',
 		fontWeight: 700,
