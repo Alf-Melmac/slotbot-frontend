@@ -22,7 +22,8 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 	const [opened, setOpened] = useState(false);
 
 	return <>
-		<Modal opened={opened} onClose={() => setOpened(false)} title={buildHeader(entry, slot)}>
+		<Modal opened={opened} onClose={() => setOpened(false)}
+			   title={<SlotListEntryModalHeader entry={entry} isSlot={slot}/>}>
 			{guildsQuery.isLoading ?
 				<Skeleton width={'100%'} height={60}/>
 				:
@@ -51,7 +52,14 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 	</>;
 }
 
-function buildHeader(entry: SquadDto | SlotDto, isSlot: boolean): string {
+type SlotListEntryModalHeaderModalHeaderProps = {
+	entry: SquadDto | SlotDto;
+	isSlot: boolean;
+}
+
+function SlotListEntryModalHeader(props: SlotListEntryModalHeaderModalHeaderProps): JSX.Element {
+	const {entry, isSlot} = props;
+
 	let header = 'Regeln für';
 	const slot: SlotDto | undefined = isSlot ? entry as SlotDto : undefined;
 	if (isSlot && slot?.number && !isNaN(slot.number)) {
@@ -63,5 +71,5 @@ function buildHeader(entry: SquadDto | SlotDto, isSlot: boolean): string {
 		header += slot ? ' Slot' : ' Squad';
 	}
 
-	return header;
+	return <>{header}</>;
 }
