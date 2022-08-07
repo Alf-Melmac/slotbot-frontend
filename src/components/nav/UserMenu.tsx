@@ -1,11 +1,11 @@
 import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from "@mantine/core";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRightFromBracket, faChevronDown, faUser} from '@fortawesome/free-solid-svg-icons';
-import {DiscordUserDto} from '../../features/user/authenticationTypes';
+import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
 import {NAV_ICON_SIZE, NAV_ICON_WRAPPER_HEIGHT} from './NavIcon';
 import {Link} from 'react-router-dom';
-import {useAuth} from '../../features/user/AuthProvider';
+import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {underlineOnHover} from '../../contexts/CommonStylings';
 
 const useStyles = createStyles((theme) => ({

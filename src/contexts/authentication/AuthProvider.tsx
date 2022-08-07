@@ -1,6 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 import {DiscordUserDto} from './authenticationTypes';
-import userQuery from './userQuery';
+import authenticationQuery from './authenticationQuery';
 
 type AuthProviderProps = {
 	children: ReactNode;
@@ -9,7 +9,7 @@ type AuthProviderProps = {
 export function AuthProvider(props: AuthProviderProps): JSX.Element {
 	const [user, setUser] = useState<AuthContextType['user']>();
 
-	const {user: authenticatedUser} = userQuery();
+	const {user: authenticatedUser} = authenticationQuery();
 
 	useEffect(() => {
 			setUser(authenticatedUser);

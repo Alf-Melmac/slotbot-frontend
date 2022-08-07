@@ -5,7 +5,7 @@ import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-
 import {NavIconAction, NavIconLink} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
-import {useAuth} from '../../features/user/AuthProvider';
+import {useAuth} from '../../contexts/authentication/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
 	outer: {

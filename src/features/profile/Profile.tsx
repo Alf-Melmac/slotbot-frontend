@@ -4,7 +4,7 @@ import {Avatar, Center, Container, createStyles, Paper, Stack, Text, TextInput, 
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
-import {useAuth} from '../user/AuthProvider';
+import {useAuth} from '../../contexts/authentication/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {

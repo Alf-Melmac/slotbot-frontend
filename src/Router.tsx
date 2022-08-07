@@ -3,7 +3,7 @@ import {StartPage} from "./features/startpage/StartPage";
 import {Route, Routes} from 'react-router-dom';
 import {EventRoutes} from './features/event/EventRoutes';
 import {ProfileRoutes} from './features/profile/ProfileRoutes';
-import {AuthProvider} from './features/user/AuthProvider';
+import {AuthProvider} from './contexts/authentication/AuthProvider';
 
 export function Router(): JSX.Element {
 	return (

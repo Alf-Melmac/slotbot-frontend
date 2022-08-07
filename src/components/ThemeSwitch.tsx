@@ -26,10 +26,12 @@ export function ThemeSwitchAsMenuItem(): JSX.Element {
 	const {colorScheme, toggleColorScheme} = useMantineColorScheme();
 	const dark = colorScheme === 'dark';
 
-	return <Menu.Item icon={dark ? <LightThemeIcon/> : <DarkThemeIcon/>}
-					  onClick={() => toggleColorScheme()}>
-		{dark ? 'Licht an' : 'Licht aus'}
-	</Menu.Item>
+	return (
+		<Menu.Item icon={dark ? <LightThemeIcon/> : <DarkThemeIcon/>}
+				   onClick={() => toggleColorScheme()}>
+			{dark ? 'Licht an' : 'Licht aus'}
+		</Menu.Item>
+	);
 }
 
 const useStyles = createStyles((theme) => ({

@@ -1,4 +1,4 @@
-import {DiscordUserDto} from '../user/authenticationTypes';
+import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 
 export interface UserProfileDto {
 	user: DiscordUserDto;
