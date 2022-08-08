@@ -1,21 +1,14 @@
-import {Autocomplete, Box, Grid, Group, Select, Stack, TextInput, Title, Tooltip} from '@mantine/core';
+import {Autocomplete, Grid, Select, Stack, TextInput, Title} from '@mantine/core';
 import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMaxLength';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
 import {IconSwitch} from '../../../components/Form/IconSwitch';
-import {
-	faCalendarDay,
-	faCircleInfo,
-	faClock,
-	faEye,
-	faEyeSlash,
-	faUsers,
-	faUsersSlash,
-} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarDay, faClock, faEye, faEyeSlash, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {DatePicker, TimeInput} from '@mantine/dates';
 import {EventTypeMask} from './EventTypeMask';
 import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
 import {EventWizardStepProps} from './EventWizard';
+import {TextWithInfo} from '../../../components/Text/TextWithInfo';
 
 
 export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
@@ -32,29 +25,15 @@ export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 				</Grid.Col>
 				<Grid.Col span={3}>
 					<Stack align={'flex-start'} spacing={'xs'}>
-						<IconSwitch onIcon={faUsers} offIcon={faUsersSlash} label={
-							<Group spacing={'xs'}>
-								Teilen erlauben
-								<Tooltip
-									label={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}>
-									<Box>
-										<FontAwesomeIcon icon={faCircleInfo}/>
-									</Box>
-								</Tooltip>
-							</Group>
-						} useFormReturn={form} inputProp={'shareable'}/>
+						<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
+									label={<TextWithInfo text={'Teilen erlauben'}
+														 tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
+									useFormReturn={form} inputProp={'shareable'}/>
 
-						<IconSwitch onIcon={faEye} offIcon={faEyeSlash} label={
-							<Group spacing={'xs'}>
-								Sichtbarkeit
-								<Tooltip
-									label={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}>
-									<Box>
-										<FontAwesomeIcon icon={faCircleInfo}/>
-									</Box>
-								</Tooltip>
-							</Group>
-						} useFormReturn={form} inputProp={'hidden'}/>
+						<IconSwitch onIcon={faEye} offIcon={faEyeSlash}
+									label={<TextWithInfo text={'Sichtbarkeit'}
+														 tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
+									useFormReturn={form} inputProp={'hidden'}/>
 					</Stack>
 				</Grid.Col>
 			</Grid>
