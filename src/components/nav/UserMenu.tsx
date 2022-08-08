@@ -28,7 +28,7 @@ type UserMenuProps = {
 export function UserMenu(props: UserMenuProps): JSX.Element {
 	const {user} = props;
 	const {classes} = useStyles();
-	const auth = useAuth();
+	const {logout} = useAuth();
 
 	return (
 		<Menu position={'bottom-end'}>
@@ -49,7 +49,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 					Mein Profil
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
-				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={auth.logout}>
+				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={logout}>
 					Logout
 				</Menu.Item>
 			</Menu.Dropdown>

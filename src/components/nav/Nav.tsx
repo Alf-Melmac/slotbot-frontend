@@ -35,7 +35,7 @@ export function Nav(props: NavProps): JSX.Element {
 
 	const {height} = useViewportSize();
 
-	const auth = useAuth();
+	const {user, login} = useAuth();
 
 	return (
 		<AppShell
@@ -46,11 +46,11 @@ export function Nav(props: NavProps): JSX.Element {
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
 								<NavIconLink link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
-								{(auth.user) ?
-									<UserMenu user={auth.user}/>
+								{(user) ?
+									<UserMenu user={user}/>
 									:
 									<>
-										<NavIconAction onClick={auth.login} text={'Login'} icon={faArrowRightToBracket}
+										<NavIconAction onClick={login} text={'Login'} icon={faArrowRightToBracket}
 													   width={90}/>
 										<ThemeSwitch/>
 									</>
