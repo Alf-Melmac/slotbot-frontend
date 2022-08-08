@@ -1,51 +1,55 @@
-import {Avatar, Stack, Text, Title} from '@mantine/core';
-import {InlineEditableText} from '../../components/Form/inline/InlineEditableText';
+import {Avatar, Center, createStyles, Paper, Stack, Text, Title} from '@mantine/core';
 import {UserProfileDto} from './profileTypes';
-import {useAuth} from '../../contexts/authentication/AuthProvider';
-import {useForm} from '@mantine/form';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
-import {useMutation} from '@tanstack/react-query';
-import {showNotification} from '@mantine/notifications';
-import {AxiosError} from 'axios';
+import {isAuthenticated} from '../../contexts/authentication/AuthProvider';
+import {ProfileSteamId} from './ProfileSteamId';
+import {TextWithInfo} from '../../components/Text/TextWithInfo';
+
+const useStyles = createStyles((theme) => ({
+	userCard: {
+		width: '33%',
+		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+
+		[theme.fn.smallerThan('md')]: {
+			width: '100%',
+		},
+	},
+}));
 
 type ProfileInfoProps = {
 	profileInfo: UserProfileDto;
 };
 
 export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
-	const {profileInfo} = props;
+	const {user: profileUser, roles, participatedEventsCount, ownProfile, steamId64} = props.profileInfo;
 
-	const {user} = useAuth();
-
-	const form = useForm({
-		initialValues: {
-			steamId64: profileInfo.steamId64,
-		},
-	});
-
-	const postSteamId = () => slotbotServerClient.put(`http://localhost:8090/user/steamid/${form.values.steamId64}`).then(() => { /* void function */ });
-	const {mutate} = useMutation<void, AxiosError>(postSteamId, {
-		onSuccess: () => {
-			showNotification({title: 'Gespeichert', message: <></>, color: 'green'});
-		},
-		onError: error => {
-			showNotification({title: `Speichern fehlgeschlagen. (${error.code})`, message: error.message, color: 'red'});
-		}
-	});
+	const {classes} = useStyles();
 
 	return (
-		<Stack align={'center'} spacing={'xs'}>
-			<Avatar src={profileInfo.user.avatarUrl} size={'xl'} radius={1000}/>
-			<Title order={2} align={'center'}>{profileInfo.user.name}</Title>
-			{user &&
-                <Text color={'dimmed'} align={'center'}>{profileInfo.roles}</Text>
+		<Stack>
+			<Center>
+				<Paper withBorder className={classes.userCard} p={'lg'}>
+					<Stack align={'center'} spacing={'xs'}>
+						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
+						<Title order={2} align={'center'}>{profileUser.name}</Title>
+						{isAuthenticated() &&
+                            <Text color={'dimmed'} align={'center'}>{roles}</Text>
+						}
+						{ownProfile &&
+                            <ProfileSteamId steamId={steamId64}/>
+						}
+						<Text mt={'xl'} size={'xl'}>{participatedEventsCount}</Text>
+						<Title order={5}>Event-Teilnahmen</Title>
+					</Stack>
+				</Paper>
+			</Center>
+
+			{ownProfile &&
+                <Title order={3}>
+                    <TextWithInfo text={'Globale Benachrichtigungseinstellungen'}
+                                  tooltip={'Hier können die Benachrichtigungen vor einem Event konfiguriert werden. Benachrichtigungen erhältst du in Form einer Discord Privatnachricht.'}
+					multiline width={300} position={'right'}/>
+                </Title>
 			}
-			{profileInfo.ownProfile &&
-                <InlineEditableText label={'Steam-ID'} value={profileInfo.steamId64}
-									{...form.getInputProps('steamId64')} onSubmit={mutate} onCancel={form.reset}/>
-			}
-			<Text mt={'xl'} size={'xl'}>{profileInfo.participatedEventsCount}</Text>
-			<Title order={5}>Event-Teilnahmen</Title>
 		</Stack>
 	);
 }
