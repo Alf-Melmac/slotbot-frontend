@@ -7,6 +7,6 @@ type ItalicProps = {
 
 export function Italic(props: ItalicProps): JSX.Element {
 	return (
-		<Text style={{fontStyle: 'italic'}} component={'span'}>{props.children}</Text>
+		<Text italic span>{props.children}</Text>
 	);
 }

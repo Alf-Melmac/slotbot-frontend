@@ -7,6 +7,6 @@ type BoldProps = {
 
 export function Bold(props: BoldProps): JSX.Element {
 	return (
-		<Text weight={'bold'} component={'span'}>{props.children}</Text>
+		<Text weight={'bold'} span>{props.children}</Text>
 	);
 }
