@@ -3,6 +3,7 @@ import axios from 'axios';
 const slotbotServerClient = axios.create({
 	headers: {
 		'Content-type': 'application/json',
+		'X-Requested-With': 'XMLHttpRequest'
 	},
 });
 
