@@ -1,6 +1,6 @@
 import {Avatar, Center, createStyles, Paper, Stack, Text, Title} from '@mantine/core';
 import {UserProfileDto} from './profileTypes';
-import {isAuthenticated} from '../../contexts/authentication/AuthProvider';
+import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
 import {TextWithInfo} from '../../components/Text/TextWithInfo';
 
@@ -31,7 +31,7 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 					<Stack align={'center'} spacing={'xs'}>
 						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
 						<Title order={2} align={'center'}>{profileUser.name}</Title>
-						{isAuthenticated() &&
+						{useAuth().user &&
                             <Text color={'dimmed'} align={'center'}>{roles}</Text>
 						}
 						{ownProfile &&
@@ -47,7 +47,7 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
                 <Title order={3}>
                     <TextWithInfo text={'Globale Benachrichtigungseinstellungen'}
                                   tooltip={'Hier können die Benachrichtigungen vor einem Event konfiguriert werden. Benachrichtigungen erhältst du in Form einer Discord Privatnachricht.'}
-					multiline width={300} position={'right'}/>
+                                  multiline width={300} position={'right'}/>
                 </Title>
 			}
 		</Stack>

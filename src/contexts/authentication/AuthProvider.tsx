@@ -38,7 +38,3 @@ const AuthContext = createContext<AuthContextType>(null!);
 export function useAuth() {
 	return useContext(AuthContext);
 }
-
-export function isAuthenticated() {
-	return !!useAuth().user;
-}
