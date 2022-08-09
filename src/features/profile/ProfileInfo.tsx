@@ -1,8 +1,9 @@
 import {Avatar, Center, createStyles, Paper, Stack, Text, Title} from '@mantine/core';
-import {UserProfileDto} from './profileTypes';
+import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
-import {TextWithInfo} from '../../components/Text/TextWithInfo';
+import slotbotServerClient from '../../hooks/slotbotServerClient';
+import {useQuery} from '@tanstack/react-query';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -20,7 +21,14 @@ type ProfileInfoProps = {
 };
 
 export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
-	const {user: profileUser, roles, participatedEventsCount, ownProfile, steamId64} = props.profileInfo;
+	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
+
+	let ownProfileInfo;
+	if (ownProfile) {
+		const getOwnProfileInfo = () => slotbotServerClient.get('/user/own').then((res) => res.data);
+		const query = useQuery<UserOwnProfileDto, Error>(['ownProfile'], getOwnProfileInfo);
+		ownProfileInfo = query.data;
+	}
 
 	const {classes} = useStyles();
 
@@ -34,8 +42,8 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 						{useAuth().user &&
                             <Text color={'dimmed'} align={'center'}>{roles}</Text>
 						}
-						{ownProfile &&
-                            <ProfileSteamId steamId={steamId64}/>
+						{ownProfile && ownProfileInfo &&
+                            <ProfileSteamId steamId={ownProfileInfo.steamId64}/>
 						}
 						<Text mt={'xl'} size={'xl'}>{participatedEventsCount}</Text>
 						<Title order={5}>Event-Teilnahmen</Title>
@@ -43,13 +51,9 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 				</Paper>
 			</Center>
 
-			{ownProfile &&
-                <Title order={3}>
-                    <TextWithInfo text={'Globale Benachrichtigungseinstellungen'}
-                                  tooltip={'Hier können die Benachrichtigungen vor einem Event konfiguriert werden. Benachrichtigungen erhältst du in Form einer Discord Privatnachricht.'}
-                                  multiline width={300} position={'right'}/>
-                </Title>
-			}
+			{/*{ownProfile && ownProfileInfo &&
+                <GlobalNotificationSettings notificationSettings={ownProfileInfo.notificationSettings}/>
+			}*/}
 		</Stack>
 	);
 }
