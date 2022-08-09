@@ -8,7 +8,7 @@ import {DatePicker, TimeInput} from '@mantine/dates';
 import {EventTypeMask} from './EventTypeMask';
 import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
 import {EventWizardStepProps} from './EventWizard';
-import {TextWithInfo} from '../../../components/Text/TextWithInfo';
+import {ElementWithInfo} from '../../../components/Text/ElementWithInfo';
 
 
 export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
@@ -26,13 +26,13 @@ export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 				<Grid.Col span={3}>
 					<Stack align={'flex-start'} spacing={'xs'}>
 						<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
-									label={<TextWithInfo text={'Teilen erlauben'}
-														 tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
+									label={<ElementWithInfo text={'Teilen erlauben'}
+															tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
 									useFormReturn={form} inputProp={'shareable'}/>
 
 						<IconSwitch onIcon={faEye} offIcon={faEyeSlash}
-									label={<TextWithInfo text={'Sichtbarkeit'}
-														 tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
+									label={<ElementWithInfo text={'Sichtbarkeit'}
+															tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
 									useFormReturn={form} inputProp={'hidden'}/>
 					</Stack>
 				</Grid.Col>

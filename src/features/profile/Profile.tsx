@@ -14,8 +14,8 @@ export function Profile(): JSX.Element {
 	const {userId} = useParams<ProfileProps>();
 	if (!userId) throw Error('Invalid state: User id required');
 
-	const getAuth = () => slotbotServerClient.get(`/user/${userId}`).then((res) => res.data);
-	const query = useQuery<UserProfileDto, Error>(['user', userId], getAuth);
+	const getProfileInfo = () => slotbotServerClient.get(`/user/${userId}`).then((res) => res.data);
+	const query = useQuery<UserProfileDto, Error>(['user', userId], getProfileInfo);
 	const profileInfo = query.data;
 
 	return (
