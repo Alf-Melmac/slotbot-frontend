@@ -4,6 +4,7 @@ import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
+import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -51,9 +52,9 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 				</Paper>
 			</Center>
 
-			{/*{ownProfile && ownProfileInfo &&
+			{ownProfile && ownProfileInfo &&
                 <GlobalNotificationSettings notificationSettings={ownProfileInfo.notificationSettings}/>
-			}*/}
+			}
 		</Stack>
 	);
 }

@@ -1,4 +1,5 @@
 import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
+import {FrontendIdEntityDto} from '../../contexts/sharedTypes';
 
 export interface UserProfileDto {
 	user: DiscordUserDto;
@@ -13,7 +14,7 @@ export interface UserOwnProfileDto {
 	externalCalendarIntegrationActive: boolean;
 }
 
-interface NotificationSettings {
+interface NotificationSettings extends FrontendIdEntityDto {
 	hoursBeforeEvent: number;
 	minutesBeforeEvent: number;
 }

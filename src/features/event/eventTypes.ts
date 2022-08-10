@@ -1,3 +1,5 @@
+import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
+
 export interface EventDetailsDto extends AbstractIdEntityDto {
 	missionType: string;
 	eventType: EventTypeDto;
@@ -20,10 +22,6 @@ export interface EventFieldReferencelessDto extends AbstractIdEntityDto {
 	title: string;
 	text: string;
 	link: string;
-}
-
-interface AbstractIdEntityDto {
-	id: number;
 }
 
 export interface EventDetailsSquadDto extends AbstractIdEntityDto {
@@ -65,10 +63,6 @@ export interface EventPostDto {
 	details: EventFieldDto[];
 	squadList: SquadDto[];
 	reserveParticipating?: boolean;
-}
-
-interface FrontendIdDto {
-	id: string;
 }
 
 interface EventFieldDto extends FrontendIdDto {
