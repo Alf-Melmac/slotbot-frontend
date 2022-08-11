@@ -11,29 +11,38 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
 import {ButtonWithDisabledTooltip} from '../../components/Form/ButtonWithDisabledTooltip';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {isEmpty, isEqual} from 'lodash';
 
 type GlobalNotificationSettingsProps = {
 	notificationSettings: UserOwnProfileDto['notificationSettings'];
 };
 
 export function GlobalNotificationSettings(props: GlobalNotificationSettingsProps): JSX.Element {
-	const form = useForm({
+	const form = useForm<GlobalNotificationSettingsProps>({
 		initialValues: {
 			notificationSettings: props.notificationSettings,
 		},
 	});
 
-	const [existInitialSettings, setExistInitialSettings] = useState(true);
-	//FIXME Uncomment once mantine fixes dirty state for lists
-	/*useEffect(() => {
+	const [existInitialSettings, setExistInitialSettings] = useState(false);
+	useEffect(() => {
 		setExistInitialSettings(!isEmpty(props.notificationSettings));
-	}, []);*/
+	}, []);
+
+	useEffect(() => {
+		form.setDirty({notificationSettings: !isEqual(props.notificationSettings, form.values.notificationSettings)});
+	}, [form.values]);
+
+	const [saving, setSaving] = useState(false);
 
 	const queryClient = useQueryClient();
 	const postSteamId = () => slotbotServerClient.put('/notifications/own', form.values.notificationSettings).then((res) => res.data);
 	const {mutate} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postSteamId, {
-		onSuccess: (data) => {
+		onMutate: () => {
+			setSaving(true);
+		},
+		onSuccess: data => {
 			const noOfNotifications = data.length;
 			showNotification({
 				title: 'Gespeichert',
@@ -41,7 +50,8 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 				color: 'green',
 			});
 			queryClient.setQueryData(['ownProfile'], data);
-			form.resetDirty(); //This currently doesn't reset initialValues therefore, the original value cannot be saved again. However, this disables the button if nothing new is entered.
+			form.resetDirty(); //This doesn't update the initialValues where dirty checks against. But we don't expect many manual rollbacks by the user, therefore this behavior is acceptable here
+			setExistInitialSettings(!isEmpty(data));
 		},
 		onError: error => {
 			showNotification({
@@ -49,6 +59,9 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 				message: error.message,
 				color: 'red',
 			});
+		},
+		onSettled: () => {
+			setSaving(false);
 		},
 	});
 
@@ -93,10 +106,11 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 							   minutesBeforeEvent: 0,
 						   })}/>
 				{(existInitialSettings || form.isDirty()) &&
-                    <ElementWithInfo text={<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
-																	  disabled={!form.isDirty()}
-																	  tooltip={'Keine Änderungen'}>
-						Benachrichtigungen Speichern</ButtonWithDisabledTooltip>}
+                    <ElementWithInfo text={
+						<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
+												   disabled={!form.isDirty()} tooltip={'Keine Änderungen'}
+												   loading={saving}>
+							Benachrichtigungen Speichern</ButtonWithDisabledTooltip>}
                                      tooltip={'Anpassungen an den globalen Einstellungen werden nur für Slottungen nach dem Speichern übernommen.'}
                                      iconPosition={YPosition.LEFT} multiline tooltipWidth={250}
                                      tooltipPosition={'left'}/>
