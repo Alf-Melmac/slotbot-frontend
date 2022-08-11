@@ -1,10 +1,11 @@
-import {Avatar, Center, createStyles, Paper, Stack, Text, Title} from '@mantine/core';
+import {Avatar, Center, createStyles, Divider, Paper, Stack, Text, Title} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {GlobalNotificationSettings} from './GlobalNotificationSettings';
+import {ExternalCalendarSettings} from './ExternalCalendarSettings';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -53,7 +54,11 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 			</Center>
 
 			{ownProfile && ownProfileInfo &&
-                <GlobalNotificationSettings notificationSettings={ownProfileInfo.notificationSettings}/>
+                <>
+                    <GlobalNotificationSettings notificationSettings={ownProfileInfo.notificationSettings}/>
+                    <Divider/>
+					<ExternalCalendarSettings externalCalendarIntegrationActive={ownProfileInfo.externalCalendarIntegrationActive} icsCalendarUrl={ownProfileInfo.icsCalendarUrl}/>
+                </>
 			}
 		</Stack>
 	);

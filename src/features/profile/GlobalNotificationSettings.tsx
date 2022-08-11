@@ -37,12 +37,12 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 	const [saving, setSaving] = useState(false);
 
 	const queryClient = useQueryClient();
-	const postSteamId = () => slotbotServerClient.put('/notifications/own', form.values.notificationSettings).then((res) => res.data);
-	const {mutate} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postSteamId, {
+	const postNotificationSettings = () => slotbotServerClient.put('/notifications/own', form.values.notificationSettings).then((res) => res.data);
+	const {mutate} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postNotificationSettings, {
 		onMutate: () => {
 			setSaving(true);
 		},
-		onSuccess: data => {
+		onSuccess: (data) => {
 			const noOfNotifications = data.length;
 			showNotification({
 				title: 'Gespeichert',
@@ -53,7 +53,7 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 			form.resetDirty(); //This doesn't update the initialValues where dirty checks against. But we don't expect many manual rollbacks by the user, therefore this behavior is acceptable here
 			setExistInitialSettings(!isEmpty(data));
 		},
-		onError: error => {
+		onError: (error) => {
 			showNotification({
 				title: `Speichern fehlgeschlagen. (${error.code})`,
 				message: error.message,

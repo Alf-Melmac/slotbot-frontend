@@ -12,6 +12,7 @@ export interface UserOwnProfileDto {
 	steamId64?: string;
 	notificationSettings: NotificationSettings[];
 	externalCalendarIntegrationActive: boolean;
+	icsCalendarUrl: string;
 }
 
 interface NotificationSettings extends FrontendIdEntityDto {
