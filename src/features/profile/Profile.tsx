@@ -5,6 +5,7 @@ import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
 import {ProfileInfo} from './ProfileInfo';
+import {ProfileInfoLoading} from './loading/ProfileInfoLoading';
 
 type ProfileProps = {
 	userId: string
@@ -21,8 +22,10 @@ export function Profile(): JSX.Element {
 	return (
 		<Nav>
 			<Container>
-				{profileInfo &&
-                    <ProfileInfo profileInfo={profileInfo}/>
+				{profileInfo ?
+					<ProfileInfo profileInfo={profileInfo}/>
+					:
+					<ProfileInfoLoading/>
 				}
 			</Container>
 		</Nav>

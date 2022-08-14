@@ -1,4 +1,16 @@
-import {Avatar, Center, createStyles, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
+import {
+	Avatar,
+	Center,
+	createStyles,
+	CSSObject,
+	Divider,
+	MantineTheme,
+	Paper,
+	Spoiler,
+	Stack,
+	Text,
+	Title,
+} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
@@ -7,14 +19,18 @@ import {useQuery} from '@tanstack/react-query';
 import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 import {ExternalCalendarSettings} from './ExternalCalendarSettings';
 
+export const userCardSize: (theme: MantineTheme) => CSSObject = (theme) => ({
+	width: '33%',
+
+	[theme.fn.smallerThan('md')]: {
+		width: '100%',
+	},
+});
+
 const useStyles = createStyles((theme) => ({
 	userCard: {
-		width: '33%',
+		...userCardSize(theme),
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-
-		[theme.fn.smallerThan('md')]: {
-			width: '100%',
-		},
 	},
 
 	rolesSpoilerControl: {
