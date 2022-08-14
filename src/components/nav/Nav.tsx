@@ -9,7 +9,6 @@ import {useAuth} from '../../contexts/authentication/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
 	outer: {
-		borderBottom: 0,
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
 	},
 
@@ -40,7 +39,7 @@ export function Nav(props: NavProps): JSX.Element {
 	return (
 		<AppShell
 			header={
-				<Header height={NAV_HEIGHT} className={classes.outer}>
+				<Header height={NAV_HEIGHT} className={classes.outer} withBorder={false}>
 					<Container className={classes.inner}>
 						<AmbLogo/>
 						<Box styles={{alignSelf: "flex-end"}}>
