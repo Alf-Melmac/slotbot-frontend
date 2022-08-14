@@ -1,4 +1,4 @@
-import {Avatar, Center, createStyles, Divider, Paper, Stack, Text, Title} from '@mantine/core';
+import {Avatar, Center, createStyles, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
@@ -15,6 +15,12 @@ const useStyles = createStyles((theme) => ({
 		[theme.fn.smallerThan('md')]: {
 			width: '100%',
 		},
+	},
+
+	rolesSpoilerControl: {
+		display: 'flex',
+		marginLeft: 'auto',
+		marginRight: 'auto',
 	},
 }));
 
@@ -42,7 +48,10 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
 						<Title order={2} align={'center'}>{profileUser.name}</Title>
 						{useAuth().user &&
-                            <Text color={'dimmed'} align={'center'}>{roles}</Text>
+                            <Spoiler maxHeight={0} hideLabel={'Ausblenden'} showLabel={'Rollen anzeigen'}
+                                     classNames={{control: classes.rolesSpoilerControl}}>
+                                <Text color={'dimmed'} align={'center'}>{roles}</Text>
+                            </Spoiler>
 						}
 						{ownProfile && ownProfileInfo &&
                             <ProfileSteamId steamId={ownProfileInfo.steamId64}/>
@@ -57,7 +66,9 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
                 <>
                     <GlobalNotificationSettings notificationSettings={ownProfileInfo.notificationSettings}/>
                     <Divider/>
-					<ExternalCalendarSettings externalCalendarIntegrationActive={ownProfileInfo.externalCalendarIntegrationActive} icsCalendarUrl={ownProfileInfo.icsCalendarUrl}/>
+                    <ExternalCalendarSettings
+                        externalCalendarIntegrationActive={ownProfileInfo.externalCalendarIntegrationActive}
+                        icsCalendarUrl={ownProfileInfo.icsCalendarUrl}/>
                 </>
 			}
 		</Stack>
