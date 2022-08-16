@@ -9,6 +9,7 @@ import {SlotListEntrySettings} from './SlotListEntrySettings';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {flexGrow} from '../../../contexts/CommonStylings';
 import {useQuery} from '@tanstack/react-query';
+import {UploadSlotlist} from './UploadSlotlist';
 
 export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 	const {form} = props;
@@ -47,7 +48,10 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 
 	return (
 		<>
-			<Title order={2} mb={'xs'}>Teilnahmeplatzaufzählung</Title>
+			<Group position={'apart'}>
+				<Title order={2} mb={'xs'}>Teilnahmeplatzaufzählung</Title>
+				<UploadSlotlist/>
+			</Group>
 
 			{squadList}
 			<AddButton label={'Squad hinzufügen'} mt={'xs'}
