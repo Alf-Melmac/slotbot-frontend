@@ -12,6 +12,7 @@ export function Router(): JSX.Element {
 				<Route path="/" element={<StartPage/>}/>
 				<Route path="events/*" element={<EventRoutes/>}/>
 				<Route path="profile/*" element={<ProfileRoutes/>}/>
+				<Route path="admin/*" element={<AdminRoutes/>}/>
 				<Route path="/404" element={<Title>404 :(</Title>}/>
 			</Routes>
 		</AuthProvider>
