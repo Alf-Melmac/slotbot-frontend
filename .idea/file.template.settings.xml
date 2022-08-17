@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ExportableFileTemplateSettings">
     <default_templates>
-      <template name="TS React component.tsx" reformat="false" live-template-enabled="false" />
+      <template name="React component.tsx" reformat="false" live-template-enabled="false" />
+      <template name="Route.tsx" file-name="${NAME}Routes" reformat="false" live-template-enabled="false" />
     </default_templates>
   </component>
 </project>
