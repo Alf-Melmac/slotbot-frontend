@@ -29,3 +29,7 @@ slotbotServerClient.interceptors.response.use((response) => response, (error) =>
 	return Promise.reject(error);
 });
 export default slotbotServerClient;
+
+export function voidFunction() {
+	/*Do nothing*/
+}

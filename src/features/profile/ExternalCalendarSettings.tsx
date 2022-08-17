@@ -4,7 +4,7 @@ import {Box, Button, CopyButton, Switch, Text, Title, Tooltip} from '@mantine/co
 import {useForm} from '@mantine/form';
 import {AnchorBlank} from '../../components/Text/AnchorBlank';
 import {useEffect, useState} from 'react';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
+import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
@@ -30,7 +30,7 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 	}, [form.values.externalCalendarIntegrationActive]);
 
 	const [saving, setSaving] = useState(false);
-	const postCalendarSetting = () => slotbotServerClient.put(`/user/externalcalendar/${!form.values.externalCalendarIntegrationActive}`).then(() => {/* void function */});
+	const postCalendarSetting = () => slotbotServerClient.put(`/user/externalcalendar/${!form.values.externalCalendarIntegrationActive}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postCalendarSetting, {
 		onMutate: () => {
 			setSaving(true);

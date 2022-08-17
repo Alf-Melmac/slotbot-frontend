@@ -1,6 +1,6 @@
 import {InlineEditableText} from '../../components/Form/inline/InlineEditableText';
 import {useForm} from '@mantine/form';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
+import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
@@ -19,7 +19,7 @@ export function ProfileSteamId(props: ProfileSteamIdProps): JSX.Element {
 		},
 	});
 
-	const postSteamId = () => slotbotServerClient.put(`/user/steamid/${form.values.steamId}`).then(() => {/* void function */});
+	const postSteamId = () => slotbotServerClient.put(`/user/steamid/${form.values.steamId}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postSteamId, {
 		onSuccess: () => {
 			showNotification({title: 'Gespeichert', message: <></>, color: 'green'});
