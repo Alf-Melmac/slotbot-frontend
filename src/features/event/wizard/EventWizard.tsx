@@ -12,6 +12,7 @@ import {EventWizardStepTwo} from './EventWizardStepTwo';
 import {EventWizardStepThree} from './EventWizardStepThree';
 import {EventWizardFinish} from './EventWizardFinish';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
+import {PageFooter} from '../../../components/PageFooter/PageFooter';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
@@ -98,31 +99,36 @@ export function EventWizard(): JSX.Element {
 	const [active, setActive] = useState(0);
 	return (
 		<Nav>
-			<Container>
-				<Breadcrumb items={breadcrumbItems}/>
+			<>
+				<Container>
+					<Breadcrumb items={breadcrumbItems}/>
 
-				<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
-					<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
-						<EventWizardStepOne form={form}/>
-					</Stepper.Step>
-					<Stepper.Step label={'Event'} description={'Details'}>
-						<EventWizardStepTwo form={form}/>
-					</Stepper.Step>
-					<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
-						<EventWizardStepThree form={form}/>
-					</Stepper.Step>
+					<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
+						<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
+							<EventWizardStepOne form={form}/>
+						</Stepper.Step>
+						<Stepper.Step label={'Event'} description={'Details'}>
+							<EventWizardStepTwo form={form}/>
+						</Stepper.Step>
+						<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
+							<EventWizardStepThree form={form}/>
+						</Stepper.Step>
 
-					<Stepper.Completed>
-						<EventWizardFinish form={form}/>
-					</Stepper.Completed>
-				</Stepper>
+						<Stepper.Completed>
+							<EventWizardFinish form={form}/>
+						</Stepper.Completed>
+					</Stepper>
 
-				<Group position="right" mt="xl">
-					{active !== 0 && active !== 3 && <Button variant="default" onClick={prevStep}>Vorherige</Button>}
-					{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
-					{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
-				</Group>
-			</Container>
+					<Group position="right" mt="xl">
+						{active !== 0 && active !== 3 &&
+                            <Button variant="default" onClick={prevStep}>Vorherige</Button>}
+						{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
+						{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
+					</Group>
+				</Container>
+
+				<PageFooter mt={'xl'}/>
+			</>
 		</Nav>
 	);
 }

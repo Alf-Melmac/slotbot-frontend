@@ -104,7 +104,6 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 					}
 				});
 			});
-			console.log(squadList);
 			props.form.setFieldValue('squadList', squadList);
 			props.closeModal();
 		},

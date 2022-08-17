@@ -52,12 +52,12 @@ function NavIcon(props: NavIconProps): JSX.Element {
 	const {classes} = useStyles(props.width);
 
 	return (
-		<Box className={props.className}>
+		<>
 			<Text size="sm">{props.text}</Text>
 			<Center className={classes.icon}>
 				<FontAwesomeIcon icon={props.icon}/>
 			</Center>
-		</Box>
+		</>
 	);
 }
 
@@ -72,10 +72,10 @@ export function NavIconLink(props: NavIconLinkProps): JSX.Element {
 }
 
 export function NavIconAction(props: NavIconActionProps): JSX.Element {
-	const {classes} = useStyles(props.width);
+	const {classes, cx} = useStyles(props.width);
 
 	return (
-		<Box component={'a'} className={classes.wrapper} onClick={props.onClick}>
+		<Box component={'a'} className={cx(classes.wrapper, props.className)} onClick={props.onClick}>
 			<NavIcon {...props}/>
 		</Box>
 	);
