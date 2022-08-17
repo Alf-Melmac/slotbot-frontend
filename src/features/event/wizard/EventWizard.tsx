@@ -2,7 +2,7 @@ import {useForm, UseFormReturnType} from '@mantine/form';
 import {Button, Container, Group, Stepper} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
 import {EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
@@ -11,6 +11,7 @@ import {EventWizardStepOne} from './EventWizardStepOne';
 import {EventWizardStepTwo} from './EventWizardStepTwo';
 import {EventWizardStepThree} from './EventWizardStepThree';
 import {EventWizardFinish} from './EventWizardFinish';
+import {useAuth} from '../../../contexts/authentication/AuthProvider';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
@@ -76,6 +77,13 @@ export function EventWizard(): JSX.Element {
 		},
 		validateInputOnChange: ['title'],
 	});
+
+	const {user} = useAuth();
+	useEffect(() => {
+		if (user) {
+			form.setFieldValue('creator', user.name);
+		}
+	}, [user]);
 
 	const nextStep = () =>
 		setActive((current) => {
