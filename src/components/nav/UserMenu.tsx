@@ -34,7 +34,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 		<Menu position={'bottom-end'}>
 			<Menu.Target>
 				<UnstyledButton className={classes.user}>
-					<Group>
+					<Group noWrap>
 						<Avatar src={user.avatarUrl} radius={NAV_ICON_SIZE} size={NAV_ICON_SIZE}/>
 						<Text size="sm" weight={500}>
 							{user.name}

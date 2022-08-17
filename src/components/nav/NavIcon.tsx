@@ -1,4 +1,4 @@
-import {Box, Center, createStyles, Text} from '@mantine/core';
+import {Box, Center, createStyles, DefaultProps, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {AnchorLink} from '../Text/AnchorLink';
@@ -37,6 +37,7 @@ interface NavIconProps {
 	text: string;
 	icon: IconProp;
 	width: number;
+	className?: DefaultProps['className'];
 }
 
 interface NavIconLinkProps extends NavIconProps {
@@ -51,20 +52,20 @@ function NavIcon(props: NavIconProps): JSX.Element {
 	const {classes} = useStyles(props.width);
 
 	return (
-		<>
+		<Box className={props.className}>
 			<Text size="sm">{props.text}</Text>
 			<Center className={classes.icon}>
 				<FontAwesomeIcon icon={props.icon}/>
 			</Center>
-		</>
+		</Box>
 	);
 }
 
 export function NavIconLink(props: NavIconLinkProps): JSX.Element {
-	const {classes} = useStyles(props.width);
+	const {classes, cx} = useStyles(props.width);
 
 	return (
-		<AnchorLink className={classes.wrapper} to={props.link}>
+		<AnchorLink className={cx(classes.wrapper, props.className)} to={props.link}>
 			<NavIcon {...props}/>
 		</AnchorLink>
 	);

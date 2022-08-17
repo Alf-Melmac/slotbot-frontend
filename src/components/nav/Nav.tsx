@@ -1,4 +1,4 @@
-import {AppShell, Box, Container, createStyles, Group, Header} from "@mantine/core";
+import {AppShell, Box, Container, createStyles, Group, Header, MediaQuery} from "@mantine/core";
 import {useViewportSize} from "@mantine/hooks";
 import {AmbLogo} from '../logo/AmbLogo';
 import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
@@ -44,7 +44,9 @@ export function Nav(props: NavProps): JSX.Element {
 						<AmbLogo/>
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
-								<NavIconLink link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
+								<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+									<NavIconLink link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
+								</MediaQuery>
 								{(user) ?
 									<UserMenu user={user}/>
 									:
