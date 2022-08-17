@@ -20,20 +20,20 @@ import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../eventTypes';
 import {AxiosError} from 'axios';
+import {EventWizardStepProps} from './EventWizard';
+import {randomId} from '@mantine/hooks';
 
-type UploadSlotlistProps = {};
-
-export function UploadSlotlist(props: UploadSlotlistProps): JSX.Element {
-	const {} = props;
+export function UploadSlotlist(props: EventWizardStepProps): JSX.Element {
 	const [opened, setOpened] = useState(false);
 
+	const closeModal = () => setOpened(false);
 	return <>
-		<Modal opened={opened} onClose={() => setOpened(false)} size={'lg'} title={'Slotliste hochladen'}>
+		<Modal opened={opened} onClose={closeModal} size={'lg'} title={'Slotliste hochladen'}>
 			Lade hier deine nicht binarisierte <Code>mission.sqm</Code> hoch, um daraus die Slotliste generieren zu
 			lassen. Die Slotliste kannst du danach noch bearbeiten.<br/> Die Missionsdateien findest du nach dem
 			Speichern unter <Code>%USERPROFILE%\Documents\Arma 3\</Code> <Code
 		>missions</Code> oder <Code>mpMissions</Code>.
-			<SqmDropzone/>
+			<SqmDropzone {...props} closeModal={closeModal}/>
 		</Modal>
 
 		<Button variant={'light'} onClick={() => setOpened(true)}>Slotliste hochladen</Button>
@@ -66,26 +66,52 @@ const useStyles = createStyles((theme, hasError: boolean) => ({
 	},
 }));
 
-function SqmDropzone(): JSX.Element {
+type SqmDropzoneProps = {
+	closeModal: () => void
+} & EventWizardStepProps
+
+function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
-	const [hasError, setHasError] = useState(true);
+	const [hasError, setHasError] = useState(false);
 	useEffect(() => {
 		setHasError(!!error);
 	}, [error]);
+	const [loading, setLoading] = useState(false);
 
 	const theme = useMantineTheme();
 	const {classes} = useStyles(hasError);
 
 	const postSlotlist = () => slotbotServerClient.post('/files/uploadSqm', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => res.data);
 	const {mutate} = useMutation<SquadDto[], AxiosError>(postSlotlist, {
+		onMutate: () => {
+			setLoading(true);
+		},
 		onSuccess: squadList => {
+			//Align with manual creation
+			squadList.forEach(squad => {
+				squad.id = randomId();
+				if (squad.reservedFor === null) {
+					squad.reservedFor = '';
+				}
+				squad.slotList.forEach(slot => {
+					slot.id = randomId();
+					if (slot.reservedFor === null) {
+						slot.reservedFor = '';
+					}
+					if (slot.replacementText === null) {
+						slot.replacementText = 'Gesperrt';
+					}
+				});
+			});
 			console.log(squadList);
-			//TODO set squadList
+			props.form.setFieldValue('squadList', squadList);
+			props.closeModal();
 		},
 		onError: axiosError => {
 			setError(axiosError.message);
-		}
+			setLoading(false);
+		},
 	});
 
 	useEffect(() => {
@@ -130,7 +156,7 @@ function SqmDropzone(): JSX.Element {
 	return (
 		<Input.Wrapper error={error}>
 			<Dropzone onDrop={onDrop} onReject={onReject} accept={{'application/octet-stream': ['.sqm']}} maxFiles={1}
-					  maxSize={2097000} mt={'xl'} className={classes.dropzone}>
+					  maxSize={2097000} loading={loading} mt={'xl'} className={classes.dropzone}>
 				<Group position={'center'} spacing={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} noWrap>
 					<Dropzone.Accept>
 						<FontAwesomeIcon icon={faFileImport} size={'2x'}

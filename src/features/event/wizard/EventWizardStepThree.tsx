@@ -50,7 +50,7 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 		<>
 			<Group position={'apart'}>
 				<Title order={2} mb={'xs'}>Teilnahmeplatzaufzählung</Title>
-				<UploadSlotlist/>
+				<UploadSlotlist {...props}/>
 			</Group>
 
 			{squadList}
