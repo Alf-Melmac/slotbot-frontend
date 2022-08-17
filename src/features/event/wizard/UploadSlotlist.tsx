@@ -36,7 +36,7 @@ export function UploadSlotlist(props: EventWizardStepProps): JSX.Element {
 			<SqmDropzone {...props} closeModal={closeModal}/>
 		</Modal>
 
-		<Button variant={'light'} onClick={() => setOpened(true)}>Slotliste hochladen</Button>
+		<Button variant={'default'} onClick={() => setOpened(true)}>Slotliste hochladen</Button>
 	</>;
 }
 

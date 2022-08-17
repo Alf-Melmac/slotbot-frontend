@@ -1,10 +1,10 @@
-import {Box, Checkbox, Group, NumberInput, TextInput, Title} from '@mantine/core';
+import {Box, Button, Checkbox, Group, NumberInput, TextInput, Title} from '@mantine/core';
 import {EventWizardStepProps} from './EventWizard';
 import {TEXT} from '../../../utils/maxLength';
 import {randomId} from '@mantine/hooks';
 import {AddButton} from '../../../components/Form/AddButton';
 import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
-import {includes, sortBy} from 'lodash';
+import {includes, isEmpty, sortBy} from 'lodash';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {flexGrow} from '../../../contexts/CommonStylings';
@@ -49,8 +49,20 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 	return (
 		<>
 			<Group position={'apart'}>
-				<Title order={2} mb={'xs'}>Teilnahmeplatzaufzählung</Title>
-				<UploadSlotlist {...props}/>
+				<Title order={2}>Teilnahmeplatzaufzählung</Title>
+				<Group spacing={'xs'}>
+					<UploadSlotlist {...props}/>
+					<Button variant={'default'} onClick={() => {
+						const formSquadList = form.values['squadList'];
+						if (isEmpty(formSquadList)) return;
+						let num = 1;
+						formSquadList.forEach(squad => squad.slotList.forEach(slot => {
+							slot.number = num;
+							num++;
+						}));
+						form.setFieldValue('squadList', formSquadList);
+					}}>Neu nummerieren</Button>
+				</Group>
 			</Group>
 
 			{squadList}
