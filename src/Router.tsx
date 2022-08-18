@@ -12,7 +12,7 @@ export function Router(): JSX.Element {
 				<Route path="/" element={<StartPage/>}/>
 				<Route path="events/*" element={<EventRoutes/>}/>
 				<Route path="profile/*" element={<ProfileRoutes/>}/>
-				<Route path="admin/*" element={<AdminRoutes/>}/>
+				<Route path="admin/*" element={<RequireAuth authority={ApplicationRoles.ROLE_SYS_ADMIN}><AdminRoutes/></RequireAuth>}/>
 				<Route path="/404" element={<Title>404 :(</Title>}/>
 			</Routes>
 		</AuthProvider>
