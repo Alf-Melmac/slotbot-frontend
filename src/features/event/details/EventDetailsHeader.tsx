@@ -4,6 +4,8 @@ import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailsDto} from '../eventTypes';
 import dayjs from 'dayjs';
 import {MutableRefObject} from 'react';
+import {EventCopy} from './EventCopy';
+import {EventEditButton} from './EventEditButton';
 
 type EventDetailsHeaderProps = {
 	event: EventDetailsDto;
@@ -24,7 +26,13 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 					</Paper>
 				</Grid.Col>
 				<Grid.Col xs={8} span={12}>
-					<Title order={1}>{event.name}</Title>
+					<Group position={'apart'} noWrap>
+						<Title order={1}>{event.name}</Title>
+						<Group spacing={'xs'}>
+							<EventCopy eventId={event.id}/>
+							<EventEditButton eventId={event.id}/>
+						</Group>
+					</Group>
 					<Group spacing={'xs'}>
 						<Text><FontAwesomeIcon icon={faCalendarDay}/></Text>
 						<Text size={'xl'}>{eventDate.format('L LT')} Uhr</Text>

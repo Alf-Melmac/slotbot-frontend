@@ -4,7 +4,7 @@ import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useEffect, useState} from 'react';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
-import {EventPostDto} from '../eventTypes';
+import {EventDetailsDto, EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 import {randomColor} from './firstStep/EventTypeInputs';
 import {EventWizardStepOne} from './firstStep/EventWizardStepOne';
@@ -13,10 +13,19 @@ import {EventWizardStepThree} from './thirdStep/EventWizardStepThree';
 import {EventWizardFinish} from './EventWizardFinish';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {PageFooter} from '../../../components/PageFooter/PageFooter';
+import {useLocation} from 'react-router-dom';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import {useQuery} from '@tanstack/react-query';
+import {omit} from 'lodash';
+import {randomId} from '@mantine/hooks';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
 };
+
+export type EventWizardLocation = {
+	copy: EventDetailsDto['id'];
+}
 
 export function EventWizard(): JSX.Element {
 	const breadcrumbItems = [
@@ -78,14 +87,7 @@ export function EventWizard(): JSX.Element {
 		},
 		validateInputOnChange: ['title'],
 	});
-
-	const {user} = useAuth();
-	useEffect(() => {
-		if (user) {
-			form.setFieldValue('creator', user.name);
-		}
-	}, [user]);
-
+	const [active, setActive] = useState(0);
 	const nextStep = () =>
 		setActive((current) => {
 			if (form.validate().hasErrors) {
@@ -93,10 +95,30 @@ export function EventWizard(): JSX.Element {
 			}
 			return current < 4 ? current + 1 : current;
 		});
-
 	const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
-	const [active, setActive] = useState(0);
+	const state = useLocation().state as EventWizardLocation | null;
+	const copyEvent = state?.copy;
+	const getEventForCopy = () => slotbotServerClient.get(`/events/${copyEvent}/copy`).then((res) => res.data);
+	useQuery<EventPostDto, Error>(['copyEvent', copyEvent], getEventForCopy, {
+		enabled: !!copyEvent,
+		onSuccess: data => {
+			data.details.forEach(field => field.id = randomId());
+			data.squadList.forEach(squad => {
+				squad.id = randomId();
+				squad.slotList.forEach(slot => slot.id = randomId());
+			})
+			form.setValues(omit(data, ['date', 'startTime']) as EventPostDto);
+		}
+	});
+
+	const {user} = useAuth();
+	useEffect(() => {
+		if (user && !copyEvent) {
+			form.setFieldValue('creator', user.name);
+		}
+	}, [user]);
+
 	return (
 		<Nav>
 			<>
