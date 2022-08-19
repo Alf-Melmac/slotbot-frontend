@@ -1,11 +1,11 @@
 import {ActionIcon, Group, Input, TextInput} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faLock, faLockOpen} from '@fortawesome/free-solid-svg-icons';
-import {TEXT} from '../../../utils/maxLength';
-import {flexGrow} from '../../../contexts/CommonStylings';
-import {EventWizardStepProps} from './EventWizard';
+import {TEXT} from '../../../../utils/maxLength';
+import {flexGrow} from '../../../../contexts/CommonStylings';
+import {EventWizardStepProps} from '../EventWizard';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
-import {getFormFieldValue} from '../../../utils/formHelper';
+import {getFormFieldValue} from '../../../../utils/formHelper';
 
 type SlotBlockedSettingProps = {
 	form: EventWizardStepProps['form'];

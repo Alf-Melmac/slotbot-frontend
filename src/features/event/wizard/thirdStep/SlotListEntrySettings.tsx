@@ -1,9 +1,9 @@
-import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
+import {GuildDto, SlotDto, SquadDto} from '../../eventTypes';
 import {useState} from 'react';
 import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
-import {EventWizardStepProps} from './EventWizard';
+import {EventWizardStepProps} from '../EventWizard';
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';

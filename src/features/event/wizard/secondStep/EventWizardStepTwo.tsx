@@ -1,9 +1,9 @@
-import {EventWizardStepProps} from './EventWizard';
+import {EventWizardStepProps} from '../EventWizard';
 import {ActionIcon, Group, TextInput, Title} from '@mantine/core';
-import {AddButton} from '../../../components/Form/AddButton';
-import {CounterBadge} from '../../../components/Form/CounterBadge';
+import {AddButton} from '../../../../components/Form/AddButton';
+import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {randomId} from '@mantine/hooks';
-import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../utils/maxLength';
+import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 

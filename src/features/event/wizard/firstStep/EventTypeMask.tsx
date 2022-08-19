@@ -1,8 +1,8 @@
 import {Skeleton} from '@mantine/core';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {EventTypeDto} from '../eventTypes';
+import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import {EventTypeDto} from '../../eventTypes';
 import {EventTypeInputs} from './EventTypeInputs';
-import {EventWizardStepProps} from './EventWizard';
+import {EventWizardStepProps} from '../EventWizard';
 import {useQuery} from '@tanstack/react-query';
 
 export function EventTypeMask(props: EventWizardStepProps): JSX.Element {

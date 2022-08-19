@@ -16,11 +16,11 @@ import {Dropzone} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileArrowUp, faFileCircleQuestion, faFileImport} from '@fortawesome/free-solid-svg-icons';
 import {FileRejection} from 'react-dropzone';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
-import {SquadDto} from '../eventTypes';
+import {SquadDto} from '../../eventTypes';
 import {AxiosError} from 'axios';
-import {EventWizardStepProps} from './EventWizard';
+import {EventWizardStepProps} from '../EventWizard';
 import {randomId} from '@mantine/hooks';
 
 export function UploadSlotlist(props: EventWizardStepProps): JSX.Element {

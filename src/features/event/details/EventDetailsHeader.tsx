@@ -1,4 +1,4 @@
-import {Button, Card, Grid, Group, Image, MediaQuery, Paper, Text, Title} from '@mantine/core';
+import {Button, Card, Grid, Group, Image, MediaQuery, Paper, Text, TextProps, Title} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailsDto} from '../eventTypes';
@@ -18,12 +18,12 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 	return (
 		<>
 			<Grid gutter={'xl'} mt={1}>
-				<Grid.Col span={4}>
+				<Grid.Col xs={4} span={12}>
 					<Paper shadow={'md'}>
 						<Image src={event.pictureUrl} radius={'sm'} withPlaceholder/>
 					</Paper>
 				</Grid.Col>
-				<Grid.Col span={8}>
+				<Grid.Col xs={8} span={12}>
 					<Title order={1}>{event.name}</Title>
 					<Group spacing={'xs'}>
 						<Text><FontAwesomeIcon icon={faCalendarDay}/></Text>
@@ -39,10 +39,10 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 						event.descriptionAsHtml &&
                         <Card mt={'sm'}>
                             <MediaQuery largerThan={'md'} styles={{display: 'none'}}>
-                                <Text lineClamp={1} dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}/>
+                                <EventDescription description={event.descriptionAsHtml} lineClamp={1}/>
                             </MediaQuery>
                             <MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
-                                <Text lineClamp={4} dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}/>
+                                <EventDescription description={event.descriptionAsHtml} lineClamp={4}/>
                             </MediaQuery>
                             <Button variant={'default'} mt={'sm'}
                                     onClick={() => {
@@ -58,4 +58,13 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 			<Text size={'xs'} mt={4}>Mission von <em>{event.creator}</em></Text>
 		</>
 	);
+}
+
+type EventDescriptionProps = {
+	description: EventDetailsDto['descriptionAsHtml'];
+	lineClamp: TextProps['lineClamp'];
+}
+
+function EventDescription(props: EventDescriptionProps): JSX.Element {
+	return <Text lineClamp={props.lineClamp} dangerouslySetInnerHTML={{__html: props.description}}/>;
 }

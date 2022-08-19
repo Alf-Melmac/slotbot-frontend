@@ -2,9 +2,9 @@ import {Alert, Select} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
-import {EventWizardStepProps} from './EventWizard';
-import {GuildDto} from '../eventTypes';
-import {getFormFieldValue} from '../../../utils/formHelper';
+import {EventWizardStepProps} from '../EventWizard';
+import {GuildDto} from '../../eventTypes';
+import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
 
 type SlotListEntryReservationSettingProps = {

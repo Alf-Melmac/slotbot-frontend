@@ -1,18 +1,19 @@
-import {Box, Button, Checkbox, Group, NumberInput, TextInput, Title} from '@mantine/core';
-import {EventWizardStepProps} from './EventWizard';
-import {TEXT} from '../../../utils/maxLength';
+import {Box, Checkbox, Group, NumberInput, TextInput, Title} from '@mantine/core';
+import {EventWizardStepProps} from '../EventWizard';
+import {TEXT} from '../../../../utils/maxLength';
 import {randomId} from '@mantine/hooks';
-import {AddButton} from '../../../components/Form/AddButton';
-import {GuildDto, SlotDto, SquadDto} from '../eventTypes';
-import {includes, isEmpty, sortBy} from 'lodash';
+import {AddButton} from '../../../../components/Form/AddButton';
+import {GuildDto, SlotDto, SquadDto} from '../../eventTypes';
+import {includes, sortBy} from 'lodash';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {flexGrow} from '../../../contexts/CommonStylings';
+import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import {flexGrow} from '../../../../contexts/CommonStylings';
 import {useQuery} from '@tanstack/react-query';
 import {UploadSlotlist} from './UploadSlotlist';
+import {RenumberSlots} from './RenumberSlots';
 
 export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
-	const {form} = props;
+	const {form} = props ;
 
 	const getGuilds = () => slotbotServerClient.get(`http://localhost:8090/guilds`).then((res) => res.data);
 	const guildsQuery = useQuery<Array<GuildDto>, Error>(['guilds'], getGuilds);
@@ -52,16 +53,7 @@ export function EventWizardStepThree(props: EventWizardStepProps): JSX.Element {
 				<Title order={2}>Teilnahmeplatzaufzählung</Title>
 				<Group spacing={'xs'}>
 					<UploadSlotlist {...props}/>
-					<Button variant={'default'} onClick={() => {
-						const formSquadList = form.values['squadList'];
-						if (isEmpty(formSquadList)) return;
-						let num = 1;
-						formSquadList.forEach(squad => squad.slotList.forEach(slot => {
-							slot.number = num;
-							num++;
-						}));
-						form.setFieldValue('squadList', formSquadList);
-					}}>Neu nummerieren</Button>
+					<RenumberSlots {...props}/>
 				</Group>
 			</Group>
 

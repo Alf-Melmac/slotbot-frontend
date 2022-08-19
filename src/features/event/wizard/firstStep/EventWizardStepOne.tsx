@@ -1,14 +1,14 @@
-import {Autocomplete, Grid, MediaQuery, Select, Stack, TextInput, Title} from '@mantine/core';
-import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMaxLength';
-import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
-import {IconSwitch} from '../../../components/Form/IconSwitch';
+import {Autocomplete, Grid, Select, Stack, TextInput, Title} from '@mantine/core';
+import {TextInputMaxLength} from '../../../../components/Form/MaxLength/TextInputMaxLength';
+import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
+import {IconSwitch} from '../../../../components/Form/IconSwitch';
 import {faCalendarDay, faClock, faEye, faEyeSlash, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {DatePicker, TimeInput} from '@mantine/dates';
 import {EventTypeMask} from './EventTypeMask';
-import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
-import {EventWizardStepProps} from './EventWizard';
-import {ElementWithInfo} from '../../../components/Text/ElementWithInfo';
+import {TextareaMaxLength} from '../../../../components/Form/MaxLength/TextareaMaxLength';
+import {EventWizardStepProps} from '../EventWizard';
+import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 
 
 function EventTitle(props: EventWizardStepProps): JSX.Element {
@@ -37,36 +37,28 @@ export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 		<>
 			<Title order={2} mb={'xs'}>Allgemeine Informationen</Title>
 
-			<MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
-				<Grid>
-					<Grid.Col span={9}>
-						<EventTitle {...props}/>
-					</Grid.Col>
-					<Grid.Col span={3}>
-						<Stack align={'flex-start'} spacing={'xs'}>
-							<EventShareableAndHidden {...props}/>
-						</Stack>
-					</Grid.Col>
-				</Grid>
-			</MediaQuery>
-			<MediaQuery largerThan={'md'} styles={{display: 'none'}}>
-				<Stack spacing={'xs'}>
-					<EventTitle {...props}/>
-					<EventShareableAndHidden {...props}/>
-				</Stack>
-			</MediaQuery>
 			<Grid>
-				<Grid.Col span={4}>
+				<Grid.Col md={9} span={12}>
+					<EventTitle {...props}/>
+				</Grid.Col>
+				<Grid.Col md={3} span={12}>
+					<Stack align={'flex-start'} spacing={'xs'}>
+						<EventShareableAndHidden {...props}/>
+					</Stack>
+				</Grid.Col>
+			</Grid>
+			<Grid>
+				<Grid.Col md={4} span={6}>
 					<DatePicker allowFreeInput minDate={new Date()} clearable={false} required
 								label={'Datum'} icon={<FontAwesomeIcon icon={faCalendarDay}/>}
 								placeholder={'Event Datum'} {...form.getInputProps('date')}/>
 				</Grid.Col>
-				<Grid.Col span={4}>
+				<Grid.Col md={4} span={6}>
 					<TimeInput clearable={false} required label={'Startzeit'}
 							   icon={<FontAwesomeIcon icon={faClock}/>} placeholder={'Event Datum'}
 							   {...form.getInputProps('startTime')}/>
 				</Grid.Col>
-				<Grid.Col span={4}>
+				<Grid.Col md={4} span={12}>
 					<TextInputMaxLength label={'Ersteller'} maxLength={TEXT} required
 										useFormReturn={form} inputProp={'creator'}/>
 				</Grid.Col>
