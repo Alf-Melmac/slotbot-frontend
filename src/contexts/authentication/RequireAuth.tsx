@@ -3,8 +3,7 @@ import {useAuth} from './AuthProvider';
 import {OnMount} from '../../components/OnMount';
 import {ApplicationRoles} from './authenticationTypes';
 import {Navigate} from 'react-router-dom';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
-import {useQuery} from '@tanstack/react-query';
+import checkAccessQuery from './checkAccessQuery';
 
 type RequireAuthProps = {
 	children: ReactNode,
@@ -16,12 +15,11 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
 
 	const {user, login} = useAuth();
 
-	const getAllowedToAccess = () => slotbotServerClient.get(`/authentication/access/${authority}`).then((res) => res.data);
-	const query = useQuery<boolean>(['allowedToAccess', authority], getAllowedToAccess, {enabled: !!authority});
+	const {query, accessAllowed} = checkAccessQuery(authority);
 
 	if (user === undefined || query.isLoading) return <></>;
 
-	let allowed = authority && query.data;
+	let allowed = authority && accessAllowed;
 	return <>
 		{user ?
 			allowed ?
