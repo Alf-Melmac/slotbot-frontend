@@ -4,7 +4,7 @@ import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@manti
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useScrollIntoView} from '@mantine/hooks';
-import {fetchEventDetails} from './EventDetailsFetcher';
+import {fetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';

@@ -1,5 +1,6 @@
 import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
 
+//region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
 	missionType: string;
 	eventType: EventTypeDto;
@@ -46,9 +47,9 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	occupied: boolean;
 	blocked: boolean;
 }
+//endregion event details
 
-//E
-export interface EventPostDto {
+interface EventActionDto {
 	hidden: boolean;
 	shareable: boolean;
 	name: string;
@@ -60,9 +61,13 @@ export interface EventPostDto {
 	missionType: string;
 	missionLength: string;
 	pictureUrl: string;
+	reserveParticipating?: boolean;
+}
+
+//region event post
+export interface EventPostDto extends EventActionDto {
 	details: EventFieldDto[];
 	squadList: SquadDto[];
-	reserveParticipating?: boolean;
 }
 
 interface EventFieldDto extends FrontendIdDto {
@@ -82,4 +87,28 @@ export interface SlotDto extends FrontendIdDto {
 	reservedFor?: string;
 	blocked: boolean;
 	replacementText?: string;
+}
+//endregion event post
+
+//region event edit
+export interface EventEditDto extends EventActionDto {
+	details: EventFieldIdDto[];
+	squadList: SquadIdDto[];
+}
+
+interface EventFieldIdDto extends Omit<EventFieldDto, 'id'>, IdEntity {
+}
+
+interface SquadIdDto extends AbstractIdEntityDto {
+	name: string;
+	slotList: SlotIdDto[];
+	reservedFor: string;
+}
+
+interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
+}
+//endregion event edit
+
+interface IdEntity {
+	id: number;
 }
