@@ -11,13 +11,10 @@ import {GeneralError} from '../../../components/error/GeneralError';
 import {EventFields} from './EventFields';
 import {EventSlotlist} from './EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
-
-type EventDetailsProps = {
-	eventId: string,
-};
+import {EventPageParams} from '../EventRoutes';
 
 export function EventDetails(): JSX.Element {
-	const {eventId} = useParams<EventDetailsProps>();
+	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error('Invalid state: Event id required');
 
 	const theme = useMantineTheme();
