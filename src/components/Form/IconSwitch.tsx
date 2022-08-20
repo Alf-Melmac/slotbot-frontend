@@ -2,7 +2,6 @@ import {createStyles, Switch, SwitchProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {UseFormReturnType} from '@mantine/form';
-import {EventPostDto} from '../../features/event/eventTypes';
 
 const useStyles = createStyles(() => ({
 	root: {
@@ -28,15 +27,15 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-type IconSwitchProps = {
+type IconSwitchProps<FormReturnType> = {
 	onIcon: IconProp;
 	offIcon: IconProp;
 	label: SwitchProps['label'];
-	useFormReturn: UseFormReturnType<EventPostDto>;
-	inputProp: keyof EventPostDto;
+	useFormReturn: UseFormReturnType<FormReturnType>;
+	inputProp: keyof FormReturnType;
 };
 
-export function IconSwitch(props: IconSwitchProps): JSX.Element {
+export function IconSwitch<FormReturnType>(props: IconSwitchProps<FormReturnType>): JSX.Element {
 	const {onIcon, offIcon, label, useFormReturn, inputProp} = props;
 
 	const {classes, cx} = useStyles();
