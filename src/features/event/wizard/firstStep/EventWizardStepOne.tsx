@@ -1,52 +1,23 @@
-import {Autocomplete, Grid, Select, Stack, TextInput, Title} from '@mantine/core';
-import {TextInputMaxLength} from '../../../../components/Form/MaxLength/TextInputMaxLength';
+import {Autocomplete, Grid, Select, TextInput} from '@mantine/core';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
-import {IconSwitch} from '../../../../components/Form/IconSwitch';
-import {faCalendarDay, faClock, faEye, faEyeSlash, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarDay, faClock} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {DatePicker, TimeInput} from '@mantine/dates';
 import {EventTypeMask} from './EventTypeMask';
 import {TextareaMaxLength} from '../../../../components/Form/MaxLength/TextareaMaxLength';
 import {EventWizardStepProps} from '../EventWizard';
-import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
-
-
-function EventTitle(props: EventWizardStepProps): JSX.Element {
-	return <TextInputMaxLength label={'Titel'} placeholder={'Event Name'} maxLength={TEXT} required
-							   useFormReturn={props.form} inputProp={'name'}/>;
-}
-
-function EventShareableAndHidden(props: EventWizardStepProps): JSX.Element {
-	return <>
-		<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
-					label={<ElementWithInfo text={'Teilen erlauben'}
-											tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
-					useFormReturn={props.form} inputProp={'shareable'}/>
-
-		<IconSwitch onIcon={faEye} offIcon={faEyeSlash}
-					label={<ElementWithInfo text={'Sichtbarkeit'}
-											tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
-					useFormReturn={props.form} inputProp={'hidden'}/>
-	</>;
-}
+import {EventActionPageTitle} from '../../action/EventActionPage';
+import {RequiredInformation} from '../../action/generalInformation/RequiredInformation';
+import {TextInputMaxLength} from '../../../../components/Form/MaxLength/TextInputMaxLength';
 
 export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 	const {form} = props;
 
 	return (
 		<>
-			<Title order={2} mb={'xs'}>Allgemeine Informationen</Title>
+			<EventActionPageTitle>Allgemeine Informationen</EventActionPageTitle>
 
-			<Grid>
-				<Grid.Col md={9} span={12}>
-					<EventTitle {...props}/>
-				</Grid.Col>
-				<Grid.Col md={3} span={12}>
-					<Stack align={'flex-start'} spacing={'xs'}>
-						<EventShareableAndHidden {...props}/>
-					</Stack>
-				</Grid.Col>
-			</Grid>
+			<RequiredInformation {...props}/>
 			<Grid>
 				<Grid.Col md={4} span={6}>
 					<DatePicker allowFreeInput minDate={new Date()} clearable={false} required
@@ -60,7 +31,7 @@ export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 				</Grid.Col>
 				<Grid.Col md={4} span={12}>
 					<TextInputMaxLength label={'Ersteller'} maxLength={TEXT} required
-										useFormReturn={form} inputProp={'creator'}/>
+										{...form.getInputProps('creator')}/>
 				</Grid.Col>
 			</Grid>
 			<EventTypeMask form={form}/>

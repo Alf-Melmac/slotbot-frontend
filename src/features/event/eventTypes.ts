@@ -94,6 +94,7 @@ export interface SlotDto extends FrontendIdDto {
 export interface EventEditDto extends EventActionDto {
 	details: EventFieldIdDto[];
 	squadList: SquadIdDto[];
+	canRevokeShareable: boolean;
 }
 
 interface EventFieldIdDto extends Omit<EventFieldDto, 'id'>, IdEntity {
