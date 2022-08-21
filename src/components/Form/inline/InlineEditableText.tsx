@@ -28,8 +28,8 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 	const ref = useClickOutside(cancel);
 
 	const textInputProps = omit(props, ['onSubmit', 'onCancel']);
-	return (
-		<>{viewMode ?
+	return <>
+		{viewMode ?
 			<TextInput {...props} onFocus={() => setViewMode(false)} readOnly rightSection={
 				<ActionIcon onClick={() => setViewMode(false)}><FontAwesomeIcon icon={faPen}/></ActionIcon>}
 			/>
@@ -46,19 +46,20 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
                     </Group>
 				}
 			</>
-		}</>
-	);
+		}
+	</>;
 }
 
 function EditMode(props: InlineEditableProps): JSX.Element {
 	const textInputProps = omit(props, ['onSubmit', 'onCancel']);
+	const marginTop = (props.position === 'group' && props.label) ? 25 : undefined;
 	return <>
 		{props.maxLength ?
 			<TextInputMaxLength {...textInputProps} autoFocus/>
 			:
 			<TextInput {...textInputProps} autoFocus/>
 		}
-		<Group position={'right'} spacing={'xs'}>
+		<Group position={'right'} spacing={'xs'} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={props.onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
 			</ActionIcon>
