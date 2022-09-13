@@ -1,53 +1,42 @@
-import {createStyles, Switch, SwitchProps} from '@mantine/core';
+import {Box, createStyles, Switch, SwitchProps, Tooltip} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-import {UseFormReturnType} from '@mantine/form';
+import {omit} from 'lodash';
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((_theme, disabled: boolean) => ({
 	root: {
-		position: 'relative',
 		'& *': {
-			cursor: 'pointer',
+			cursor: disabled ? 'not-allowed' : 'pointer',
 		},
-	},
-
-	icon: {
-		pointerEvents: 'none',
-		position: 'absolute',
-		zIndex: 1,
-		top: 5,
-	},
-
-	iconOn: {
-		left: 5,
-	},
-
-	iconOff: {
-		left: 23,
 	},
 }));
 
-type IconSwitchProps<FormReturnType> = {
+interface IconSwitchProps extends SwitchProps {
 	onIcon: IconProp;
 	offIcon: IconProp;
-	label: SwitchProps['label'];
-	useFormReturn: UseFormReturnType<FormReturnType>;
-	inputProp: keyof FormReturnType;
-};
+}
 
-export function IconSwitch<FormReturnType>(props: IconSwitchProps<FormReturnType>): JSX.Element {
-	const {onIcon, offIcon, label, useFormReturn, inputProp} = props;
+export function IconSwitch(props: IconSwitchProps): JSX.Element {
+	const {onIcon, offIcon, disabled, title} = props;
+	const {classes} = useStyles(!!disabled);
 
-	const {classes, cx} = useStyles();
-
-	return (
-		<div className={classes.root}>
-			{useFormReturn.values[inputProp] ?
-				<FontAwesomeIcon icon={onIcon} className={cx(classes.icon, classes.iconOn)} size={'sm'}/>
-				:
-				<FontAwesomeIcon icon={offIcon} className={cx(classes.icon, classes.iconOff)} size={'sm'}/>
-			}
-			<Switch size="md" label={label} {...useFormReturn.getInputProps(inputProp, {type: 'checkbox'})}/>
-		</div>
-	);
+	return <>
+		{title ?
+			<Tooltip className={classes.root} label={props.title}>
+				<Box>
+					<Switch size={'md'}
+							onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'}/>}
+							offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'}/>}
+							{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
+				</Box>
+			</Tooltip>
+			:
+			<div className={classes.root}>
+				<Switch size={'md'}
+						onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'}/>}
+						offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'}/>}
+						{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
+			</div>
+		}
+	</>;
 }
