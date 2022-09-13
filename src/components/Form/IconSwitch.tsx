@@ -25,16 +25,16 @@ export function IconSwitch(props: IconSwitchProps): JSX.Element {
 			<Tooltip className={classes.root} label={props.title}>
 				<Box>
 					<Switch size={'md'}
-							onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'}/>}
-							offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'}/>}
+							onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
+							offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
 							{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
 				</Box>
 			</Tooltip>
 			:
 			<div className={classes.root}>
 				<Switch size={'md'}
-						onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'}/>}
-						offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'}/>}
+						onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
+						offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
 						{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
 			</div>
 		}

@@ -1,7 +1,7 @@
 import {EventAction} from '../EventActionPage';
 import {RequiredInformationProps} from './RequiredInformation';
 import {IconSwitch} from '../../../../components/Form/IconSwitch';
-import {faEye, faEyeSlash, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faEyeSlash, faUserNinja, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 
 export function EventPrivacySettings<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
@@ -14,8 +14,8 @@ export function EventPrivacySettings<FormReturnType extends EventAction>(props: 
                     disabled={!canRevokeShareable} title={!canRevokeShareable ? 'Wurde bereits von einer anderen Community hinzugefügt.' : undefined}
                     {...form.getInputProps('shareable', {type: 'checkbox'})}/>
 
-        <IconSwitch onIcon={faEye} offIcon={faEyeSlash}
-                    label={<ElementWithInfo text={'Sichtbarkeit'}
+        <IconSwitch onIcon={Math.random() < 0.9 ? faEyeSlash : faUserNinja} offIcon={faEye}
+                    label={<ElementWithInfo text={'Versteckt'}
                                             tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
                     {...form.getInputProps('hidden', {type: 'checkbox'})}/>
     </>;
