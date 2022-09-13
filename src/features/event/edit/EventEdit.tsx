@@ -42,7 +42,7 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 				<RequiredInformation form={form} canRevokeShareable={event.canRevokeShareable} editMode/>
 
 				<Code block mt={'lg'}>
-					{JSON.stringify(event, null, 2)}
+					{JSON.stringify(form.values, null, 2)}
 				</Code>
 			</Container>
 		</Nav>

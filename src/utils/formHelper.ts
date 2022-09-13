@@ -1,4 +1,6 @@
 import {UseFormReturnType} from '@mantine/form';
+import {GetInputProps} from '@mantine/form/lib/types';
+import {ChangeEventHandler} from 'react';
 
 function requiredField(length: number, check: () => React.ReactNode): React.ReactNode {
 	return length < 1 ? 'Pflichtfeld' : check();
@@ -21,4 +23,13 @@ export function validate(check: boolean, error: string): React.ReactNode {
  */
 export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
 	return form.getInputProps(path).value;
+}
+
+export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, additionalChangeHandler?: ChangeEventHandler<HTMLInputElement>): ChangeEventHandler<HTMLInputElement> {
+	return (event) => {
+		inputProps.onChange(event);
+		if (additionalChangeHandler) {
+			additionalChangeHandler(event);
+		}
+	};
 }
