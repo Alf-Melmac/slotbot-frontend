@@ -5,7 +5,7 @@ import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-ic
 import {TEXT} from '../../../../utils/maxLength';
 import {useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
-import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
+import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {changeHandler} from '../../../../utils/formHelper';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;

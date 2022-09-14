@@ -2,9 +2,10 @@ import {EventAction, EventActionPageProps} from './EventActionPage';
 import {InlineEditableText} from '../../../components/Form/inline/InlineEditableText';
 import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMaxLength';
 import {useState} from 'react';
+import {TextInputProps} from '@mantine/core';
 
 type FormTextInputProps<FormReturnType> = EventActionPageProps<FormReturnType> & {
-	inputProps: any;
+	inputProps: TextInputProps;
 	formPath: string;
 };
 

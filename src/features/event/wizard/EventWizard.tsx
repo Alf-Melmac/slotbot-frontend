@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
 import {EventDetailsDto, EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
-import {randomColor} from './firstStep/EventTypeInputs';
+import {randomColor} from '../action/generalInformation/EventTypeInputs';
 import {EventWizardStepOne} from './firstStep/EventWizardStepOne';
 import {EventWizardStepTwo} from './secondStep/EventWizardStepTwo';
 import {EventWizardStepThree} from './thirdStep/EventWizardStepThree';

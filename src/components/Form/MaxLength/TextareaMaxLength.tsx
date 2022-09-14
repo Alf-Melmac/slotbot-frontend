@@ -1,19 +1,12 @@
 import {VerticalTextarea} from '../VerticalTextarea';
-import {UseFormReturnType} from '@mantine/form';
-import {omit} from 'lodash';
 import {MaxLengthHelper} from './MaxLengthHelper';
 import {TextareaProps} from '@mantine/core';
 
-export function TextareaMaxLength<FormReturnType>(props: TextareaProps & { useFormReturn: UseFormReturnType<FormReturnType>, inputProp: keyof FormReturnType }): JSX.Element {
-	const {maxLength, useFormReturn, inputProp} = props;
+export function TextareaMaxLength(props: TextareaProps): JSX.Element {
+	const {maxLength, value} = props;
 
-	const value = useFormReturn?.values[inputProp];
 	if (typeof value !== 'string') {
-		throw Error('Wrong component used or wrong inputProp defined.');
+		throw Error('Wrong component used.');
 	}
-	return (
-		<VerticalTextarea {...omit(props, ['useFormReturn', 'inputProp'])}
-						  {...useFormReturn?.getInputProps(inputProp)}
-						  {...MaxLengthHelper(maxLength, value)}/>
-	);
+	return <VerticalTextarea {...props} {...MaxLengthHelper(maxLength, value)}/>;
 }
