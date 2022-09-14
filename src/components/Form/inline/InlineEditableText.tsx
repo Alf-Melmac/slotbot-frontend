@@ -27,7 +27,7 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 	};
 	const ref = useClickOutside(cancel);
 
-	const textInputProps = omit(props, ['onSubmit', 'onCancel']);
+	const inputProps = omit(props, ['onSubmit', 'onCancel']);
 	return <>
 		{viewMode ?
 			<TextInput {...props} onFocus={() => setViewMode(false)} readOnly rightSection={
@@ -37,12 +37,12 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 			<>
 				{position === 'stack' &&
                     <Stack spacing={'xs'} ref={ref}>
-                        <EditMode {...textInputProps} onSubmit={submit} onCancel={cancel}/>
+                        <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Stack>}
 
 				{position === 'group' &&
                     <Group spacing={'xs'} ref={ref} grow>
-                        <EditMode {...textInputProps} onSubmit={submit} onCancel={cancel}/>
+                        <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Group>
 				}
 			</>
@@ -51,19 +51,19 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 }
 
 function EditMode(props: InlineEditableProps): JSX.Element {
-	const textInputProps = omit(props, ['onSubmit', 'onCancel']);
 	const marginTop = (props.position === 'group' && props.label) ? 25 : undefined;
 	return <>
 		{props.maxLength ?
-			<TextInputMaxLength {...textInputProps} autoFocus/>
+			<TextInputMaxLength {...props} autoFocus/>
 			:
-			<TextInput {...textInputProps} autoFocus/>
+			<TextInput {...props} autoFocus/>
 		}
 		<Group position={'right'} spacing={'xs'} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={props.onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
 			</ActionIcon>
-			<ActionIcon variant={'filled'} color={'primary'} onClick={props.onSubmit}>
+			<ActionIcon variant={'filled'} color={'primary'} onClick={props.onSubmit}
+						disabled={props.required && !props.value}>
 				<FontAwesomeIcon icon={faCheck}/>
 			</ActionIcon>
 		</Group>
