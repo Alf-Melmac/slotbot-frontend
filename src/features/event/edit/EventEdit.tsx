@@ -6,7 +6,7 @@ import {EventEditDto} from '../eventTypes';
 import {EventActionPageTitle} from '../action/EventActionPage';
 import {RequiredInformation} from '../action/generalInformation/RequiredInformation';
 import {EventTypeMask} from '../action/generalInformation/EventTypeMask';
-import {EventDescription} from '../action/generalInformation/EventDescription';
+import {EventMisc} from '../action/generalInformation/EventMisc';
 
 export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable'>;
 
@@ -43,7 +43,7 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 				<EventActionPageTitle>Allgemeine Informationen</EventActionPageTitle>
 				<RequiredInformation form={form} canRevokeShareable={event.canRevokeShareable} editMode/>
 				<EventTypeMask form={form} editMode/>
-				<EventDescription form={form} editMode/>
+				<EventMisc form={form} editMode/>
 
 				<Code block mt={'lg'}>
 					{JSON.stringify(form.values, null, 2)}
