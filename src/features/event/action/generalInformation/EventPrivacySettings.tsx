@@ -4,13 +4,14 @@ import {IconSwitch} from '../../../../components/Form/IconSwitch';
 import {faEye, faEyeSlash, faUserNinja, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 import {changeHandler} from '../../../../utils/formHelper';
+import {Stack} from '@mantine/core';
 
 export function EventPrivacySettings<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
 	const {form, canRevokeShareable = true, editMode} = props;
 
 	const shareableInputProps = form.getInputProps('shareable', {type: 'checkbox'});
 	const hiddenInputProps = form.getInputProps('hidden', {type: 'checkbox'});
-	return <>
+	return <Stack align={'flex-start'} spacing={'xs'}>
 		<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
 					label={<ElementWithInfo text={'Teilen erlauben'}
 											tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
@@ -26,5 +27,5 @@ export function EventPrivacySettings<FormReturnType extends EventAction>(props: 
 					{...hiddenInputProps}
 			//TODO mutate
 					onChange={changeHandler(hiddenInputProps, editMode ? () => console.log(form.values.hidden) : undefined)}/>
-	</>;
+	</Stack>;
 }

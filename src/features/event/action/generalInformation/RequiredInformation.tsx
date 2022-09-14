@@ -1,4 +1,4 @@
-import {Grid, Stack} from '@mantine/core';
+import {Grid} from '@mantine/core';
 import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {EventTitle} from './EventTitle';
 import {EventPrivacySettings} from './EventPrivacySettings';
@@ -13,9 +13,7 @@ export function RequiredInformation<FormReturnType extends EventAction>(props: R
 				<EventTitle {...props}/>
 			</Grid.Col>
 			<Grid.Col md={3} span={12}>
-				<Stack align={'flex-start'} spacing={'xs'}>
-					<EventPrivacySettings {...props}/>
-				</Stack>
+				<EventPrivacySettings {...props}/>
 			</Grid.Col>
 		</Grid>
 	);
