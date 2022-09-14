@@ -20,7 +20,7 @@ export function EventActionTextInput<FormReturnType extends EventAction>(props: 
 								onSubmit={() => {
 									console.log(formInputProps.value); //TODO mutate
 									setOldValue(formInputProps.value);
-									/*@ts-ignore*/
+									/*@ts-ignore text input must accept strings*/
 								}} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
 			<TextInputMaxLength {...inputProps} {...formInputProps}/>

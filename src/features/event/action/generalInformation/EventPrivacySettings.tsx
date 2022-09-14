@@ -7,7 +7,7 @@ import {changeHandler} from '../../../../utils/formHelper';
 import {Stack} from '@mantine/core';
 
 export function EventPrivacySettings<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
-	const {form, canRevokeShareable = true, editMode} = props;
+	const {form, canRevokeShareable = true, editMode = false} = props;
 
 	const shareableInputProps = form.getInputProps('shareable', {type: 'checkbox'});
 	const hiddenInputProps = form.getInputProps('hidden', {type: 'checkbox'});
@@ -19,13 +19,13 @@ export function EventPrivacySettings<FormReturnType extends EventAction>(props: 
 					title={!canRevokeShareable ? 'Wurde bereits von einer anderen Community hinzugefügt.' : undefined}
 					{...shareableInputProps}
 			//TODO mutate
-					onChange={changeHandler(shareableInputProps, editMode ? () => console.log(form.values.shareable) : undefined)}/>
+					onChange={changeHandler(shareableInputProps, editMode, () => console.log(form.values.shareable))}/>
 
 		<IconSwitch onIcon={Math.random() < 0.9 ? faEyeSlash : faUserNinja} offIcon={faEye}
 					label={<ElementWithInfo text={'Versteckt'}
 											tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
 					{...hiddenInputProps}
 			//TODO mutate
-					onChange={changeHandler(hiddenInputProps, editMode ? () => console.log(form.values.hidden) : undefined)}/>
+					onChange={changeHandler(hiddenInputProps, editMode, () => console.log(form.values.hidden))}/>
 	</Stack>;
 }

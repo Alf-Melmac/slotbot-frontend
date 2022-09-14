@@ -13,7 +13,7 @@ export function EventWizardStepOne(props: EventWizardStepProps): JSX.Element {
 		<>
 			<EventActionPageTitle>Allgemeine Informationen</EventActionPageTitle>
 
-			<RequiredInformation {...props}/>
+			<RequiredInformation form={form}/>
 
 			<EventTypeMask form={form}/>
 			<TextareaMaxLength label={'Beschreibung'} placeholder={'Beschreibung'} autosize minRows={3}

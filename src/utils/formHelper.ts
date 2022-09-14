@@ -25,10 +25,17 @@ export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
 	return form.getInputProps(path).value;
 }
 
-export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, additionalChangeHandler?: ChangeEventHandler<HTMLInputElement>): ChangeEventHandler<HTMLInputElement> {
+/**
+ * Change handler to be use in onChange method after input props have been spread
+ *
+ * @param inputProps which includes the onChange handler for the form
+ * @param callAdditionalHandler boolean to determine if optional provided changeHandler should be called
+ * @param additionalChangeHandler additionally method called on change
+ */
+export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, callAdditionalHandler: boolean, additionalChangeHandler?: ChangeEventHandler<HTMLInputElement>): ChangeEventHandler<HTMLInputElement> {
 	return (event) => {
 		inputProps.onChange(event);
-		if (additionalChangeHandler) {
+		if (callAdditionalHandler && additionalChangeHandler) {
 			additionalChangeHandler(event);
 		}
 	};
