@@ -9,7 +9,7 @@ import {generatePath, useNavigate} from 'react-router-dom';
 import {EventPostDto} from '../eventTypes';
 import {AxiosError} from 'axios';
 import {cloneDeep} from 'lodash';
-import {parseToIsoDate, parseToIsoTime} from '../../../utils/dateHelper';
+import {formatDate, formatTime} from '../../../utils/dateHelper';
 import {useMutation} from '@tanstack/react-query';
 
 export function EventWizardFinish(props: EventWizardStepProps): JSX.Element {
@@ -17,9 +17,9 @@ export function EventWizardFinish(props: EventWizardStepProps): JSX.Element {
 
 	const formValues = cloneDeep(form.values);
 	// @ts-ignore At this point these must be Date's and not yet strings
-	formValues.date = parseToIsoDate(form.values.date);
+	formValues.date = formatDate(form.values.date);
 	// @ts-ignore
-	formValues.startTime = parseToIsoTime(form.values.startTime);
+	formValues.startTime = formatTime(form.values.startTime);
 
 	const [page, setPage] = useState(
 		<>
