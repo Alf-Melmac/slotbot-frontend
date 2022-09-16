@@ -14,7 +14,7 @@
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/react": "^5.11.2",
     "@mantine/core": "^5.3.0",
-    "@mantine/dates": "^5.3.0",
+    "@mantine/dates": "^5.3.2",
     "@mantine/dropzone": "^5.3.0",
     "@mantine/form": "^5.3.0",
     "@mantine/hooks": "^5.3.0",
