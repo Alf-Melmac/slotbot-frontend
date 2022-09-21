@@ -1,7 +1,7 @@
 import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
 import {EventActionTextarea} from '../EventActionTextarea';
-import {Autocomplete, Grid, Select} from '@mantine/core';
+import {Grid, Select} from '@mantine/core';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
