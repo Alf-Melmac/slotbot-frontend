@@ -14,7 +14,7 @@ export function EventActionTextInput<FormReturnType extends EventAction>(props: 
 
 	const formInputProps = form.getInputProps(formPath);
 
-	const [oldValue, setOldValue] = useState<string>(formInputProps.value.valueOf() || '');
+	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	return <>
 		{editMode ?
 			<InlineEditableText {...inputProps} position={'group'} {...formInputProps}

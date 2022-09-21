@@ -23,5 +23,19 @@ export function EventEditPage(): JSX.Element {
 	if (typeof event.startTime === 'string') {
 		event.startTime = parseTime(event.startTime);
 	}
+	//Prepare event edit string fields for display
+	if (event.description === null) {
+		event.description = '';
+	}
+	if (event.missionType === null) {
+		event.missionType = '';
+	}
+	if (event.missionLength === null) {
+		event.missionLength = '';
+	}
+	if (event.pictureUrl === null) {
+		event.pictureUrl = '';
+	}
+
 	return <EventEdit eventId={eventId} event={event}/>;
 }
