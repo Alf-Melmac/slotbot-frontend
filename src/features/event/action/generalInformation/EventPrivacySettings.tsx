@@ -7,7 +7,7 @@ import {changeHandler} from '../../../../utils/formHelper';
 import {Stack} from '@mantine/core';
 
 export function EventPrivacySettings<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
-	const {form, canRevokeShareable = true, editMode = false} = props;
+	const {form, canRevokeShareable = true, editMode} = props;
 
 	const shareableInputProps = form.getInputProps('shareable', {type: 'checkbox'});
 	const hiddenInputProps = form.getInputProps('hidden', {type: 'checkbox'});

@@ -14,7 +14,7 @@ const timeInputProps: TimeInputProps = {
 };
 
 export function EventStartTime<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {editMode = false, form} = props;
+	const {editMode, form} = props;
 
 	const startTimeInputProps = form.getInputProps('startTime');
 	const previous = usePrevious(startTimeInputProps.value);

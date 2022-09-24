@@ -14,7 +14,7 @@ const datePickerProps: DatePickerProps = {
 };
 
 export function EventDate<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {editMode = false, form} = props;
+	const {editMode, form} = props;
 
 	const dateInputProps = form.getInputProps('date');
 	const previous = usePrevious(dateInputProps.value);

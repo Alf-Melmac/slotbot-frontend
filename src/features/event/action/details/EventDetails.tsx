@@ -10,7 +10,7 @@ import {CounterBadge} from '../../../../components/Form/CounterBadge';
 const MAX_DETAILS = 23;
 
 export function EventDetails<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {form, editMode = false} = props;
+	const {form, editMode} = props;
 
 	const details = form.values.details.map((item, index) => (
 		<Group key={item.id} mt="xs">

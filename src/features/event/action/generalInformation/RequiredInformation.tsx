@@ -6,8 +6,9 @@ import {EventDate} from './EventDate';
 import {EventStartTime} from './EventStartTime';
 import {EventActionTextInput} from '../EventActionTextInput';
 
-export type RequiredInformationProps<FormReturnType = EventAction> =
-	EventActionPageProps<FormReturnType> & { canRevokeShareable?: boolean; }
+export type RequiredInformationProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
+	canRevokeShareable?: boolean;
+};
 
 export function RequiredInformation<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
 	return <>

@@ -7,7 +7,7 @@ import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 
 export function EventMisc<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {form, editMode = false} = props;
+	const {form, editMode} = props;
 
 	const missionTypeInputProps = form.getInputProps('missionType');
 	return <>

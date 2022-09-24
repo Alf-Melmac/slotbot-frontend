@@ -7,8 +7,6 @@ import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
 import {EventDetailsDto, EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 import {randomColor} from '../action/generalInformation/EventTypeInputs';
-import {EventWizardStepOne} from './firstStep/EventWizardStepOne';
-import {EventWizardStepTwo} from './secondStep/EventWizardStepTwo';
 import {EventWizardStepThree} from './thirdStep/EventWizardStepThree';
 import {EventWizardFinish} from './EventWizardFinish';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
@@ -18,6 +16,8 @@ import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {omit} from 'lodash';
 import {randomId} from '@mantine/hooks';
+import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
+import {EventDetailsPage} from '../action/details/EventDetailsPage';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
@@ -107,9 +107,9 @@ export function EventWizard(): JSX.Element {
 			data.squadList.forEach(squad => {
 				squad.id = randomId();
 				squad.slotList.forEach(slot => slot.id = randomId());
-			})
+			});
 			form.setValues(omit(data, ['date', 'startTime']) as EventPostDto);
-		}
+		},
 	});
 
 	const {user} = useAuth();
@@ -127,10 +127,10 @@ export function EventWizard(): JSX.Element {
 
 					<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
 						<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
-							<EventWizardStepOne form={form}/>
+							<EventGeneralInformation form={form}/>
 						</Stepper.Step>
 						<Stepper.Step label={'Event'} description={'Details'}>
-							<EventWizardStepTwo form={form}/>
+							<EventDetailsPage form={form}/>
 						</Stepper.Step>
 						<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
 							<EventWizardStepThree form={form}/>

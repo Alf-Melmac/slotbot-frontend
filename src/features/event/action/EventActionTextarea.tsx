@@ -4,13 +4,13 @@ import {TextareaProps} from '@mantine/core';
 import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
 import {InlineEditableTextarea} from '../../../components/Form/inline/InlineEditableTextarea';
 
-type FormTextInputProps<FormReturnType> = EventActionPageProps<FormReturnType> & {
+type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	inputProps: TextareaProps;
 	formPath: string;
 };
 
 export function EventActionTextarea<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode = false, inputProps, form, formPath} = props;
+	const {editMode, inputProps, form, formPath} = props;
 
 	const formInputProps = form.getInputProps(formPath);
 

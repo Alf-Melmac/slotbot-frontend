@@ -4,13 +4,13 @@ import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMa
 import {useState} from 'react';
 import {TextInputProps} from '@mantine/core';
 
-type FormTextInputProps<FormReturnType> = EventActionPageProps<FormReturnType> & {
+type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	inputProps: TextInputProps;
 	formPath: string;
 };
 
 export function EventActionTextInput<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode = false, inputProps, form, formPath} = props;
+	const {editMode, inputProps, form, formPath} = props;
 
 	const formInputProps = form.getInputProps(formPath);
 

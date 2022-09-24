@@ -10,12 +10,12 @@ import {changeHandler} from '../../../../utils/formHelper';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
-type EventTypeInputsProps<FormReturnType> = EventActionPageProps<FormReturnType> & {
+type EventTypeInputsProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;
 };
 
 export function EventTypeInputs<FormReturnType extends EventAction>(props: EventTypeInputsProps<FormReturnType>): JSX.Element {
-	const {query, form, editMode = false} = props;
+	const {query, form, editMode} = props;
 	const eventTypes = query.data;
 
 	function setEventTypeColor(color: EventTypeDto['color']): void {

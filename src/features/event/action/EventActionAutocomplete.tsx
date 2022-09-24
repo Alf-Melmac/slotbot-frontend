@@ -3,13 +3,13 @@ import {useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {InlineEditableAutocomplete} from '../../../components/Form/inline/InlineEditableAutocomplete';
 
-type FormTextInputProps<FormReturnType> = EventActionPageProps<FormReturnType> & {
+type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	inputProps: AutocompleteProps;
 	formPath: string;
 };
 
 export function EventActionAutocomplete<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode = false, inputProps, form, formPath} = props;
+	const {editMode, inputProps, form, formPath} = props;
 
 	const formInputProps = form.getInputProps(formPath);
 
