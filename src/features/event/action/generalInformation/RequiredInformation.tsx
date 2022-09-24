@@ -5,10 +5,11 @@ import {TEXT} from '../../../../utils/maxLength';
 import {EventDate} from './EventDate';
 import {EventStartTime} from './EventStartTime';
 import {EventActionTextInput} from '../EventActionTextInput';
+import {EventEditDto} from '../../eventTypes';
 
-export type RequiredInformationProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
-	canRevokeShareable?: boolean;
-};
+export type RequiredInformationProps<FormReturnType extends EventAction> =
+	EventActionPageProps<FormReturnType>
+	& Partial<Pick<EventEditDto, 'canRevokeShareable'>>;
 
 export function RequiredInformation<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
 	return <>

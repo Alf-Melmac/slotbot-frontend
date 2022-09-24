@@ -7,7 +7,7 @@ import {EventGeneralInformation} from '../action/generalInformation/EventGeneral
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 
-export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable'>;
+export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable' | 'canUploadSlotlist'>;
 
 type EventEditProps = {
 	eventId: string;
@@ -39,15 +39,18 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 			<Container>
 				<Breadcrumb items={breadcrumbItems}/>
 
+				{/*@ts-ignore Should work just like in wizard...*/}
 				<EventGeneralInformation form={form} canRevokeShareable={event.canRevokeShareable} editMode/>
 
 				<Divider my={'lg'}/>
 
+				{/*@ts-ignore Should work just like in wizard...*/}
 				<EventDetailsPage form={form} editMode/>
 
 				<Divider my={'lg'}/>
 
-				<EventSlotlist form={form} editMode/>
+				{/*@ts-ignore Should work just like in wizard...*/}
+				<EventSlotlist form={form} canUploadSlotlist={event.canUploadSlotlist} editMode/>
 
 				<Code block mt={'lg'}>
 					{JSON.stringify(form.values, null, 2)}

@@ -1,23 +1,23 @@
-import {GuildDto, SlotDto, SquadDto} from '../../eventTypes';
+import {GuildDto, SlotDto} from '../../eventTypes';
 import {useState} from 'react';
 import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
-import {EventWizardStepProps} from '../EventWizard';
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';
+import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
 
-export type SlotListEntrySettingsProps = {
-	entry: SquadDto | SlotDto;
-	form: EventWizardStepProps['form'];
+export type SlotListEntrySettingsProps<FormReturnType extends EventAction> = {
+	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
+	form: EventActionPageProps<FormReturnType>['form'];
 	path: string;
 	index: number;
 	slot?: boolean;
 	guildsQuery: UseQueryResult<GuildDto[], Error>
 };
 
-export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.Element {
+export function SlotListEntrySettings<FormReturnType extends EventAction>(props: SlotListEntrySettingsProps<FormReturnType>): JSX.Element {
 	const {entry, form, path, index, slot = false, guildsQuery} = props;
 	const [opened, setOpened] = useState(false);
 
@@ -53,7 +53,7 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 }
 
 type SlotListEntryModalHeaderModalHeaderProps = {
-	entry: SquadDto | SlotDto;
+	entry: EventAction['squadList'][number] | EventAction['squadList'][number]['slotList'][number];
 	isSlot: boolean;
 }
 

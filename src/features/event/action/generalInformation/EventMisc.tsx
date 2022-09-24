@@ -32,7 +32,7 @@ export function EventMisc<FormReturnType extends EventAction>(props: EventAction
 					label: 'Missionslänge',
 					placeholder: 'Freitext',
 					maxLength: TEXT,
-					data: ['2 Stunden', '3 Stunden', 'über 4 Stunden']
+					data: ['2 Stunden', '3 Stunden', 'über 4 Stunden'],
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
 			<Grid.Col span={4}>

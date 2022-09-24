@@ -1,5 +1,5 @@
 import {useForm, UseFormReturnType} from '@mantine/form';
-import {Button, Container, Group, Stepper} from '@mantine/core';
+import {Button, Code, Container, Group, Stepper} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useEffect, useState} from 'react';
@@ -7,7 +7,6 @@ import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../utils/maxLength';
 import {EventDetailsDto, EventPostDto} from '../eventTypes';
 import {maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 import {randomColor} from '../action/generalInformation/EventTypeInputs';
-import {EventWizardStepThree} from './thirdStep/EventWizardStepThree';
 import {EventWizardFinish} from './EventWizardFinish';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {PageFooter} from '../../../components/PageFooter/PageFooter';
@@ -18,6 +17,7 @@ import {omit} from 'lodash';
 import {randomId} from '@mantine/hooks';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
+import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 
 export type EventWizardStepProps = {
 	form: UseFormReturnType<EventPostDto>;
@@ -133,7 +133,7 @@ export function EventWizard(): JSX.Element {
 							<EventDetailsPage form={form}/>
 						</Stepper.Step>
 						<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
-							<EventWizardStepThree form={form}/>
+							<EventSlotlist form={form}/>
 						</Stepper.Step>
 
 						<Stepper.Completed>

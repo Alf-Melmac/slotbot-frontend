@@ -2,20 +2,20 @@ import {Alert, Select} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
-import {EventWizardStepProps} from '../EventWizard';
 import {GuildDto} from '../../eventTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
+import {EventAction} from '../../action/EventActionPage';
 
-type SlotListEntryReservationSettingProps = {
+type SlotListEntryReservationSettingProps<FormReturnType extends EventAction> = {
 	data?: GuildDto[];
-	form: EventWizardStepProps['form'];
-	path: SlotListEntrySettingsProps['path'];
-	index: SlotListEntrySettingsProps['index'];
+	form: SlotListEntrySettingsProps<FormReturnType>['form'];
+	path: SlotListEntrySettingsProps<FormReturnType>['path'];
+	index: SlotListEntrySettingsProps<FormReturnType>['index'];
 	slot: boolean;
 };
 
-export function SlotListEntryReservationSetting(props: SlotListEntryReservationSettingProps): JSX.Element {
+export function SlotListEntryReservationSetting<FormReturnType extends EventAction>(props: SlotListEntryReservationSettingProps<FormReturnType>): JSX.Element {
 	return (
 		!props.data ?
 			<>
@@ -33,7 +33,7 @@ export function SlotListEntryReservationSetting(props: SlotListEntryReservationS
 	);
 }
 
-function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSettingProps): JSX.Element {
+function SlotListEntryReservationSettingSelect<FormReturnType extends EventAction>(props: SlotListEntryReservationSettingProps<FormReturnType>): JSX.Element {
 	const {data = [], form, path, index, slot} = props; //Shouldn't be used with undefined data prop
 
 	let placeholder = 'Nicht reserviert';

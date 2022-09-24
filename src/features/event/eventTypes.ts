@@ -95,6 +95,7 @@ export interface EventEditDto extends EventActionDto {
 	details: EventFieldIdDto[];
 	squadList: SquadIdDto[];
 	canRevokeShareable: boolean;
+	canUploadSlotlist: boolean;
 }
 
 interface EventFieldIdDto extends Omit<EventFieldDto, 'id'>, IdEntity {

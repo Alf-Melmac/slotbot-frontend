@@ -20,10 +20,10 @@ import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../../eventTypes';
 import {AxiosError} from 'axios';
-import {EventWizardStepProps} from '../EventWizard';
 import {randomId} from '@mantine/hooks';
+import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
 
-export function UploadSlotlist(props: EventWizardStepProps): JSX.Element {
+export function UploadSlotlist<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
 	const [opened, setOpened] = useState(false);
 
 	const closeModal = () => setOpened(false);
@@ -66,11 +66,11 @@ const useStyles = createStyles((theme, hasError: boolean) => ({
 	},
 }));
 
-type SqmDropzoneProps = {
+type SqmDropzoneProps<FormReturnType extends EventAction> = {
 	closeModal: () => void
-} & EventWizardStepProps
+} & EventActionPageProps<FormReturnType>
 
-function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
+function SqmDropzone<FormReturnType extends EventAction>(props: SqmDropzoneProps<FormReturnType>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
 	const [hasError, setHasError] = useState(false);
@@ -104,6 +104,7 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 					}
 				});
 			});
+			// @ts-ignore These can no longer be existing slots for editing. Therefore, the "new squad"-type can be forced
 			props.form.setFieldValue('squadList', squadList);
 			props.closeModal();
 		},

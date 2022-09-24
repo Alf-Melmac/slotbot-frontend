@@ -2,9 +2,11 @@ import {EventAction, EventActionPageTitle, EventActionWrapperProps} from '../Eve
 import {RequiredInformation} from './RequiredInformation';
 import {EventTypeMask} from './EventTypeMask';
 import {EventMisc} from './EventMisc';
+import {EventEditDto} from '../../eventTypes';
 
 type EventGeneralInformationProps<FormReturnType extends EventAction> =
-	EventActionWrapperProps<FormReturnType> & { canRevokeShareable?: boolean; }
+	EventActionWrapperProps<FormReturnType>
+	& Partial<Pick<EventEditDto, 'canRevokeShareable'>>;
 
 export function EventGeneralInformation<FormReturnType extends EventAction>(props: EventGeneralInformationProps<FormReturnType>): JSX.Element {
 	const {form, editMode = false, canRevokeShareable} = props;

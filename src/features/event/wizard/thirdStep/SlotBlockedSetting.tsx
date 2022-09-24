@@ -3,17 +3,17 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faLock, faLockOpen} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
-import {EventWizardStepProps} from '../EventWizard';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
 import {getFormFieldValue} from '../../../../utils/formHelper';
+import {EventAction} from '../../action/EventActionPage';
 
-type SlotBlockedSettingProps = {
-	form: EventWizardStepProps['form'];
-	path: SlotListEntrySettingsProps['path'];
-	index: SlotListEntrySettingsProps['index'];
+type SlotBlockedSettingProps<FormReturnType extends EventAction> = {
+	form: SlotListEntrySettingsProps<FormReturnType>['form'];
+	path: SlotListEntrySettingsProps<FormReturnType>['path'];
+	index: SlotListEntrySettingsProps<FormReturnType>['index'];
 };
 
-export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element {
+export function SlotBlockedSetting<FormReturnType extends EventAction>(props: SlotBlockedSettingProps<FormReturnType>): JSX.Element {
 	const {form, path, index} = props;
 	const blocked = getFormFieldValue(form, `${path}.${index}.blocked`);
 
@@ -23,6 +23,7 @@ export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element 
 					   mt={'sm'}>
 			<Group spacing={'xs'} mt={6}>
 				<ActionIcon variant={'transparent'} size={'lg'}
+					/*@ts-ignore blocked is always a boolean*/
 							onClick={() => form.setFieldValue(`${path}.${index}.blocked`, !blocked)}>
 					<FontAwesomeIcon icon={blocked ? faLock : faLockOpen} size={'lg'}/>
 				</ActionIcon>

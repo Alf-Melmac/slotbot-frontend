@@ -20,11 +20,12 @@ export function EventStartTime<FormReturnType extends EventAction>(props: EventA
 	const previous = usePrevious(startTimeInputProps.value);
 	return <>
 		{editMode ?
-			<TimeInput {...timeInputProps} {...startTimeInputProps} onChange={changeHandler(startTimeInputProps, true, () => {
-				if (form.values.date !== previous) {
-					console.log(form.values.startTime); // TODO mutate
-				}
-			})}/>
+			<TimeInput {...timeInputProps} {...startTimeInputProps}
+					   onChange={changeHandler(startTimeInputProps, true, () => {
+						   if (form.values.date !== previous) {
+							   console.log(form.values.startTime); // TODO mutate
+						   }
+					   })}/>
 			:
 			<TimeInput {...timeInputProps} {...startTimeInputProps}/>
 		}
