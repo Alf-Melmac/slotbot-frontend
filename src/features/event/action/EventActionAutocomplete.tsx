@@ -13,7 +13,7 @@ export function EventActionAutocomplete<FormReturnType extends EventAction>(prop
 
 	const formInputProps = form.getInputProps(formPath);
 
-	const [oldValue, setOldValue] = useState<string>(formInputProps.value.valueOf() || '');
+	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	return <>
 		{editMode ?
 			<InlineEditableAutocomplete {...inputProps} position={'group'} {...formInputProps}

@@ -46,9 +46,9 @@ export function EventDetails<FormReturnType extends EventAction>(props: EventAct
 		</Group>
 
 		{editMode &&
-			<Group position={'right'}>
-                <Button onClick={() => {/*TODO mutate*/}}>Felder speichern</Button>
-			</Group>
+            <Group position={'right'}>
+                <Button onClick={() => {/*TODO mutate*/}} disabled={!form.isDirty('details')}>Felder speichern</Button>
+            </Group>
 		}
 	</>;
 }
