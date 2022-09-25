@@ -1,4 +1,4 @@
-import {ActionIcon, Group, Stack, TextInput, TextInputProps} from '@mantine/core';
+import {ActionIcon, Box, Group, Stack, TextInput, TextInputProps} from '@mantine/core';
 import {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faPen, faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -41,7 +41,7 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
                     </Stack>}
 
 				{position === 'group' &&
-                    <Group spacing={'xs'} ref={ref} grow>
+                    <Group spacing={'xs'} ref={ref}>
                         <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Group>
 				}
@@ -53,11 +53,13 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 function EditMode(props: InlineEditableProps): JSX.Element {
 	const marginTop = (props.position === 'group' && props.label) ? 25 : undefined;
 	return <>
-		{props.maxLength ?
-			<TextInputMaxLength {...props} autoFocus/>
-			:
-			<TextInput {...props} autoFocus/>
-		}
+		<Box style={{flexGrow: props.position === 'group' ? 1 : undefined}}>
+			{props.maxLength ?
+				<TextInputMaxLength {...props} autoFocus/>
+				:
+				<TextInput {...props} autoFocus/>
+			}
+		</Box>
 		<Group position={'right'} spacing={'xs'} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={props.onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>

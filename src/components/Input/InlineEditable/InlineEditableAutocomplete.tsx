@@ -1,4 +1,4 @@
-import {ActionIcon, Autocomplete, AutocompleteProps, Group, Stack} from '@mantine/core';
+import {ActionIcon, Autocomplete, AutocompleteProps, Box, Group, Stack} from '@mantine/core';
 import {useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faPen, faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +40,7 @@ export function InlineEditableAutocomplete(props: InlineEditableProps): JSX.Elem
                     </Stack>}
 
 				{position === 'group' &&
-                    <Group spacing={'xs'} ref={ref} grow>
+                    <Group spacing={'xs'} ref={ref}>
                         <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Group>
 				}
@@ -52,7 +52,9 @@ export function InlineEditableAutocomplete(props: InlineEditableProps): JSX.Elem
 function EditMode(props: InlineEditableProps): JSX.Element {
 	const marginTop = (props.position === 'group' && props.label) ? 25 : undefined;
 	return <>
-		<Autocomplete {...props} autoFocus/>
+		<Box style={{flexGrow: props.position === 'group' ? 1 : undefined}}>
+			<Autocomplete {...props} autoFocus/>
+		</Box>
 		<Group position={'right'} spacing={'xs'} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={props.onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
