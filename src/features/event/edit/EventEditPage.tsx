@@ -36,6 +36,9 @@ export function EventEditPage(): JSX.Element {
 	if (event.pictureUrl === null) {
 		event.pictureUrl = '';
 	}
+	if (event.reserveParticipating === null) {
+		event.reserveParticipating = undefined;
+	}
 
 	return <EventEdit eventId={eventId} event={event}/>;
 }
