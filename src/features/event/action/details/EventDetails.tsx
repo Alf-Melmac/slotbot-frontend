@@ -7,6 +7,7 @@ import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
+import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 
 const MAX_DETAILS = 23;
 
@@ -48,9 +49,11 @@ export function EventDetails<FormReturnType extends EventAction>(props: EventAct
 
 		{editMode &&
             <Group position={'right'}>
-                <PulsatingButton onClick={() => {
-					console.log(form.values.details);/*TODO mutate*/
-				}} disabled={!form.isDirty('details')}>Felder speichern</PulsatingButton>
+                <ScrollAffix show={form.isDirty('details')}>
+                    <PulsatingButton onClick={() => {
+						console.log(form.values.details);/*TODO mutate*/
+					}} disabled={!form.isDirty('details')}>Felder speichern</PulsatingButton>
+                </ScrollAffix>
             </Group>
 		}
 	</>;
