@@ -5,7 +5,7 @@ import {Box, Group, NumberInput, TextInput} from '@mantine/core';
 import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettings} from '../../wizard/thirdStep/SlotListEntrySettings';
-import {AddButton} from '../../../../components/Form/AddButton';
+import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
 import {includes, sortBy} from 'lodash';
 import {EventAction, EventActionPageProps} from '../EventActionPage';

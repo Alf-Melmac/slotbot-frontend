@@ -1,11 +1,12 @@
 import {EventAction, EventActionPageProps} from '../EventActionPage';
-import {ActionIcon, Button, Group, TextInput} from '@mantine/core';
+import {ActionIcon, Group, TextInput} from '@mantine/core';
 import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {AddButton} from '../../../../components/Form/AddButton';
+import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
+import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 
 const MAX_DETAILS = 23;
 
@@ -47,7 +48,9 @@ export function EventDetails<FormReturnType extends EventAction>(props: EventAct
 
 		{editMode &&
             <Group position={'right'}>
-                <Button onClick={() => {/*TODO mutate*/}} disabled={!form.isDirty('details')}>Felder speichern</Button>
+                <PulsatingButton onClick={() => {
+					console.log(form.values.details);/*TODO mutate*/
+				}} disabled={!form.isDirty('details')}>Felder speichern</PulsatingButton>
             </Group>
 		}
 	</>;

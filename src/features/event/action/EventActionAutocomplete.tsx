@@ -1,7 +1,7 @@
 import {EventAction, EventActionPageProps} from './EventActionPage';
 import {useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
-import {InlineEditableAutocomplete} from '../../../components/Form/inline/InlineEditableAutocomplete';
+import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditableAutocomplete';
 
 type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	inputProps: AutocompleteProps;

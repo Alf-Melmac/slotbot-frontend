@@ -1,4 +1,4 @@
-import {InlineEditableText} from '../../components/Form/inline/InlineEditableText';
+import {InlineEditableText} from '../../components/Input/InlineEditable/InlineEditableText';
 import {useForm} from '@mantine/form';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';

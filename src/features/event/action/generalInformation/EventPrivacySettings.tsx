@@ -1,6 +1,6 @@
 import {EventAction} from '../EventActionPage';
 import {RequiredInformationProps} from './RequiredInformation';
-import {IconSwitch} from '../../../../components/Form/IconSwitch';
+import {IconSwitch} from '../../../../components/Button/IconSwitch';
 import {faEye, faEyeSlash, faUserNinja, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 import {changeHandler} from '../../../../utils/formHelper';

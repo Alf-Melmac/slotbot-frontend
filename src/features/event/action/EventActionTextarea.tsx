@@ -1,8 +1,8 @@
 import {EventAction, EventActionPageProps} from './EventActionPage';
 import {useState} from 'react';
 import {TextareaProps} from '@mantine/core';
-import {TextareaMaxLength} from '../../../components/Form/MaxLength/TextareaMaxLength';
-import {InlineEditableTextarea} from '../../../components/Form/inline/InlineEditableTextarea';
+import {TextareaMaxLength} from '../../../components/Input/MaxLength/TextareaMaxLength';
+import {InlineEditableTextarea} from '../../../components/Input/InlineEditable/InlineEditableTextarea';
 
 type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
 	inputProps: TextareaProps;

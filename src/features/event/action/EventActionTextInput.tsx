@@ -1,6 +1,6 @@
 import {EventAction, EventActionPageProps} from './EventActionPage';
-import {InlineEditableText} from '../../../components/Form/inline/InlineEditableText';
-import {TextInputMaxLength} from '../../../components/Form/MaxLength/TextInputMaxLength';
+import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditableText';
+import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
 import {useState} from 'react';
 import {TextInputProps} from '@mantine/core';
 

@@ -17,26 +17,27 @@ interface IconSwitchProps extends SwitchProps {
 }
 
 export function IconSwitch(props: IconSwitchProps): JSX.Element {
-	const {onIcon, offIcon, disabled, title} = props;
+	const {disabled, title} = props;
 	const {classes} = useStyles(!!disabled);
 
 	return <>
 		{title ?
 			<Tooltip className={classes.root} label={props.title}>
 				<Box>
-					<Switch size={'md'}
-							onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
-							offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
-							{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
+					<IconSwitchElement {...props}/>
 				</Box>
 			</Tooltip>
 			:
 			<div className={classes.root}>
-				<Switch size={'md'}
-						onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
-						offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
-						{...omit(props, ['onIcon', 'offIcon', 'title'])}/>
+				<IconSwitchElement {...props}/>
 			</div>
 		}
 	</>;
+}
+
+function IconSwitchElement(props: IconSwitchProps) {
+	return <Switch size={'md'}
+				   onLabel={<FontAwesomeIcon icon={props.onIcon} size={'2x'} fixedWidth/>}
+				   offLabel={<FontAwesomeIcon icon={props.offIcon} size={'2x'} fixedWidth/>}
+				   {...omit(props, ['onIcon', 'offIcon', 'title'])}/>;
 }

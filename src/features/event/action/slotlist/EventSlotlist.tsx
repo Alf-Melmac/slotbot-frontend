@@ -1,9 +1,10 @@
 import {EventAction, EventActionWrapperProps} from '../EventActionPage';
-import {Button, Checkbox, Group, Title, Tooltip} from '@mantine/core';
+import {Checkbox, Group, Title} from '@mantine/core';
 import {UploadSlotlist} from '../../wizard/thirdStep/UploadSlotlist';
 import {RenumberSlots} from '../../wizard/thirdStep/RenumberSlots';
 import {SquadList} from './SquadList';
 import {EventEditDto} from '../../eventTypes';
+import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
 
 type EventSlotlistProps<FormReturnType extends EventAction> =
 	EventActionWrapperProps<FormReturnType>
@@ -19,11 +20,10 @@ export function EventSlotlist<FormReturnType extends EventAction>(props: EventSl
 				{canUploadSlotlist ?
 					<UploadSlotlist form={form} editMode={editMode}/>
 					:
-					<Tooltip label={'Zum Hochladen einer Slotliste muss das Event leer sein'}>
-						<Button variant={'default'} disabled>
-							Slotliste hochladen
-						</Button>
-					</Tooltip>
+					<ButtonWithDisabledTooltip variant={'default'} disabled
+											   tooltip={'Zum Hochladen einer Slotliste muss das Event leer sein'}>
+						Slotliste hochladen
+					</ButtonWithDisabledTooltip>
 				}
 
 				<RenumberSlots form={form} editMode={editMode}/>

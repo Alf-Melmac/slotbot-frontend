@@ -5,12 +5,12 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {handleGrammaticalNumber} from '../../utils/textHelper';
 import {useForm} from '@mantine/form';
-import {AddButton} from '../../components/Form/AddButton';
+import {AddButton} from '../../components/Button/AddButton';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
-import {ButtonWithDisabledTooltip} from '../../components/Form/ButtonWithDisabledTooltip';
+import {ButtonWithDisabledTooltip} from '../../components/Button/ButtonWithDisabledTooltip';
 import {useEffect, useState} from 'react';
 import {isEmpty, isEqual} from 'lodash';
 

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {CounterBadge} from '../CounterBadge';
+import {CounterBadge} from '../../Form/CounterBadge';
 
 export function MaxLengthHelper(maxLength: number | undefined, value: string): any {
 	const [showRightSection, setShowRightSection] = useState(false);
