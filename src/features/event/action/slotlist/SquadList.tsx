@@ -7,7 +7,6 @@ import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettings} from '../../wizard/thirdStep/SlotListEntrySettings';
 import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
-import {includes, sortBy} from 'lodash';
 import {EventAction, EventActionPageProps} from '../EventActionPage';
 
 export function SquadList<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
@@ -69,9 +68,10 @@ function buildNewSlot<FormReturnType extends EventAction>(form: EventActionPageP
 }
 
 function findFirstUnusedSlotNumber(squadList: EventAction['squadList']): number {
-	const slotNumbers = sortBy(squadList.flatMap((squad => squad.slotList.map(slot => slot.number))));
+	const slotNumbers = squadList.flatMap((squad => squad.slotList.map(slot => slot.number)))
+		.sort((a, b) => a - b);
 	let slotNumber = 1;
-	while (includes(slotNumbers, slotNumber)) {
+	while (slotNumbers.includes(slotNumber)) {
 		slotNumber++;
 	}
 	return slotNumber;
