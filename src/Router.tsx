@@ -4,6 +4,9 @@ import {Route, Routes} from 'react-router-dom';
 import {EventRoutes} from './features/event/EventRoutes';
 import {ProfileRoutes} from './features/profile/ProfileRoutes';
 import {AuthProvider} from './contexts/authentication/AuthProvider';
+import {AdminRoutes} from './features/admin/AdminRoutes';
+import {RequireAuth} from './contexts/authentication/RequireAuth';
+import {ApplicationRoles} from './contexts/authentication/authenticationTypes';
 
 export function Router(): JSX.Element {
 	return (
