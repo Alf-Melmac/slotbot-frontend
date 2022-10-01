@@ -3,6 +3,7 @@ import {EventDetails} from './details/EventDetails';
 import {Events} from './calendar/Events';
 import {EventWizard} from './wizard/EventWizard';
 import {EventEditPage} from './edit/EventEditPage';
+import {NotFound} from '../error/NotFound';
 
 export function EventRoutes(): JSX.Element {
 	return (
@@ -10,6 +11,7 @@ export function EventRoutes(): JSX.Element {
 			<Route path="" element={<Events/>}/>
 			<Route path=":eventId/*" element={<ExistingEventRoutes/>}/>
 			<Route path="/new" element={<EventWizard/>}/>
+			<Route path="*" element={<NotFound/>}/>
 		</Routes>
 	);
 }
@@ -19,6 +21,7 @@ function ExistingEventRoutes(): JSX.Element {
 		<Routes>
 			<Route path="" element={<EventDetails/>}/>
 			<Route path="/edit" element={<EventEditPage/>}/>
+			<Route path="*" element={<NotFound/>}/>
 		</Routes>
 	);
 }

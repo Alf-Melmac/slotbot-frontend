@@ -3,7 +3,7 @@ import axios from 'axios';
 const slotbotServerClient = axios.create({
 	headers: {
 		'Content-type': 'application/json',
-		'X-Requested-With': 'XMLHttpRequest'
+		'X-Requested-With': 'XMLHttpRequest',
 	},
 });
 
@@ -15,7 +15,7 @@ slotbotServerClient.interceptors.response.use((response) => response, (error) =>
 		console.log(error.response.headers);*/
 
 		if (error.response.status === 404) {
-			window.location.replace('https://armamachtbock.de/error/404');
+			window.location.replace('/404');
 		}
 	} else if (error.request) {
 		// The request was made but no response was received
