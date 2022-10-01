@@ -1,12 +1,13 @@
 import {ColorScheme, ColorSchemeProvider, Global, MantineProvider, Skeleton} from '@mantine/core';
 import {Suspense, useState} from 'react';
-import {Router} from "./Router";
-import {BrowserRouter} from "react-router-dom";
+import {routes} from "./Router";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {theme} from "./contexts/Theme";
 import {NotificationsProvider} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {AuthProvider} from './contexts/authentication/AuthProvider';
 
 export function App(): JSX.Element {
 	const queryClient = new QueryClient({
@@ -20,6 +21,8 @@ export function App(): JSX.Element {
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 	dayjs.locale(de);
+
+	const router = createBrowserRouter(routes);
 
 	return (
 		<Suspense fallback={<Skeleton/>}>
@@ -48,9 +51,9 @@ export function App(): JSX.Element {
 									},
 								},
 							})}/>
-							<BrowserRouter>
-								<Router/>
-							</BrowserRouter>
+							<AuthProvider>
+								<RouterProvider router={router}/>
+							</AuthProvider>
 						</NotificationsProvider>
 					</MantineProvider>
 				</ColorSchemeProvider>

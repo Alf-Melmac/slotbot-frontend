@@ -1,30 +1,37 @@
-import {Route, Routes} from 'react-router-dom';
+import {RouteObject} from 'react-router-dom';
 import {EventDetails} from './details/EventDetails';
 import {Events} from './calendar/Events';
 import {EventWizard} from './wizard/EventWizard';
 import {EventEditPage} from './edit/EventEditPage';
-import {NotFound} from '../error/NotFound';
+import {notFoundRoute} from '../error/ErrorRoutes';
 
-export function EventRoutes(): JSX.Element {
-	return (
-		<Routes>
-			<Route path="" element={<Events/>}/>
-			<Route path=":eventId/*" element={<ExistingEventRoutes/>}/>
-			<Route path="/new" element={<EventWizard/>}/>
-			<Route path="*" element={<NotFound/>}/>
-		</Routes>
-	);
-}
+const existingEventRoutes: RouteObject[] = [
+	{
+		path: '',
+		element: <EventDetails/>,
+	},
+	{
+		path: 'edit',
+		element: <EventEditPage/>,
+	},
+	notFoundRoute,
+];
 
-function ExistingEventRoutes(): JSX.Element {
-	return (
-		<Routes>
-			<Route path="" element={<EventDetails/>}/>
-			<Route path="/edit" element={<EventEditPage/>}/>
-			<Route path="*" element={<NotFound/>}/>
-		</Routes>
-	);
-}
+export const eventRoutes: RouteObject[] = [
+	{
+		path: '',
+		element: <Events/>,
+	},
+	{
+		path: ':eventId/*',
+		children: existingEventRoutes,
+	},
+	{
+		path: 'new',
+		element: <EventWizard/>,
+	},
+	notFoundRoute,
+];
 
 export type EventPageParams = {
 	eventId: string,
