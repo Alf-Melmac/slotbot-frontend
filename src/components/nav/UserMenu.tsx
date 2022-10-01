@@ -1,12 +1,13 @@
 import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from "@mantine/core";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowRightFromBracket, faChevronDown, faUser} from '@fortawesome/free-solid-svg-icons';
-import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
+import {faArrowRightFromBracket, faChevronDown, faScrewdriverWrench, faUser} from '@fortawesome/free-solid-svg-icons';
+import {ApplicationRoles, DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
 import {NAV_ICON_SIZE, NAV_ICON_WRAPPER_HEIGHT} from './NavIcon';
 import {Link} from 'react-router-dom';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {underlineOnHover} from '../../contexts/CommonStylings';
+import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -30,6 +31,8 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 	const {classes} = useStyles();
 	const {logout} = useAuth();
 
+	const sysAdmin = useCheckAccess(ApplicationRoles.ROLE_SYS_ADMIN);
+
 	return (
 		<Menu position={'bottom-end'}>
 			<Menu.Target>
@@ -52,6 +55,15 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={logout}>
 					Logout
 				</Menu.Item>
+				{sysAdmin &&
+                    <>
+                        <Menu.Label>Administration</Menu.Label>
+                        <Menu.Item icon={<FontAwesomeIcon icon={faScrewdriverWrench}/>}
+								   component={Link} to={'/admin/utils'}>
+                            Utils
+                        </Menu.Item>
+                    </>
+				}
 			</Menu.Dropdown>
 		</Menu>
 	);

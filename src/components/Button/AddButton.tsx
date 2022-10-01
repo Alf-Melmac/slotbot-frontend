@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {createStyles, Group, Text, ThemeIcon, UnstyledButton, UnstyledButtonProps} from '@mantine/core';
+import {createStyles, Group, GroupProps, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
+import {Link, LinkProps} from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 	actionIcon: { /*Copy pasta from mantine ActionIcon*/
@@ -21,19 +22,30 @@ const useStyles = createStyles((theme) => ({
 
 type AddButtonProps = {
 	label: string;
-	onClick: () => void;
 	disabled?: boolean;
-	mt?: UnstyledButtonProps['mt'];
-};
+	mt?: GroupProps['mt'];
+	mb?: GroupProps['mb'];
+} & (
+	| {
+	onClick: () => void;
+	to?: never;
+}
+	| {
+	onClick?: never;
+	to: LinkProps['to'];
+}
+	);
 
 export function AddButton(props: AddButtonProps): JSX.Element {
-	const {label, onClick, disabled, mt} = props;
+	const {label, disabled, mt, mb, onClick, to} = props;
 
 	const {classes} = useStyles();
 
 	return (
-		<UnstyledButton onClick={onClick} disabled={disabled} mt={mt}>
-			<Group spacing={6}>
+		<UnstyledButton onClick={onClick} disabled={disabled}
+						{/*@ts-ignore TS doesn't understand this component*/...{}}
+						component={to ? Link : UnstyledButton} to={to}>
+			<Group spacing={6} mt={mt} mb={mb}>
 				<ThemeIcon color={'green'} variant={'filled'} radius={'xl'} className={classes.actionIcon}
 						   data-disabled={disabled}>
 					<FontAwesomeIcon icon={faPlus}/>

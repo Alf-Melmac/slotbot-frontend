@@ -6,6 +6,9 @@ import {showNotification} from '@mantine/notifications';
 import {Bold} from '../../../components/Text/Bold';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {EventTooltip} from './EventTooltip';
+import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
+import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
+import {AddButton} from '../../../components/Button/AddButton';
 
 const useStyles = createStyles(() => ({
 	eventType: {
@@ -48,29 +51,36 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 		);
 	};
 
+	const eventManager = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE);
+
 	return (
-		<FullCalendar
-			plugins={[dayGridPlugin]}
-			initialView="dayGridMonth"
-			locale={de}
-			viewDidMount={(_arg) => toggleVisible(true)}
-			eventSources={[
-				{
-					url: '/events/list',
-					color: 'blue',
-				},
-			]}
-			eventContent={eventContent}
-			eventSourceSuccess={(_content, _xhr) => toggleVisible(false)}
-			eventSourceFailure={(error) => {
-				showNotification({
-					title: 'Oops',
-					message: error.message,
-					color: 'red',
-					autoClose: false,
-				});
-				onFailure();
-			}}
-		/>
+		<>
+			{eventManager &&
+                <AddButton label={'Neues Event anlegen'} to={'new'} mb={'sm'}/>
+			}
+			<FullCalendar
+				plugins={[dayGridPlugin]}
+				initialView="dayGridMonth"
+				locale={de}
+				viewDidMount={(_arg) => toggleVisible(true)}
+				eventSources={[
+					{
+						url: '/events/list',
+						color: 'blue',
+					},
+				]}
+				eventContent={eventContent}
+				eventSourceSuccess={(_content, _xhr) => toggleVisible(false)}
+				eventSourceFailure={(error) => {
+					showNotification({
+						title: 'Oops',
+						message: error.message,
+						color: 'red',
+						autoClose: false,
+					});
+					onFailure();
+				}}
+			/>
+		</>
 	);
 }
