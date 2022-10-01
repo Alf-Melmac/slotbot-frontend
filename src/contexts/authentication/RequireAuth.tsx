@@ -17,9 +17,9 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
 
 	const {query, accessAllowed} = checkAccessQuery(authority);
 
-	if (user === undefined || query.isLoading) return <></>;
+	if (user === undefined || (authority && query.isLoading)) return <></>;
 
-	let allowed = authority && accessAllowed;
+	const allowed = authority === undefined ? true : authority && accessAllowed;
 	return <>
 		{user ?
 			allowed ?
