@@ -2,8 +2,8 @@ import {ReactNode} from 'react';
 import {useAuth} from './AuthProvider';
 import {OnMount} from '../../components/OnMount';
 import {ApplicationRoles} from './authenticationTypes';
-import {Navigate} from 'react-router-dom';
 import checkAccessQuery from './checkAccessQuery';
+import {NotAllowed} from '../../features/error/NotAllowed';
 
 type RequireAuthProps = {
 	children: ReactNode,
@@ -25,7 +25,7 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
 			allowed ?
 				children
 				:
-				<Navigate to={"/403"} replace/>
+				<NotAllowed/>
 			:
 			<OnMount do={login}/>
 		}
