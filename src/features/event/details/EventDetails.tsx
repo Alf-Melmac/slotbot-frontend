@@ -3,7 +3,7 @@ import {Nav} from '../../../components/nav/Nav';
 import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
-import {useScrollIntoView} from '@mantine/hooks';
+import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
 import {fetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
@@ -12,8 +12,12 @@ import {EventFields} from './EventFields';
 import {EventSlotlist} from './EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
 import {EventPageParams} from '../EventRoutes';
+import {useEffect, useState} from 'react';
 
 export function EventDetails(): JSX.Element {
+	const [title, setTitle] = useState('Event');
+	useDocumentTitle(title);
+
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error('Invalid state: Event id required');
 
@@ -21,6 +25,11 @@ export function EventDetails(): JSX.Element {
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
 
 	const {event, eventDate, loading, error} = fetchEventDetails(eventId);
+	useEffect(() => {
+		if (event) {
+			setTitle(`${event.name} - ${event.eventType.name}`);
+		}
+	}, [event]);
 	if (loading) return <EventDetailsLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 

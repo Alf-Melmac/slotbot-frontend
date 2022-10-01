@@ -14,7 +14,7 @@ import {useLocation} from 'react-router-dom';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {omit} from 'lodash';
-import {randomId} from '@mantine/hooks';
+import {randomId, useDocumentTitle} from '@mantine/hooks';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
@@ -28,6 +28,7 @@ export type EventWizardLocation = {
 }
 
 export function EventWizard(): JSX.Element {
+	useDocumentTitle('Neues Event');
 	const breadcrumbItems = [
 		{
 			title: 'Event-Kalender',

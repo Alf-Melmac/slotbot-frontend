@@ -18,6 +18,7 @@ import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 import {ExternalCalendarSettings} from './ExternalCalendarSettings';
+import {useDocumentTitle} from '@mantine/hooks';
 
 export const userCardSize: (theme: MantineTheme) => CSSObject = (theme) => ({
 	width: '33%',
@@ -46,6 +47,7 @@ type ProfileInfoProps = {
 
 export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
+	useDocumentTitle(ownProfile ? 'Dein Profil' : profileUser.name);
 
 	let ownProfileInfo;
 	if (ownProfile) {

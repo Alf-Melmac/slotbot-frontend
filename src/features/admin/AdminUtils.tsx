@@ -5,8 +5,10 @@ import {useEffect, useState} from 'react';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
+import {useDocumentTitle} from '@mantine/hooks';
 
 export function AdminUtils(): JSX.Element {
+	useDocumentTitle('Admin - Utils');
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postAction, {

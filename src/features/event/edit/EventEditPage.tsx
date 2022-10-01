@@ -6,14 +6,24 @@ import {Skeleton} from '@mantine/core';
 import {EventEditDto} from '../eventTypes';
 import {EventEdit} from './EventEdit';
 import {parseDate, parseTime} from '../../../utils/dateHelper';
+import {useEffect, useState} from 'react';
+import {useDocumentTitle} from '@mantine/hooks';
 
 export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable'>;
 
 export function EventEditPage(): JSX.Element {
+	const [title, setTitle] = useState('Bearbeiten - Event');
+	useDocumentTitle(title);
+
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error('Invalid state: Event id required');
 
 	const {event, loading, error} = fetchEventForEdit(eventId);
+	useEffect(() => {
+		if (event) {
+			setTitle(`Bearbeiten - ${event.name}`);
+		}
+	}, [event]);
 	if (loading) return <Skeleton height={500} width={500}/>; //TODO loading animation
 	if (error || !event) return <GeneralError error={error}/>;
 

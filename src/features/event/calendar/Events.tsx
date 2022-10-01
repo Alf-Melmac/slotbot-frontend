@@ -4,6 +4,7 @@ import {PageFooter} from '../../../components/PageFooter/PageFooter';
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {useCallback, useRef, useState} from 'react';
+import {useDocumentTitle} from '@mantine/hooks';
 
 const useStyles = createStyles(() => ({
 	hidden: {
@@ -12,6 +13,7 @@ const useStyles = createStyles(() => ({
 }));
 
 export function Events(): JSX.Element {
+	useDocumentTitle('Eventkalender');
 	const {classes} = useStyles();
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);

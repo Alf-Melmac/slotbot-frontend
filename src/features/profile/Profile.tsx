@@ -6,12 +6,14 @@ import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
 import {ProfileInfo} from './ProfileInfo';
 import {ProfileInfoLoading} from './loading/ProfileInfoLoading';
+import {useDocumentTitle} from '@mantine/hooks';
 
 type ProfileProps = {
 	userId: string
 };
 
 export function Profile(): JSX.Element {
+	useDocumentTitle('Profil');
 	const {userId} = useParams<ProfileProps>();
 	if (!userId) throw Error('Invalid state: User id required');
 
