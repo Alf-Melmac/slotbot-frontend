@@ -1,8 +1,8 @@
-import {ColorScheme, ColorSchemeProvider, Global, MantineProvider, Skeleton} from '@mantine/core';
+import {ColorScheme, ColorSchemeProvider, MantineProvider, Skeleton} from '@mantine/core';
 import {Suspense, useState} from 'react';
 import {routes} from "./Router";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {theme} from "./contexts/Theme";
+import {themeOverride} from "./contexts/Theme";
 import {NotificationsProvider} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
@@ -28,29 +28,8 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
 				<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-					<MantineProvider theme={{colorScheme, ...theme}} withGlobalStyles>
+					<MantineProvider theme={{colorScheme, ...themeOverride}} withGlobalStyles>
 						<NotificationsProvider>
-							<Global styles={(theme) => ({
-								body: {
-									backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[2] : theme.colors.dark[7],
-									margin: 0, //????
-								},
-								'*::-webkit-scrollbar': {
-									width: 8,
-								},
-								'*::-webkit-scrollbar-thumb': {
-									backgroundColor: theme.colors.gray[5],
-									borderRadius: "6px",
-								},
-								'@supports (-moz-appearance:none)': {
-									"*": {
-										/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
-										So that nothing is broken in potential future support, these values are set only for Firefox.*/
-										scrollbarColor: `${theme.colors.gray[5]} transparent`,
-										scrollbarWidth: 'thin',
-									},
-								},
-							})}/>
 							<AuthProvider>
 								<RouterProvider router={router}/>
 							</AuthProvider>
