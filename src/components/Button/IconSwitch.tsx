@@ -35,8 +35,23 @@ export function IconSwitch(props: IconSwitchProps): JSX.Element {
 	</>;
 }
 
+const useElementStyles = createStyles((theme) => ({
+	labelWrapper: {
+		display: 'flex',
+
+		label: {
+			paddingLeft: theme.spacing.xs,
+		},
+		'*': {
+			paddingLeft: 0,
+		},
+	},
+}));
+
 function IconSwitchElement(props: IconSwitchProps) {
-	return <Switch size={'md'}
+	const {classes} = useElementStyles();
+
+	return <Switch size={'md'} classNames={{labelWrapper: classes.labelWrapper}}
 				   onLabel={<FontAwesomeIcon icon={props.onIcon} size={'2x'} fixedWidth/>}
 				   offLabel={<FontAwesomeIcon icon={props.offIcon} size={'2x'} fixedWidth/>}
 				   {...omit(props, ['onIcon', 'offIcon', 'title'])}/>;
