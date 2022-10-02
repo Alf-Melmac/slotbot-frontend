@@ -8,5 +8,5 @@ export function TextareaMaxLength(props: TextareaProps): JSX.Element {
 	if (typeof value !== 'string') {
 		throw Error('Wrong component used.');
 	}
-	return <VerticalTextarea {...props} {...MaxLengthHelper(maxLength, value)}/>;
+	return <VerticalTextarea {...MaxLengthHelper(maxLength, value, props)}/>;
 }

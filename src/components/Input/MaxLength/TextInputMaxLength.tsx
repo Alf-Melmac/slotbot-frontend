@@ -7,5 +7,5 @@ export function TextInputMaxLength(props: TextInputProps): JSX.Element {
 	if (typeof value !== 'string') {
 		throw Error('Wrong component used.');
 	}
-	return <TextInput {...props} {...MaxLengthHelper(maxLength, value)}/>;
+	return <TextInput {...MaxLengthHelper(maxLength, value, props)}/>;
 }

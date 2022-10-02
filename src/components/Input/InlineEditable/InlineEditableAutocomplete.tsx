@@ -29,7 +29,10 @@ export function InlineEditableAutocomplete(props: InlineEditableProps): JSX.Elem
 	const inputProps = omit(props, ['onSubmit', 'onCancel']);
 	return <>
 		{viewMode ?
-			<Autocomplete {...props} onFocus={() => setViewMode(false)} readOnly rightSection={
+			<Autocomplete {...props} onFocus={(e) => {
+				props.onFocus?.(e);
+				setViewMode(false);
+			}} readOnly rightSection={
 				<ActionIcon onClick={() => setViewMode(false)}><FontAwesomeIcon icon={faPen}/></ActionIcon>}
 			/>
 			:

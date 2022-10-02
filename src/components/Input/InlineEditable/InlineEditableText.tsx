@@ -30,7 +30,10 @@ export function InlineEditableText(props: InlineEditableProps): JSX.Element {
 	const inputProps = omit(props, ['onSubmit', 'onCancel']);
 	return <>
 		{viewMode ?
-			<TextInput {...props} onFocus={() => setViewMode(false)} readOnly rightSection={
+			<TextInput {...props} onFocus={(e) => {
+				props.onFocus?.(e);
+				setViewMode(false);
+			}} readOnly rightSection={
 				<ActionIcon onClick={() => setViewMode(false)}><FontAwesomeIcon icon={faPen}/></ActionIcon>}
 			/>
 			:
