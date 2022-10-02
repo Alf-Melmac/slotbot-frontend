@@ -4,6 +4,13 @@ import {Events} from './calendar/Events';
 import {EventWizard} from './wizard/EventWizard';
 import {EventEditPage} from './edit/EventEditPage';
 import {notFoundRoute} from '../error/ErrorRoutes';
+import {PropsWithChildren} from 'react';
+import {RequireAuth} from '../../contexts/authentication/RequireAuth';
+import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
+
+function EventManageRoute(props: PropsWithChildren): JSX.Element {
+	return <RequireAuth authority={ApplicationRoles.ROLE_EVENT_MANAGE}>{props.children}</RequireAuth>;
+}
 
 const existingEventRoutes: RouteObject[] = [
 	{
@@ -12,7 +19,7 @@ const existingEventRoutes: RouteObject[] = [
 	},
 	{
 		path: 'edit',
-		element: <EventEditPage/>,
+		element: <EventManageRoute><EventEditPage/></EventManageRoute>,
 	},
 	notFoundRoute,
 ];
@@ -28,7 +35,7 @@ export const eventRoutes: RouteObject[] = [
 	},
 	{
 		path: 'new',
-		element: <EventWizard/>,
+		element: <EventManageRoute><EventWizard/></EventManageRoute>,
 	},
 	notFoundRoute,
 ];
