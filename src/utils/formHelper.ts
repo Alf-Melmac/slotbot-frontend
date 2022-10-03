@@ -1,21 +1,27 @@
 import {UseFormReturnType} from '@mantine/form';
 import {GetInputProps} from '@mantine/form/lib/types';
-import {ChangeEventHandler} from 'react';
+import {ChangeEventHandler, ReactNode} from 'react';
 
-function requiredField(length: number, check: () => React.ReactNode): React.ReactNode {
+function requiredField(length: number, check: () => React.ReactNode): ReactNode {
 	return length < 1 ? 'Pflichtfeld' : check();
 }
 
-export function requiredFieldWithMaxLength(length: number, maxLength: number): React.ReactNode {
-	return requiredField(length, () => maxLengthField(length, maxLength));
+export function requiredFieldWithMaxLength(field: string, maxLength: number): ReactNode {
+	const fieldLength = length(field);
+	return requiredField(fieldLength, () => maxLengthField(field, maxLength));
 }
 
-export function maxLengthField(length: number, maxLength: number): React.ReactNode {
-	return validate(length > maxLength, `Nicht länger als ${maxLength} Zeichen`);
+export function maxLengthField(field: string, maxLength: number): ReactNode {
+	const fieldLength = length(field);
+	return validate(fieldLength > maxLength, `Nicht länger als ${maxLength} Zeichen`);
 }
 
-export function validate(check: boolean, error: string): React.ReactNode {
+export function validate(check: boolean, error: string): ReactNode {
 	return check ? error : null;
+}
+
+export function length(s: string) {
+	return s ? s.trim().length : 0;
 }
 
 /**
