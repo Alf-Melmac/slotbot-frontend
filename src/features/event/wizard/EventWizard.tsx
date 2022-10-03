@@ -82,7 +82,11 @@ export function EventWizard(): JSX.Element {
 			}
 
 			if (active === 1) {
-
+				values.details.forEach((field, i) => {
+					errors[`details.${i}.title`] = requiredFieldWithMaxLength(field.title, EMBEDDABLE_TITLE);
+					errors[`details.${i}.text`] = requiredFieldWithMaxLength(field.text, EMBEDDABLE_VALUE);
+				});
+				validateEmbedSize(values, errors);
 			}
 
 			if (active === 2) {
