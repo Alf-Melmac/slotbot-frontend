@@ -35,16 +35,9 @@ export function IconSwitch(props: IconSwitchProps): JSX.Element {
 	</>;
 }
 
-const useElementStyles = createStyles((theme) => ({
+const useElementStyles = createStyles(() => ({
 	labelWrapper: {
 		display: 'flex',
-
-		label: {
-			paddingLeft: theme.spacing.xs,
-		},
-		'*': {
-			paddingLeft: 0,
-		},
 	},
 }));
 
