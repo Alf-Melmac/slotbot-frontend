@@ -20,7 +20,7 @@
     "@mantine/hooks": "^5.5.1",
     "@mantine/notifications": "^5.5.1",
     "@tanstack/react-query": "^4.10.1",
-    "axios": "^0.27.2",
+    "axios": "^1.1.0",
     "dayjs": "^1.11.5",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
