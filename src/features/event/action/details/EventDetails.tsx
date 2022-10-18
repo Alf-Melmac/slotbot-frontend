@@ -8,8 +8,8 @@ import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {EventActionTextInput} from '../EventActionTextInput';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 const MAX_DETAILS = 23;
 

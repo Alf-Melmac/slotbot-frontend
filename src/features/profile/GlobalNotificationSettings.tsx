@@ -14,9 +14,7 @@ import {ButtonWithDisabledTooltip} from '../../components/Button/ButtonWithDisab
 import {useEffect, useState} from 'react';
 import {isEmpty, isEqual} from 'lodash';
 
-type GlobalNotificationSettingsProps = {
-	notificationSettings: UserOwnProfileDto['notificationSettings'];
-};
+type GlobalNotificationSettingsProps = Pick<UserOwnProfileDto, 'notificationSettings'>;
 
 export function GlobalNotificationSettings(props: GlobalNotificationSettingsProps): JSX.Element {
 	const form = useForm<GlobalNotificationSettingsProps>({

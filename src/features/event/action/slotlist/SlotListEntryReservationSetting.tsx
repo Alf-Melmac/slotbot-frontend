@@ -5,14 +5,12 @@ import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
 import {GuildDto} from '../../eventTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
-import {useFormContext} from '../EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 
 type SlotListEntryReservationSettingProps = {
 	data?: GuildDto[];
-	path: SlotListEntrySettingsProps['path'];
-	index: SlotListEntrySettingsProps['index'];
 	slot: boolean;
-};
+} & Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
 
 export function SlotListEntryReservationSetting(props: SlotListEntryReservationSettingProps): JSX.Element {
 	return (

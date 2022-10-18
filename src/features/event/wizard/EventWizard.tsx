@@ -19,7 +19,7 @@ import {EventGeneralInformation} from '../action/generalInformation/EventGeneral
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {validateEmbedSize, validateSquadList} from './validation';
-import {EventWizardProvider, useEventWizardForm} from '../action/EventActionFormContext';
+import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];

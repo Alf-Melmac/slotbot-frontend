@@ -3,8 +3,8 @@ import {faClock} from '@fortawesome/free-solid-svg-icons';
 import {TimeInput, TimeInputProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
 import {changeHandler} from '../../../../utils/formHelper';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 const timeInputProps: TimeInputProps = {
 	label: 'Startzeit',

@@ -10,7 +10,7 @@ import {AxiosError} from 'axios';
 import {cloneDeep} from 'lodash';
 import {formatDate, formatTime} from '../../../utils/dateHelper';
 import {useMutation} from '@tanstack/react-query';
-import {useFormContext} from '../action/EventActionFormContext';
+import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {UseFormReturnType} from '@mantine/form';
 
 export function EventWizardFinish(): JSX.Element {

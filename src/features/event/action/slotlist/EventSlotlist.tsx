@@ -7,8 +7,8 @@ import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWit
 import {changeHandler} from '../../../../utils/formHelper';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 

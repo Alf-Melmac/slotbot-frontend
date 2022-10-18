@@ -4,8 +4,8 @@ import {Grid, Select} from '@mantine/core';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();

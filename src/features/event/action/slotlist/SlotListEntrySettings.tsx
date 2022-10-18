@@ -7,7 +7,7 @@ import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';
 import {EventAction} from '../EventActionPage';
-import {useFormContext} from '../EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];

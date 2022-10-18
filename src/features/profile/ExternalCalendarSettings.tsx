@@ -9,10 +9,7 @@ import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
 
-type ExternalCalendarSettingsProps = {
-	externalCalendarIntegrationActive: UserOwnProfileDto['externalCalendarIntegrationActive'];
-	icsCalendarUrl: UserOwnProfileDto['icsCalendarUrl'];
-};
+type ExternalCalendarSettingsProps = Pick<UserOwnProfileDto, 'externalCalendarIntegrationActive' | 'icsCalendarUrl'>;
 
 export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): JSX.Element {
 	const {externalCalendarIntegrationActive, icsCalendarUrl} = props;

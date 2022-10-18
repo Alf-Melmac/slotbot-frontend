@@ -2,8 +2,8 @@ import {useState} from 'react';
 import {TextareaProps} from '@mantine/core';
 import {TextareaMaxLength} from '../../../components/Input/MaxLength/TextareaMaxLength';
 import {InlineEditableTextarea} from '../../../components/Input/InlineEditable/InlineEditableTextarea';
-import {useFormContext} from './EventActionFormContext';
-import {useEditMode} from './EditModeContext';
+import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 
 type FormTextInputProps = {
 	inputProps: TextareaProps;

@@ -22,7 +22,7 @@ import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../../eventTypes';
 import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
-import {useFormContext} from '../EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 
 export function UploadSlotlist(): JSX.Element {
 	const [opened, setOpened] = useState(false);

@@ -45,9 +45,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-type FooterProps = {
-	mt?: MantineStyleSystemProps['mt'];
-};
+type FooterProps = Pick<MantineStyleSystemProps, 'mt'>;
 
 type IconType = {
 	icon: IconDefinition;

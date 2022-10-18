@@ -2,8 +2,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {DatePicker, DatePickerProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 const datePickerProps: DatePickerProps = {
 	label: 'Datum',

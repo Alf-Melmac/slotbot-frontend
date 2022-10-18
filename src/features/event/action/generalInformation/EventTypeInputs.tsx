@@ -6,8 +6,8 @@ import {TEXT} from '../../../../utils/maxLength';
 import {useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
 import {changeHandler} from '../../../../utils/formHelper';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 

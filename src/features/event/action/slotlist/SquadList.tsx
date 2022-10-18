@@ -8,7 +8,7 @@ import {SlotListEntrySettings} from './SlotListEntrySettings';
 import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
 import {EventAction} from '../EventActionPage';
-import {useFormContext} from '../EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {UseFormReturnType} from '@mantine/form';
 import {EventEditFormType} from '../../edit/EventEditPage';
 

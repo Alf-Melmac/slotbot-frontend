@@ -4,8 +4,8 @@ import {faEye, faEyeSlash, faUserNinja, faUsers, faUsersSlash} from '@fortawesom
 import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 import {changeHandler} from '../../../../utils/formHelper';
 import {Stack} from '@mantine/core';
-import {useFormContext} from '../EventActionFormContext';
-import {useEditMode} from '../EditModeContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 export function EventPrivacySettings(props: RequiredInformationProps): JSX.Element {
 	const {canRevokeShareable = true} = props;

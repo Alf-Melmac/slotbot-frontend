@@ -5,10 +5,10 @@ import {EventEditDto} from '../eventTypes';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
-import {EventEditProvider, useEventEditForm} from '../action/EventActionFormContext';
+import {EventEditProvider, useEventEditForm} from '../../../contexts/event/action/EventActionFormContext';
+import {EventPageParams} from '../EventRoutes';
 
-type EventEditProps = {
-	eventId: string;
+export type EventEditProps = EventPageParams & {
 	event: EventEditDto;
 }
 
@@ -35,20 +35,17 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 	return (
 		<Nav>
 			<Container>
-				<EventEditProvider form={form}>
+				<EventEditProvider form={form} eventId={eventId}>
 					<Breadcrumb items={breadcrumbItems}/>
 
-					{/*@ts-ignore Should work just like in wizard...*/}
 					<EventGeneralInformation canRevokeShareable={event.canRevokeShareable}/>
 
 					<Divider my={'lg'}/>
 
-					{/*@ts-ignore Should work just like in wizard...*/}
 					<EventDetailsPage/>
 
 					<Divider my={'lg'}/>
 
-					{/*@ts-ignore Should work just like in wizard...*/}
 					<EventSlotlist canUploadSlotlist={event.canUploadSlotlist}/>
 
 					<Code block mt={'lg'}>

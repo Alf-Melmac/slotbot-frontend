@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditableAutocomplete';
-import {useFormContext} from './EventActionFormContext';
-import {useEditMode} from './EditModeContext';
+import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
+import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 
 type FormTextInputProps = {
 	inputProps: AutocompleteProps;
