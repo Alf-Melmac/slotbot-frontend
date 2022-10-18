@@ -7,6 +7,7 @@ import {
 	Input,
 	InputWrapperBaseProps,
 	Modal,
+	ModalProps,
 	Stack,
 	Text,
 	useMantineTheme,
@@ -21,9 +22,9 @@ import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../../eventTypes';
 import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
-import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
+import {useFormContext} from '../EventActionFormContext';
 
-export function UploadSlotlist<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
+export function UploadSlotlist(): JSX.Element {
 	const [opened, setOpened] = useState(false);
 
 	const closeModal = () => setOpened(false);
@@ -33,7 +34,7 @@ export function UploadSlotlist<FormReturnType extends EventAction>(props: EventA
 			lassen. Die Slotliste kannst du danach noch bearbeiten.<br/> Die Missionsdateien findest du nach dem
 			Speichern unter <Code>%USERPROFILE%\Documents\Arma 3\</Code> <Code
 		>missions</Code> oder <Code>mpMissions</Code>.
-			<SqmDropzone {...props} closeModal={closeModal}/>
+			<SqmDropzone closeModal={closeModal}/>
 		</Modal>
 
 		<Button variant={'default'} onClick={() => setOpened(true)}>Slotliste hochladen</Button>
@@ -66,11 +67,11 @@ const useStyles = createStyles((theme, hasError: boolean) => ({
 	},
 }));
 
-type SqmDropzoneProps<FormReturnType extends EventAction> = {
-	closeModal: () => void
-} & EventActionPageProps<FormReturnType>
+type SqmDropzoneProps = {
+	closeModal: ModalProps['onClose'];
+}
 
-function SqmDropzone<FormReturnType extends EventAction>(props: SqmDropzoneProps<FormReturnType>): JSX.Element {
+function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
 	const [hasError, setHasError] = useState(false);
@@ -82,6 +83,7 @@ function SqmDropzone<FormReturnType extends EventAction>(props: SqmDropzoneProps
 	const theme = useMantineTheme();
 	const {classes} = useStyles(hasError);
 
+	const form = useFormContext();
 	const postSlotlist = () => slotbotServerClient.post('/files/uploadSqm', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => res.data);
 	const {mutate} = useMutation<SquadDto[], AxiosError>(postSlotlist, {
 		onMutate: () => {
@@ -105,7 +107,7 @@ function SqmDropzone<FormReturnType extends EventAction>(props: SqmDropzoneProps
 				});
 			});
 			// @ts-ignore These can no longer be existing slots for editing. Therefore, the "new squad"-type can be forced
-			props.form.setFieldValue('squadList', squadList);
+			form.setFieldValue('squadList', squadList);
 			props.closeModal();
 		},
 		onError: axiosError => {

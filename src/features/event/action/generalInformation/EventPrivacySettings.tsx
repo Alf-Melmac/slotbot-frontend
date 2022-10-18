@@ -1,13 +1,15 @@
-import {EventAction} from '../EventActionPage';
 import {RequiredInformationProps} from './RequiredInformation';
 import {IconSwitch} from '../../../../components/Button/IconSwitch';
 import {faEye, faEyeSlash, faUserNinja, faUsers, faUsersSlash} from '@fortawesome/free-solid-svg-icons';
 import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 import {changeHandler} from '../../../../utils/formHelper';
 import {Stack} from '@mantine/core';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
-export function EventPrivacySettings<FormReturnType extends EventAction>(props: RequiredInformationProps<FormReturnType>): JSX.Element {
-	const {form, canRevokeShareable = true, editMode} = props;
+export function EventPrivacySettings(props: RequiredInformationProps): JSX.Element {
+	const {canRevokeShareable = true} = props;
+	const form = useFormContext();
 
 	const shareableInputProps = form.getInputProps('shareable', {type: 'checkbox'});
 	const hiddenInputProps = form.getInputProps('hidden', {type: 'checkbox'});
@@ -19,13 +21,13 @@ export function EventPrivacySettings<FormReturnType extends EventAction>(props: 
 					title={!canRevokeShareable ? 'Wurde bereits von einer anderen Community hinzugefügt.' : undefined}
 					{...shareableInputProps}
 			//TODO mutate
-					onChange={changeHandler(shareableInputProps, editMode, () => console.log(form.values.shareable))}/>
+					onChange={changeHandler(shareableInputProps, useEditMode(), () => console.log(form.values.shareable))}/>
 
 		<IconSwitch onIcon={Math.random() < 0.9 ? faEyeSlash : faUserNinja} offIcon={faEye}
 					label={<ElementWithInfo text={'Versteckt'}
 											tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
 					{...hiddenInputProps}
 			//TODO mutate
-					onChange={changeHandler(hiddenInputProps, editMode, () => console.log(form.values.hidden))}/>
+					onChange={changeHandler(hiddenInputProps, useEditMode(), () => console.log(form.values.hidden))}/>
 	</Stack>;
 }

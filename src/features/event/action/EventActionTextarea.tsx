@@ -1,22 +1,24 @@
-import {EventAction, EventActionPageProps} from './EventActionPage';
 import {useState} from 'react';
 import {TextareaProps} from '@mantine/core';
 import {TextareaMaxLength} from '../../../components/Input/MaxLength/TextareaMaxLength';
 import {InlineEditableTextarea} from '../../../components/Input/InlineEditable/InlineEditableTextarea';
+import {useFormContext} from './EventActionFormContext';
+import {useEditMode} from './EditModeContext';
 
-type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
+type FormTextInputProps = {
 	inputProps: TextareaProps;
 	formPath: string;
 };
 
-export function EventActionTextarea<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode, inputProps, form, formPath} = props;
+export function EventActionTextarea(props: FormTextInputProps): JSX.Element {
+	const {inputProps, formPath} = props;
 
+	const form = useFormContext();
 	const formInputProps = form.getInputProps(formPath);
 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	return <>
-		{editMode ?
+		{useEditMode() ?
 			<InlineEditableTextarea {...inputProps} position={'group'} {...formInputProps}
 									onSubmit={() => {
 										console.log(formInputProps.value); //TODO mutate

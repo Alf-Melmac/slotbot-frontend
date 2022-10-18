@@ -1,4 +1,3 @@
-import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {ActionIcon, Group} from '@mantine/core';
 import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -9,21 +8,23 @@ import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {EventActionTextInput} from '../EventActionTextInput';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
 const MAX_DETAILS = 23;
 
-export function EventDetails<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {form, editMode} = props;
+export function EventDetails(): JSX.Element {
+	const form = useFormContext();
 
 	const details = form.values.details.map((item, index) => (
 		<Group key={item.id} mt={'xs'}>
-			<EventActionTextInput {...props} inputProps={{
+			<EventActionTextInput inputProps={{
 				placeholder: 'Titel',
 				maxLength: EMBEDDABLE_TITLE,
 				required: true,
 			}} formPath={`details.${index}.title`}/>
 
-			<EventActionTextInput {...props} inputProps={{
+			<EventActionTextInput inputProps={{
 				placeholder: 'Information',
 				maxLength: EMBEDDABLE_VALUE,
 				required: true,
@@ -46,7 +47,7 @@ export function EventDetails<FormReturnType extends EventAction>(props: EventAct
 			<CounterBadge currentValue={details.length} maxValue={MAX_DETAILS} yellowPhase/>
 		</Group>
 
-		{editMode &&
+		{useEditMode() &&
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => {

@@ -1,6 +1,5 @@
 import {Alert, Center, Code, Loader, Stack, Text} from '@mantine/core';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
-import {EventWizardStepProps} from './EventWizard';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -11,9 +10,11 @@ import {AxiosError} from 'axios';
 import {cloneDeep} from 'lodash';
 import {formatDate, formatTime} from '../../../utils/dateHelper';
 import {useMutation} from '@tanstack/react-query';
+import {useFormContext} from '../action/EventActionFormContext';
+import {UseFormReturnType} from '@mantine/form';
 
-export function EventWizardFinish(props: EventWizardStepProps): JSX.Element {
-	const {form} = props;
+export function EventWizardFinish(): JSX.Element {
+	const form = useFormContext() as UseFormReturnType<EventPostDto>;
 
 	const formValues = cloneDeep(form.values);
 	// @ts-ignore At this point these must be Date's and not yet strings

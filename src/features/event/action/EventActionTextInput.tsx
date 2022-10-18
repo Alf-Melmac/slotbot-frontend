@@ -1,30 +1,22 @@
-import {EventAction, EventActionPageProps} from './EventActionPage';
-import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditableText';
 import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
-import {useState} from 'react';
 import {TextInputProps} from '@mantine/core';
+import {EventActionTextInputEditMode} from './EventActionTextInputEditMode';
+import {useFormContext} from './EventActionFormContext';
+import {useEditMode} from './EditModeContext';
 
-type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
+export type FormTextInputProps = {
 	inputProps: TextInputProps;
 	formPath: string;
 };
 
-export function EventActionTextInput<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode, inputProps, form, formPath} = props;
+export function EventActionTextInput(props: FormTextInputProps): JSX.Element {
+	const {inputProps, formPath} = props;
 
-	const formInputProps = form.getInputProps(formPath);
-
-	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	return <>
-		{editMode ?
-			<InlineEditableText {...inputProps} position={'group'} {...formInputProps}
-								onSubmit={() => {
-									console.log(formInputProps.value); //TODO mutate
-									setOldValue(formInputProps.value);
-									/*@ts-ignore text input must accept strings*/
-								}} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+		{useEditMode() ?
+			<EventActionTextInputEditMode {...props}/>
 			:
-			<TextInputMaxLength {...inputProps} {...formInputProps}/>
+			<TextInputMaxLength {...inputProps} {...useFormContext().getInputProps(formPath)}/>
 		}
 	</>;
 }

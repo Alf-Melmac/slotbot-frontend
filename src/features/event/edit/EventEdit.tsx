@@ -1,13 +1,11 @@
 import {Code, Container, Divider} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
-import {useForm} from '@mantine/form';
 import {EventEditDto} from '../eventTypes';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
-
-export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable' | 'canUploadSlotlist'>;
+import {EventEditProvider, useEventEditForm} from '../action/EventActionFormContext';
 
 type EventEditProps = {
 	eventId: string;
@@ -30,31 +28,33 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 			title: 'Bearbeiten',
 		}];
 
-	const form = useForm<EventEditFormType>({
+	const form = useEventEditForm({
 		initialValues: event,
 	});
 
 	return (
 		<Nav>
 			<Container>
-				<Breadcrumb items={breadcrumbItems}/>
+				<EventEditProvider form={form}>
+					<Breadcrumb items={breadcrumbItems}/>
 
-				{/*@ts-ignore Should work just like in wizard...*/}
-				<EventGeneralInformation form={form} canRevokeShareable={event.canRevokeShareable} editMode/>
+					{/*@ts-ignore Should work just like in wizard...*/}
+					<EventGeneralInformation canRevokeShareable={event.canRevokeShareable}/>
 
-				<Divider my={'lg'}/>
+					<Divider my={'lg'}/>
 
-				{/*@ts-ignore Should work just like in wizard...*/}
-				<EventDetailsPage form={form} editMode/>
+					{/*@ts-ignore Should work just like in wizard...*/}
+					<EventDetailsPage/>
 
-				<Divider my={'lg'}/>
+					<Divider my={'lg'}/>
 
-				{/*@ts-ignore Should work just like in wizard...*/}
-				<EventSlotlist form={form} canUploadSlotlist={event.canUploadSlotlist} editMode/>
+					{/*@ts-ignore Should work just like in wizard...*/}
+					<EventSlotlist canUploadSlotlist={event.canUploadSlotlist}/>
 
-				<Code block mt={'lg'}>
-					{JSON.stringify(form.values, null, 2)}
-				</Code>
+					<Code block mt={'lg'}>
+						{JSON.stringify(form.values, null, 2)}
+					</Code>
+				</EventEditProvider>
 			</Container>
 		</Nav>
 	);

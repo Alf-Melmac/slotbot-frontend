@@ -5,17 +5,16 @@ import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
 import {GuildDto} from '../../eventTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
-import {EventAction} from '../../action/EventActionPage';
+import {useFormContext} from '../EventActionFormContext';
 
-type SlotListEntryReservationSettingProps<FormReturnType extends EventAction> = {
+type SlotListEntryReservationSettingProps = {
 	data?: GuildDto[];
-	form: SlotListEntrySettingsProps<FormReturnType>['form'];
-	path: SlotListEntrySettingsProps<FormReturnType>['path'];
-	index: SlotListEntrySettingsProps<FormReturnType>['index'];
+	path: SlotListEntrySettingsProps['path'];
+	index: SlotListEntrySettingsProps['index'];
 	slot: boolean;
 };
 
-export function SlotListEntryReservationSetting<FormReturnType extends EventAction>(props: SlotListEntryReservationSettingProps<FormReturnType>): JSX.Element {
+export function SlotListEntryReservationSetting(props: SlotListEntryReservationSettingProps): JSX.Element {
 	return (
 		!props.data ?
 			<>
@@ -33,8 +32,9 @@ export function SlotListEntryReservationSetting<FormReturnType extends EventActi
 	);
 }
 
-function SlotListEntryReservationSettingSelect<FormReturnType extends EventAction>(props: SlotListEntryReservationSettingProps<FormReturnType>): JSX.Element {
-	const {data = [], form, path, index, slot} = props; //Shouldn't be used with undefined data prop
+function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSettingProps): JSX.Element {
+	const {data = [], path, index, slot} = props; //Shouldn't be used with undefined data prop
+	const form = useFormContext();
 
 	let placeholder = 'Nicht reserviert';
 	if (slot) {

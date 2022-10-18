@@ -1,8 +1,9 @@
-import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {DatePicker, DatePickerProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
 const datePickerProps: DatePickerProps = {
 	label: 'Datum',
@@ -13,13 +14,13 @@ const datePickerProps: DatePickerProps = {
 	required: true,
 };
 
-export function EventDate<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {editMode, form} = props;
+export function EventDate(): JSX.Element {
+	const form = useFormContext();
 
 	const dateInputProps = form.getInputProps('date');
 	const previous = usePrevious(dateInputProps.value);
 	return <>
-		{editMode ?
+		{useEditMode() ?
 			<DatePicker {...datePickerProps} {...dateInputProps} onDropdownClose={() => {
 				if (form.values.date !== previous) {
 					console.log(form.values.date); // TODO mutate

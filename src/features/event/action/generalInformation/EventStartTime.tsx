@@ -1,9 +1,10 @@
-import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
 import {TimeInput, TimeInputProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
 import {changeHandler} from '../../../../utils/formHelper';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
 const timeInputProps: TimeInputProps = {
 	label: 'Startzeit',
@@ -13,13 +14,13 @@ const timeInputProps: TimeInputProps = {
 	required: true,
 };
 
-export function EventStartTime<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {editMode, form} = props;
+export function EventStartTime(): JSX.Element {
+	const form = useFormContext();
 
 	const startTimeInputProps = form.getInputProps('startTime');
 	const previous = usePrevious(startTimeInputProps.value);
 	return <>
-		{editMode ?
+		{useEditMode() ?
 			<TimeInput {...timeInputProps} {...startTimeInputProps}
 					   onChange={changeHandler(startTimeInputProps, true, () => {
 						   if (form.values.date !== previous) {

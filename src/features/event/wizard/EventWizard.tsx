@@ -1,5 +1,5 @@
-import {FormErrors, useForm, UseFormReturnType} from '@mantine/form';
-import {Button, Code, Container, Group, Stepper} from '@mantine/core';
+import {FormErrors} from '@mantine/form';
+import {Button, Container, Group, Stepper} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useEffect, useState} from 'react';
@@ -19,10 +19,7 @@ import {EventGeneralInformation} from '../action/generalInformation/EventGeneral
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {validateEmbedSize, validateSquadList} from './validation';
-
-export type EventWizardStepProps = {
-	form: UseFormReturnType<EventPostDto>;
-};
+import {EventWizardProvider, useEventWizardForm} from '../action/EventActionFormContext';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -44,7 +41,7 @@ export function EventWizard(): JSX.Element {
 
 	const date = new Date();
 	date.setSeconds(0);
-	const form = useForm<EventPostDto>({
+	const form = useEventWizardForm({
 		initialValues: {
 			hidden: false,
 			shareable: true,
@@ -135,30 +132,32 @@ export function EventWizard(): JSX.Element {
 		<Nav>
 			<>
 				<Container>
-					<Breadcrumb items={breadcrumbItems}/>
+					<EventWizardProvider form={form}>
+						<Breadcrumb items={breadcrumbItems}/>
 
-					<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
-						<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
-							<EventGeneralInformation form={form}/>
-						</Stepper.Step>
-						<Stepper.Step label={'Event'} description={'Details'}>
-							<EventDetailsPage form={form}/>
-						</Stepper.Step>
-						<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
-							<EventSlotlist form={form}/>
-						</Stepper.Step>
+						<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
+							<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
+								<EventGeneralInformation/>
+							</Stepper.Step>
+							<Stepper.Step label={'Event'} description={'Details'}>
+								<EventDetailsPage/>
+							</Stepper.Step>
+							<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
+								<EventSlotlist/>
+							</Stepper.Step>
 
-						<Stepper.Completed>
-							<EventWizardFinish form={form}/>
-						</Stepper.Completed>
-					</Stepper>
+							<Stepper.Completed>
+								<EventWizardFinish/>
+							</Stepper.Completed>
+						</Stepper>
 
-					<Group position="right" mt="xl">
-						{active !== 0 && active !== 3 &&
-                            <Button variant="default" onClick={prevStep}>Vorherige</Button>}
-						{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
-						{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
-					</Group>
+						<Group position="right" mt="xl">
+							{active !== 0 && active !== 3 &&
+                                <Button variant="default" onClick={prevStep}>Vorherige</Button>}
+							{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
+							{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
+						</Group>
+					</EventWizardProvider>
 				</Container>
 
 				<PageFooter mt={'xl'}/>

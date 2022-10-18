@@ -1,9 +1,9 @@
 import {isEmpty} from 'lodash';
 import {Button} from '@mantine/core';
-import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
+import {useFormContext} from '../EventActionFormContext';
 
-export function RenumberSlots<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {form} = props;
+export function RenumberSlots(): JSX.Element {
+	const form = useFormContext();
 
 	return (
 		<Button variant={'default'} onClick={() => {

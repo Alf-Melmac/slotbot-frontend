@@ -1,20 +1,21 @@
-import {EventAction, EventActionWrapperProps} from '../EventActionPage';
 import {Checkbox, Group, Title} from '@mantine/core';
-import {UploadSlotlist} from '../../wizard/thirdStep/UploadSlotlist';
-import {RenumberSlots} from '../../wizard/thirdStep/RenumberSlots';
+import {UploadSlotlist} from './UploadSlotlist';
+import {RenumberSlots} from './RenumberSlots';
 import {SquadList} from './SquadList';
 import {EventEditDto} from '../../eventTypes';
 import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
 import {changeHandler} from '../../../../utils/formHelper';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
-type EventSlotlistProps<FormReturnType extends EventAction> =
-	EventActionWrapperProps<FormReturnType>
-	& Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
+type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
-export function EventSlotlist<FormReturnType extends EventAction>(props: EventSlotlistProps<FormReturnType>): JSX.Element {
-	const {form, editMode = false, canUploadSlotlist = true} = props;
+export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
+	const {canUploadSlotlist = true} = props;
+	const form = useFormContext();
+	const editMode = useEditMode();
 
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
@@ -22,7 +23,7 @@ export function EventSlotlist<FormReturnType extends EventAction>(props: EventSl
 			<Title order={2}>Teilnahmeplatzaufzählung</Title>
 			<Group spacing={'xs'}>
 				{canUploadSlotlist ?
-					<UploadSlotlist form={form} editMode={editMode}/>
+					<UploadSlotlist/>
 					:
 					<ButtonWithDisabledTooltip variant={'default'} disabled
 											   tooltip={'Zum Hochladen einer Slotliste muss das Event leer sein'}>
@@ -30,11 +31,11 @@ export function EventSlotlist<FormReturnType extends EventAction>(props: EventSl
 					</ButtonWithDisabledTooltip>
 				}
 
-				<RenumberSlots form={form} editMode={editMode}/>
+				<RenumberSlots/>
 			</Group>
 		</Group>
 
-		<SquadList form={form} editMode={editMode}/>
+		<SquadList/>
 		{editMode &&
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('squadList')}>

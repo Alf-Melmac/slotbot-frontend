@@ -1,21 +1,23 @@
-import {EventAction, EventActionPageProps} from './EventActionPage';
 import {useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditableAutocomplete';
+import {useFormContext} from './EventActionFormContext';
+import {useEditMode} from './EditModeContext';
 
-type FormTextInputProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
+type FormTextInputProps = {
 	inputProps: AutocompleteProps;
 	formPath: string;
 };
 
-export function EventActionAutocomplete<FormReturnType extends EventAction>(props: FormTextInputProps<FormReturnType>): JSX.Element {
-	const {editMode, inputProps, form, formPath} = props;
+export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element {
+	const {inputProps, formPath} = props;
 
+	const form = useFormContext();
 	const formInputProps = form.getInputProps(formPath);
 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	return <>
-		{editMode ?
+		{useEditMode() ?
 			<InlineEditableAutocomplete {...inputProps} position={'group'} {...formInputProps}
 										onSubmit={() => {
 											console.log(formInputProps.value); //TODO mutate

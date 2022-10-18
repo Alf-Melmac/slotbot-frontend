@@ -6,20 +6,21 @@ import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-i
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';
-import {EventAction, EventActionPageProps} from '../../action/EventActionPage';
+import {EventAction} from '../EventActionPage';
+import {useFormContext} from '../EventActionFormContext';
 
-export type SlotListEntrySettingsProps<FormReturnType extends EventAction> = {
+export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
-	form: EventActionPageProps<FormReturnType>['form'];
 	path: string;
 	index: number;
 	slot?: boolean;
 	guildsQuery: UseQueryResult<GuildDto[], Error>
 };
 
-export function SlotListEntrySettings<FormReturnType extends EventAction>(props: SlotListEntrySettingsProps<FormReturnType>): JSX.Element {
-	const {entry, form, path, index, slot = false, guildsQuery} = props;
+export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.Element {
+	const {entry, path, index, slot = false, guildsQuery} = props;
 	const [opened, setOpened] = useState(false);
+	const form = useFormContext();
 
 	return <>
 		<Modal opened={opened} onClose={() => setOpened(false)}
@@ -27,11 +28,10 @@ export function SlotListEntrySettings<FormReturnType extends EventAction>(props:
 			{guildsQuery.isLoading ?
 				<Skeleton width={'100%'} height={60}/>
 				:
-				<SlotListEntryReservationSetting data={guildsQuery.data} form={form} path={path} index={index}
-												 slot={slot}/>
+				<SlotListEntryReservationSetting data={guildsQuery.data} path={path} index={index} slot={slot}/>
 			}
 			{slot &&
-                <SlotBlockedSetting form={form} path={path} index={index}/>
+                <SlotBlockedSetting path={path} index={index}/>
 			}
 		</Modal>
 		<Menu>

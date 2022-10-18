@@ -5,18 +5,20 @@ import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-ic
 import {TEXT} from '../../../../utils/maxLength';
 import {useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
-import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {changeHandler} from '../../../../utils/formHelper';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
-type EventTypeInputsProps<FormReturnType extends EventAction> = EventActionPageProps<FormReturnType> & {
+type EventTypeInputsProps = {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;
 };
 
-export function EventTypeInputs<FormReturnType extends EventAction>(props: EventTypeInputsProps<FormReturnType>): JSX.Element {
-	const {query, form, editMode} = props;
+export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
+	const {query} = props;
 	const eventTypes = query.data;
+	const form = useFormContext();
 
 	function setEventTypeColor(color: EventTypeDto['color']): void {
 		// @ts-ignore eventType.color accepts strings
@@ -39,6 +41,7 @@ export function EventTypeInputs<FormReturnType extends EventAction>(props: Event
 		}
 	}, [form.values.eventType.name]);
 
+	const editMode = useEditMode();
 	const eventTypeNameInputProps = form.getInputProps('eventType.name');
 	return (
 		<>
@@ -57,7 +60,8 @@ export function EventTypeInputs<FormReturnType extends EventAction>(props: Event
 							data={data}
 							searchable
 							creatable={!editMode}
-							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> Aktuell können im Editiermodus keine neuen Event-Typen angelegt werden.</Group>}
+							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> Aktuell
+								können im Editiermodus keine neuen Event-Typen angelegt werden.</Group>}
 							getCreateLabel={input => input}
 							onCreate={(input) => {
 								const item = {value: input, label: input};

@@ -5,16 +5,16 @@ import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
 import {getFormFieldValue} from '../../../../utils/formHelper';
-import {EventAction} from '../../action/EventActionPage';
+import {useFormContext} from '../EventActionFormContext';
 
-type SlotBlockedSettingProps<FormReturnType extends EventAction> = {
-	form: SlotListEntrySettingsProps<FormReturnType>['form'];
-	path: SlotListEntrySettingsProps<FormReturnType>['path'];
-	index: SlotListEntrySettingsProps<FormReturnType>['index'];
+type SlotBlockedSettingProps = {
+	path: SlotListEntrySettingsProps['path'];
+	index: SlotListEntrySettingsProps['index'];
 };
 
-export function SlotBlockedSetting<FormReturnType extends EventAction>(props: SlotBlockedSettingProps<FormReturnType>): JSX.Element {
-	const {form, path, index} = props;
+export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element {
+	const {path, index} = props;
+	const form = useFormContext();
 	const blocked = getFormFieldValue(form, `${path}.${index}.blocked`);
 
 	return (

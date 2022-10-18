@@ -1,17 +1,18 @@
-import {EventAction, EventActionPageProps} from '../EventActionPage';
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
 import {EventActionTextarea} from '../EventActionTextarea';
 import {Grid, Select} from '@mantine/core';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
+import {useFormContext} from '../EventActionFormContext';
+import {useEditMode} from '../EditModeContext';
 
-export function EventMisc<FormReturnType extends EventAction>(props: EventActionPageProps<FormReturnType>): JSX.Element {
-	const {form, editMode} = props;
+export function EventMisc(): JSX.Element {
+	const form = useFormContext();
 
 	const missionTypeInputProps = form.getInputProps('missionType');
 	return <>
-		<EventActionTextarea {...props} inputProps={{
+		<EventActionTextarea inputProps={{
 			label: 'Beschreibung',
 			placeholder: 'Beschreibung',
 			autosize: true,
@@ -25,10 +26,10 @@ export function EventMisc<FormReturnType extends EventAction>(props: EventAction
 						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', 'Spezial', 'Anderes']}
 						{...missionTypeInputProps}
 					//TODO mutate
-						onChange={changeHandler(missionTypeInputProps, editMode, () => console.log(form.values.missionType))}/>
+						onChange={changeHandler(missionTypeInputProps, useEditMode(), () => console.log(form.values.missionType))}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
-				<EventActionAutocomplete {...props} inputProps={{
+				<EventActionAutocomplete inputProps={{
 					label: 'Missionslänge',
 					placeholder: 'Freitext',
 					maxLength: TEXT,
@@ -36,7 +37,7 @@ export function EventMisc<FormReturnType extends EventAction>(props: EventAction
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
-				<EventActionTextInput {...props} inputProps={{
+				<EventActionTextInput inputProps={{
 					label: 'Bild-URL',
 					maxLength: URL,
 				}} formPath={'pictureUrl'}/>
