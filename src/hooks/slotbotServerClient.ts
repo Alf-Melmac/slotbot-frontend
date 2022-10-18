@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const slotbotServerClient = axios.create({
 	headers: {
-		'Content-type': 'application/json',
 		'X-Requested-With': 'XMLHttpRequest',
 	},
 });
@@ -11,12 +10,14 @@ slotbotServerClient.interceptors.response.use((response) => response, (error) =>
 	if (error.response) {
 		// The request was made and the server responded with a status code
 		// that falls out of the range of 2xx
-		/*console.log(error.response.data);
-		console.log(error.response.headers);*/
-
 		if (error.response.status === 404) {
 			window.location.replace('/404');
 		}
+		console.error(error.response.data);
+		console.error(error.response.headers);
+		return Promise.reject({
+			message: error.response.data.errorMessage
+		});
 	} else if (error.request) {
 		// The request was made but no response was received
 		// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
