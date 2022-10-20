@@ -6,11 +6,13 @@ import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventTextChange} from '../useEventTextChange';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();
 
 	const missionTypeInputProps = form.getInputProps('missionType');
+	const {mutate} = useEventTextChange('missionType', missionTypeInputProps.value);
 	return <>
 		<EventActionTextarea inputProps={{
 			label: 'Beschreibung',
@@ -25,8 +27,8 @@ export function EventMisc(): JSX.Element {
 				<Select label={'Missionstyp'} placeholder={'Auswählen...'}
 						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', 'Spezial', 'Anderes']}
 						{...missionTypeInputProps}
-					//TODO mutate
-						onChange={changeHandler(missionTypeInputProps, useEditMode(), () => console.log(form.values.missionType))}/>
+					//FIXME sends last selected value
+						onChange={changeHandler(missionTypeInputProps, useEditMode(), mutate)}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
 				<EventActionAutocomplete inputProps={{

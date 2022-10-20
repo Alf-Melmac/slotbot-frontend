@@ -1,10 +1,10 @@
-import {InlineEditableText} from '../../components/Input/InlineEditable/InlineEditableText';
 import {useForm} from '@mantine/form';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
 import {UserOwnProfileDto} from './profileTypes';
+import {InlineEditableText} from '../../components/Input/InlineEditable/InlineEditables';
 
 type ProfileSteamIdProps = {
 	steamId: UserOwnProfileDto['steamId64'];

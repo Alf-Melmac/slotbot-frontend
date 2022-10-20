@@ -38,11 +38,11 @@ export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
  * @param callAdditionalHandler boolean to determine if optional provided changeHandler should be called
  * @param additionalChangeHandler additionally method called on change
  */
-export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, callAdditionalHandler: boolean, additionalChangeHandler?: ChangeEventHandler<HTMLInputElement>): ChangeEventHandler<HTMLInputElement> {
+export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, callAdditionalHandler: boolean, additionalChangeHandler?: () => void): ChangeEventHandler<HTMLInputElement> {
 	return (event) => {
 		inputProps.onChange(event);
 		if (callAdditionalHandler && additionalChangeHandler) {
-			additionalChangeHandler(event);
+			additionalChangeHandler();
 		}
 	};
 }
