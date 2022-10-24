@@ -18,6 +18,10 @@ const pulsate = keyframes({
 const useStyles = createStyles(() => ({
 	button: {
         animation: `${pulsate} 2s infinite`,
+
+		'&:focus, &:hover': {
+			animation: 'unset',
+		}
     },
 }));
 
