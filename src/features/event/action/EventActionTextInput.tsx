@@ -6,14 +6,16 @@ import {useState} from 'react';
 import {useEventTextChange} from './useEventTextChange';
 import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditables';
 
-export type FormTextInputProps = {
+type FormTextInputProps = {
 	inputProps: TextInputProps;
 	formPath: string;
+	/** Forces edit mode in form context **/
+	overrideFormContextEditMode?: boolean;
 };
 
 export function EventActionTextInput(props: FormTextInputProps): JSX.Element {
-	const {inputProps, formPath} = props;
-	const form = useFormContext();
+	const {inputProps, formPath, overrideFormContextEditMode = false} = props;
+	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);
 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');

@@ -31,6 +31,6 @@ export function EventWizardProvider(props: FormProviderProps<EventWizardFormRetu
 	);
 }
 
-export function useFormContext(): EventEditFormReturn | EventWizardFormReturn {
-	return useEditMode() ? useEventEditFormContext() : useEventWizardFormContext();
+export function useFormContext(editMode = useEditMode()): EventEditFormReturn | EventWizardFormReturn {
+	return editMode ? useEventEditFormContext() : useEventWizardFormContext();
 }

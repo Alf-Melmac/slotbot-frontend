@@ -107,7 +107,7 @@ interface SquadIdDto extends AbstractIdEntityDto {
 	reservedFor: string;
 }
 
-interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
+export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
 }
 //endregion event edit
 

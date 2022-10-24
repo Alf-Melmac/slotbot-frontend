@@ -9,33 +9,38 @@ import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {EditModeProvider, useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 const MAX_DETAILS = 23;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();
 
-	const details = form.values.details.map((item, index) => (
-		<Group key={item.id} mt={'xs'}>
-			<EventActionTextInput inputProps={{
-				placeholder: 'Titel',
-				maxLength: EMBEDDABLE_TITLE,
-				required: true,
-			}} formPath={`details.${index}.title`}/>
+	const editMode = useEditMode();
+	const details = form.values.details.map((item, index) => {
+		return (
+			<Group key={item.id} mt={'xs'}>
+				<EditModeProvider editMode={false}>
+					<EventActionTextInput inputProps={{
+						placeholder: 'Titel',
+						maxLength: EMBEDDABLE_TITLE,
+						required: true,
+					}} formPath={`details.${index}.title`} overrideFormContextEditMode={editMode}/>
 
-			<EventActionTextInput inputProps={{
-				placeholder: 'Information',
-				maxLength: EMBEDDABLE_VALUE,
-				required: true,
-				sx: {flex: 1},
-			}} formPath={`details.${index}.text`}/>
+					<EventActionTextInput inputProps={{
+						placeholder: 'Information',
+						maxLength: EMBEDDABLE_VALUE,
+						required: true,
+						sx: {flex: 1},
+					}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>
 
-			<ActionIcon onClick={() => form.removeListItem('details', index)}>
-				<FontAwesomeIcon icon={faTrashCan}/>
-			</ActionIcon>
-		</Group>
-	));
+					<ActionIcon onClick={() => form.removeListItem('details', index)}>
+						<FontAwesomeIcon icon={faTrashCan}/>
+					</ActionIcon>
+				</EditModeProvider>
+			</Group>
+		);
+	});
 
 	return <>
 		{details}
@@ -47,7 +52,7 @@ export function EventDetails(): JSX.Element {
 			<CounterBadge currentValue={details.length} maxValue={MAX_DETAILS} yellowPhase/>
 		</Group>
 
-		{useEditMode() &&
+		{editMode &&
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => {
