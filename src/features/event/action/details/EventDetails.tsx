@@ -3,18 +3,27 @@ import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {AddButton} from '../../../../components/Button/AddButton';
-import {randomId} from '@mantine/hooks';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {EditModeProvider, useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventUpdate} from '../useEventUpdate';
+import {EventAction} from '../EventActionPage';
+import {filterFrontendIds} from '../../../../utils/formHelper';
+import {randomId} from '@mantine/hooks';
 
 const MAX_DETAILS = 23;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();
+
+	const detailsInvalid = (): boolean => {
+		return form.values.details.some((_, i) => {
+			return !form.isValid(`details.${i}.title`) || !form.isValid(`details.${i}.text`);
+		});
+	};
 
 	const editMode = useEditMode();
 	const details = form.values.details.map((item, index) => {
@@ -42,6 +51,10 @@ export function EventDetails(): JSX.Element {
 		);
 	});
 
+	const {mutate} = useEventUpdate('eventType',
+		{details: filterFrontendIds<EventAction['details'][number]>(form.values.details)},
+		// @ts-ignore Details matches here
+		result => form.setFieldValue('details', result.details));
 	return <>
 		{details}
 
@@ -55,9 +68,9 @@ export function EventDetails(): JSX.Element {
 		{editMode &&
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
-                    <PulsatingButton onClick={() => {
-						console.log(form.values.details);/*TODO mutate*/
-					}} disabled={!form.isDirty('details')}>Felder speichern</PulsatingButton>
+                    <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
+                        Felder speichern
+                    </PulsatingButton>
                 </ScrollAffix>
             </Group>
 		}

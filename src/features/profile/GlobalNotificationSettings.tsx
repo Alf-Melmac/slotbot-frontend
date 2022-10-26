@@ -9,10 +9,10 @@ import {AddButton} from '../../components/Button/AddButton';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {showNotification} from '@mantine/notifications';
 import {ButtonWithDisabledTooltip} from '../../components/Button/ButtonWithDisabledTooltip';
 import {useEffect, useState} from 'react';
 import {isEmpty, isEqual} from 'lodash';
+import {errorNotification, successNotification} from '../../utils/notificationHelper';
 
 type GlobalNotificationSettingsProps = Pick<UserOwnProfileDto, 'notificationSettings'>;
 
@@ -42,22 +42,12 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 		},
 		onSuccess: (data) => {
 			const noOfNotifications = data.length;
-			showNotification({
-				title: 'Gespeichert',
-				message: noOfNotifications === 0 ? 'Benachrichtigungen deaktiviert.' : `${handleGrammaticalNumber(noOfNotifications, 'Benachrichtigung', 'Benachrichtigungen')} vorgemerkt.`,
-				color: 'green',
-			});
+			successNotification(noOfNotifications === 0 ? 'Benachrichtigungen deaktiviert.' : `${handleGrammaticalNumber(noOfNotifications, 'Benachrichtigung', 'Benachrichtigungen')} vorgemerkt.`);
 			queryClient.setQueryData(['ownProfile'], data);
 			form.resetDirty(); //This doesn't update the initialValues where dirty checks against. But we don't expect many manual rollbacks by the user, therefore this behavior is acceptable here
 			setExistInitialSettings(!isEmpty(data));
 		},
-		onError: (error) => {
-			showNotification({
-				title: `Speichern fehlgeschlagen. (${error.code})`,
-				message: error.message,
-				color: 'red',
-			});
-		},
+		onError: errorNotification,
 		onSettled: () => {
 			setSaving(false);
 		},

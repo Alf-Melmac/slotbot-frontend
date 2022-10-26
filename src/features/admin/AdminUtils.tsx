@@ -4,16 +4,16 @@ import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient
 import {useEffect, useState} from 'react';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {showNotification} from '@mantine/notifications';
 import {useDocumentTitle} from '@mantine/hooks';
+import {errorNotification, successNotification} from '../../utils/notificationHelper';
 
 export function AdminUtils(): JSX.Element {
 	useDocumentTitle('Admin - Utils');
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postAction, {
-		onSuccess: () => showNotification({title: 'Send', message: action, color: 'green'}),
-		onError: error => showNotification({title: `Failed. (${error.code})`, message: error.message, color: 'red'}),
+		onSuccess: () => successNotification(action),
+		onError: errorNotification,
 	});
 	useEffect(() => {
 		if (!action) return;

@@ -6,7 +6,7 @@ import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
-import {useEventTextChange} from '../useEventTextChange';
+import {useEventTextChange} from '../useEventUpdate';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();

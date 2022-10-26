@@ -111,6 +111,6 @@ export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
 }
 //endregion event edit
 
-interface IdEntity {
+export interface IdEntity {
 	id: number;
 }

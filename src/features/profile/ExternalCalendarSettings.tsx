@@ -7,7 +7,7 @@ import {useEffect, useState} from 'react';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {showNotification} from '@mantine/notifications';
+import {errorNotification, successNotification} from '../../utils/notificationHelper';
 
 type ExternalCalendarSettingsProps = Pick<UserOwnProfileDto, 'externalCalendarIntegrationActive' | 'icsCalendarUrl'>;
 
@@ -32,16 +32,8 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 		onMutate: () => {
 			setSaving(true);
 		},
-		onSuccess: () => {
-			showNotification({title: 'Gespeichert', message: <></>, color: 'green'});
-		},
-		onError: error => {
-			showNotification({
-				title: `Speichern fehlgeschlagen. (${error.code})`,
-				message: error.message,
-				color: 'red',
-			});
-		},
+		onSuccess: () => successNotification(),
+		onError: errorNotification,
 		onSettled: () => {
 			setSaving(false);
 		},

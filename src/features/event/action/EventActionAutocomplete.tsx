@@ -3,7 +3,7 @@ import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditables';
-import {useEventTextChange} from './useEventTextChange';
+import {useEventTextChange} from './useEventUpdate';
 
 type FormTextInputProps = {
 	inputProps: AutocompleteProps;

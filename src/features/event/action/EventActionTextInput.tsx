@@ -3,7 +3,7 @@ import {TextInputProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {useState} from 'react';
-import {useEventTextChange} from './useEventTextChange';
+import {useEventTextChange} from './useEventUpdate';
 import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditables';
 
 type FormTextInputProps = {

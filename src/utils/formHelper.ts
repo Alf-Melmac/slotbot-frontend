@@ -1,6 +1,9 @@
 import {UseFormReturnType} from '@mantine/form';
 import {GetInputProps} from '@mantine/form/lib/types';
 import {ChangeEventHandler, ReactNode} from 'react';
+import {PartialBy} from './typesHelper';
+import {FrontendIdDto} from '../contexts/sharedTypes';
+import {IdEntity} from '../features/event/eventTypes';
 
 function requiredField(length: number, check: () => React.ReactNode): ReactNode {
 	return length < 1 ? 'Pflichtfeld' : check();
@@ -45,4 +48,17 @@ export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, callAd
 			additionalChangeHandler();
 		}
 	};
+}
+
+type FilteredEventAction<Field extends FrontendIdDto | IdEntity> = PartialBy<Field, 'id'>
+
+export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: FilteredEventAction<Field>[]): FilteredEventAction<Field>[] {
+	const newList: FilteredEventAction<Field>[] = structuredClone(list);
+	newList.forEach(detail => {
+		const id = detail.id;
+		if (typeof id === 'string' && id.startsWith('mantine-')) {
+			delete detail.id;
+		}
+	});
+	return newList;
 }

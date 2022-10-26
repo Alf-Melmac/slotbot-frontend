@@ -4,7 +4,7 @@ import {TextareaMaxLength} from '../../../components/Input/MaxLength/TextareaMax
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {InlineEditableTextarea} from '../../../components/Input/InlineEditable/InlineEditables';
-import {useEventTextChange} from './useEventTextChange';
+import {useEventTextChange} from './useEventUpdate';
 
 type FormTextInputProps = {
 	inputProps: TextareaProps;
