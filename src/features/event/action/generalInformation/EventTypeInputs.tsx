@@ -5,9 +5,10 @@ import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-ic
 import {TEXT} from '../../../../utils/maxLength';
 import {useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
-import {changeHandler} from '../../../../utils/formHelper';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventUpdate} from '../useEventUpdate';
+import {usePrevious} from '@mantine/hooks';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
@@ -43,6 +44,19 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 
 	const editMode = useEditMode();
 	const eventTypeNameInputProps = form.getInputProps('eventType.name');
+
+	const {mutate} = useEventUpdate('eventType',
+		{eventType: form.values.eventType},
+		result => form.setFieldValue('eventType', result.eventType));
+	const previousEventType = usePrevious(form.values.eventType.color);
+	useEffect(() => {
+		if (!editMode || !previousEventType) return;
+
+		const newEventType = form.values.eventType.color;
+		if (previousEventType !== newEventType) {
+			mutate();
+		}
+	}, [form.values.eventType.color]); //Update eventType after color has been synchronized
 	return (
 		<>
 			{!eventTypes &&
@@ -68,9 +82,7 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 								setData((current) => [...current, input]);
 								return item;
 							}}
-							{...eventTypeNameInputProps}
-						//TODO mutate
-							onChange={changeHandler(eventTypeNameInputProps, editMode, () => console.log(form.values.eventType))}/>
+							{...eventTypeNameInputProps}/>
 				</Grid.Col>
 				<Grid.Col span={4}>
 					<ColorInput label={'Event-Typ-Farbe'}
