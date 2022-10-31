@@ -1,9 +1,11 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
 import {TimeInput, TimeInputProps} from '@mantine/dates';
-import {usePrevious} from '@mantine/hooks';
-import {changeHandler} from '../../../../utils/formHelper';
+import {useDebouncedValue, usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useEventUpdate} from '../useEventUpdate';
+import {formatTime, parseTime} from '../../../../utils/dateHelper';
+import {useEffect} from 'react';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 
 const timeInputProps: TimeInputProps = {
@@ -17,18 +19,19 @@ const timeInputProps: TimeInputProps = {
 export function EventStartTime(): JSX.Element {
 	const form = useFormContext();
 
-	const startTimeInputProps = form.getInputProps('startTime');
-	const previous = usePrevious(startTimeInputProps.value);
-	return <>
-		{useEditMode() ?
-			<TimeInput {...timeInputProps} {...startTimeInputProps}
-					   onChange={changeHandler(startTimeInputProps, true, () => {
-						   if (form.values.date !== previous) {
-							   console.log(form.values.startTime); // TODO mutate
-						   }
-					   })}/>
-			:
-			<TimeInput {...timeInputProps} {...startTimeInputProps}/>
-		}
-	</>;
+	const [debounced] = useDebouncedValue(form.values.startTime, 1000);
+	// @ts-ignore
+	const {mutate} = useEventUpdate({startTime: formatTime(debounced)},
+		// @ts-ignore
+		result => form.setFieldValue('startTime', parseTime(result.startTime)));
+	const previous = usePrevious(debounced);
+
+	const editMode = useEditMode();
+	useEffect(() => {
+		// @ts-ignore It's a date
+		if (!editMode || previous === undefined || previous.getTime() === debounced.getTime()) return;
+		mutate();
+	}, [debounced]);
+
+	return <TimeInput {...timeInputProps} {...form.getInputProps('startTime')}/>;
 }
