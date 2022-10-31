@@ -1,4 +1,4 @@
-import {Button, Card, Grid, Group, Image, MediaQuery, Paper, Text, TextProps, Title} from '@mantine/core';
+import {Button, Card, createStyles, Grid, Group, Image, MediaQuery, Paper, Text, TextProps, Title} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailsDto} from '../eventTypes';
@@ -6,6 +6,13 @@ import dayjs from 'dayjs';
 import {MutableRefObject} from 'react';
 import {EventCopy} from './EventCopy';
 import {EventEditButton} from './EventEditButton';
+
+const useStyles = createStyles(() => ({
+	forceWrap: {
+		maxWidth: '100%',
+		overflowWrap: 'break-word',
+	},
+}));
 
 type EventDetailsHeaderProps = {
 	event: EventDetailsDto;
@@ -17,6 +24,7 @@ type EventDetailsHeaderProps = {
 export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element {
 	const {event, eventDate, descriptionRef, scrollToDescription} = props;
 
+	const {classes} = useStyles();
 	return (
 		<>
 			<Grid gutter={'xl'} mt={1}>
@@ -27,7 +35,7 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 				</Grid.Col>
 				<Grid.Col xs={8} span={12}>
 					<Group position={'apart'} noWrap>
-						<Title order={1}>{event.name}</Title>
+						<Title order={1} className={classes.forceWrap}>{event.name}</Title>
 						<Group spacing={'xs'}>
 							<EventCopy eventId={event.id}/>
 							<EventEditButton eventId={event.id}/>
@@ -39,7 +47,7 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 						{event.missionLength &&
                             <>
                                 <Text><FontAwesomeIcon icon={faHourglassEnd}/></Text>
-                                <Text size={'xl'}>{event.missionLength}</Text>
+                                <Text size={'xl'} className={classes.forceWrap}>{event.missionLength}</Text>
                             </>
 						}
 					</Group>
@@ -68,11 +76,14 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 	);
 }
 
-type EventDescriptionProps = {
+type EventDescriptionProps = Pick<TextProps, 'className'> & {
 	description: EventDetailsDto['descriptionAsHtml'];
 	lineClamp: TextProps['lineClamp'];
 }
 
 function EventDescription(props: EventDescriptionProps): JSX.Element {
-	return <Text lineClamp={props.lineClamp} dangerouslySetInnerHTML={{__html: props.description}}/>;
+	const {classes, cx} = useStyles();
+	return <Text lineClamp={props.lineClamp}
+				 dangerouslySetInnerHTML={{__html: props.description}}
+				 className={cx(classes.forceWrap, props.className)}/>;
 }
