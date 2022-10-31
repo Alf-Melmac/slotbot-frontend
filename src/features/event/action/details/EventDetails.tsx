@@ -51,8 +51,7 @@ export function EventDetails(): JSX.Element {
 		);
 	});
 
-	const {mutate} = useEventUpdate('eventType',
-		{details: filterFrontendIds<EventAction['details'][number]>(form.values.details)},
+	const {mutate} = useEventUpdate({details: filterFrontendIds<EventAction['details'][number]>(form.values.details)},
 		// @ts-ignore Details matches here
 		result => form.setFieldValue('details', result.details));
 	return <>

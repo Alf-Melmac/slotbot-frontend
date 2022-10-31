@@ -45,8 +45,7 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 	const editMode = useEditMode();
 	const eventTypeNameInputProps = form.getInputProps('eventType.name');
 
-	const {mutate} = useEventUpdate('eventType',
-		{eventType: form.values.eventType},
+	const {mutate} = useEventUpdate({eventType: form.values.eventType},
 		result => form.setFieldValue('eventType', result.eventType));
 	const previousEventType = usePrevious(form.values.eventType.color);
 	useEffect(() => {
