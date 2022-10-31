@@ -39,6 +39,20 @@ export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) 
 	return {mutate};
 }
 
+export function useEventSlotListUpdate(data: unknown, onSuccess?: (saved: EventEditDto) => void) {
+	const eventId = useEventPage();
+	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}/slotlist`, data).then((res) => res.data);
+	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
+		onSuccess: (response) => {
+			onSuccess?.(response);
+			successNotification();
+		},
+		onError: errorNotification,
+	});
+
+	return {mutate};
+}
+
 export function useChangeWatcher(field: string) {
 	const form = useFormContext();
 	const editMode = useEditMode();

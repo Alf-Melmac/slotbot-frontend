@@ -4,11 +4,13 @@ import {RenumberSlots} from './RenumberSlots';
 import {SquadList} from './SquadList';
 import {EventEditDto} from '../../eventTypes';
 import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
-import {changeHandler} from '../../../../utils/formHelper';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
+import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
+import {EventAction} from '../EventActionPage';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
@@ -17,6 +19,24 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	const form = useFormContext();
 	const editMode = useEditMode();
 
+	const squadListInvalid = (): boolean => {
+		return form.values.squadList.some((squad, i) =>
+			!form.isValid(`squadList.${i}.name`)
+			|| squad.slotList.some((_, j) =>
+				!form.isValid(`squadList.${i}.slotList.${j}.name`) || !form.isValid(`squadList.${i}.slotList.${j}.number`)),
+		);
+	};
+
+	const squadList = filterFrontendIds<EventAction['squadList'][number]>(form.values.squadList);
+	squadList.forEach(squad => {
+		prepareReservedFor(squad);
+		squad.slotList.forEach(prepareReservedFor);
+	});
+
+	const {mutate} = useEventSlotListUpdate({squadList: squadList},
+		// @ts-ignore SquadList matches here
+		result => form.setFieldValue('squadList', result.squadList));
+	useChangeWatcher('reserveParticipating');
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
 		<Group position={'apart'}>
@@ -39,17 +59,25 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 		{editMode &&
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('squadList')}>
-                    <PulsatingButton onClick={() => {
-						console.log(form.values.squadList);/*TODO mutate*/
-					}} disabled={!form.isDirty('squadList')}>Slotliste speichern</PulsatingButton>
+                    <PulsatingButton onClick={() => mutate()}
+                                     disabled={!form.isDirty('squadList') || squadListInvalid()}>
+                        Slotliste speichern
+                    </PulsatingButton>
                 </ScrollAffix>
             </Group>
 		}
 
 		<Checkbox label={'Reserve nimmt teil'} mt={'md'}
 				  indeterminate={form.values.reserveParticipating === undefined}
-				  {...reserveParticipatingInputProps}
-			//TODO mutate
-				  onChange={changeHandler(reserveParticipatingInputProps, editMode, () => console.log(form.values.reserveParticipating))}/>
+				  {...reserveParticipatingInputProps}/>
 	</>;
+}
+
+function prepareReservedFor(el: FilteredEventAction<EventAction['squadList'][number]> | EventAction['squadList'][number]['slotList'][number]) {
+	if (!el.reservedFor) {
+		delete el.reservedFor;
+	} else {
+		// @ts-ignore
+		el.reservedFor = {id: el.reservedFor};
+	}
 }

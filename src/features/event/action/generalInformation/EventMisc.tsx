@@ -2,17 +2,15 @@ import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
 import {EventActionTextarea} from '../EventActionTextarea';
 import {Grid, Select} from '@mantine/core';
 import {EventActionTextInput} from '../EventActionTextInput';
-import {changeHandler} from '../../../../utils/formHelper';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
-import {useEventTextChange} from '../useEventUpdate';
+import {useChangeWatcher} from '../useEventUpdate';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();
 
 	const missionTypeInputProps = form.getInputProps('missionType');
-	const {mutate} = useEventTextChange('missionType', missionTypeInputProps.value);
+	useChangeWatcher('missionType');
 	return <>
 		<EventActionTextarea inputProps={{
 			label: 'Beschreibung',
@@ -26,9 +24,7 @@ export function EventMisc(): JSX.Element {
 			<Grid.Col span={4}>
 				<Select label={'Missionstyp'} placeholder={'Auswählen...'}
 						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', 'Spezial', 'Anderes']}
-						{...missionTypeInputProps}
-					//FIXME sends last selected value
-						onChange={changeHandler(missionTypeInputProps, useEditMode(), mutate)}/>
+						{...missionTypeInputProps}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
 				<EventActionAutocomplete inputProps={{

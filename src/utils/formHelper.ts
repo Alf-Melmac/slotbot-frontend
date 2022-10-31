@@ -1,6 +1,5 @@
 import {UseFormReturnType} from '@mantine/form';
-import {GetInputProps} from '@mantine/form/lib/types';
-import {ChangeEventHandler, ReactNode} from 'react';
+import {ReactNode} from 'react';
 import {PartialBy} from './typesHelper';
 import {FrontendIdDto} from '../contexts/sharedTypes';
 import {IdEntity} from '../features/event/eventTypes';
@@ -34,31 +33,24 @@ export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
 	return form.getInputProps(path).value;
 }
 
-/**
- * Change handler to be use in onChange method after input props have been spread
- *
- * @param inputProps which includes the onChange handler for the form
- * @param callAdditionalHandler boolean to determine if optional provided changeHandler should be called
- * @param additionalChangeHandler additionally method called on change
- */
-export function changeHandler(inputProps: ReturnType<GetInputProps<any>>, callAdditionalHandler: boolean, additionalChangeHandler?: () => void): ChangeEventHandler<HTMLInputElement> {
-	return (event) => {
-		inputProps.onChange(event);
-		if (callAdditionalHandler && additionalChangeHandler) {
-			additionalChangeHandler();
-		}
-	};
-}
-
-type FilteredEventAction<Field extends FrontendIdDto | IdEntity> = PartialBy<Field, 'id'>
+export type FilteredEventAction<Field extends FrontendIdDto | IdEntity> = PartialBy<Field, 'id'>
 
 export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: FilteredEventAction<Field>[]): FilteredEventAction<Field>[] {
 	const newList: FilteredEventAction<Field>[] = structuredClone(list);
-	newList.forEach(detail => {
-		const id = detail.id;
+	removeFrontendIds(newList);
+	return newList;
+}
+
+function removeFrontendIds(list: any[]): void {
+	list.forEach(field => {
+		const id = field.id;
 		if (typeof id === 'string' && id.startsWith('mantine-')) {
-			delete detail.id;
+			delete field.id;
+		}
+		for (const value of Object.values(field)) {
+			if (Array.isArray(value)) {
+				removeFrontendIds(value);
+			}
 		}
 	});
-	return newList;
 }
