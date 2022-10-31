@@ -50,9 +50,7 @@ export function useChangeWatcher(field: string) {
 		result => form.setFieldValue(field, result[field]));
 	const previous = usePrevious(formValue);
 	useEffect(() => {
-		if (!editMode || previous === undefined) return;
-		if (previous !== formValue) {
-			mutate();
-		}
+		if (!editMode || previous === undefined || previous === formValue || !form.isValid(field)) return;
+		mutate();
 	}, [formValue]);
 }

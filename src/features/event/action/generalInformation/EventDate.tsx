@@ -4,6 +4,8 @@ import {DatePicker, DatePickerProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventUpdate} from '../useEventUpdate';
+import {formatDate, parseDate} from '../../../../utils/dateHelper';
 
 const datePickerProps: DatePickerProps = {
 	label: 'Datum',
@@ -17,13 +19,17 @@ const datePickerProps: DatePickerProps = {
 export function EventDate(): JSX.Element {
 	const form = useFormContext();
 
+	// @ts-ignore
+	const {mutate} = useEventUpdate({date: formatDate(form.values.date)},
+		// @ts-ignore
+		result => form.setFieldValue('date', parseDate(result.date)));
+	const previous = usePrevious(form.values.date);
 	const dateInputProps = form.getInputProps('date');
-	const previous = usePrevious(dateInputProps.value);
 	return <>
 		{useEditMode() ?
 			<DatePicker {...datePickerProps} {...dateInputProps} onDropdownClose={() => {
-				if (form.values.date !== previous) {
-					console.log(form.values.date); // TODO mutate
+				if (form.isValid('date') && form.values.date !== previous) {
+					mutate();
 				}
 			}}/>
 			:
