@@ -1,6 +1,7 @@
 import {createContext, PropsWithChildren, useContext, useEffect, useState} from 'react';
 import {DiscordUserDto} from './authenticationTypes';
 import authenticationQuery from './authenticationQuery';
+import {getBackendUrl} from '../../utils/urlHelper';
 
 export function AuthProvider(props: PropsWithChildren): JSX.Element {
 	const [user, setUser] = useState<AuthContextType['user']>();
@@ -13,11 +14,11 @@ export function AuthProvider(props: PropsWithChildren): JSX.Element {
 	);
 
 	const login = () => {
-		window.location.href = 'http://localhost:8090/oauth2/authorization/discord';
+		window.location.href = `${getBackendUrl()}/oauth2/authorization/discord`;
 	};
 
 	const logout = () => {
-		window.location.href = 'http://localhost:8090/logout';
+		window.location.href = `${getBackendUrl()}/logout`;
 	};
 
 	return <AuthContext.Provider value={{user, login, logout}}>{props.children}</AuthContext.Provider>;

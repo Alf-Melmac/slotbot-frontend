@@ -5,7 +5,7 @@ import {EventTypeInputs} from './EventTypeInputs';
 import {useQuery} from '@tanstack/react-query';
 
 export function EventTypeMask(): JSX.Element {
-	const getEventTypes = () => slotbotServerClient.get(`http://localhost:8090/events/types`).then((res) => res.data);
+	const getEventTypes = () => slotbotServerClient.get('/events/types').then((res) => res.data);
 	const query = useQuery<Array<EventTypeDto>, Error>(['eventTypes'], getEventTypes);
 
 	return <>

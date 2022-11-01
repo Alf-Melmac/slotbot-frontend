@@ -9,6 +9,7 @@ import {EventTooltip} from './EventTooltip';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {AddButton} from '../../../components/Button/AddButton';
+import {getBackendUrl} from '../../../utils/urlHelper';
 
 const useStyles = createStyles(() => ({
 	eventType: {
@@ -65,7 +66,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 				viewDidMount={(_arg) => toggleVisible(true)}
 				eventSources={[
 					{
-						url: '/events/list',
+						url: `${getBackendUrl()}/events/list`,
 						color: 'blue',
 					},
 				]}

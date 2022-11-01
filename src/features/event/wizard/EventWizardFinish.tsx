@@ -38,7 +38,7 @@ export function EventWizardFinish(): JSX.Element {
 		</>,
 	);
 
-	const postEvent = () => slotbotServerClient.post('http://localhost:8090/events', formValues).then((res) => res.data);
+	const postEvent = () => slotbotServerClient.post('/events', formValues).then((res) => res.data);
 	const navigate = useNavigate();
 	const {mutate} = useMutation<number, AxiosError>(postEvent, {
 		onSuccess: data => {

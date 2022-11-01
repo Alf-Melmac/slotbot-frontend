@@ -1,6 +1,8 @@
 import axios from 'axios';
+import {getBackendUrl} from '../utils/urlHelper';
 
 const slotbotServerClient = axios.create({
+	baseURL: getBackendUrl(),
 	headers: {
 		'X-Requested-With': 'XMLHttpRequest',
 	},
