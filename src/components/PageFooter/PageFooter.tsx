@@ -1,10 +1,12 @@
 import {ActionIcon, Container, createStyles, Group, MantineStyleSystemProps, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
+import {faDiscord, faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
+import {getGuild, Guild} from '../../contexts/Theme';
+import {faHouseUser} from '@fortawesome/free-solid-svg-icons';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
@@ -39,6 +41,10 @@ const useStyles = createStyles((theme) => ({
 		color: theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333',
 		filter: `drop-shadow(${iconTextShadow} ${theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333'})`,
 	},
+	discord: {
+		color: '#5865f2',
+		filter: `drop-shadow(${iconTextShadow} #5865f2)`,
+	},
 
 	link: {
 		fontSize: 13,
@@ -57,28 +63,75 @@ export function PageFooter(props: FooterProps): JSX.Element {
 	const {mt} = props;
 	const {classes, cx} = useStyles();
 
-	const icons: Array<IconType> = [
-		{
-			icon: faTwitter,
-			href: 'https://twitter.com/ArmaMachtBock',
-			iconClass: classes.twitter,
-		},
-		{
-			icon: faYoutube,
-			href: 'https://armamachtbock.de/youtube',
-			iconClass: classes.youtube,
-		},
-		{
-			icon: faTwitch,
-			href: 'https://www.twitch.tv/ArmaMachtBock',
-			iconClass: classes.twitch,
-		},
-		{
-			icon: faWikipediaW,
-			href: 'https://wiki.armamachtbock.de',
-			iconClass: classes.wiki,
-		},
-	];
+	let icons: IconType[];
+
+	const guild = getGuild();
+	switch (guild) {
+		case Guild.AMB:
+			icons = [
+				{
+					icon: faTwitter,
+					href: 'https://twitter.com/ArmaMachtBock',
+					iconClass: classes.twitter,
+				},
+				{
+					icon: faYoutube,
+					href: 'https://armamachtbock.de/youtube',
+					iconClass: classes.youtube,
+				},
+				{
+					icon: faTwitch,
+					href: 'https://www.twitch.tv/ArmaMachtBock',
+					iconClass: classes.twitch,
+				},
+				{
+					icon: faWikipediaW,
+					href: 'https://wiki.armamachtbock.de',
+					iconClass: classes.wiki,
+				},
+			];
+			break;
+		case Guild.DAA:
+			icons = [
+				{
+					icon: faTwitter,
+					href: 'https://twitter.com/ArmaAllianz_DE',
+					iconClass: classes.twitter,
+				},
+				{
+					icon: faYoutube,
+					href: 'https://www.youtube.com/channel/UC5rsoVq3vbqBwzBvpKyrueA',
+					iconClass: classes.youtube,
+				},
+				{
+					icon: faTwitch,
+					href: 'https://www.twitch.tv/deutschearmaallianz',
+					iconClass: classes.twitch,
+				},
+				{
+					icon: faDiscord,
+					href: 'https://discord.gg/utzmTBvu45',
+					iconClass: classes.discord,
+				},
+			];
+			break;
+		case Guild.SLOTBOT:
+		default:
+			icons = [
+				{
+					icon: faWikipediaW,
+					href: 'https://docs.webalf.de',
+					iconClass: classes.wiki,
+				},
+				{
+					icon: faHouseUser,
+					href: 'https://armamachtbock.de',
+					iconClass: classes.wiki,
+				},
+			];
+			break;
+	}
+	const impressum = guild === Guild.DAA ? 'https://www.deutsche-arma-allianz.de/impressum.html' : 'https://wiki.armamachtbock.de/de/Impressum';
 
 	return (
 		<Container className={classes.container} py={40} mt={mt}>
@@ -99,7 +152,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 					)}
 				</Group>
 				<Text size={'xs'}>
-					<AnchorBlank className={classes.link} href={'https://wiki.armamachtbock.de/de/Impressum'}>
+					<AnchorBlank className={classes.link} href={impressum}>
 						Impressum & Datenschutzerklärung
 					</AnchorBlank>
 				</Text>
