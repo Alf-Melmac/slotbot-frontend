@@ -1,6 +1,7 @@
-import {createStyles, Group, Image, MediaQuery, Text} from '@mantine/core';
+import {createStyles, Group, Image, MediaQuery, Text, useMantineTheme} from '@mantine/core';
 import ambLogo from './amb-256-256.png';
-import daaLogo from './daa-full-crop-transparent.gif';
+import daaLogo from './daa-full-crop.gif';
+import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 
@@ -18,7 +19,7 @@ export function Logo(props: LogoProps): JSX.Element {
 	const {small = false} = props;
 	const {classes} = useStyles();
 	const {title, logo, logoWithName = false} = getInfo();
-	const width = logoWithName ? small ? 100 : 228 : small ? 27.9 : 70;
+	const width = logoWithName ? small ? 100 : 230 : small ? 27.9 : 70;
 
 	return (
 		<Group spacing={'xs'} noWrap>
@@ -53,9 +54,10 @@ type LogoInfo = {
 function getInfo(): LogoInfo {
 	switch (getGuild()) {
 		case Guild.DAA:
+			const theme = useMantineTheme();
 			return {
 				title: 'Deutsche Arma Allianz',
-				logo: daaLogo,
+				logo: theme.colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
 				logoWithName: true,
 			};
 		case Guild.AMB:

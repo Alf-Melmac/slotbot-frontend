@@ -8,11 +8,13 @@ type CounterBadgeProps = {
 
 export function CounterBadge(props: CounterBadgeProps): JSX.Element {
 	const {currentValue, maxValue, yellowPhase = false} = props;
-	let badgeColor = undefined;
+	let badgeColor;
 	if (maxValue <= currentValue) {
 		badgeColor = 'red';
 	} else if (yellowPhase && maxValue * 0.9 < currentValue) {
 		badgeColor = 'yellow';
+	} else {
+		badgeColor = 'green';
 	}
 
 	return <Badge color={badgeColor}>{currentValue}/{maxValue}</Badge>;

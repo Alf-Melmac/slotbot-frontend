@@ -5,7 +5,7 @@ import {Link, LinkProps} from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 	actionIcon: { /*Copy pasta from mantine ActionIcon*/
-		...theme.fn.hover({backgroundColor: theme.fn.variant({color: 'green', variant: 'filled'}).hover}),
+		...theme.fn.hover({backgroundColor: theme.fn.variant({color: theme.primaryColor, variant: 'filled'}).hover}),
 		'&:active': theme.activeStyles,
 
 		'&[data-disabled=true]': {
@@ -46,7 +46,7 @@ export function AddButton(props: AddButtonProps): JSX.Element {
 						{/*@ts-ignore TS doesn't understand this component*/...{}}
 						component={to ? Link : UnstyledButton} to={to}>
 			<Group spacing={6} mt={mt} mb={mb}>
-				<ThemeIcon color={'green'} variant={'filled'} radius={'xl'} className={classes.actionIcon}
+				<ThemeIcon variant={'filled'} radius={'xl'} className={classes.actionIcon}
 						   data-disabled={disabled}>
 					<FontAwesomeIcon icon={faPlus}/>
 				</ThemeIcon>
