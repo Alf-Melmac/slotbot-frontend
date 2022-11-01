@@ -6,6 +6,7 @@ import {NavIconAction, NavIconLink} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
+import {PageFooter} from '../PageFooter/PageFooter';
 
 const useStyles = createStyles((theme) => ({
 	outer: {
@@ -60,9 +61,9 @@ export function Nav(props: NavProps): JSX.Element {
 						</Box>
 					</Container>
 				</Header>
-			}
-			padding={0}>
-			<Box sx={{minHeight: height - 132}}>{props.children}</Box>
+			}>
+			{props.children}
+			<PageFooter mt={'xl'}/>
 		</AppShell>
 	);
 }

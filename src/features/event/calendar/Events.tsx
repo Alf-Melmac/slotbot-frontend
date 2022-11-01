@@ -1,6 +1,5 @@
 import {Nav} from "../../../components/nav/Nav";
 import {Box, Center, Container, createStyles, Title} from "@mantine/core";
-import {PageFooter} from '../../../components/PageFooter/PageFooter';
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {useCallback, useRef, useState} from 'react';
@@ -31,22 +30,18 @@ export function Events(): JSX.Element {
 
 	return (
 		<Nav>
-			<>
-				<Container>
-					<Center>
-						<Title>Events</Title>
-					</Center>
+			<Container>
+				<Center>
+					<Title>Events</Title>
+				</Center>
 
-					<Box ref={loadingCalendarWrapper}>
-						<LoadingCalendar animated={animated}/>
-					</Box>
-					<Box ref={eventCalendarWrapper}>
-						<EventCalendar toggleVisible={toggleVisible} onFailure={() => setAnimated(false)}/>
-					</Box>
-				</Container>
-
-				<PageFooter mt={'xl'}/>
-			</>
+				<Box ref={loadingCalendarWrapper}>
+					<LoadingCalendar animated={animated}/>
+				</Box>
+				<Box ref={eventCalendarWrapper}>
+					<EventCalendar toggleVisible={toggleVisible} onFailure={() => setAnimated(false)}/>
+				</Box>
+			</Container>
 		</Nav>
 	);
 }

@@ -1,4 +1,4 @@
-import {Button, Code, Container, Group, Stepper} from '@mantine/core';
+import {Button, Container, Group, Stepper} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useEffect, useState} from 'react';
@@ -6,7 +6,6 @@ import {EventDetailsDto, EventPostDto} from '../eventTypes';
 import {randomColor} from '../action/generalInformation/EventTypeInputs';
 import {EventWizardFinish} from './EventWizardFinish';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
-import {PageFooter} from '../../../components/PageFooter/PageFooter';
 import {useLocation} from 'react-router-dom';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
@@ -97,38 +96,34 @@ export function EventWizard(): JSX.Element {
 
 	return (
 		<Nav>
-			<>
-				<Container>
-					<EventWizardProvider form={form}>
-						<Breadcrumb items={breadcrumbItems}/>
+			<Container>
+				<EventWizardProvider form={form}>
+					<Breadcrumb items={breadcrumbItems}/>
 
-						<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
-							<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
-								<EventGeneralInformation/>
-							</Stepper.Step>
-							<Stepper.Step label={'Event'} description={'Details'}>
-								<EventDetailsPage/>
-							</Stepper.Step>
-							<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
-								<EventSlotlist/>
-							</Stepper.Step>
+					<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
+						<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
+							<EventGeneralInformation/>
+						</Stepper.Step>
+						<Stepper.Step label={'Event'} description={'Details'}>
+							<EventDetailsPage/>
+						</Stepper.Step>
+						<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
+							<EventSlotlist/>
+						</Stepper.Step>
 
-							<Stepper.Completed>
-								<EventWizardFinish/>
-							</Stepper.Completed>
-						</Stepper>
+						<Stepper.Completed>
+							<EventWizardFinish/>
+						</Stepper.Completed>
+					</Stepper>
 
-						<Group position="right" mt="xl">
-							{active !== 0 && active !== 3 &&
-                                <Button variant="default" onClick={prevStep}>Vorherige</Button>}
-							{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
-							{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
-						</Group>
-					</EventWizardProvider>
-				</Container>
-
-				<PageFooter mt={'xl'}/>
-			</>
+					<Group position="right" mt="xl">
+						{active !== 0 && active !== 3 &&
+                            <Button variant="default" onClick={prevStep}>Vorherige</Button>}
+						{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
+						{active === 2 && <Button color={'green'} onClick={nextStep}>Speichern</Button>}
+					</Group>
+				</EventWizardProvider>
+			</Container>
 		</Nav>
 	);
 }
