@@ -2,7 +2,7 @@ import {ColorScheme, ColorSchemeProvider, MantineProvider, Skeleton} from '@mant
 import {Suspense, useState} from 'react';
 import {routes} from "./Router";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {themeOverride} from "./contexts/Theme";
+import {getThemeOverride} from "./contexts/Theme";
 import {NotificationsProvider} from '@mantine/notifications';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
@@ -28,7 +28,7 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
 				<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-					<MantineProvider theme={{colorScheme, ...themeOverride}} withGlobalStyles>
+					<MantineProvider theme={{colorScheme, ...getThemeOverride()}} withGlobalStyles>
 						<NotificationsProvider>
 							<AuthProvider>
 								<RouterProvider router={router}/>

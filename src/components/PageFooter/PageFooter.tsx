@@ -4,7 +4,7 @@ import {faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-br
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
-import {AmbLogo} from '../logo/AmbLogo';
+import {Logo} from '../logo/Logo';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
@@ -84,7 +84,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 		<Container className={classes.container} py={40} mt={mt}>
 			<Stack>
 				<Group spacing={'xs'}>
-					<AmbLogo width={27.9}/>
+					<Logo small/>
 					<ThemeSwitch/>
 				</Group>
 				<Text size={'sm'} className={classes.description}>© 2022 Alf. All rights reserved.</Text>

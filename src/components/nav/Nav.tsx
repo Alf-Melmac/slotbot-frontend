@@ -1,6 +1,6 @@
 import {AppShell, Box, Container, createStyles, Group, Header, MediaQuery} from "@mantine/core";
 import {useViewportSize} from "@mantine/hooks";
-import {AmbLogo} from '../logo/AmbLogo';
+import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
@@ -41,7 +41,7 @@ export function Nav(props: NavProps): JSX.Element {
 			header={
 				<Header height={NAV_HEIGHT} className={classes.outer} withBorder={false}>
 					<Container className={classes.inner}>
-						<AmbLogo/>
+						<Logo/>
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
 								<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
@@ -61,12 +61,7 @@ export function Nav(props: NavProps): JSX.Element {
 					</Container>
 				</Header>
 			}
-			padding={0}
-			styles={(theme) => ({
-				main: {
-					backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
-				},
-			})}>
+			padding={0}>
 			<Box sx={{minHeight: height - 132}}>{props.children}</Box>
 		</AppShell>
 	);
