@@ -71,10 +71,6 @@ const themeAMB: MantineThemeOverride = {
 	primaryColor: 'cyan',
 
 	globalStyles: (theme) => ({
-		body: {
-			marginTop: 0,
-			marginBottom: 0,
-		},
 		'body, main': {
 			backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[1] : theme.colors.dark[7],
 		},
@@ -102,10 +98,6 @@ const themeDAA: MantineThemeOverride = {
 	primaryColor: 'yellow',
 
 	globalStyles: (theme) => ({
-		body: {
-			marginTop: 0,
-			marginBottom: 0,
-		},
 		'body, main': {
 			backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[1] : theme.colors.gray[9],
 		},

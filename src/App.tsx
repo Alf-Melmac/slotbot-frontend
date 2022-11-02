@@ -28,7 +28,7 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
 				<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-					<MantineProvider theme={{colorScheme, ...getThemeOverride()}} withGlobalStyles>
+					<MantineProvider theme={{colorScheme, ...getThemeOverride()}} withNormalizeCSS withGlobalStyles>
 						<NotificationsProvider>
 							<AuthProvider>
 								<RouterProvider router={router}/>
