@@ -14,7 +14,7 @@ export function AuthProvider(props: PropsWithChildren): JSX.Element {
 	);
 
 	const login = () => {
-		window.location.href = `${getBackendUrl()}/oauth2/authorization/discord`;
+		window.location.href = `${getBackendUrl()}/login?redirectUrl=${window.location.href}`;
 	};
 
 	const logout = () => {
