@@ -1,4 +1,4 @@
-import {ActionIcon, Container, createStyles, Group, MantineStyleSystemProps, Stack, Text} from '@mantine/core';
+import {ActionIcon, Container, createStyles, Group, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDiscord, faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
@@ -51,16 +51,13 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-type FooterProps = Pick<MantineStyleSystemProps, 'mt'>;
-
 type IconType = {
 	icon: IconDefinition;
 	href: string;
 	iconClass: string;
 }
 
-export function PageFooter(props: FooterProps): JSX.Element {
-	const {mt} = props;
+export function PageFooter(): JSX.Element {
 	const {classes, cx} = useStyles();
 
 	let icons: IconType[];
@@ -134,7 +131,7 @@ export function PageFooter(props: FooterProps): JSX.Element {
 	const impressum = guild === Guild.DAA ? 'https://www.deutsche-arma-allianz.de/impressum.html' : 'https://wiki.armamachtbock.de/de/Impressum';
 
 	return (
-		<Container className={classes.container} py={40} mt={mt}>
+		<Container className={classes.container} py={40}>
 			<Stack>
 				<Group spacing={'xs'}>
 					<Logo small/>
