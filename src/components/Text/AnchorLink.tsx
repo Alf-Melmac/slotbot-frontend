@@ -2,7 +2,7 @@ import {Anchor} from '@mantine/core';
 import {Link, To} from 'react-router-dom';
 import {ReactNode} from 'react';
 
-type ReactRouterAnchorProps = {
+export type ReactRouterAnchorProps = {
 	to: To;
 	children: ReactNode;
 	className?: string;

@@ -4,6 +4,7 @@ import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
+import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 
 const useStyles = createStyles(() => ({
 	title: {
@@ -22,16 +23,18 @@ export function Logo(props: LogoProps): JSX.Element {
 	const width = logoWithName ? small ? 100 : 230 : small ? 27.9 : 70;
 
 	return (
-		<Group spacing={'xs'} noWrap>
-			{!small &&
-                <MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
-                    <Image width={width} src={logo} alt={title}/>
-                </MediaQuery>
-			}
-			{(!logoWithName || small) &&
-                <Text size={'lg'} transform={'uppercase'} weight={700} className={classes.title}>{title}</Text>
-			}
-		</Group>
+		<UnstyledAnchorLink to={'/events'}>
+			<Group spacing={'xs'} noWrap>
+				{!small &&
+                    <MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+                        <Image width={width} src={logo} alt={title}/>
+                    </MediaQuery>
+				}
+				{(!logoWithName || small) &&
+                    <Text size={'lg'} transform={'uppercase'} weight={700} className={classes.title}>{title}</Text>
+				}
+			</Group>
+		</UnstyledAnchorLink>
 	);
 }
 
