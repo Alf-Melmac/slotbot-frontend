@@ -16,6 +16,8 @@ import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {eventActionValidate} from '../action/validation';
 import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
+import {showNotification} from '@mantine/notifications';
+import {AxiosError} from 'axios';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -75,9 +77,9 @@ export function EventWizard(): JSX.Element {
 	const state = useLocation().state as EventWizardLocation | null;
 	const copyEvent = state?.copy;
 	const getEventForCopy = () => slotbotServerClient.get(`/events/${copyEvent}/copy`).then((res) => res.data);
-	useQuery<EventPostDto, Error>(['copyEvent', copyEvent], getEventForCopy, {
+	useQuery<EventPostDto, AxiosError>(['copyEvent', copyEvent], getEventForCopy, {
 		enabled: !!copyEvent,
-		onSuccess: data => {
+		onSuccess: (data) => {
 			data.details.forEach(field => field.id = randomId());
 			data.squadList.forEach(squad => {
 				squad.id = randomId();
@@ -85,6 +87,14 @@ export function EventWizard(): JSX.Element {
 			});
 			form.setValues(omit(data, ['date', 'startTime']) as EventPostDto);
 		},
+		onError: (error) => {
+			showNotification({
+				title: 'Kopieren fehlgeschlagen.',
+				message: error.message,
+				color: 'red',
+				autoClose: false,
+			});
+		}
 	});
 
 	const {user} = useAuth();

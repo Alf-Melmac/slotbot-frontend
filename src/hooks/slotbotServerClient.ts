@@ -16,6 +16,9 @@ slotbotServerClient.interceptors.response.use((response) => response, (error) =>
 		if (error.response.status === 404) {
 			window.location.replace('/404');
 		}
+		if (error.response.status === 403) {
+			window.location.replace('/403');
+		}
 		console.error(error.response.data);
 		console.error(error.response.headers);
 		return Promise.reject({
