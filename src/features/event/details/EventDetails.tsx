@@ -1,8 +1,8 @@
 import {useParams} from 'react-router-dom';
 import {Nav} from '../../../components/nav/Nav';
-import {ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
+import {Alert, ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
+import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
 import {fetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
@@ -50,6 +50,11 @@ export function EventDetails(): JSX.Element {
 		<Nav>
 			<Container>
 				<Breadcrumb items={breadcrumbItems}/>
+
+				{event.hidden && <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
+					Dieses Event ist für Mitspieler noch nicht im Kalender sichtbar. Wenn das Slotten beginnen kann,
+					gebe das Event über den Editiermodus frei.
+				</Alert>}
 
 				<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
 									scrollToDescription={scrollToDescription}/>

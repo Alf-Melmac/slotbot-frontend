@@ -8,6 +8,7 @@ import {EventEdit} from './EventEdit';
 import {parseDate, parseTime} from '../../../utils/dateHelper';
 import {useEffect, useState} from 'react';
 import {useDocumentTitle} from '@mantine/hooks';
+import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
 
 export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable'>;
 
@@ -33,22 +34,9 @@ export function EventEditPage(): JSX.Element {
 	if (typeof event.startTime === 'string') {
 		event.startTime = parseTime(event.startTime);
 	}
-	//Prepare event edit string fields for display
-	if (event.description === null) {
-		event.description = '';
-	}
-	if (event.missionType === null) {
-		event.missionType = '';
-	}
-	if (event.missionLength === null) {
-		event.missionLength = '';
-	}
-	if (event.pictureUrl === null) {
-		event.pictureUrl = '';
-	}
-	if (event.reserveParticipating === null) {
-		event.reserveParticipating = undefined;
-	}
+
+	replaceNullWithEmpty(event, ['description', 'missionLength', 'missionType', 'pictureUrl']);
+	replaceNullWithUndefined(event, ['reserveParticipating']);
 
 	return <EventEdit eventId={eventId} event={event}/>;
 }

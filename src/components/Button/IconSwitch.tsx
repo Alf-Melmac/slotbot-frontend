@@ -36,7 +36,8 @@ export function IconSwitch(props: IconSwitchProps): JSX.Element {
 }
 
 const useElementStyles = createStyles(() => ({
-	labelWrapper: {
+	//Awaiting fix https://github.com/mantinedev/mantine/issues/2854
+	flex: {
 		display: 'flex',
 	},
 }));
@@ -44,7 +45,7 @@ const useElementStyles = createStyles(() => ({
 function IconSwitchElement(props: IconSwitchProps) {
 	const {classes} = useElementStyles();
 
-	return <Switch size={'md'} classNames={{labelWrapper: classes.labelWrapper}}
+	return <Switch size={'md'} classNames={{root: classes.flex, labelWrapper: classes.flex}}
 				   onLabel={<FontAwesomeIcon icon={props.onIcon} size={'2x'} fixedWidth/>}
 				   offLabel={<FontAwesomeIcon icon={props.offIcon} size={'2x'} fixedWidth/>}
 				   {...omit(props, ['onIcon', 'offIcon', 'title'])}/>;

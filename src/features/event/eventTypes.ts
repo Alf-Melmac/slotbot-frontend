@@ -2,6 +2,7 @@ import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
 
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
+	hidden: boolean;
 	missionType: string;
 	eventType: EventTypeDto;
 	pictureUrl: string;

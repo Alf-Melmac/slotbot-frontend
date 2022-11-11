@@ -1,19 +1,19 @@
-import {Alert, Center, Code, Loader, Stack, Text} from '@mantine/core';
-import {AnchorLink} from '../../../components/Text/AnchorLink';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useEffect, useState} from 'react';
+import {generatePath, useNavigate} from 'react-router-dom';
+import {useMutation} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
+import {Alert, Center, Code, Loader, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHandshakeSlash} from '@fortawesome/free-solid-svg-icons';
-import {generatePath, useNavigate} from 'react-router-dom';
-import {EventPostDto} from '../eventTypes';
-import {AxiosError} from 'axios';
-import {cloneDeep} from 'lodash';
-import {formatDate, formatTime} from '../../../utils/dateHelper';
-import {useMutation} from '@tanstack/react-query';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {UseFormReturnType} from '@mantine/form';
+import {EventPostDto} from '../eventTypes';
+import {cloneDeep} from 'lodash';
+import {formatDate, formatTime} from '../../../utils/dateHelper';
+import {useState} from 'react';
+import {AnchorLink} from '../../../components/Text/AnchorLink';
 
-export function EventWizardFinish(): JSX.Element {
+export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventPostDto>;
 
 	const formValues = cloneDeep(form.values);
@@ -50,7 +50,7 @@ export function EventWizardFinish(): JSX.Element {
 					<DebugCodeBlock formValues={formValues}/>
 					<Center>
 						<Alert icon={<FontAwesomeIcon icon={faHandshakeSlash}/>} color={'red'}
-							   title={`Speichern fehlgeschlagen. (${error.code})`}>
+							   title={`Speichern fehlgeschlagen. ${error.code ? `(${error.code})` : ''}`}>
 							{error.message}
 						</Alert>
 					</Center>
@@ -59,11 +59,10 @@ export function EventWizardFinish(): JSX.Element {
 		},
 	});
 
-	useEffect(() => {
-		mutate();
-	}, []);
-
-	return page;
+	return {
+		mutate,
+		eventWizardFinish: page,
+	};
 }
 
 function DebugCodeBlock(props: { formValues: EventPostDto }): JSX.Element {

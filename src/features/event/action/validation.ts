@@ -3,6 +3,7 @@ import {FormErrors} from '@mantine/form';
 import {length, maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT, URL} from '../../../utils/maxLength';
 import {EventAction} from './EventActionPage';
+import dayjs from 'dayjs';
 
 export const eventActionValidate = (values: EventAction, active?: number) => {
 	const activePresent = active != undefined;
@@ -10,7 +11,7 @@ export const eventActionValidate = (values: EventAction, active?: number) => {
 	if (!activePresent || active === 0) {
 		errors = {
 			name: requiredFieldWithMaxLength(values.name, TEXT),
-			date: validate(values.date instanceof Date && values.date < new Date(), 'Muss in der Zukunft liegen'),
+			date: validate(values.date instanceof Date && dayjs().isAfter(values.date, 'day'), 'Muss in der Zukunft liegen'),
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
 			'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
