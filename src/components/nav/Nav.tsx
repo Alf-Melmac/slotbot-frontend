@@ -7,16 +7,12 @@ import {UserMenu} from './UserMenu';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {PageFooter} from '../PageFooter/PageFooter';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
 	inner: {
 		height: NAV_HEIGHT,
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-	},
-
-	login: {
-		color: theme.primaryColor,
 	},
 }));
 
