@@ -6,6 +6,10 @@ import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {PageFooter} from '../PageFooter/PageFooter';
+import {useFavicon} from '@mantine/hooks';
+import ambFavicon from './favicon/favicon-amb.ico';
+import daaFavicon from './favicon/favicon-daa.ico';
+import {getGuild, Guild} from '../../contexts/Theme';
 
 const useStyles = createStyles(() => ({
 	inner: {
@@ -25,6 +29,14 @@ export const FOOTER_HEIGHT = 150;
 export function Nav(props: NavProps): JSX.Element {
 	const {classes} = useStyles();
 
+	const guild = getGuild();
+	let favicon;
+	if (guild === Guild.AMB) {
+		favicon = ambFavicon;
+	} else if (guild === Guild.DAA) {
+		favicon = daaFavicon;
+	}
+	favicon && useFavicon(favicon);
 
 	const {user, login} = useAuth();
 

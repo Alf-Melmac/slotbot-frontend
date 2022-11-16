@@ -24,7 +24,7 @@ const advancedGuilds: AdvancedGuild[] = [
 export function getGuild(): Guild {
 	for (const advancedGuild of advancedGuilds) {
 		if (advancedGuild.urlPattern.test(window.location.origin)) {
-			console.info(Guild[advancedGuild.guild]);
+			console.debug(Guild[advancedGuild.guild]);
 			return advancedGuild.guild;
 		}
 	}
