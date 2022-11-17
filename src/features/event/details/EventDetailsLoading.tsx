@@ -1,45 +1,45 @@
-import {Box, Container, Grid, MediaQuery, Skeleton, Text, Title} from '@mantine/core';
+import {Box, Container, Grid, MediaQuery, Text, Title} from '@mantine/core';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
+import {DelayedSkeleton} from '../../../components/DelayedSkeleton';
 
 export function EventDetailsLoading(): JSX.Element {
 	return (
 		<>
-			<Skeleton height={NAV_HEIGHT}>Nav placeholder</Skeleton>
+			<DelayedSkeleton height={NAV_HEIGHT}>Nav placeholder</DelayedSkeleton>
 			<Container p={16}>
-				<Skeleton>
+				<DelayedSkeleton>
 					<Text>Loading breadcrumb</Text>
-				</Skeleton>
+				</DelayedSkeleton>
 
 				<Grid gutter={'xl'} mt={1}>
 					<Grid.Col span={4}>
-						<Skeleton width={'100%'} height={350}>
-						</Skeleton>
+						<DelayedSkeleton width={'100%'} height={350}/>
 					</Grid.Col>
 
 					<Grid.Col span={8}>
-						<Skeleton>
+						<DelayedSkeleton>
 							<Title order={1}>Loading Title</Title>
-						</Skeleton>
-						<Skeleton>
+						</DelayedSkeleton>
+						<DelayedSkeleton>
 							<Text>Loading time date and length</Text>
-						</Skeleton>
+						</DelayedSkeleton>
 
 						<Box mt={'sm'}>
 							<MediaQuery largerThan={'md'} styles={{display: 'none'}}>
-								<Skeleton height={55}/>
+								<DelayedSkeleton height={55}/>
 							</MediaQuery>
 							<MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
-								<Skeleton height={130}/>
+								<DelayedSkeleton height={130}/>
 							</MediaQuery>
 						</Box>
 					</Grid.Col>
 				</Grid>
 
-				<Skeleton mt={4} width={'20%'}>
+				<DelayedSkeleton mt={4} width={'20%'}>
 					<Text size={'xs'}>Creator</Text>
-				</Skeleton>
+				</DelayedSkeleton>
 
-				<Skeleton mt={10} height={200}>H</Skeleton>
+				<DelayedSkeleton mt={10} height={200}>H</DelayedSkeleton>
 			</Container>
 		</>
 	);
