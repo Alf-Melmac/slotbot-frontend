@@ -2,13 +2,24 @@
   <dictionary name="Alf">
     <words>
       <w>arma</w>
+      <w>eventkalender</w>
       <w>mantine</w>
+      <w>missionsdateien</w>
+      <w>missionslänge</w>
       <w>missionstyp</w>
       <w>modset</w>
+      <w>noopener</w>
+      <w>noreferrer</w>
       <w>referenceless</w>
+      <w>reservistenplätze</w>
       <w>slotbot</w>
       <w>slotlist</w>
       <w>slotliste</w>
+      <w>slotten</w>
+      <w>slottungen</w>
+      <w>steamid</w>
+      <w>teilnahmeplatzaufzählung</w>
+      <w>unstyled</w>
       <w>xmark</w>
     </words>
   </dictionary>

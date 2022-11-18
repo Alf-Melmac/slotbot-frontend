@@ -62,7 +62,7 @@ function SlotListEntryModalHeader(props: SlotListEntryModalHeaderModalHeaderProp
 
 	let header = 'Regeln für';
 	const slot: SlotDto | undefined = isSlot ? entry as SlotDto : undefined;
-	if (isSlot && slot?.number && !isNaN(slot.number)) {
+	if (isSlot && slot?.number && !Number.isNaN(slot.number)) {
 		header += ` (${slot.number})`;
 	}
 	if (entry.name) {
