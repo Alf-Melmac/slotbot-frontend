@@ -1,3 +1,3 @@
 export function getBackendUrl(): string {
-	return `${window.location.protocol}//${window.location.hostname}:8090`;
+	return `${window.location.protocol}//backend.${window.location.hostname}`;
 }
