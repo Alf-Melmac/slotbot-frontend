@@ -1,3 +1,5 @@
 export function getBackendUrl(): string {
-	return `${window.location.protocol}//backend.${window.location.hostname}`;
+	const hostname = window.location.hostname;
+	let url = hostname.startsWith('events.') ? hostname.substring(7) : hostname;
+	return `${window.location.protocol}//backend.${url}`;
 }
