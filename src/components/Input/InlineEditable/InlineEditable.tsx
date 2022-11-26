@@ -1,5 +1,5 @@
 import {ActionIcon, AutocompleteProps, Box, Group, Stack, TextareaProps, TextInputProps} from '@mantine/core';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {useClickOutside} from '@mantine/hooks';
 import {omit} from 'lodash';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

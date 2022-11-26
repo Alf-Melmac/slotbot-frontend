@@ -4,7 +4,7 @@ import {PartialBy} from './typesHelper';
 import {FrontendIdDto} from '../contexts/sharedTypes';
 import {IdEntity} from '../features/event/eventTypes';
 
-function requiredField(length: number, check: () => React.ReactNode): ReactNode {
+function requiredField(length: number, check: () => ReactNode): ReactNode {
 	return length < 1 ? 'Pflichtfeld' : check();
 }
 

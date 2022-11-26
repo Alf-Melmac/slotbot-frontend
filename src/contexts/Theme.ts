@@ -13,7 +13,7 @@ type AdvancedGuild = {
 const advancedGuilds: AdvancedGuild[] = [
 	{
 		guild: Guild.AMB,
-		urlPattern: /.*test1.*/,
+		urlPattern: /.*(test1|localhost).*/,
 	},
 	{
 		guild: Guild.DAA,

@@ -1,11 +1,11 @@
-import React from 'react';
+import {StrictMode} from 'react';
 import {App} from './App';
 import {createRoot} from 'react-dom/client';
 
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLElement);
 root.render(
-	<React.StrictMode>
+	<StrictMode>
 		<App/>
-	</React.StrictMode>,
+	</StrictMode>,
 );
