@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {replaceNullWithEmpty} from '../../../../utils/typesHelper';
 
 export function useEventFieldDefaults(eventTypeName: EventTypeDto['name']) {
-	const getEventFieldDefaults = () => slotbotServerClient.get(`/events/fields/${eventTypeName}`).then((res) => res.data);
+	const getEventFieldDefaults = () => slotbotServerClient.get('/events/fields', {params: {eventTypeName: eventTypeName}}).then((res) => res.data);
 	const query = useQuery<EventFieldDefaultDto[], Error>(['field-defaults', eventTypeName], getEventFieldDefaults);
 	const defaultFields = query.data;
 	if (defaultFields) {
