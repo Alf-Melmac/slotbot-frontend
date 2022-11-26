@@ -1,9 +1,7 @@
 import {createContext, PropsWithChildren, useContext} from 'react';
 import {EventPageParams} from '../../features/event/EventRoutes';
 
-export type EventPage = PropsWithChildren & EventPageParams;
-
-export function EventPageProvider(props: EventPage): JSX.Element {
+export function EventPageProvider(props: PropsWithChildren<EventPageParams>): JSX.Element {
 	return <EventPageContext.Provider value={props.eventId}>{props.children}</EventPageContext.Provider>;
 }
 

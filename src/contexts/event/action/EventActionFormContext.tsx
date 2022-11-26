@@ -2,7 +2,8 @@ import {EventEditDto, EventPostDto} from '../../../features/event/eventTypes';
 import {createFormContext} from '@mantine/form';
 import {EditModeProvider, useEditMode} from './EditModeContext';
 import {FormProviderProps} from '@mantine/form/lib/FormProvider/FormProvider';
-import {EventPage, EventPageProvider} from '../EventPageContext';
+import {EventPageProvider} from '../EventPageContext';
+import {EventPageParams} from '../../../features/event/EventRoutes';
 
 type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable' | 'canUploadSlotlist'>;
 
@@ -13,7 +14,7 @@ export {useEventEditForm, useEventWizardForm};
 type EventEditFormReturn = ReturnType<typeof useEventEditFormContext>;
 type EventWizardFormReturn = ReturnType<typeof useEventWizardFormContext>;
 
-export function EventEditProvider(props: FormProviderProps<EventEditFormReturn> & Pick<EventPage, 'eventId'>): JSX.Element {
+export function EventEditProvider(props: FormProviderProps<EventEditFormReturn> & Pick<EventPageParams, 'eventId'>): JSX.Element {
 	return (
 		<EventPageProvider eventId={props.eventId}>
 			<EditModeProvider editMode={true}>

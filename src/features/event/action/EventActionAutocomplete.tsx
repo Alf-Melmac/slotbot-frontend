@@ -8,11 +8,13 @@ import {useEventTextChange} from './useEventUpdate';
 type FormTextInputProps = {
 	inputProps: AutocompleteProps;
 	formPath: string;
+	/** Forces edit mode in form context **/
+	overrideFormContextEditMode?: boolean;
 };
 
 export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element {
-	const {inputProps, formPath} = props;
-	const form = useFormContext();
+	const {inputProps, formPath, overrideFormContextEditMode = false} = props;
+	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);
 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');

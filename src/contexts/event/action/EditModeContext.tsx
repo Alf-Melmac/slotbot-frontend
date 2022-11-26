@@ -4,7 +4,7 @@ export type EditMode = {
 	editMode: boolean;
 }
 
-export function EditModeProvider(props: PropsWithChildren & EditMode): JSX.Element {
+export function EditModeProvider(props: PropsWithChildren<EditMode>): JSX.Element {
 	return <EditModeContext.Provider value={props.editMode}>{props.children}</EditModeContext.Provider>;
 }
 

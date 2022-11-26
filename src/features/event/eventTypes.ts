@@ -115,3 +115,14 @@ export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
 export interface IdEntity {
 	id: number;
 }
+
+//region event field defaults
+export interface EventFieldDefaultDto {
+	title: string;
+	type: EventFieldType;
+	selection: string[];
+	text: string;
+}
+
+type EventFieldType = "TEXT" | "TEXT_WITH_SELECTION" | "BOOLEAN";
+//endregion event field defaults
