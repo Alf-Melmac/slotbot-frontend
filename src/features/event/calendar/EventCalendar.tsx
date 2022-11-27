@@ -9,7 +9,8 @@ import {EventTooltip} from './EventTooltip';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {AddButton} from '../../../components/Button/AddButton';
-import {getBackendUrl} from '../../../utils/urlHelper';
+import dayjs from 'dayjs';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
 
 const useStyles = createStyles(() => ({
 	eventType: {
@@ -52,11 +53,9 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 		);
 	};
 
-	const eventManager = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE);
-
 	return (
 		<>
-			{eventManager &&
+			{useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE) &&
                 <AddButton label={'Neues Event anlegen'} to={'new'} mb={'sm'}/>
 			}
 			<FullCalendar
@@ -64,12 +63,13 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 				initialView="dayGridMonth"
 				locale={de}
 				viewDidMount={(_arg) => toggleVisible(true)}
-				eventSources={[
-					{
-						url: `${getBackendUrl()}/events/list`,
-						color: 'blue',
-					},
-				]}
+				events={(info, successCallback, failureCallback) => {
+					const start = dayjs(info.start.valueOf()).format();
+					const end = dayjs(info.end.valueOf()).format();
+					slotbotServerClient.get('events/list', {params: {start, end}})
+						.then((res) => successCallback(res.data))
+						.catch(failureCallback);
+				}}
 				eventContent={eventContent}
 				eventSourceSuccess={(_content, _xhr) => toggleVisible(false)}
 				eventSourceFailure={(error) => {
