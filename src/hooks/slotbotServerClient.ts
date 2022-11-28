@@ -4,9 +4,6 @@ import {getBackendUrl} from '../utils/urlHelper';
 const slotbotServerClient = axios.create({
 	baseURL: getBackendUrl(),
 	withCredentials: true,
-	headers: {
-		'X-Requested-With': 'XMLHttpRequest',
-	},
 });
 
 slotbotServerClient.interceptors.response.use((response) => response, (error) => {
