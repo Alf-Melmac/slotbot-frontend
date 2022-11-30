@@ -1,4 +1,4 @@
-import {Code, Container, Divider} from '@mantine/core';
+import {Container, Divider} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {EventEditDto} from '../eventTypes';
@@ -51,10 +51,6 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 					<Divider my={'lg'}/>
 
 					<EventSlotlist canUploadSlotlist={event.canUploadSlotlist}/>
-
-					<Code block mt={'lg'}>
-						{JSON.stringify(form.values, null, 2)}
-					</Code>
 				</EventEditProvider>
 			</Container>
 		</Nav>
