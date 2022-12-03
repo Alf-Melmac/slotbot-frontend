@@ -1,6 +1,6 @@
 {
   "name": "slotbot-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://alf-melmac.github.io/slotbot-frontend",
   "private": true,
   "dependencies": {
