@@ -26,7 +26,10 @@ export const eventActionValidate = (values: EventAction, active?: number) => {
 	if (!activePresent || active === 1) {
 		values.details.forEach((field, i) => {
 			errors[`details.${i}.title`] = requiredFieldWithMaxLength(field.title, EMBEDDABLE_TITLE);
-			errors[`details.${i}.text`] = requiredFieldWithMaxLength(field.text, EMBEDDABLE_VALUE);
+			// noinspection SuspiciousTypeOfGuard Text may be boolean if using default field
+			if (typeof field.text === 'string') {
+				errors[`details.${i}.text`] = requiredFieldWithMaxLength(field.text, EMBEDDABLE_VALUE);
+			}
 		});
 		validateEmbedSize(values, errors);
 	}
@@ -62,16 +65,14 @@ function ifPresentAddLength(field: string, supplementaryText = 0): number {
 
 function detailsFieldTextLength(field: EventAction['details'][number]): number {
 	let fieldLength = length(field.title);
-	switch (field.text) {
-		case "true":
-			fieldLength += 2; //"Ja"
-			break;
-		case "false":
-			fieldLength += 4; //"Nein"
-			break;
-		default:
-			fieldLength += length(field.text); //Currently this doesn't respect auto generated links
-			break;
+	// @ts-ignore Text may be boolean if using default field
+	if (field.text === "true" || field.text === true) {
+		fieldLength += 2; //"Ja"
+		// @ts-ignore Text may be boolean if using default field
+	} else if (field.text === "false" || field.text === false) {
+		fieldLength += 4; //"Nein"
+	} else {
+		fieldLength += length(field.text); //Currently this doesn't respect auto generated links
 	}
 	return fieldLength;
 }
