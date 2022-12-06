@@ -3,6 +3,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {AnchorLink} from '../Text/AnchorLink';
 import {underlineOnHover} from '../../contexts/CommonStylings';
+import {TextKey} from '../../contexts/language/Language';
+import {T} from '../T';
 
 export const NAV_ICON_WRAPPER_HEIGHT = 36;
 export const NAV_ICON_SIZE = 28;
@@ -34,7 +36,7 @@ const useStyles = createStyles((theme, width: number) => ({
 }));
 
 interface NavIconProps {
-	text: string;
+	text: TextKey;
 	icon: IconProp;
 	width: number;
 	className?: DefaultProps['className'];
@@ -53,7 +55,7 @@ function NavIcon(props: NavIconProps): JSX.Element {
 
 	return (
 		<>
-			<Text size="sm">{props.text}</Text>
+			<Text size="sm"><T k={props.text}/></Text>
 			<Center className={classes.icon}>
 				<FontAwesomeIcon icon={props.icon}/>
 			</Center>

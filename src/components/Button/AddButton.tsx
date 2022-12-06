@@ -2,6 +2,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {createStyles, Group, GroupProps, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import {Link, LinkProps} from 'react-router-dom';
+import {TextKey} from '../../contexts/language/Language';
+import {T} from '../T';
 
 const useStyles = createStyles((theme) => ({
 	actionIcon: { /*Copy pasta from mantine ActionIcon*/
@@ -21,7 +23,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type AddButtonProps = {
-	label: string;
+	label: TextKey;
 	disabled?: boolean;
 	mt?: GroupProps['mt'];
 	mb?: GroupProps['mb'];
@@ -50,7 +52,7 @@ export function AddButton(props: AddButtonProps): JSX.Element {
 						   data-disabled={disabled}>
 					<FontAwesomeIcon icon={faPlus}/>
 				</ThemeIcon>
-				<Text>{label}</Text>
+				<Text><T k={label}/></Text>
 			</Group>
 		</UnstyledButton>
 	);

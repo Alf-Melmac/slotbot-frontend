@@ -52,9 +52,36 @@ function currentDayJsLocale(): string {
 }
 
 export type TranslationOptions = {
+	/**
+	 * Placeholder replacements
+	 */
 	args?: string[];
+	/**
+	 * Return empty string instead of key if current translation isn't available
+	 * @default false
+	 */
 	skipKey?: boolean;
-};
+} & (
+	{
+		/**
+		 * If count is present, {@link TextKey} is appended with `.singular` if count is 1, otherwise `.plural`
+		 */
+		count?: number;
+		countAsArgs?: never;
+	}
+	|
+	{
+		/**
+		 * {@link TextKey} is appended with `.singular` if count is 1, otherwise `.plural`
+		 */
+		count: number;
+		/**
+		 * If no `args` are present, `count` is used as args
+		 * @default false
+		 */
+		countAsArgs?: boolean;
+	}
+	);
 type TranslationFunction = (key: TextKey, options?: TranslationOptions) => string;
 
 export function LanguageProvider(props: PropsWithChildren): JSX.Element {
@@ -63,17 +90,22 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 	const translationMap = useTranslationMap(currentLanguageTag());
 
 	const translationFunction: TranslationFunction = (key: TextKey, options?: TranslationOptions): string => {
-		const {args, skipKey = false} = options ?? {};
+		const {args, count, countAsArgs = false, skipKey = false} = options ?? {};
 		if (translationMap === undefined) return skipKey ? '' : key;
-
-		let translation = translationMap?.[key];
-		if (!translation) {
-			console.error(`Text key ${key} does not exist`);
-			translation = skipKey ? '' : key;
+		let translationKey = key;
+		if (count !== undefined) {
+			translationKey = count === 1 ? `${key}.singular` : `${key}.plural`;
 		}
 
-		if (args) {
-			return resolvePlaceholders(translation, args);
+		let translation = translationMap?.[translationKey];
+		if (!translation) {
+			console.error(`Text key ${translationKey} does not exist`);
+			translation = skipKey ? '' : translationKey;
+		}
+
+		if (args || countAsArgs) {
+			// @ts-ignore If args are undefined, we know count existent because otherwise countAsArgs wouldn't be truthy
+			return resolvePlaceholders(translation, args || [count.toString()]);
 		}
 		return translation;
 	};

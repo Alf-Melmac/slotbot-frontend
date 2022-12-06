@@ -11,7 +11,6 @@ export function ThemeSwitch(): JSX.Element {
 			variant={'outline'}
 			color={dark ? 'yellow' : 'blue'}
 			onClick={() => toggleColorScheme()}
-			title="Toggle color scheme"
 		>
 			{dark ? (
 				<LightThemeIcon size={'lg'}/>

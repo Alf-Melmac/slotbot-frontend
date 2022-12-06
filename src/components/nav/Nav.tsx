@@ -49,13 +49,14 @@ export function Nav(props: NavProps): JSX.Element {
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
 								<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
-									<NavIconLink link={'/events'} text={'Kalender'} icon={faCalendarDay} width={110}/>
+									<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
+												 width={110}/>
 								</MediaQuery>
 								{(user) ?
 									<UserMenu user={user}/>
 									:
 									<>
-										<NavIconAction onClick={login} text={'Login'} icon={faArrowRightToBracket}
+										<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
 													   width={90}/>
 										<ThemeSwitch/>
 									</>

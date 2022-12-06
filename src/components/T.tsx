@@ -3,11 +3,22 @@ import {TextKey, TranslationOptions, useLanguage} from '../contexts/language/Lan
 type TProps = {
 	k: TextKey;
 	args?: TranslationOptions['args'];
-};
+} & (
+	{
+		count?: TranslationOptions['count'];
+		countAsArgs?: never;
+	}
+	|
+	{
+		count: number;
+		countAsArgs?: TranslationOptions['countAsArgs']
+	}
+	);
 
 export function T(props: TProps): JSX.Element {
-	const {k, args} = props;
+	const {k, args, count, countAsArgs} = props;
 	const {t} = useLanguage();
 
-	return <>{t(k, {args})}</>;
+	// @ts-ignore
+	return <>{t(k, {args, count, countAsArgs})}</>;
 }

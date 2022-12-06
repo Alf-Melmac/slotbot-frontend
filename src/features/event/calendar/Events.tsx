@@ -3,7 +3,8 @@ import {Box, Center, Container, createStyles, Title} from "@mantine/core";
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {useCallback, useRef, useState} from 'react';
-import {useDocumentTitle} from '@mantine/hooks';
+import {T} from '../../../components/T';
+import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 
 const useStyles = createStyles(() => ({
 	hidden: {
@@ -12,7 +13,7 @@ const useStyles = createStyles(() => ({
 }));
 
 export function Events(): JSX.Element {
-	useDocumentTitle('Eventkalender');
+	useTranslatedDocumentTitle('documentTitle.events');
 	const {classes} = useStyles();
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ export function Events(): JSX.Element {
 		<Nav>
 			<Container>
 				<Center>
-					<Title>Events</Title>
+					<Title><T k={'events'}/></Title>
 				</Center>
 
 				<Box ref={loadingCalendarWrapper}>
