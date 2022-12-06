@@ -20,7 +20,7 @@ function filterComponentsProps<InputProps extends EditableInputProps>(props: Inl
 }
 
 export function InlineEditable<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): JSX.Element {
-	const {viewModeComponent, position = 'stack', onSubmit, onCancel} = props;
+	const {viewModeComponent: ViewMode, onFocus, position = 'stack', onSubmit, onCancel} = props;
 
 	const [viewMode, setViewMode] = useState(true);
 
@@ -34,13 +34,12 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Inl
 	};
 	const ref = useClickOutside(cancel);
 
-	const ViewMode = viewModeComponent;
 	const inputProps = omit(props, ['onSubmit', 'onCancel']);
 	return <>
 		{viewMode ?
 			<ViewMode {...filterComponentsProps(props)}
 					  onFocus={(e: any) => {
-						  props.onFocus?.(e);
+						  onFocus?.(e);
 						  setViewMode(false);
 					  }} readOnly rightSection={
 				<ActionIcon onClick={() => setViewMode(false)}><FontAwesomeIcon icon={faPen}/></ActionIcon>}
@@ -68,7 +67,7 @@ function EditMode<InputProps extends EditableInputProps>(props: InlineEditablePr
 	const {
 		position,
 		label,
-		editModeComponent,
+		editModeComponent: EditMode,
 		maxLength,
 		editModeMaxLengthComponent,
 		onCancel,
@@ -78,7 +77,6 @@ function EditMode<InputProps extends EditableInputProps>(props: InlineEditablePr
 	} = props;
 
 	const marginTop = (position === 'group' && label) ? 25 : undefined;
-	const EditMode = editModeComponent;
 	const EditModeMaxLength = editModeMaxLengthComponent;
 	return <>
 		<Box style={{flexGrow: position === 'group' ? 1 : undefined}}>
