@@ -11,6 +11,7 @@ import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
 import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
 import {EventAction} from '../EventActionPage';
+import {T} from '../../../../components/T';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
@@ -40,14 +41,14 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
 		<Group position={'apart'}>
-			<Title order={2}>Teilnahmeplatzaufzählung</Title>
+			<Title order={2}><T k={'slotlist.alt'}/></Title>
 			<Group spacing={'xs'}>
 				{canUploadSlotlist ?
 					<UploadSlotlist/>
 					:
 					<ButtonWithDisabledTooltip variant={'default'} disabled
 											   tooltip={'Zum Hochladen einer Slotliste muss das Event leer sein'}>
-						Slotliste hochladen
+						<T k={'slotlist.upload'}/>
 					</ButtonWithDisabledTooltip>
 				}
 

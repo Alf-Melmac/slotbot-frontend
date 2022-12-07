@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import {MutableRefObject} from 'react';
 import {EventCopy} from './EventCopy';
 import {EventEditButton} from './EventEditButton';
+import {T} from '../../../components/T';
 
 const useStyles = createStyles(() => ({
 	forceWrap: {
@@ -43,7 +44,7 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 					</Group>
 					<Group spacing={'xs'}>
 						<Text><FontAwesomeIcon icon={faCalendarDay}/></Text>
-						<Text size={'xl'}>{eventDate.format('L LT')} Uhr</Text>
+						<Text size={'xl'}>{eventDate.format('L LT')} <T k={'oClock'}/></Text>
 						{event.missionLength &&
                             <>
                                 <Text><FontAwesomeIcon icon={faHourglassEnd}/></Text>
@@ -64,14 +65,14 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
                                     onClick={() => {
 										descriptionRef.current?.click();
 										scrollToDescription();
-									}}>Beschreibung anzeigen</Button>
+									}}><T k={'event.details.showDescription'}/></Button>
                         </Card>
 					}
 
 				</Grid.Col>
 			</Grid>
 
-			<Text size={'xs'} mt={4}>Mission von <em>{event.creator}</em></Text>
+			<Text size={'xs'} mt={4}>Mission von <em>{event.creator}</em>{/*FIXME TextKey*/}</Text>
 		</>
 	);
 }

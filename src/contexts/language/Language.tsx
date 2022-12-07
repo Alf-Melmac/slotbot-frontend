@@ -18,7 +18,7 @@ type LanguageTags = { [k in LanguageTagKeys]: LanguageTag };
 /**
  * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to {@link availableLanguageTags#en}
  */
-function currentLanguageTag(): LanguageTag {
+export function currentLanguageTag(): LanguageTag {
 	const languageTag = navigator.language;
 	// @ts-ignore Will check presence
 	let language: LanguageTag = availableLanguageTags[languageTag];
@@ -55,7 +55,7 @@ export type TranslationOptions = {
 	/**
 	 * Placeholder replacements
 	 */
-	args?: string[];
+	args?: (string | number)[];
 	/**
 	 * Return empty string instead of key if current translation isn't available
 	 * @default false
@@ -105,7 +105,7 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 
 		if (args || countAsArgs) {
 			// @ts-ignore If args are undefined, we know count existent because otherwise countAsArgs wouldn't be truthy
-			return resolvePlaceholders(translation, args || [count.toString()]);
+			return resolvePlaceholders(translation, args || [count]);
 		}
 		return translation;
 	};
@@ -122,10 +122,10 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
  * @param args values to replace the placeholders with
  * @returns translation with replaced placeholders
  */
-function resolvePlaceholders(str: string, args: string[]): string {
+function resolvePlaceholders(str: string, args: (string | number)[]): string {
 	let newString = str;
 	args.forEach((arg, index) => {
-		newString = newString.replace(`{${index}}`, arg);
+		newString = newString.replace(`{${index}}`, arg.toString());
 	});
 	return newString;
 }

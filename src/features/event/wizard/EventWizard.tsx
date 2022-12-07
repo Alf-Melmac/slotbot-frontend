@@ -5,25 +5,25 @@ import {useEffect, useState} from 'react';
 import {EventDetailsDto} from '../eventTypes';
 import {randomColor} from '../action/generalInformation/EventTypeInputs';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
-import {useDocumentTitle} from '@mantine/hooks';
 import {eventActionValidate} from '../action/validation';
 import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 import {EventWizardSteps} from './EventWizardSteps';
 import {useEventCopy} from './useEventCopy';
+import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
 }
 
 export function EventWizard(): JSX.Element {
-	useDocumentTitle('Neues Event');
+	useTranslatedDocumentTitle('documentTitle.event.new');
 	const breadcrumbItems = [
 		{
-			title: 'Event-Kalender',
+			title: 'breadcrumb.calendar',
 			href: '/events',
 		},
 		{
-			title: 'Neues Event',
+			title: 'breadcrumb.event.new',
 		},
 	];
 

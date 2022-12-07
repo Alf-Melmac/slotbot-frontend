@@ -11,6 +11,7 @@ import {ApplicationRoles} from '../../../contexts/authentication/authenticationT
 import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import {availableLanguageTags, currentLanguageTag} from '../../../contexts/language/Language';
 
 const useStyles = createStyles(() => ({
 	eventType: {
@@ -56,12 +57,12 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 	return (
 		<>
 			{useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE) &&
-                <AddButton label={'Neues Event anlegen'} to={'new'} mb={'sm'}/>
+                <AddButton label={'event.add'} to={'new'} mb={'sm'}/>
 			}
 			<FullCalendar
 				plugins={[dayGridPlugin]}
 				initialView="dayGridMonth"
-				locale={de}
+				locale={currentLanguageTag() === availableLanguageTags.de ? de : undefined}
 				viewDidMount={(_arg) => toggleVisible(true)}
 				events={(info, successCallback, failureCallback) => {
 					const start = dayjs(info.start.valueOf()).format();

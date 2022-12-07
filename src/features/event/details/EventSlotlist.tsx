@@ -2,6 +2,7 @@ import {EventDetailsSquadDto, GuildDto} from '../eventTypes';
 import {Card, Center, createStyles, Grid, Group, Image, Text, useMantineTheme} from '@mantine/core';
 import {Italic} from '../../../components/Text/Italic';
 import {Bold} from '../../../components/Text/Bold';
+import {T} from '../../../components/T';
 
 const useStyles = createStyles(() => ({
 	slotNumberWrapper: {
@@ -20,7 +21,7 @@ function getSlotText(text: string, blocked: boolean): JSX.Element {
 	if (text) {
 		return blocked ? <Italic>{text}</Italic> : <Text>{text}</Text>;
 	}
-	return <Bold>Freier Slot</Bold>;
+	return <Bold><T k={'event.details.emptySlot'}/></Bold>;
 }
 
 export function EventSlotlist(props: EventSlotlistProps): JSX.Element {

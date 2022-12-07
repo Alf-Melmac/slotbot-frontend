@@ -48,7 +48,7 @@ type ProfileInfoProps = {
 
 export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
-	useTranslatedDocumentTitle(ownProfile ? 'documentTitle.profile.own' : profileUser.name, !ownProfile);
+	useTranslatedDocumentTitle(ownProfile ? 'documentTitle.profile.own' : profileUser.name, undefined, !ownProfile);
 
 	let ownProfileInfo;
 	if (ownProfile) {

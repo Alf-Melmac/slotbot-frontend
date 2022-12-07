@@ -11,6 +11,7 @@ import {EventAction} from '../EventActionPage';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {UseFormReturnType} from '@mantine/form';
 import {EventEditFormType} from '../../edit/EventEditPage';
+import {T} from '../../../../components/T';
 
 export function SquadList(): JSX.Element {
 	const getGuilds = () => slotbotServerClient.get('/guilds').then((res) => res.data);
@@ -21,7 +22,7 @@ export function SquadList(): JSX.Element {
 	const squadList = form.values.squadList.map((squad, squadIndex) => (
 		<Box key={squad.id} mt={'sm'} mb={'xs'}>
 			<Group spacing={5}>
-				<TextInput placeholder={'Squad Name'} maxLength={TEXT} required styles={{root: flexGrow}}
+				<TextInput placeholder={<T k={'squad.placeholder'}/>} maxLength={TEXT} required styles={{root: flexGrow}}
 						   {...form.getInputProps(`squadList.${squadIndex}.name`)}/>
 				<SlotListEntrySettings entry={form.values.squadList[squadIndex]}
 									   path={'squadList'} index={squadIndex} guildsQuery={guildsQuery}/>
@@ -40,7 +41,7 @@ export function SquadList(): JSX.Element {
 						</Group>
 					);
 				})}
-				<AddButton label={'Slot hinzufügen'} mt={'xs'}
+				<AddButton label={'slot.add'} mt={'xs'}
 					/*@ts-ignore ????*/
 						   onClick={() => form.insertListItem(`squadList.${squadIndex}.slotList`, buildNewSlot(form))}/>
 			</Box>
@@ -49,7 +50,7 @@ export function SquadList(): JSX.Element {
 
 	return <>
 		{squadList}
-		<AddButton label={'Squad hinzufügen'} mt={'xs'}
+		<AddButton label={'squad.add'} mt={'xs'}
 				   onClick={() => form.insertListItem('squadList', {
 					   name: '',
 					   /*@ts-ignore ????*/
@@ -66,7 +67,7 @@ function buildNewSlot(form: UseFormReturnType<EventEditFormType> | UseFormReturn
 		name: '',
 		reservedFor: '',
 		blocked: false,
-		replacementText: 'Gesperrt',
+		replacementText: 'Gesperrt',//FIXME TextKey
 		id: randomId(),
 	};
 }

@@ -23,21 +23,23 @@ import {SquadDto} from '../../eventTypes';
 import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 export function UploadSlotlist(): JSX.Element {
 	const [opened, setOpened] = useState(false);
 
 	const closeModal = () => setOpened(false);
 	return <>
-		<Modal opened={opened} onClose={closeModal} size={'lg'} title={'Slotliste hochladen'}>
+		<Modal opened={opened} onClose={closeModal} size={'lg'} title={<T k={'slotlist.upload'}/>}>
 			Lade hier deine nicht binarisierte <Code>mission.sqm</Code> hoch, um daraus die Slotliste generieren zu
 			lassen. Die Slotliste überschreibt alle bereits angelegten Plätze, du kannst sie danach aber noch
 			bearbeiten.<br/> Die Missionsdateien findest du nach dem Speichern unter <Code>%USERPROFILE%\Documents\Arma
-			3\</Code> <Code>missions</Code> oder <Code>mpMissions</Code>.
+			3\</Code> <Code>missions</Code> oder <Code>mpMissions</Code>.{/*FIXME TextKey*/}
 			<SqmDropzone closeModal={closeModal}/>
 		</Modal>
 
-		<Button variant={'default'} onClick={() => setOpened(true)}>Slotliste hochladen</Button>
+		<Button variant={'default'} onClick={() => setOpened(true)}><T k={'slotlist.upload'}/></Button>
 	</>;
 }
 
@@ -82,6 +84,7 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 
 	const theme = useMantineTheme();
 	const {classes} = useStyles(hasError);
+	const {t} = useLanguage();
 
 	const form = useFormContext();
 	const postSlotlist = () => slotbotServerClient.post('/files/uploadSqm', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => res.data);
@@ -102,7 +105,7 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 						slot.reservedFor = '';
 					}
 					if (slot.replacementText === null) {
-						slot.replacementText = 'Gesperrt';
+						slot.replacementText = t('slot.blocked');
 					}
 				});
 			});
@@ -143,13 +146,13 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 		setError(undefined);
 		if (!files) return true;
 		if (files.length > 1) {
-			setError('Nur eine Datei möglich.');
+			setError(<T k={'slotlist.upload.error.multipleFiles'}/>);
 			return true;
 		}
 		const file = files.at(0);
 		if (!file) return true;
 		if (!file.name.endsWith('.sqm')) {
-			setError('Nur .sqm Dateien erlaubt.');
+			setError(<T k={'slotlist.upload.error.invalidFileType'}/>);
 			return true;
 		}
 		return false;
@@ -174,10 +177,10 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 
 					<Stack spacing={7}>
 						<Text size={'lg'} inline>
-							Datei hineinziehen
+							<T k={'dropzone.placeholder.upload'}/>
 						</Text>
 						<Anchor inline>
-							oder auswählen.
+							<T k={'dropzone.placeholder.select'}/>
 						</Anchor>
 					</Stack>
 				</Group>

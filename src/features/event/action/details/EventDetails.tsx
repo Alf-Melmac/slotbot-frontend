@@ -31,7 +31,7 @@ export function EventDetails(): JSX.Element {
 		{details}
 
 		<Group spacing={'xs'} mt={'xs'}>
-			<AddButton label={'Feld hinzufügen'}
+			<AddButton label={'event.detail.add'}
 					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
 					   disabled={details.length >= MAX_DETAILS}/>
 			<CounterBadge currentValue={details.length} maxValue={MAX_DETAILS} yellowPhase/>

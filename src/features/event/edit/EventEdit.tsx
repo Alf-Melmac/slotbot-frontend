@@ -19,15 +19,16 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 
 	const breadcrumbItems = [
 		{
-			title: 'Event-Kalender',
+			title: 'breadcrumb.calendar',
 			href: '/events',
 		},
 		{
 			title: event.name,
+			staticTitle: true,
 			href: `/events/${eventId}`,
 		},
 		{
-			title: 'Bearbeiten',
+			title: 'breadcrumb.edit',
 		}];
 
 	const form = useEventEditForm({

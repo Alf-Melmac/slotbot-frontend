@@ -1,6 +1,7 @@
 import {isEmpty} from 'lodash';
 import {Button} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../../components/T';
 
 export function RenumberSlots(): JSX.Element {
 	const form = useFormContext();
@@ -16,6 +17,6 @@ export function RenumberSlots(): JSX.Element {
 			}));
 			// @ts-ignore Just changed a parameter field of the same object...
 			form.setFieldValue('squadList', formSquadList);
-		}}>Neu nummerieren</Button>
+		}}><T k={'slotlist.renumber'}/></Button>
 	);
 }

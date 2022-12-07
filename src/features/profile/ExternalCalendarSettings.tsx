@@ -50,7 +50,7 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 			<Switch label={<T k={'profile.externalCalendar.switch'}/>} disabled={saving}
 					{...form.getInputProps('externalCalendarIntegrationActive', {type: 'checkbox'})}/>
 			{form.values.externalCalendarIntegrationActive && <>
-                <Tooltip.Floating label={<T k={'clickToCopy'}/>}>
+                <Tooltip.Floating label={<T k={'action.clickToCopy'}/>}>
                     <Box>
                         <CopyButton value={icsCalendarUrl}>
 							{({copied, copy}) => (
