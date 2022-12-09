@@ -72,7 +72,7 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 				</Grid.Col>
 			</Grid>
 
-			<Text size={'xs'} mt={4}>Mission von <em>{event.creator}</em>{/*FIXME TextKey*/}</Text>
+			<Text size={'xs'} mt={4}><T k={'event.details.creator'}/> <em>{event.creator}</em></Text>
 		</>
 	);
 }

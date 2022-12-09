@@ -1,6 +1,7 @@
 import {ActionIcon, createStyles, Menu, useMantineColorScheme} from "@mantine/core";
 import {FontAwesomeIcon, FontAwesomeIconProps} from "@fortawesome/react-fontawesome";
 import {faMoon, faSun} from "@fortawesome/free-solid-svg-icons";
+import {T} from './T';
 
 export function ThemeSwitch(): JSX.Element {
 	const {colorScheme, toggleColorScheme} = useMantineColorScheme();
@@ -26,9 +27,8 @@ export function ThemeSwitchAsMenuItem(): JSX.Element {
 	const dark = colorScheme === 'dark';
 
 	return (
-		<Menu.Item icon={dark ? <LightThemeIcon/> : <DarkThemeIcon/>}
-				   onClick={() => toggleColorScheme()}>
-			{dark ? 'Licht an' : 'Licht aus'}
+		<Menu.Item icon={dark ? <LightThemeIcon/> : <DarkThemeIcon/>} onClick={() => toggleColorScheme()}>
+			<T k={dark ? 'theme.toggle.light' : 'theme.toggle.dark'}/>
 		</Menu.Item>
 	);
 }

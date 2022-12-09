@@ -32,10 +32,9 @@ export function UploadSlotlist(): JSX.Element {
 	const closeModal = () => setOpened(false);
 	return <>
 		<Modal opened={opened} onClose={closeModal} size={'lg'} title={<T k={'slotlist.upload'}/>}>
-			Lade hier deine nicht binarisierte <Code>mission.sqm</Code> hoch, um daraus die Slotliste generieren zu
-			lassen. Die Slotliste überschreibt alle bereits angelegten Plätze, du kannst sie danach aber noch
-			bearbeiten.<br/> Die Missionsdateien findest du nach dem Speichern unter <Code>%USERPROFILE%\Documents\Arma
-			3\</Code> <Code>missions</Code> oder <Code>mpMissions</Code>.{/*FIXME TextKey*/}
+			<T k={'slotlist.upload.description.partOne'}/> <Code>mission.sqm</Code> <T
+			k={'slotlist.upload.description.partTwo'}/><br/><T k={'slotlist.upload.description.partThree'}/> <
+			Code>%USERPROFILE%\Documents\Arma 3\</Code> <Code>missions</Code> <T k={'or'}/> <Code>mpMissions</Code>.
 			<SqmDropzone closeModal={closeModal}/>
 		</Modal>
 

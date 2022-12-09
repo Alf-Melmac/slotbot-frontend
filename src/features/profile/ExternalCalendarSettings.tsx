@@ -65,8 +65,7 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
                 <Text>
                     <T k={'profile.externalCalendar.tutorial.partOne'}/> <AnchorBlank
                     href={'https://docs.webalf.de/slotbot/eventkalender#kalender-synchronisation'}>
-                    <T k={'profile.externalCalendar.tutorial.partTwo'}/></AnchorBlank>
-                    <T k={'profile.externalCalendar.tutorial.partThree'}/>
+                    <T k={'profile.externalCalendar.tutorial.partTwo'}/></AnchorBlank>.
                 </Text>
             </>
 			}

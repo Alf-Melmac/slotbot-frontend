@@ -2,6 +2,7 @@ import {Affix, Box, Button, Transition} from '@mantine/core';
 import {useIntersection, useMergedRef, useScrollIntoView} from '@mantine/hooks';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import {T} from '../T';
 
 type ScrollAffixProps = {
 	show: boolean;
@@ -29,7 +30,7 @@ export function ScrollAffix(props: ScrollAffixProps): JSX.Element {
 					<Button style={transitionStyles}
 							leftIcon={<FontAwesomeIcon
 								icon={entry?.boundingClientRect.top > 0 ? faArrowDown : faArrowUp}/>}
-							onClick={() => scrollIntoView({alignment: 'center'})}>Ungespeicherte Änderungen</Button>
+							onClick={() => scrollIntoView({alignment: 'center'})}><T k={'unsavedChanges'}/></Button>
 				)}
 			</Transition>
 		</Affix>

@@ -5,6 +5,7 @@ import {ElementWithInfo} from '../../../../components/Text/ElementWithInfo';
 import {Stack} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useChangeWatcher} from '../useEventUpdate';
+import {T} from '../../../../components/T';
 
 export function EventPrivacySettings(props: RequiredInformationProps): JSX.Element {
 	const {canRevokeShareable = true} = props;
@@ -13,19 +14,17 @@ export function EventPrivacySettings(props: RequiredInformationProps): JSX.Eleme
 	useChangeWatcher('shareable');
 	useChangeWatcher('hidden');
 
-	const shareableInputProps = form.getInputProps('shareable', {type: 'checkbox'});
-	const hiddenInputProps = form.getInputProps('hidden', {type: 'checkbox'});
 	return <Stack align={'flex-start'} spacing={'xs'}>
 		<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
-					label={<ElementWithInfo text={'Teilen erlauben'}
-											tooltip={'Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.'}/>}
+					label={<ElementWithInfo text={<T k={'event.shareable'}/>}
+											tooltip={<T k={'event.shareable.tooltip'}/>}/>}
 					disabled={!canRevokeShareable}
 					title={!canRevokeShareable ? 'Wurde bereits von einer anderen Community hinzugefügt.' : undefined}
-					{...shareableInputProps}/>
+					{...form.getInputProps('shareable', {type: 'checkbox'})}/>
 
 		<IconSwitch onIcon={Math.random() < 0.9 ? faEyeSlash : faUserNinja} offIcon={faEye}
-					label={<ElementWithInfo text={'Versteckt'}
-											tooltip={'Berechtigt alle Interessierten das Event im Kalender zu sehen.'}/>}
-					{...hiddenInputProps}/>
+					label={<ElementWithInfo text={<T k={'event.hidden'}/>}
+											tooltip={<T k={'event.hidden.tooltip'}/>}/>}
+					{...form.getInputProps('hidden', {type: 'checkbox'})}/>
 	</Stack>;
 }

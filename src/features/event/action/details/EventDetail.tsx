@@ -8,21 +8,22 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {EventAction} from '../EventActionPage';
 import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 type EventDetailProps = {
 	item: EventAction['details'][number]
 	index: number;
 };
 
-const staticInputProps = {
-	placeholder: 'Information',
-	maxLength: EMBEDDABLE_VALUE,
-	required: true,
-	sx: {flex: 1},
-};
-
 export function EventDetail(props: EventDetailProps): JSX.Element {
 	const {item, index} = props;
+	const {t} = useLanguage();
+	const staticInputProps = {
+		placeholder: t('information'),
+		maxLength: EMBEDDABLE_VALUE,
+		required: true,
+		sx: {flex: 1},
+	};
 
 	const form = useFormContext();
 	const editMode = useEditMode();
@@ -51,7 +52,7 @@ export function EventDetail(props: EventDetailProps): JSX.Element {
 		<Group mt={'xs'}>
 			<EditModeProvider editMode={false}>
 				<EventActionTextInput inputProps={{
-					placeholder: 'Titel',
+					placeholder: t('event.details.title'),
 					maxLength: EMBEDDABLE_TITLE,
 					required: true,
 				}} formPath={`details.${index}.title`} overrideFormContextEditMode={editMode}/>

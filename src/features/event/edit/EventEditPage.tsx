@@ -19,7 +19,7 @@ export function EventEditPage(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.event.edit', [title]);
 
 	const {eventId} = useParams<EventPageParams>();
-	if (!eventId) throw Error('Invalid state: Event id required');
+	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 
 	const {event, loading, error} = fetchEventForEdit(eventId);
 	useEffect(() => {

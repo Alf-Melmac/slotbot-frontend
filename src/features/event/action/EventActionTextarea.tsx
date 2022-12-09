@@ -5,9 +5,16 @@ import {useFormContext} from '../../../contexts/event/action/EventActionFormCont
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {InlineEditableTextarea} from '../../../components/Input/InlineEditable/InlineEditables';
 import {useEventTextChange} from './useEventUpdate';
+import {TextKey} from '../../../contexts/language/Language';
+import {useTranslationIfPresent} from '../../../utils/translationHelper';
+
+interface TranslatableTextareaProps extends TextareaProps {
+	label?: TextKey;
+	placeholder?: TextKey;
+}
 
 type FormTextInputProps = {
-	inputProps: TextareaProps;
+	inputProps: TranslatableTextareaProps;
 	formPath: string;
 };
 
@@ -19,6 +26,7 @@ export function EventActionTextarea(props: FormTextInputProps): JSX.Element {
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
+	useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
 		{useEditMode() ?
 			<InlineEditableTextarea {...inputProps} position={'group'} {...formInputProps}
