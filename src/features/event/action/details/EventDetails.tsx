@@ -10,6 +10,7 @@ import {EventAction} from '../EventActionPage';
 import {filterFrontendIds} from '../../../../utils/formHelper';
 import {randomId} from '@mantine/hooks';
 import {EventDetail} from './EventDetail';
+import {T} from '../../../../components/T';
 
 const MAX_DETAILS = 23;
 
@@ -31,7 +32,7 @@ export function EventDetails(): JSX.Element {
 		{details}
 
 		<Group spacing={'xs'} mt={'xs'}>
-			<AddButton label={'Feld hinzufügen'}
+			<AddButton label={'event.details.add'}
 					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
 					   disabled={details.length >= MAX_DETAILS}/>
 			<CounterBadge currentValue={details.length} maxValue={MAX_DETAILS} yellowPhase/>
@@ -41,7 +42,7 @@ export function EventDetails(): JSX.Element {
             <Group position={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
-                        Felder speichern
+                        <T k={'action.saveFields'}/>
                     </PulsatingButton>
                 </ScrollAffix>
             </Group>

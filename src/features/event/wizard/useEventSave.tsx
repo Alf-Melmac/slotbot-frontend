@@ -12,6 +12,7 @@ import {cloneDeep} from 'lodash';
 import {formatDate, formatTime} from '../../../utils/dateHelper';
 import {useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
+import {T} from '../../../components/T';
 
 export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventPostDto>;
@@ -27,9 +28,8 @@ export function useEventSave() {
 			<DebugCodeBlock formValues={formValues}/>
 			<Stack mt={'xl'}>
 				<Text align={'center'}>
-					Das Event wird gerade gespeichert. Bei Erfolg wirst du automatisch weitergeleitet.
-					Falls dies nicht funktioniert, kommst du <AnchorLink
-					to={'/events'}>hier</AnchorLink> wieder zum Kalender.
+					<T k={'event.save.loading.partOne'}/> <AnchorLink
+					to={'/events'}><T k={'clickHere'}/></AnchorLink> <T k={'event.save.loading.partThree'}/>
 				</Text>
 				<Center>
 					<Loader size={'xl'} variant={'bars'}/>
@@ -50,7 +50,7 @@ export function useEventSave() {
 					<DebugCodeBlock formValues={formValues}/>
 					<Center>
 						<Alert icon={<FontAwesomeIcon icon={faHandshakeSlash}/>} color={'red'}
-							   title={`Speichern fehlgeschlagen. ${error.code ? `(${error.code})` : ''}`}>
+							   title={<T k={'error.notification'} args={[error.code ? ` (${error.code})` : '']}/>}>
 							{error.message}
 						</Alert>
 					</Center>

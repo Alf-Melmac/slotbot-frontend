@@ -8,6 +8,8 @@ import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting
 import {UseQueryResult} from '@tanstack/react-query';
 import {EventAction} from '../EventActionPage';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
@@ -43,10 +45,12 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 			<Menu.Dropdown>
 				<Menu.Item icon={<FontAwesomeIcon icon={faUserGear}/>}
 						   onClick={() => setOpened(true)}>
-					Regeln
+					<T k={'slotlistEntry.settings'}/>
 				</Menu.Item>
 				<Menu.Item icon={<FontAwesomeIcon icon={faTrashCan}/>}
-						   onClick={() => form.removeListItem(path, index)}>Löschen</Menu.Item>
+						   onClick={() => form.removeListItem(path, index)}>
+					<T k={'action.delete'}/>
+				</Menu.Item>
 			</Menu.Dropdown>
 		</Menu>
 	</>;
@@ -59,8 +63,9 @@ type SlotListEntryModalHeaderModalHeaderProps = {
 
 function SlotListEntryModalHeader(props: SlotListEntryModalHeaderModalHeaderProps): JSX.Element {
 	const {entry, isSlot} = props;
+	const {t} = useLanguage();
 
-	let header = 'Regeln für';
+	let header = t('slotlistEntry.settings.header');
 	const slot: SlotDto | undefined = isSlot ? entry as SlotDto : undefined;
 	if (isSlot && slot?.number && !Number.isNaN(slot.number)) {
 		header += ` (${slot.number})`;
@@ -68,7 +73,7 @@ function SlotListEntryModalHeader(props: SlotListEntryModalHeaderModalHeaderProp
 	if (entry.name) {
 		header += ` ${entry.name}`;
 	} else {
-		header += slot ? ' Slot' : ' Squad';
+		header += slot ? ` ${t('slot')}` : ` ${t('squad')}`;
 	}
 
 	return <>{header}</>;

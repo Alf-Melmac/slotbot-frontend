@@ -13,8 +13,8 @@ export function RequiredInformation(props: RequiredInformationProps): JSX.Elemen
 		<Grid>
 			<Grid.Col md={9} span={12}>
 				<EventActionTextInput inputProps={{
-					label: 'Titel',
-					placeholder: 'Event Name',
+					label: 'event.name',
+					placeholder: 'event.name.placeholder',
 					maxLength: TEXT,
 					required: true,
 				}} formPath={'name'}/>
@@ -33,7 +33,7 @@ export function RequiredInformation(props: RequiredInformationProps): JSX.Elemen
 			</Grid.Col>
 			<Grid.Col md={4} span={12}>
 				<EventActionTextInput inputProps={{
-					label: 'Ersteller',
+					label: 'event.creator',
 					maxLength: TEXT,
 					required: true,
 				}} formPath={'creator'}/>

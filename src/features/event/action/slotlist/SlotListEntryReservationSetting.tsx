@@ -6,6 +6,8 @@ import {GuildDto} from '../../eventTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 type SlotListEntryReservationSettingProps = {
 	data?: GuildDto[];
@@ -13,16 +15,16 @@ type SlotListEntryReservationSettingProps = {
 } & Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
 
 export function SlotListEntryReservationSetting(props: SlotListEntryReservationSettingProps): JSX.Element {
+	const {t} = useLanguage();
 	return (
 		!props.data ?
 			<>
 				<Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'}>
-					Die möglichen Reservierungen konnten nicht geladen werden. Bitte überprüfe deine Internetverbindung.
-					Du kannst ohne Reservierungen fortfahren, aber vielleicht nicht speichern. Durch Navigation auf den
-					vorherigen Schritt und wieder auf die Slotliste zurück wird versucht erneut zu laden.
+					<T k={'slotlistEntry.settings.reservation.error'}/>
 				</Alert>
-				<Select label={'Reservierung'} placeholder={'Nicht reserviert'}
-						description={'Nur Mitglieder der ausgewählten Gruppe können sich hier eintragen.'}
+				<Select label={<T k={'slotlistEntry.settings.reservation.label'}/>}
+						description={<T k={'slotlistEntry.settings.reservation.description'}/>}
+						placeholder={t('slotlistEntry.settings.reservation.placeholder')}
 						data={[]} disabled/>
 			</>
 			:
@@ -33,8 +35,9 @@ export function SlotListEntryReservationSetting(props: SlotListEntryReservationS
 function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSettingProps): JSX.Element {
 	const {data = [], path, index, slot} = props; //Shouldn't be used with undefined data prop
 	const form = useFormContext();
+	const {t} = useLanguage();
 
-	let placeholder = 'Nicht reserviert';
+	let placeholder = t('slotlistEntry.settings.reservation.placeholder');
 	if (slot) {
 		const squadReservedFor = find(
 			data,
@@ -45,8 +48,9 @@ function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSe
 		}
 	}
 
-	return <Select label={'Reservierung'} placeholder={placeholder} clearable searchable
-				   description={'Nur Mitglieder der ausgewählten Gruppe können sich hier eintragen.'}
+	return <Select label={<T k={'slotlistEntry.settings.reservation.label'}/>}
+				   description={<T k={'slotlistEntry.settings.reservation.description'}/>}
+				   placeholder={placeholder} clearable searchable
 				   data={data.map(guild => {
 					   return {
 						   value: guild.id,

@@ -5,6 +5,7 @@ import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {useEventSave} from './useEventSave';
 import {Dispatch, SetStateAction} from 'react';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../components/T';
 
 type EventWizardStepsProps = {
 	active: number;
@@ -28,13 +29,13 @@ export function EventWizardSteps(props: EventWizardStepsProps): JSX.Element {
 
 	return <>
 		<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
-			<Stepper.Step label={'Event'} description={'Allgemeine Informationen'}>
+			<Stepper.Step label={<T k={'event'}/>} description={<T k={'generalInformation'}/>}>
 				<EventGeneralInformation/>
 			</Stepper.Step>
-			<Stepper.Step label={'Event'} description={'Details'}>
+			<Stepper.Step label={<T k={'event'}/>} description={<T k={'details'}/>}>
 				<EventDetailsPage/>
 			</Stepper.Step>
-			<Stepper.Step label={'Slotliste'} description={'Teilnahmeplatzaufzählung'}>
+			<Stepper.Step label={<T k={'slotlist'}/>} description={<T k={'slotlist.alt'}/>}>
 				<EventSlotlist/>
 			</Stepper.Step>
 
@@ -43,14 +44,14 @@ export function EventWizardSteps(props: EventWizardStepsProps): JSX.Element {
 			</Stepper.Completed>
 		</Stepper>
 
-		<Group position="right" mt="xl">
+		<Group position={'right'} mt={'xl'}>
 			{active !== 0 && active !== 3 &&
-                <Button variant="default" onClick={prevStep}>Vorherige</Button>}
-			{active < 2 && <Button onClick={nextStep}>Weiter</Button>}
+                <Button variant={'default'} onClick={prevStep}><T k={'action.previous'}/></Button>}
+			{active < 2 && <Button onClick={nextStep}><T k={'action.next'}/></Button>}
 			{active === 2 && <Button color={'green'} onClick={() => {
 				nextStep();
 				mutate();
-			}}>Speichern</Button>}
+			}}><T k={'action.save'}/></Button>}
 		</Group>
 	</>;
 }

@@ -9,6 +9,7 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {usePrevious} from '@mantine/hooks';
+import {T} from '../../../../components/T';
 
 export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
@@ -60,21 +61,19 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 		<>
 			{!eventTypes &&
                 <Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'} mt={'xs'}>
-                    Event-Typen konnten nicht geladen werden. Bitte überprüfe deine Internetverbindung und deinen
-                    Login-Status. Du kannst so weiter arbeiten, aber vielleicht nicht speichern. Neuladen der Seite
-                    sollte das Problem beheben.
+                    <T k={'event.eventType.error'}/>
                 </Alert>
 			}
 			<Grid>
 				<Grid.Col span={8}>
-					<Select label={'Event-Typ-Name'}
+					<Select label={<T k={'event.eventType.name'}/>}
 							maxLength={TEXT}
 							required
 							data={data}
 							searchable
 							creatable={!editMode}
-							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> Aktuell
-								können im Editiermodus keine neuen Event-Typen angelegt werden.</Group>}
+							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> <T
+								k={'event.evenType.name.edit.nothingFound'}/></Group>}
 							getCreateLabel={input => input}
 							onCreate={(input) => {
 								const item = {value: input, label: input};
@@ -84,7 +83,7 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 							{...eventTypeNameInputProps}/>
 				</Grid.Col>
 				<Grid.Col span={4}>
-					<ColorInput label={'Event-Typ-Farbe'}
+					<ColorInput label={<T k={'event.eventType.color'}/>}
 								disabled={disabledColorInput}
 								{...form.getInputProps('eventType.color')}/>
 				</Grid.Col>

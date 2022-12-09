@@ -4,9 +4,16 @@ import {useFormContext} from '../../../contexts/event/action/EventActionFormCont
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditables';
 import {useEventTextChange} from './useEventUpdate';
+import {TextKey} from '../../../contexts/language/Language';
+import {useTranslationIfPresent} from '../../../utils/translationHelper';
+
+interface TranslatableAutocompleteProps extends AutocompleteProps {
+	label?: TextKey;
+	placeholder?: TextKey;
+}
 
 type FormTextInputProps = {
-	inputProps: AutocompleteProps;
+	inputProps: TranslatableAutocompleteProps;
 	formPath: string;
 	/** Forces edit mode in form context **/
 	overrideFormContextEditMode?: boolean;
@@ -19,6 +26,8 @@ export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element 
 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
+
+	useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
 		{useEditMode() ?
 			<InlineEditableAutocomplete {...inputProps} position={'group'} {...formInputProps}

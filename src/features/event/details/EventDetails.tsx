@@ -13,13 +13,16 @@ import {EventSlotlist} from './EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
 import {EventPageParams} from '../EventRoutes';
 import {useEffect, useState} from 'react';
+import {useLanguage} from '../../../contexts/language/Language';
+import {T} from '../../../components/T';
 
 export function EventDetails(): JSX.Element {
-	const [title, setTitle] = useState('Event');
+	const {t} = useLanguage();
+	const [title, setTitle] = useState(t('event'));
 	useDocumentTitle(title);
 
 	const {eventId} = useParams<EventPageParams>();
-	if (!eventId) throw Error('Invalid state: Event id required');
+	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 
 	const theme = useMantineTheme();
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
@@ -35,7 +38,7 @@ export function EventDetails(): JSX.Element {
 
 	const breadcrumbItems = [
 		{
-			title: 'Event-Kalender',
+			title: 'breadcrumb.calendar',
 			href: '/events',
 		},
 		{
@@ -51,10 +54,10 @@ export function EventDetails(): JSX.Element {
 			<Container>
 				<Breadcrumb items={breadcrumbItems}/>
 
-				{event.hidden && <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
-					Dieses Event ist für Mitspieler noch nicht im Kalender sichtbar. Wenn das Slotten beginnen kann,
-					gebe das Event über den Editiermodus frei.
-				</Alert>}
+				{event.hidden &&
+                    <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
+                        <T k={'event.details.hiddenEventWarning'}/>
+                    </Alert>}
 
 				<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
 									scrollToDescription={scrollToDescription}/>
@@ -62,17 +65,17 @@ export function EventDetails(): JSX.Element {
 				<Tabs mt={'xs'} defaultValue={'slotlist'}>
 					<Tabs.List>
 						<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
-							Slotliste
+							<T k={'slotlist'}/>
 						</Tabs.Tab>
 						{event.descriptionAsHtml &&
                             <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
                                       ref={descriptionRef}>
-                                Beschreibung
+                                <T k={'description'}/>
                             </Tabs.Tab>
 						}
 						{event.details.length !== 0 &&
                             <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
-                                Weitere Details
+                                <T k={'moreDetails'}/>
                             </Tabs.Tab>
 						}
 					</Tabs.List>

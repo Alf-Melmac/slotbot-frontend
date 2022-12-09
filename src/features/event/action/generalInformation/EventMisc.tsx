@@ -5,16 +5,18 @@ import {EventActionTextInput} from '../EventActionTextInput';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useChangeWatcher} from '../useEventUpdate';
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();
+	const {t} = useLanguage();
 
-	const missionTypeInputProps = form.getInputProps('missionType');
 	useChangeWatcher('missionType');
 	return <>
 		<EventActionTextarea inputProps={{
-			label: 'Beschreibung',
-			placeholder: 'Beschreibung',
+			label: 'description',
+			placeholder: 'description',
 			autosize: true,
 			minRows: 3,
 			maxLength: EMBEDDABLE_DESCRIPTION,
@@ -22,21 +24,21 @@ export function EventMisc(): JSX.Element {
 
 		<Grid>
 			<Grid.Col span={4}>
-				<Select label={'Missionstyp'} placeholder={'Auswählen...'}
-						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', 'Spezial', 'Anderes']}
-						{...missionTypeInputProps}/>
+				<Select label={<T k={'event.missionType'}/>} placeholder={t('input.select.placeholder')}
+						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', t('event.missionType.special'), t('event.missionType.other')]}
+						{...form.getInputProps('missionType')}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
 				<EventActionAutocomplete inputProps={{
-					label: 'Missionslänge',
-					placeholder: 'Freitext',
+					label: 'event.missionLength',
+					placeholder: 'input.unrestricted',
 					maxLength: TEXT,
-					data: ['2 Stunden', '3 Stunden', 'über 4 Stunden'],
+					data: [t('length.twoHours'), t('length.threeHours'), t('length.overFourHours')],
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
 				<EventActionTextInput inputProps={{
-					label: 'Bild-URL',
+					label: 'event.pictureUrl',
 					maxLength: URL,
 				}} formPath={'pictureUrl'}/>
 			</Grid.Col>

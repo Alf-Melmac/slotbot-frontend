@@ -4,6 +4,7 @@ import {length, maxLengthField, requiredFieldWithMaxLength, validate} from '../.
 import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT, URL} from '../../../utils/maxLength';
 import {EventAction} from './EventActionPage';
 import dayjs from 'dayjs';
+import {T} from '../../../components/T';
 
 export const eventActionValidate = (values: EventAction, active?: number) => {
 	const activePresent = active != undefined;
@@ -11,10 +12,12 @@ export const eventActionValidate = (values: EventAction, active?: number) => {
 	if (!activePresent || active === 0) {
 		errors = {
 			name: requiredFieldWithMaxLength(values.name, TEXT),
-			date: validate(values.date instanceof Date && dayjs().isAfter(values.date, 'day'), 'Muss in der Zukunft liegen'),
+			date: validate(values.date instanceof Date && dayjs().isAfter(values.date, 'day'), <T
+				k={'validation.onlyFuture'}/>),
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
-			'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), 'Muss ein HEX-Farbcode sein'),
+			'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), <T
+				k={'validation.hexColor'}/>),
 			description: maxLengthField(values.description, EMBEDDABLE_DESCRIPTION),
 			missionType: maxLengthField(values.missionType, TEXT),
 			missionLength: maxLengthField(values.missionLength, TEXT),
@@ -49,7 +52,7 @@ function validateEmbedSize(values: EventAction, errors: FormErrors): void {
 		//"Zeitplan" + Datum + " Uhr" + (" und dauert " + missionLength) + ("Missionstyp" + missionType) + #reserveParticipatingFieldSize
 		8 + 16 + 4 + ifPresentAddLength(values.missionLength, 12) + ifPresentAddLength(values.missionType, 11) + reserveParticipatingFieldSize(values.reserveParticipating);
 	if (embedLength > EMBED) {
-		const error = `Event-Information dürfen insgesamt nicht ${EMBED} Zeichen überschreiten. Aktuell: ${embedLength}`;
+		const error = <T k={'validation.event.embedSize'} args={[EMBED, embedLength]}/>;
 		errors.name = error;
 		errors.description = error;
 		values.details.forEach((field, i) => {
@@ -90,7 +93,8 @@ function validateSquadList(values: EventAction, errors: FormErrors): void {
 		errors[`squadList.${squadIndex}.name`] = requiredFieldWithMaxLength(squad.name, TEXT);
 		squad.slotList.forEach((slot, slotIndex) => {
 			errors[`squadList.${squadIndex}.slotList.${slotIndex}.name`] = requiredFieldWithMaxLength(slot.name, TEXT);
-			errors[`squadList.${squadIndex}.slotList.${slotIndex}.number`] = validate(!Number.isSafeInteger(slot.number) || slot.number <= 0, 'No');
+			errors[`squadList.${squadIndex}.slotList.${slotIndex}.number`] =
+				validate(!Number.isSafeInteger(slot.number) || slot.number <= 0, <T k={'no'}/>);
 		});
 		// @ts-ignore
 		const count = squad.slotList.reduce((result: Record<number, { path: string[], count: number }>, c: SlotDto | SlotIdDto, i: number) => ({
@@ -104,7 +108,7 @@ function validateSquadList(values: EventAction, errors: FormErrors): void {
 			const value = count[key];
 			if (value.count <= 1) continue;
 			value.path.forEach((path: string) => {
-				errors[path] = 'Uneindeutig';
+				errors[path] = <T k={'validation.ambiguous'}/>;
 			});
 		}
 	});

@@ -4,11 +4,12 @@ import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient
 import {useEffect, useState} from 'react';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {useDocumentTitle} from '@mantine/hooks';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
+import {T} from '../../components/T';
+import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 
 export function AdminUtils(): JSX.Element {
-	useDocumentTitle('Admin - Utils');
+	useTranslatedDocumentTitle('documentTitle.admin.utils');
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postAction, {
@@ -24,10 +25,18 @@ export function AdminUtils(): JSX.Element {
 		<Nav>
 			<Container>
 				<Stack mt={'xl'}>
-					<Button size={'lg'} onClick={() => setAction('listFiles')}>Update file list</Button>
-					<Button size={'lg'} color={'red'} onClick={() => setAction('deleteUnusedEventTypes')}>Remove unused event types</Button>
-					<Button size={'lg'} onClick={() => setAction('rebuildEventNotifications')}>Rebuild event notifications</Button>
-					<Button size={'lg'} onClick={() => setAction('rebuildCalendars')}>Rebuild global ICS calendars</Button>
+					<Button size={'lg'} onClick={() => setAction('listFiles')}>
+						<T k={'admin.utils.listFiles'}/>
+					</Button>
+					<Button size={'lg'} color={'red'} onClick={() => setAction('deleteUnusedEventTypes')}>
+						<T k={'admin.utils.deleteUnusedEventTypes'}/>
+					</Button>
+					<Button size={'lg'} onClick={() => setAction('rebuildEventNotifications')}>
+						<T k={'admin.utils.rebuildEventNotifications'}/>
+					</Button>
+					<Button size={'lg'} onClick={() => setAction('rebuildCalendars')}>
+						<T k={'admin.utils.rebuildCalendars'}/>
+					</Button>
 				</Stack>
 			</Container>
 		</Nav>

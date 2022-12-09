@@ -5,7 +5,7 @@ import {EventMisc} from './EventMisc';
 
 export function EventGeneralInformation(props: RequiredInformationProps): JSX.Element {
 	return <>
-		<EventActionPageTitle>Allgemeine Informationen</EventActionPageTitle>
+		<EventActionPageTitle title={'generalInformation'}/>
 
 		<RequiredInformation {...props}/>
 		<EventTypeMask/>

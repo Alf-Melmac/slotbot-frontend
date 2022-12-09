@@ -18,7 +18,8 @@ import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 import {ExternalCalendarSettings} from './ExternalCalendarSettings';
-import {useDocumentTitle} from '@mantine/hooks';
+import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {T} from '../../components/T';
 
 export const userCardSize: (theme: MantineTheme) => CSSObject = (theme) => ({
 	width: '33%',
@@ -47,7 +48,7 @@ type ProfileInfoProps = {
 
 export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
-	useDocumentTitle(ownProfile ? 'Dein Profil' : profileUser.name);
+	useTranslatedDocumentTitle(ownProfile ? 'documentTitle.profile.own' : profileUser.name, undefined, !ownProfile);
 
 	let ownProfileInfo;
 	if (ownProfile) {
@@ -66,8 +67,9 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
 						<Title order={2} align={'center'}>{profileUser.name}</Title>
 						{useAuth().user &&
-                            <Spoiler maxHeight={0} hideLabel={'Ausblenden'} showLabel={'Rollen anzeigen'}
-                                     classNames={{control: classes.rolesSpoilerControl}}>
+                            <Spoiler maxHeight={0} classNames={{control: classes.rolesSpoilerControl}}
+                                     hideLabel={<T k={'action.hide'}/>}
+                                     showLabel={<T k={'profile.action.showRoles'}/>}>
                                 <Text color={'dimmed'} align={'center'}>{roles}</Text>
                             </Spoiler>
 						}
@@ -75,7 +77,7 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
                             <ProfileSteamId steamId={ownProfileInfo.steamId64}/>
 						}
 						<Text mt={'xl'} size={'xl'}>{participatedEventsCount}</Text>
-						<Title order={5}>Event-Teilnahmen</Title>
+						<Title order={5}><T k={'profile.info.participatedEvents'}/></Title>
 					</Stack>
 				</Paper>
 			</Center>

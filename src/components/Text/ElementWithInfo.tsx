@@ -2,8 +2,11 @@ import {Group, TooltipProps} from '@mantine/core';
 import {InfoTooltip} from './InfoTooltip';
 
 type TextWithInfoProps = {
-	text: JSX.Element | string;
-	tooltip: TooltipProps['label'];
+	text: JSX.Element;
+	tooltip: JSX.Element;
+	/**
+	 * @default {@link YPosition.RIGHT}
+	 */
 	iconPosition?: YPosition;
 	multiline?: TooltipProps['multiline'];
 	tooltipWidth?: TooltipProps['width'];

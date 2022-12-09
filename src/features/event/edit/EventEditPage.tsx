@@ -6,23 +6,25 @@ import {EventEditDto} from '../eventTypes';
 import {EventEdit} from './EventEdit';
 import {parseDate, parseTime} from '../../../utils/dateHelper';
 import {useEffect, useState} from 'react';
-import {useDocumentTitle} from '@mantine/hooks';
 import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
 import {EventEditLoading} from './EventEditLoading';
+import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {useLanguage} from '../../../contexts/language/Language';
 
 export type EventEditFormType = Omit<EventEditDto, 'canRevokeShareable'>;
 
 export function EventEditPage(): JSX.Element {
-	const [title, setTitle] = useState('Bearbeiten - Event');
-	useDocumentTitle(title);
+	const {t} = useLanguage();
+	const [title, setTitle] = useState(t('event'));
+	useTranslatedDocumentTitle('documentTitle.event.edit', [title]);
 
 	const {eventId} = useParams<EventPageParams>();
-	if (!eventId) throw Error('Invalid state: Event id required');
+	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 
 	const {event, loading, error} = fetchEventForEdit(eventId);
 	useEffect(() => {
 		if (event) {
-			setTitle(`Bearbeiten - ${event.name}`);
+			setTitle(event.name);
 		}
 	}, [event]);
 	if (loading) return <EventEditLoading/>;

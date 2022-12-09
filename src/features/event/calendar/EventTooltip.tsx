@@ -1,5 +1,6 @@
 import {Bold} from '../../../components/Text/Bold';
 import {Stack, Text} from '@mantine/core';
+import {T} from '../../../components/T';
 
 type EventTooltipProps = {
 	eventName: string;
@@ -15,8 +16,10 @@ export function EventTooltip(props: EventTooltipProps): JSX.Element {
 	return (
 		<Stack align={'center'} spacing={0}>
 			<Bold>{eventName}</Bold>
-			<Text><Text weight={emptySlotsCount > 0 ? 'bold' : ''} span>{emptySlotsCount}/{slotCount}</Text> Slots frei</Text>
-			{emptyReserveSlotsCount > 0 && <Bold>{emptyReserveSlotsCount} Reservistenplätze frei</Bold>}
+			<Text><Text weight={emptySlotsCount > 0 ? 'bold' : ''} span>{emptySlotsCount}/{slotCount}</Text> <T
+				k={'calendarEvent.tooltip.emptySlots'}/></Text>
+			{emptyReserveSlotsCount > 0 &&
+                <Bold><T k={'calendarEvent.tooltip.emptyReserveSlots'} args={[emptyReserveSlotsCount]}/></Bold>}
 			{missionLength && <Text><Bold>Dauer:</Bold> {missionLength}</Text>}
 		</Stack>
 	);

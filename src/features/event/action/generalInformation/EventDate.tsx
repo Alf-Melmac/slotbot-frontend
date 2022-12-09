@@ -6,17 +6,19 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {formatDate, parseDate} from '../../../../utils/dateHelper';
-
-const datePickerProps: DatePickerProps = {
-	label: 'Datum',
-	placeholder: 'Event Datum',
-	icon: <FontAwesomeIcon icon={faCalendarDay}/>,
-	allowFreeInput: true,
-	clearable: false,
-	required: true,
-};
+import {useLanguage} from '../../../../contexts/language/Language';
 
 export function EventDate(): JSX.Element {
+	const {t} = useLanguage();
+	const datePickerProps: DatePickerProps = {
+		label: t('event.date'),
+		placeholder: t('event.date.placeholder'),
+		icon: <FontAwesomeIcon icon={faCalendarDay}/>,
+		allowFreeInput: true,
+		clearable: false,
+		required: true,
+	};
+
 	const form = useFormContext();
 
 	// @ts-ignore

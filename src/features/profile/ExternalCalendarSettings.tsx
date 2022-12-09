@@ -8,6 +8,7 @@ import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
+import {T} from '../../components/T';
 
 type ExternalCalendarSettingsProps = Pick<UserOwnProfileDto, 'externalCalendarIntegrationActive' | 'icsCalendarUrl'>;
 
@@ -42,14 +43,14 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 	return (
 		<>
 			<Title order={3}>
-				<ElementWithInfo text={'Externer Kalender'}
-								 tooltip={'Aktiviere hier die Integration mit externen Kalendern, um deine Events z.B. auf dem Handy einfügen zu können.'}
+				<ElementWithInfo text={<T k={'profile.externalCalendar.title'}/>}
+								 tooltip={<T k={'profile.externalCalendar.tooltip'}/>}
 								 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
-			<Switch label={'Kalenderintegration aktivieren '} disabled={saving}
+			<Switch label={<T k={'profile.externalCalendar.switch'}/>} disabled={saving}
 					{...form.getInputProps('externalCalendarIntegrationActive', {type: 'checkbox'})}/>
 			{form.values.externalCalendarIntegrationActive && <>
-                <Tooltip.Floating label={'Klicken zum Kopieren'}>
+                <Tooltip.Floating label={<T k={'action.clickToCopy'}/>}>
                     <Box>
                         <CopyButton value={icsCalendarUrl}>
 							{({copied, copy}) => (
@@ -61,8 +62,11 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
                         </CopyButton>
                     </Box>
                 </Tooltip.Floating>
-                <Text>Anleitungen zum Einbinden dieser Datei im <AnchorBlank
-                    href={'https://docs.webalf.de/slotbot/eventkalender#kalender-synchronisation'}>Wiki</AnchorBlank>.</Text>
+                <Text>
+                    <T k={'profile.externalCalendar.tutorial.partOne'}/> <AnchorBlank
+                    href={'https://docs.webalf.de/slotbot/eventkalender#kalender-synchronisation'}>
+                    <T k={'profile.externalCalendar.tutorial.partTwo'}/></AnchorBlank>.
+                </Text>
             </>
 			}
 		</>

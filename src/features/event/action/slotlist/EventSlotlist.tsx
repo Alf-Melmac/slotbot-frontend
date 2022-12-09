@@ -1,4 +1,4 @@
-import {Checkbox, Group, Title} from '@mantine/core';
+import {Checkbox, Group} from '@mantine/core';
 import {UploadSlotlist} from './UploadSlotlist';
 import {RenumberSlots} from './RenumberSlots';
 import {SquadList} from './SquadList';
@@ -10,7 +10,8 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
 import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
-import {EventAction} from '../EventActionPage';
+import {EventAction, EventActionPageTitle} from '../EventActionPage';
+import {T} from '../../../../components/T';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
@@ -40,14 +41,13 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
 		<Group position={'apart'}>
-			<Title order={2}>Teilnahmeplatzaufzählung</Title>
+			<EventActionPageTitle title={'slotlist.alt'}/>
 			<Group spacing={'xs'}>
 				{canUploadSlotlist ?
 					<UploadSlotlist/>
 					:
-					<ButtonWithDisabledTooltip variant={'default'} disabled
-											   tooltip={'Zum Hochladen einer Slotliste muss das Event leer sein'}>
-						Slotliste hochladen
+					<ButtonWithDisabledTooltip variant={'default'} disabled tooltip={'slotlist.upload.disabled'}>
+						<T k={'slotlist.upload'}/>
 					</ButtonWithDisabledTooltip>
 				}
 
@@ -61,13 +61,13 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
                 <ScrollAffix show={form.isDirty('squadList')}>
                     <PulsatingButton onClick={() => mutate()}
                                      disabled={!form.isDirty('squadList') || squadListInvalid()}>
-                        Slotliste speichern
+                        <T k={'slotlist.save'}/>
                     </PulsatingButton>
                 </ScrollAffix>
             </Group>
 		}
 
-		<Checkbox label={'Reserve nimmt teil'} mt={'md'}
+		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'}
 				  indeterminate={form.values.reserveParticipating === undefined}
 				  {...reserveParticipatingInputProps}/>
 	</>;

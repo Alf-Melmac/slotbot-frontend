@@ -9,6 +9,7 @@ import {showNotification} from '@mantine/notifications';
 import {EventWizardLocation} from './EventWizard';
 import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
+import {T} from '../../../components/T';
 
 export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 	const state = useLocation().state as EventWizardLocation | null;
@@ -28,7 +29,7 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 		},
 		onError: (error) => {
 			showNotification({
-				title: 'Kopieren fehlgeschlagen.',
+				title: <T k={'error.notification.copying'}/>,
 				message: error.message,
 				color: 'red',
 				autoClose: false,

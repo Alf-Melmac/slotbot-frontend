@@ -1,20 +1,14 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
-import {TimeInput, TimeInputProps} from '@mantine/dates';
+import {TimeInput} from '@mantine/dates';
 import {useDebouncedValue, usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {formatTime, parseTime} from '../../../../utils/dateHelper';
 import {useEffect} from 'react';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
-
-const timeInputProps: TimeInputProps = {
-	label: 'Startzeit',
-	placeholder: 'Event Datum',
-	icon: <FontAwesomeIcon icon={faClock}/>,
-	clearable: false,
-	required: true,
-};
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 export function EventStartTime(): JSX.Element {
 	const form = useFormContext();
@@ -33,5 +27,8 @@ export function EventStartTime(): JSX.Element {
 		mutate();
 	}, [debounced]);
 
-	return <TimeInput {...timeInputProps} {...form.getInputProps('startTime')}/>;
+	const {t} = useLanguage();
+	return <TimeInput label={<T k={'event.startTime'}/>} placeholder={t('event.startTime.placeholder')}
+					  icon={<FontAwesomeIcon icon={faClock}/>} clearable={false} required
+					  {...form.getInputProps('startTime')}/>;
 }

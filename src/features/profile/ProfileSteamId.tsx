@@ -5,6 +5,7 @@ import {AxiosError} from 'axios';
 import {UserOwnProfileDto} from './profileTypes';
 import {InlineEditableText} from '../../components/Input/InlineEditable/InlineEditables';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
+import {T} from '../../components/T';
 
 type ProfileSteamIdProps = {
 	steamId: UserOwnProfileDto['steamId64'];
@@ -26,7 +27,7 @@ export function ProfileSteamId(props: ProfileSteamIdProps): JSX.Element {
 	});
 
 	return (
-		<InlineEditableText label={'Steam-ID'} value={steamId}
+		<InlineEditableText label={<T k={'profile.steamId'}/>} value={steamId}
 							{...form.getInputProps('steamId')} onSubmit={mutate} onCancel={form.reset}/>
 	);
 }

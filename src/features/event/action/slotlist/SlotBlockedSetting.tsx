@@ -6,17 +6,20 @@ import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {T} from '../../../../components/T';
+import {useLanguage} from '../../../../contexts/language/Language';
 
 type SlotBlockedSettingProps = Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
 
 export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element {
 	const {path, index} = props;
+	const {t} = useLanguage();
 	const form = useFormContext();
 	const blocked = getFormFieldValue(form, `${path}.${index}.blocked`);
 
 	return (
-		<Input.Wrapper label={'Blockierung'}
-					   description={'Niemand kann sich für diesen Platz anmelden. Optional kann ein Ersatztext angezeigt werden.'}
+		<Input.Wrapper label={<T k={'slotlistEntry.settings.blocked.label'}/>}
+					   description={<T k={'slotlistEntry.settings.blocked.description'}/>}
 					   mt={'sm'}>
 			<Group spacing={'xs'} mt={6}>
 				<ActionIcon variant={'transparent'} size={'lg'}
@@ -25,8 +28,8 @@ export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element 
 					<FontAwesomeIcon icon={blocked ? faLock : faLockOpen} size={'lg'}/>
 				</ActionIcon>
 				{blocked &&
-                    <TextInput placeholder={'Ersatztext'} maxLength={TEXT} required styles={{root: flexGrow}}
-							   {...form.getInputProps(`${path}.${index}.replacementText`)}/>
+                    <TextInput placeholder={t('slotlistEntry.settings.blocked.placeholder')} maxLength={TEXT} required
+                               styles={{root: flexGrow}} {...form.getInputProps(`${path}.${index}.replacementText`)}/>
 				}
 			</Group>
 		</Input.Wrapper>

@@ -7,6 +7,7 @@ import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {faHouseUser} from '@fortawesome/free-solid-svg-icons';
+import {T} from '../T';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
@@ -137,7 +138,7 @@ export function PageFooter(): JSX.Element {
 					<Logo small/>
 					<ThemeSwitch/>
 				</Group>
-				<Text size={'sm'} className={classes.description}>© 2022 Alf. All rights reserved.</Text>
+				<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
 			</Stack>
 			<Stack spacing={'xs'}>
 				<Group spacing={'xl'} position={'right'}>
@@ -149,9 +150,7 @@ export function PageFooter(): JSX.Element {
 					)}
 				</Group>
 				<Text size={'xs'}>
-					<AnchorBlank className={classes.link} href={impressum}>
-						Impressum & Datenschutzerklärung
-					</AnchorBlank>
+					<AnchorBlank className={classes.link} href={impressum}><T k={'footer.legal'}/></AnchorBlank>
 				</Text>
 			</Stack>
 		</Container>

@@ -1,7 +1,7 @@
-import {useDocumentTitle} from '@mantine/hooks';
 import {Nav} from '../../components/nav/Nav';
 import {createStyles, keyframes, Stack} from '@mantine/core';
 import {ErrorBackButton, ErrorLabel, ErrorTitle} from './ErrorPage';
+import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 
 const alarmOn = keyframes({
 	to: {
@@ -29,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function NotAllowed(): JSX.Element {
-	useDocumentTitle('403 - Nicht erlaubt');
+	useTranslatedDocumentTitle('documentTitle.error.403');
 	const {classes} = useStyles();
 
 	return (
@@ -37,7 +37,7 @@ export function NotAllowed(): JSX.Element {
 			<Stack spacing={'xl'} align={'center'} justify={'center'} pt={'6%'}>
 				<div className={classes.alarm}/>
 				<ErrorLabel>403</ErrorLabel>
-				<ErrorTitle>Hier darfst du leider nicht hin</ErrorTitle>
+				<ErrorTitle title={'error.notAllowed'}/>
 				<ErrorBackButton/>
 			</Stack>
 		</Nav>

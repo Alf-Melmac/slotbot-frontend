@@ -3,9 +3,10 @@ import {ReactNode} from 'react';
 import {PartialBy} from './typesHelper';
 import {FrontendIdDto} from '../contexts/sharedTypes';
 import {IdEntity} from '../features/event/eventTypes';
+import {T} from '../components/T';
 
 function requiredField(length: number, check: () => ReactNode): ReactNode {
-	return length < 1 ? 'Pflichtfeld' : check();
+	return length < 1 ? <T k={'validation.required'}/> : check();
 }
 
 export function requiredFieldWithMaxLength(field: string, maxLength: number): ReactNode {
@@ -15,10 +16,10 @@ export function requiredFieldWithMaxLength(field: string, maxLength: number): Re
 
 export function maxLengthField(field: string, maxLength: number): ReactNode {
 	const fieldLength = length(field);
-	return validate(fieldLength > maxLength, `Nicht länger als ${maxLength} Zeichen`);
+	return validate(fieldLength > maxLength, <T k={'validation.maxLength'} args={[maxLength]}/>);
 }
 
-export function validate(check: boolean, error: string): ReactNode {
+export function validate(check: boolean, error: ReactNode): ReactNode {
 	return check ? error : null;
 }
 

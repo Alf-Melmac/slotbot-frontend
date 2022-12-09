@@ -1,14 +1,16 @@
 import {showNotification} from '@mantine/notifications';
 import {AxiosError} from 'axios';
 import {MutationOptions} from '@tanstack/react-query';
+import {T} from '../components/T';
+import {ReactNode} from 'react';
 
-export const successNotification = (message?: string) => {
-	showNotification({title: 'Gespeichert', message: message ? message : <></>, color: 'green'});
-}
+export const successNotification = (message: ReactNode = <></>) => {
+	showNotification({title: <T k={'success.notification'}/>, message: message, color: 'green'});
+};
 
 export const errorNotification: MutationOptions<unknown, AxiosError>['onError'] = (error) => {
 	showNotification({
-		title: `Speichern fehlgeschlagen. ${error.code ? `(${error.code})` : ''}`,
+		title: <T k={'error.notification'} args={[error.code ? ` (${error.code})` : '']}/>,
 		message: error.message,
 		color: 'red',
 	});

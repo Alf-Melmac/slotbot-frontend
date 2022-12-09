@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {underlineOnHover} from '../../contexts/CommonStylings';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
+import {T} from '../T';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -49,18 +50,18 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
 			</Menu.Target>
 			<Menu.Dropdown>
 				<Menu.Item icon={<FontAwesomeIcon icon={faUser}/>} component={Link} to={`/profile/${user.id}`}>
-					Mein Profil
+					<T k={'userMenu.myProfile'}/>
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
 				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={logout}>
-					Logout
+					<T k={'userMenu.logout'}/>
 				</Menu.Item>
 				{sysAdmin &&
                     <>
-                        <Menu.Label>Administration</Menu.Label>
+                        <Menu.Label><T k={'userMenu.label.admin'}/></Menu.Label>
                         <Menu.Item icon={<FontAwesomeIcon icon={faScrewdriverWrench}/>}
-								   component={Link} to={'/admin/utils'}>
-                            Utils
+                                   component={Link} to={'/admin/utils'}>
+                            <T k={'userMenu.admin.utils'}/>
                         </Menu.Item>
                     </>
 				}

@@ -5,6 +5,7 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {useEventFieldDefaults} from './useEventFieldDefaults';
 import {EventFieldDefaultsProvider} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {randomId} from '@mantine/hooks';
+import {T} from '../../../../components/T';
 
 export function EventDetailsPage(): JSX.Element {
 	const form = useFormContext();
@@ -13,14 +14,14 @@ export function EventDetailsPage(): JSX.Element {
 
 	return <EventFieldDefaultsProvider fieldDefaults={defaultFields}>
 		<Group position={'apart'}>
-			<EventActionPageTitle>Details</EventActionPageTitle>
+			<EventActionPageTitle title={'details'}/>
 			{defaultFields?.length &&
                 <Button variant={'light'} mb={'xs'} onClick={() => {
 					defaultFields.forEach(field => {
 						form.insertListItem('details', {title: field.title, text: field.text, id: randomId()});
 					});
 				}
-				}>{`Standard "${form.values.eventType.name}" Details hinzufügen`}</Button>}
+				}><T k={'event.details.add.default'} args={[form.values.eventType.name]}/></Button>}
 		</Group>
 
 		<EventDetails/>
