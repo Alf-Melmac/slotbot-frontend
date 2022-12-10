@@ -11,7 +11,7 @@ import {ApplicationRoles} from '../../../contexts/authentication/authenticationT
 import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {availableLanguageTags, currentLanguageTag} from '../../../contexts/language/Language';
+import {isGerman} from '../../../contexts/language/Language';
 
 const useStyles = createStyles(() => ({
 	eventType: {
@@ -62,7 +62,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 			<FullCalendar
 				plugins={[dayGridPlugin]}
 				initialView="dayGridMonth"
-				locale={currentLanguageTag() === availableLanguageTags.de ? de : undefined}
+				locale={isGerman() ? de : undefined}
 				viewDidMount={(_arg) => toggleVisible(true)}
 				events={(info, successCallback, failureCallback) => {
 					const start = dayjs(info.start.valueOf()).format();

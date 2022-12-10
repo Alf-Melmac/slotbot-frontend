@@ -6,27 +6,22 @@ import {useTranslationMap} from './useTranslationMap';
 
 export type TextKey = string;
 
-export const availableLanguageTags: LanguageTags = {
-	en: "en",
-	de: "de",
-};
+const DE: LanguageTag = 'de';
+const EN: LanguageTag = 'en';
+export const availableLanguages: LanguageTag[] = [DE, EN];
 
-type LanguageTagKeys = "de" | "en";
-export type LanguageTag = keyof LanguageTags;
-type LanguageTags = { [k in LanguageTagKeys]: LanguageTag };
+export type LanguageTag = 'de' | 'en';
 
 /**
- * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to {@link availableLanguageTags#en}
+ * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to `EN`
  */
 export function currentLanguageTag(): LanguageTag {
-	const languageTag = navigator.language;
-	// @ts-ignore Will check presence
-	let language: LanguageTag = availableLanguageTags[languageTag];
-	if (!language) {
-		console.warn(`Language ${languageTag} not supported. Falllack to en`);
-		language = availableLanguageTags.en;
-	}
-	return language;
+	const languageTag = navigator.language.substring(0, 2);
+	return availableLanguages.find(v => v === languageTag) || EN;
+}
+
+export function isGerman(): boolean {
+	return currentLanguageTag() === DE;
 }
 
 /**
@@ -41,11 +36,10 @@ function setLocale(): void {
  * Sets dayjs locale matching the {@link currentLanguageTag}
  */
 function currentDayJsLocale(): string {
-	console.log('dayjs'); //TODO delete
 	switch (currentLanguageTag()) {
-		case availableLanguageTags.de:
+		case DE:
 			return dayjs.locale(de);
-		case availableLanguageTags.en:
+		case EN:
 		default:
 			return dayjs.locale(en);
 	}

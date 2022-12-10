@@ -1,4 +1,4 @@
-import {availableLanguageTags, LanguageTag} from './Language';
+import {availableLanguages, LanguageTag} from './Language';
 import {useEffect, useState} from 'react';
 
 type TranslationMap = Record<string, string>;
@@ -14,7 +14,6 @@ export function useTranslationMap(languageTag: LanguageTag): TranslationMap | un
 		setTranslations(loadTranslationFiles());
 	}, []);
 
-	if (!translations) console.warn('undefinde'); //TODO delete
 	return translations?.[languageTag];
 }
 
@@ -22,11 +21,10 @@ export function useTranslationMap(languageTag: LanguageTag): TranslationMap | un
  * Loads all {@link Translations}
  */
 function loadTranslationFiles(): Translations {
-	console.warn('load'); //TODO delete
 	const translationFiles = import.meta.glob('../../assets/locales/*/translation.json', {eager: true});
 
 	let translations: Partial<Translations> = {};
-	Object.keys(availableLanguageTags).forEach(locale => {
+	availableLanguages.forEach(locale => {
 		// @ts-ignore
 		translations[locale] = translationFiles[`../../assets/locales/${locale}/translation.json`].default;
 	});
