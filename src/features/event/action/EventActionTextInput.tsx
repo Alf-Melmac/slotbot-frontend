@@ -28,13 +28,13 @@ export function EventActionTextInput(props: FormTextInputProps): JSX.Element {
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
-	useTranslationIfPresent(inputProps, ['label', 'placeholder']);
+	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
 		{useEditMode() ?
-			<InlineEditableText {...inputProps} position={'group'} {...formInputProps}
-								onSubmit={mutate} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+			<InlineEditableText {...translatedInputProps} position={'group'} {...formInputProps}
+								onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
-			<TextInputMaxLength {...inputProps} {...formInputProps}/>
+			<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
 		}
 	</>;
 }

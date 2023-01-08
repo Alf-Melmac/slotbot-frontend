@@ -27,7 +27,7 @@ export function ProfileSteamId(props: ProfileSteamIdProps): JSX.Element {
 	});
 
 	return (
-		<InlineEditableText label={<T k={'profile.steamId'}/>} value={steamId}
-							{...form.getInputProps('steamId')} onSubmit={mutate} onCancel={form.reset}/>
+		<InlineEditableText label={<T k={'profile.steamId'}/>}
+							{...form.getInputProps('steamId')} onSubmit={() => mutate()} onCancel={form.reset}/>
 	);
 }

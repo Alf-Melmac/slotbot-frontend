@@ -1,7 +1,6 @@
 import dayjs, {Dayjs} from 'dayjs';
-import '@fullcalendar/react/dist/vdom'; //Vite fix for fullcalendar
-import FullCalendar, {EventContentArg, EventInput} from '@fullcalendar/react';
-import {CustomContentGenerator, EventSourceInput} from '@fullcalendar/core';
+import FullCalendar from '@fullcalendar/react';
+import {CustomContentGenerator, EventContentArg, EventInput, EventSourceInput} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {Skeleton, Text} from '@mantine/core';

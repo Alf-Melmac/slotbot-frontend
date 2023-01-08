@@ -1,4 +1,5 @@
-import FullCalendar, {EventContentArg} from '@fullcalendar/react';
+import FullCalendar from '@fullcalendar/react';
+import {EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {Box, ColorSwatch, createStyles, Text, Tooltip} from '@mantine/core';
@@ -72,7 +73,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 						.catch(failureCallback);
 				}}
 				eventContent={eventContent}
-				eventSourceSuccess={(_content, _xhr) => toggleVisible(false)}
+				eventSourceSuccess={(_content, _response) => toggleVisible(false)}
 				eventSourceFailure={(error) => {
 					showNotification({
 						title: 'Oops',

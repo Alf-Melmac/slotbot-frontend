@@ -27,13 +27,13 @@ export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element 
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
-	useTranslationIfPresent(inputProps, ['label', 'placeholder']);
+	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
 		{useEditMode() ?
-			<InlineEditableAutocomplete {...inputProps} position={'group'} {...formInputProps}
-										onSubmit={mutate} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+			<InlineEditableAutocomplete {...translatedInputProps} position={'group'} {...formInputProps}
+										onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
-			<Autocomplete {...inputProps} {...formInputProps}/>
+			<Autocomplete {...translatedInputProps} {...formInputProps}/>
 		}
 	</>;
 }

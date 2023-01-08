@@ -26,13 +26,13 @@ export function EventActionTextarea(props: FormTextInputProps): JSX.Element {
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
-	useTranslationIfPresent(inputProps, ['label', 'placeholder']);
+	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
 		{useEditMode() ?
-			<InlineEditableTextarea {...inputProps} position={'group'} {...formInputProps}
-									onSubmit={mutate} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+			<InlineEditableTextarea {...translatedInputProps} position={'group'} {...formInputProps}
+									onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
-			<TextareaMaxLength {...inputProps} {...formInputProps}/>
+			<TextareaMaxLength {...translatedInputProps} {...formInputProps}/>
 		}
 	</>;
 }
