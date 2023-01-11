@@ -67,7 +67,7 @@
   "event.startTime.placeholder": "Event Datum",
   "eventPage.error.missingEventId": "Invalid state: Event id required",
   "events": "Events",
-  "footer.author": "© 2022 Alf. All rights reserved.",
+  "footer.author": "© 2023 Alf. All rights reserved.",
   "footer.legal": "Impressum & Datenschutzerklärung",
   "generalInformation": "Allgemeine Informationen",
   "hour.plural": "{0} Stunden",
