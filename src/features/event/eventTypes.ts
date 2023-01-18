@@ -1,4 +1,5 @@
 import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
+import {GuildDto} from '../guild/guildTypes';
 
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
@@ -32,12 +33,6 @@ export interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	slotList: EventDetailsSlotDto[];
 	notEmpty: boolean;
 	reserve: boolean;
-}
-
-export interface GuildDto {
-	id: string;
-	groupIdentifier: string;
-	emojiUrl: string;
 }
 
 interface EventDetailsSlotDto extends AbstractIdEntityDto {

@@ -10,6 +10,7 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import {getGuild, Guild} from '../../contexts/Theme';
+import {PropsWithChildren} from 'react';
 
 const useStyles = createStyles(() => ({
 	inner: {
@@ -21,12 +22,12 @@ const useStyles = createStyles(() => ({
 }));
 
 type NavProps = {
-	children: JSX.Element
+	navbar?: JSX.Element
 };
 export const NAV_HEIGHT = 100;
 export const FOOTER_HEIGHT = 150;
 
-export function Nav(props: NavProps): JSX.Element {
+export function Nav(props: PropsWithChildren<NavProps>): JSX.Element {
 	const {classes} = useStyles();
 
 	const guild = getGuild();
@@ -66,11 +67,13 @@ export function Nav(props: NavProps): JSX.Element {
 					</Container>
 				</Header>
 			}
+			navbar={props.navbar}
 			footer={
 				<Footer height={0} withBorder={false} sx={{position: 'unset'}}>
 					<PageFooter/>
 				</Footer>
 			}
+			layout={'alt'}
 			sx={{main: {minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`}}}>
 			{props.children}
 		</AppShell>

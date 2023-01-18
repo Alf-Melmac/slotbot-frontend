@@ -1,6 +1,4 @@
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
-import {useQuery} from '@tanstack/react-query';
-import {EventPostDto, GuildDto, SlotDto} from '../../eventTypes';
+import {EventPostDto, SlotDto} from '../../eventTypes';
 import {Box, Group, NumberInput, TextInput} from '@mantine/core';
 import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
@@ -12,10 +10,10 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {UseFormReturnType} from '@mantine/form';
 import {EventEditFormType} from '../../edit/EventEditPage';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {useGetGuilds} from '../../../guild/useGetGuilds';
 
 export function SquadList(): JSX.Element {
-	const getGuilds = () => slotbotServerClient.get('/guilds').then((res) => res.data);
-	const guildsQuery = useQuery<Array<GuildDto>, Error>(['guilds'], getGuilds);
+	const guildsQuery = useGetGuilds();
 
 	const form = useFormContext();
 	const {t} = useLanguage();

@@ -4,6 +4,7 @@ import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
 import {notFoundRoute} from './features/error/ErrorRoutes';
 import {NotAllowed} from './features/error/NotAllowed';
+import {guildRoutes} from './features/guild/GuildRoutes';
 
 export const routes: RouteObject[] = [
 	{
@@ -13,6 +14,10 @@ export const routes: RouteObject[] = [
 	{
 		path: 'profile/*',
 		children: profileRoutes,
+	},
+	{
+		path: 'guilds/*',
+		children: guildRoutes,
 	},
 	{
 		path: 'admin/*',
