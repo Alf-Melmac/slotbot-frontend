@@ -3,7 +3,7 @@ import {MantineThemeOverride} from "@mantine/core";
 export enum Guild {
 	AMB,
 	DAA,
-	SLOTBOT ,
+	SLOTBOT,
 }
 
 type AdvancedGuild = {
@@ -18,8 +18,8 @@ const advancedGuilds: AdvancedGuild[] = [
 	{
 		guild: Guild.DAA,
 		urlPattern: /.*deutsche-arma-allianz.*/,
-	}
-]
+	},
+];
 
 export function getGuild(): Guild {
 	for (const advancedGuild of advancedGuilds) {
@@ -52,7 +52,7 @@ const globalTheme: MantineThemeOverride = {
 
 	other: {
 		guild: getGuild(),
-	}
+	},
 };
 
 export function getThemeOverride() {

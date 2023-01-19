@@ -27,7 +27,7 @@ export function Logo(props: LogoProps): JSX.Element {
 			<Group spacing={'xs'} noWrap>
 				{!small &&
                     <MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
-                        <Image width={width} src={logo} alt={title}/>
+                        <Image width={width} src={logo} alt={title} radius={'lg'}/>
                     </MediaQuery>
 				}
 				{(!logoWithName || small) &&
