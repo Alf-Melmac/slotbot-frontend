@@ -8,8 +8,8 @@ const pulsate = keyframes({
 
 	'70%': {
 		transform: 'scale(1)',
-	}
-	,
+	},
+
 	'100%': {
 		transform: 'scale(0.95)',
 	},
@@ -17,12 +17,12 @@ const pulsate = keyframes({
 
 const useStyles = createStyles(() => ({
 	button: {
-        animation: `${pulsate} 2s infinite`,
+		animation: `${pulsate} 2s infinite`,
 
 		'&:focus, &:hover': {
 			animation: 'unset',
-		}
-    },
+		},
+	},
 }));
 
 export function PulsatingButton(props: ButtonProps & DOMAttributes<HTMLButtonElement>): JSX.Element {

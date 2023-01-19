@@ -1,10 +1,10 @@
 import {useGetGuildUsers} from './useGetGuilds';
 import {Avatar, Group, Skeleton, Table} from '@mantine/core';
-import {GuildDetailsProps} from './GuildDetails';
+import {GuildProps} from './Guild';
 import {AnchorLink} from '../../components/Text/AnchorLink';
 import {T} from '../../components/T';
 
-export function GuildUsers(props: GuildDetailsProps): JSX.Element {
+export function GuildUsers(props: GuildProps): JSX.Element {
 	const {guildId} = props;
 	const guildUsersQuery = useGetGuildUsers(guildId);
 	const guildUsers = guildUsersQuery.data;

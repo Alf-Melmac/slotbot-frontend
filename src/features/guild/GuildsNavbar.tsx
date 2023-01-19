@@ -1,12 +1,12 @@
-import {Button, createStyles, Group, Image, Kbd, Navbar, ScrollArea, TextInput} from '@mantine/core';
-import {Dispatch, SetStateAction} from 'react';
+import {Button, createStyles, Image, Navbar, ScrollArea, TextInput} from '@mantine/core';
 import {useGetGuilds} from './useGetGuilds';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMagnifyingGlass, faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
 import {DelayedSkeleton} from '../../components/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {useLanguage} from '../../contexts/language/Language';
-import {T} from '../../components/T';
+import {SEARCH_KEYS_WIDTH, SearchKeys} from '../../components/Input/SearchKeys';
+import {AnchorLink} from '../../components/Text/AnchorLink';
 
 const useStyles = createStyles((theme) => ({
 	guildButton: {
@@ -21,7 +21,6 @@ const useStyles = createStyles((theme) => ({
 
 type GuildsNavbarProps = {
 	guildId: string | undefined;
-	setGuildId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
@@ -51,7 +50,8 @@ export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
 								<Image src={guild.emojiUrl} width={34} withPlaceholder
 									   placeholder={<FontAwesomeIcon icon={faPeopleGroup}/>}/>
 							}
-							onClick={() => props.setGuildId(guild.id)}>
+							component={AnchorLink}
+							to={`/guilds/${guild.id}`}>
 						{guild.groupIdentifier}
 					</Button>
 				))
@@ -68,8 +68,8 @@ function GuildNavbarSearch(): JSX.Element {
 		placeholder={t('search')}
 		classNames={{rightSection: classes.search}}
 		icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}
-		rightSection={<Group noWrap spacing={3}><Kbd><T k={'key.ctrl'}/></Kbd> + <Kbd>K</Kbd></Group>}
-		rightSectionWidth={90}
+		rightSection={<SearchKeys/>}
+		rightSectionWidth={SEARCH_KEYS_WIDTH}
 		disabled //TODO
 	/>;
 }

@@ -3,6 +3,10 @@ import {createStyles, Image, Paper, SimpleGrid, Stack, Title} from '@mantine/cor
 import {AnchorBlank} from '../../components/Text/AnchorBlank';
 import {GuildUsers} from './GuildUsers';
 import {T} from '../../components/T';
+import {useParams} from 'react-router-dom';
+import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {GuildsPage} from './GuildsPage';
+import {Breadcrumb} from '../../components/Breadcrumb';
 
 const useStyles = createStyles((theme) => ({
 	guildCard: {
@@ -10,20 +14,35 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export type GuildDetailsProps = {
+export type GuildProps = {
 	guildId: string;
 };
 
-export function GuildDetails(props: GuildDetailsProps): JSX.Element {
-	const {guildId} = props;
+export function Guild(): JSX.Element {
+	useTranslatedDocumentTitle('documentTitle.guild');
+	const {guildId} = useParams<GuildProps>();
+	if (!guildId) throw Error('Invalid state: Guild id required');
+
 	const {classes} = useStyles();
 
 	const guildQuery = useGetGuild(guildId);
 	const guild = guildQuery.data;
 	if (guildQuery.isLoading || !guild) return <></>;
 
+	const breadcrumbItems = [
+		{
+			title: 'breadcrumb.guilds',
+			href: '/guilds',
+		},
+		{
+			title: guild.groupIdentifier
+		}
+	]
+
 	return (
-		<>
+		<GuildsPage guildId={guildId}>
+			<Breadcrumb items={breadcrumbItems}/>
+
 			<Paper withBorder p={'lg'} className={classes.guildCard} mb={'md'}>
 				<Stack align={'stretch'}>
 					<Title order={1} weight={100} align={'center'}>{guild.groupIdentifier}</Title>
@@ -46,6 +65,6 @@ export function GuildDetails(props: GuildDetailsProps): JSX.Element {
 			</Paper>
 
 			<GuildUsers guildId={guildId}/>
-		</>
+		</GuildsPage>
 	);
 }
