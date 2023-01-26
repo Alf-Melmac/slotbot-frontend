@@ -2,8 +2,8 @@ import {ReactNode} from 'react';
 import {useAuth} from './AuthProvider';
 import {OnMount} from '../../components/OnMount';
 import {ApplicationRoles} from './authenticationTypes';
-import checkAccessQuery from './checkAccessQuery';
 import {NotAllowed} from '../../features/error/NotAllowed';
+import {useCheckAccessQuery} from './useCheckAccess';
 
 type RequireAuthProps = {
 	children: ReactNode,
@@ -15,7 +15,7 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
 
 	const {user, login} = useAuth();
 
-	const {query, accessAllowed} = checkAccessQuery(authority);
+	const {query, accessAllowed} = useCheckAccessQuery(authority);
 
 	if (user === undefined || (authority && query.isLoading)) return <></>;
 
