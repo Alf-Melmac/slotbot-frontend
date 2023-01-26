@@ -1,4 +1,4 @@
-import {Button, createStyles, Image, Navbar, ScrollArea} from '@mantine/core';
+import {Avatar, Button, createStyles, Image, Navbar, ScrollArea} from '@mantine/core';
 import {useGetGuilds} from './useGetGuilds';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +32,7 @@ export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
 		const actions: SpotlightAction[] = guildsQuery.data.map(guild => ({
 			id: guild.id,
 			title: guild.groupIdentifier,
+			icon: <Avatar src={guild.emojiUrl}>{guild.groupIdentifier}</Avatar>,
 			onTrigger: () => navigate(`/guilds/${guild.id}`),
 		})) || [];
 
