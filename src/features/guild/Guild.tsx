@@ -5,7 +5,6 @@ import {GuildUsers} from './GuildUsers';
 import {T} from '../../components/T';
 import {useParams} from 'react-router-dom';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
-import {GuildsPage} from './GuildsPage';
 import {Breadcrumb} from '../../components/Breadcrumb';
 
 const useStyles = createStyles((theme) => ({
@@ -35,12 +34,13 @@ export function Guild(): JSX.Element {
 			href: '/guilds',
 		},
 		{
-			title: guild.groupIdentifier
-		}
-	]
+			title: guild.groupIdentifier,
+			staticTitle: true,
+		},
+	];
 
 	return (
-		<GuildsPage guildId={guildId}>
+		<>
 			<Breadcrumb items={breadcrumbItems}/>
 
 			<Paper withBorder p={'lg'} className={classes.guildCard} mb={'md'}>
@@ -65,6 +65,6 @@ export function Guild(): JSX.Element {
 			</Paper>
 
 			<GuildUsers guildId={guildId}/>
-		</GuildsPage>
+		</>
 	);
 }

@@ -6,10 +6,11 @@ import {DelayedSkeleton} from '../../components/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
 import {registerSpotlightActions, removeSpotlightActions, SpotlightAction} from '@mantine/spotlight';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {SearchControl} from './SearchControl';
 import {SPOTLIGHT_LOADING} from './GuildsPage';
+import {GuildProps} from './Guild';
 
 const useStyles = createStyles((theme) => ({
 	guildButton: {
@@ -18,11 +19,8 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-type GuildsNavbarProps = {
-	guildId: string | undefined;
-}
-
-export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
+export function GuildsNavbar(): JSX.Element {
+	const {guildId} = useParams<GuildProps>();
 	const {classes} = useStyles();
 	const guildsQuery = useGetGuilds();
 	const navigate = useNavigate();
@@ -56,7 +54,7 @@ export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
 				:
 				guildsQuery.data?.map(guild => (
 					<Button key={guild.id}
-							variant={props.guildId === guild.id ? 'light' : 'subtle'}
+							variant={guildId === guild.id ? 'light' : 'subtle'}
 							mt={'xs'} fullWidth
 							classNames={{inner: classes.guildButton}}
 							leftIcon={

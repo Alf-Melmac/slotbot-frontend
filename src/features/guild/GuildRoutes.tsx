@@ -5,12 +5,12 @@ import {Guild} from './Guild';
 
 export const guildRoutes: RouteObject[] = [
 	{
-		path: '',
 		element: <Guilds/>,
+		index: true,
 	},
 	{
 		path: ':guildId',
-		element: <Guild/>
+		element: <Guild/>,
 	},
 	notFoundRoute,
 ];
