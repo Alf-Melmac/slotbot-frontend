@@ -10,7 +10,7 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {UseFormReturnType} from '@mantine/form';
 import {EventEditFormType} from '../../edit/EventEditPage';
 import {useLanguage} from '../../../../contexts/language/Language';
-import {useGetGuilds} from '../../../guild/useGetGuilds';
+import {useGetGuilds} from '../../../guilds/useGetGuilds';
 
 export function SquadList(): JSX.Element {
 	const guildsQuery = useGetGuilds();

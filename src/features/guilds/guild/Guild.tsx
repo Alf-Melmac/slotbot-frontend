@@ -1,11 +1,11 @@
-import {useGetGuild} from './useGetGuilds';
 import {createStyles, Image, Paper, SimpleGrid, Stack, Title} from '@mantine/core';
-import {AnchorBlank} from '../../components/Text/AnchorBlank';
+import {AnchorBlank} from '../../../components/Text/AnchorBlank';
 import {GuildUsers} from './GuildUsers';
-import {T} from '../../components/T';
+import {T} from '../../../components/T';
 import {useParams} from 'react-router-dom';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
-import {Breadcrumb} from '../../components/Breadcrumb';
+import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {Breadcrumb} from '../../../components/Breadcrumb';
+import {useGetGuild} from './useGetGuild';
 
 const useStyles = createStyles((theme) => ({
 	guildCard: {

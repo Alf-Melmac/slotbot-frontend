@@ -1,5 +1,5 @@
 import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
-import {GuildDto} from '../guild/guildTypes';
+import {GuildDto} from '../guilds/guildTypes';
 
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {

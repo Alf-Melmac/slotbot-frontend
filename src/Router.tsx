@@ -4,8 +4,8 @@ import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
 import {notFoundRoute} from './features/error/ErrorRoutes';
 import {NotAllowed} from './features/error/NotAllowed';
-import {guildRoutes} from './features/guild/GuildRoutes';
-import {GuildsPage} from './features/guild/GuildsPage';
+import {guildRoutes} from './features/guilds/GuildRoutes';
+import {GuildsPage} from './features/guilds/GuildsPage';
 
 export const routes: RouteObject[] = [
 	{

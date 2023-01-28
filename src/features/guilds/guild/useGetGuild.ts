@@ -1,11 +1,6 @@
-import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery, UseQueryResult} from '@tanstack/react-query';
-import {GuildDetailsDto, GuildDto, UserInGuildDto} from './guildTypes';
-
-export function useGetGuilds(): UseQueryResult<Array<GuildDto>, Error> {
-	const getGuilds = () => slotbotServerClient.get('/guilds').then((res) => res.data);
-	return useQuery<Array<GuildDto>, Error>(['guilds'], getGuilds);
-}
+import {GuildDetailsDto, UserInGuildDto} from '../guildTypes';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
 
 export function useGetGuild(guildId: string): UseQueryResult<GuildDetailsDto, Error> {
 	const getGuild = () => slotbotServerClient.get(`/guilds/${guildId}`).then((res) => res.data);
@@ -14,5 +9,5 @@ export function useGetGuild(guildId: string): UseQueryResult<GuildDetailsDto, Er
 
 export function useGetGuildUsers(guildId: string): UseQueryResult<UserInGuildDto[], Error> {
 	const getGuildUsers = () => slotbotServerClient.get(`/guilds/${guildId}/users`).then((res) => res.data);
-	return useQuery<UserInGuildDto[], Error>([`guildUsers-${guildId}`], getGuildUsers);
+	return useQuery<UserInGuildDto[], Error>(['guildUsers', guildId], getGuildUsers);
 }

@@ -10,7 +10,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {SearchControl} from './SearchControl';
 import {SPOTLIGHT_LOADING} from './GuildsPage';
-import {GuildProps} from './Guild';
+import {GuildProps} from './guild/Guild';
 
 const useStyles = createStyles((theme) => ({
 	guildButton: {

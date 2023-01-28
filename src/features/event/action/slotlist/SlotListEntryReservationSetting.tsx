@@ -2,7 +2,7 @@ import {Alert, Select} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
-import {GuildDto} from '../../../guild/guildTypes';
+import {GuildDto} from '../../../guilds/guildTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';

@@ -1,11 +1,13 @@
-import {useGetGuildUsers} from './useGetGuilds';
 import {Avatar, Group, Skeleton, Table} from '@mantine/core';
 import {GuildProps} from './Guild';
-import {AnchorLink} from '../../components/Text/AnchorLink';
-import {T} from '../../components/T';
-import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
-import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
-import {AddButton} from '../../components/Button/AddButton';
+import {AnchorLink} from '../../../components/Text/AnchorLink';
+import {T} from '../../../components/T';
+import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
+import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
+import {AddButton} from '../../../components/Button/AddButton';
+import {voidFunction} from '../../../hooks/slotbotServerClient';
+import {useGetGuildUsers} from './useGetGuild';
+import {RemoveGuildUser} from './RemoveGuildUser';
 
 export function GuildUsers(props: GuildProps): JSX.Element {
 	const {guildId} = props;
@@ -15,14 +17,15 @@ export function GuildUsers(props: GuildProps): JSX.Element {
 	if (guildUsersQuery.isLoading) return <></>;
 
 	return <>
-		{isAdmin &&
-            <AddButton label={'guild.user.add'} to={'new'} mb={'sm'}/>
+		{isAdmin && false && //TODO Allow member addition via web interface
+            <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>
 		}
 
 		<Table highlightOnHover>
 			<thead>
 			<tr>
 				<th><T k={'user.name'}/></th>
+				<th/>
 			</tr>
 			</thead>
 			<tbody>
@@ -51,6 +54,13 @@ export function GuildUsers(props: GuildProps): JSX.Element {
 									{guildUser.user.name}
 								</Group>
 							</AnchorLink>
+						</td>
+						<td>
+							<Group position={'right'}>
+								{isAdmin &&
+                                    <RemoveGuildUser guildId={guildId} userId={guildUser.user.id}/>
+								}
+							</Group>
 						</td>
 					</tr>
 				))

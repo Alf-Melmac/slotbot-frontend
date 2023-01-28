@@ -75,6 +75,7 @@
   "generalInformation": "Allgemeine Informationen",
   "guild.tag": "Tag",
   "guild.user.add": "Mitspieler hinzufügen",
+  "guild.user.removed": "Spieler entfernt",
   "guilds": "Communities",
   "guilds.search": "Communities suchen",
   "hour.plural": "{0} Stunden",
