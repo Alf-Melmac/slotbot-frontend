@@ -6,6 +6,9 @@ import {useParams} from 'react-router-dom';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useGetGuild} from './useGetGuild';
+import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
+import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
+import {GuildConfig} from './GuildConfig';
 
 const useStyles = createStyles((theme) => ({
 	guildCard: {
@@ -26,6 +29,7 @@ export function Guild(): JSX.Element {
 
 	const guildQuery = useGetGuild(guildId);
 	const guild = guildQuery.data;
+	const isAdmin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, guildId);
 	if (guildQuery.isLoading || !guild) return <></>;
 
 	const breadcrumbItems = [
@@ -63,6 +67,10 @@ export function Guild(): JSX.Element {
 					</SimpleGrid>
 				</Stack>
 			</Paper>
+
+			{isAdmin &&
+                <GuildConfig guildId={guildId}/>
+			}
 
 			<GuildUsers guildId={guildId}/>
 		</>
