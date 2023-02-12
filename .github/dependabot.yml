@@ -10,10 +10,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 10
     ignore:
       - dependency-name: "@mantine/*"
       - dependency-name: "@types/node"
-        versions: ["17.x", "19.x"]
+        versions: ["19.x"]
 
           # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
