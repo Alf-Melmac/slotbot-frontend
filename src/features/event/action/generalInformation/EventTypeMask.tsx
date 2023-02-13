@@ -1,12 +1,9 @@
 import {Skeleton} from '@mantine/core';
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
-import {EventTypeDto} from '../../eventTypes';
 import {EventTypeInputs} from './EventTypeInputs';
-import {useQuery} from '@tanstack/react-query';
+import {useGetEventTypes} from './useGetEventTypes';
 
 export function EventTypeMask(): JSX.Element {
-	const getEventTypes = () => slotbotServerClient.get('/events/types').then((res) => res.data);
-	const query = useQuery<Array<EventTypeDto>, Error>(['eventTypes'], getEventTypes);
+	const query = useGetEventTypes();
 
 	return <>
 		{query.isLoading ?

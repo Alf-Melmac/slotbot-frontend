@@ -19,6 +19,7 @@ export interface EventDetailsDto extends AbstractIdEntityDto {
 export interface EventTypeDto {
 	name: string;
 	color: string;
+	guild?: string;
 }
 
 export interface EventFieldReferencelessDto extends AbstractIdEntityDto {

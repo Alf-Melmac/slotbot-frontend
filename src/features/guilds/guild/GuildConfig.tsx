@@ -10,6 +10,7 @@ import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {successNotification} from '../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
+import {GuildEventTypes} from './GuildEventTypes';
 
 export function GuildConfig(props: GuildProps): JSX.Element {
 	const {guildId} = props;
@@ -19,7 +20,7 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 
 	return <>
 		<Title order={3}>Konfiguration</Title>
-		<Accordion defaultValue={'language'}>
+		<Accordion>
 			<Accordion.Item value={'language'}>
 				<Accordion.Control><T k={'language'}/></Accordion.Control>
 				<Accordion.Panel>
@@ -27,9 +28,9 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 				</Accordion.Panel>
 			</Accordion.Item>
 			<Accordion.Item value={'types'}>
-				<Accordion.Control>Event-Typen</Accordion.Control>
+				<Accordion.Control><T k={'event.eventTypes'}/></Accordion.Control>
 				<Accordion.Panel>
-					Hi {/*TODO*/}
+					<GuildEventTypes guildId={guildId}/>
 				</Accordion.Panel>
 			</Accordion.Item>
 		</Accordion>
