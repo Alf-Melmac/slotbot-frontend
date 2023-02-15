@@ -1,8 +1,9 @@
-import {EventDetailsSquadDto, GuildDto} from '../eventTypes';
+import {EventDetailsSquadDto} from '../eventTypes';
 import {Card, Center, createStyles, Grid, Group, Image, Text, useMantineTheme} from '@mantine/core';
 import {Italic} from '../../../components/Text/Italic';
 import {Bold} from '../../../components/Text/Bold';
 import {T} from '../../../components/T';
+import {GuildDto} from '../../guilds/guildTypes';
 
 const useStyles = createStyles(() => ({
 	slotNumberWrapper: {
@@ -47,15 +48,15 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 		<>
 			{props.squadList.length === 0 && <Center><Text>Keine Slotliste vorhanden.</Text></Center>}
 
-			{props.squadList.map((squad, squadIndex) => (
-				<Card mb={'md'} key={squadIndex}>
+			{props.squadList.map((squad) => (
+				<Card mb={'md'} key={squad.id}>
 					<Group noWrap spacing={5} pb={'xs'}>
 						<Text>{squad.name}</Text>
 						{getReservedFor(squad.reservedFor)}
 					</Group>
 
-					{squad.slotList.map((slot, slotIndex) => (
-						<Grid key={slotIndex}>
+					{squad.slotList.map((slot) => (
+						<Grid key={slot.id}>
 							<Grid.Col py={4} className={classes.slotNumberWrapper}>
 								<Text className={classes.slotNumber}>{slot.number}</Text>
 							</Grid.Col>

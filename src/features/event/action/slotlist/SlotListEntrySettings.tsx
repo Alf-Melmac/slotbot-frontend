@@ -1,4 +1,4 @@
-import {GuildDto, SlotDto} from '../../eventTypes';
+import {SlotDto} from '../../eventTypes';
 import {useState} from 'react';
 import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -10,6 +10,7 @@ import {EventAction} from '../EventActionPage';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {GuildDto} from '../../../guilds/guildTypes';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
