@@ -31,7 +31,14 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	const squadList = filterFrontendIds<EventAction['squadList'][number]>(form.values.squadList);
 	squadList.forEach(squad => {
 		prepareReservedFor(squad);
-		squad.slotList.forEach(prepareReservedFor);
+		squad.slotList.forEach(slot => {
+			prepareReservedFor(slot);
+			// Translate slot blocked to expected slot user for update endpoint
+			if (editMode) {
+				// @ts-ignore
+				slot.user = slot.blocked ? {id: 11111} : undefined;
+			}
+		});
 	});
 
 	const {mutate} = useEventSlotListUpdate({squadList: squadList},
