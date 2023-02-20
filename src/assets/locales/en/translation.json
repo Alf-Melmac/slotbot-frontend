@@ -67,6 +67,7 @@
   "event.save.loading.partOne": "The event is currently being saved. You will automatically be redirected once finished. If an error occurs you can get back to the calendar",
   "event.save.loading.partThree": ".",
   "event.shareable": "Allow Sharing",
+  "event.shareable.noLongerPossible": "Has already been added to another community.",
   "event.shareable.tooltip": "Allows other groups to add this event ot their calendar and add participants through it.",
   "event.startTime": "Start time",
   "event.startTime.placeholder": "Event date",

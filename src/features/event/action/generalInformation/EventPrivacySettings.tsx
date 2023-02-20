@@ -19,7 +19,7 @@ export function EventPrivacySettings(props: RequiredInformationProps): JSX.Eleme
 					label={<ElementWithInfo text={<T k={'event.shareable'}/>}
 											tooltip={<T k={'event.shareable.tooltip'}/>}/>}
 					disabled={!canRevokeShareable}
-					title={!canRevokeShareable ? 'Wurde bereits von einer anderen Community hinzugefügt.' : undefined}
+					title={!canRevokeShareable ? <T k={'event.shareable.noLongerPossible'}/> : undefined}
 					{...form.getInputProps('shareable', {type: 'checkbox'})}/>
 
 		<IconSwitch onIcon={Math.random() < 0.9 ? faEyeSlash : faUserNinja} offIcon={faEye}

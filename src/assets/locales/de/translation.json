@@ -67,6 +67,7 @@
   "event.save.loading.partOne": "Das Event wird gerade gespeichert. Bei Erfolg wirst du automatisch weitergeleitet. Falls dies nicht funktioniert, kommst du",
   "event.save.loading.partThree": "wieder zum Kalender.",
   "event.shareable": "Teilen erlauben",
+  "event.shareable.noLongerPossible": "Wurde bereits von einer anderen Community hinzugefügt.",
   "event.shareable.tooltip": "Ermöglicht es anderen Gruppen diese Event in ihren Kalender einzufügen und darüber Teilnehmer einzutragen.",
   "event.startTime": "Startzeit",
   "event.startTime.placeholder": "Event Datum",

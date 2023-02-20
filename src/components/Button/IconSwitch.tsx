@@ -1,4 +1,4 @@
-import {Box, createStyles, Switch, SwitchProps, Tooltip} from '@mantine/core';
+import {Box, createStyles, Switch, SwitchProps, Tooltip, TooltipProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {omit} from 'lodash';
@@ -11,10 +11,14 @@ const useStyles = createStyles((_theme, disabled: boolean) => ({
 	},
 }));
 
-interface IconSwitchProps extends SwitchProps {
+type IconSwitchProps = Omit<SwitchProps, "title"> & {
+	/**
+	 * Optional tooltip label surrounding the switch
+	 */
+	title?: TooltipProps["label"];
 	onIcon: IconProp;
 	offIcon: IconProp;
-}
+};
 
 export function IconSwitch(props: IconSwitchProps): JSX.Element {
 	const {disabled, title} = props;
