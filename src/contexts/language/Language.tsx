@@ -1,21 +1,22 @@
-import {createContext, PropsWithChildren, useContext} from 'react';
+import {createContext, PropsWithChildren, useContext, useMemo} from 'react';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
 import en from 'dayjs/locale/en';
 import {useTranslationMap} from './useTranslationMap';
+import {TranslationFunction, TranslationOptions} from './TranslationTypes';
 
 export type TextKey = string;
 
 const DE: LanguageTag = 'de';
 const EN: LanguageTag = 'en';
-export const availableLanguages: LanguageTag[] = [DE, EN];
+const availableLanguages: LanguageTag[] = [DE, EN];
 
 export type LanguageTag = 'de' | 'en';
 
 /**
  * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to `EN`
  */
-export function currentLanguageTag(): LanguageTag {
+function currentLanguageTag(): LanguageTag {
 	const languageTag = navigator.language.substring(0, 2);
 	return availableLanguages.find(v => v === languageTag) || EN;
 }
@@ -45,39 +46,6 @@ function currentDayJsLocale(): string {
 	}
 }
 
-export type TranslationOptions = {
-	/**
-	 * Placeholder replacements
-	 */
-	args?: (string | number)[];
-	/**
-	 * Return empty string instead of key if current translation isn't available
-	 * @default false
-	 */
-	skipKey?: boolean;
-} & (
-	{
-		/**
-		 * If count is present, {@link TextKey} is appended with `.singular` if count is 1, otherwise `.plural`
-		 */
-		count?: number;
-		countAsArgs?: never;
-	}
-	|
-	{
-		/**
-		 * {@link TextKey} is appended with `.singular` if count is 1, otherwise `.plural`
-		 */
-		count: number;
-		/**
-		 * If no `args` are present, `count` is used as args
-		 * @default false
-		 */
-		countAsArgs?: boolean;
-	}
-	);
-type TranslationFunction = (key: TextKey, options?: TranslationOptions) => string;
-
 export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 	setLocale();
 	currentDayJsLocale();
@@ -85,13 +53,12 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 
 	const translationFunction: TranslationFunction = (key: TextKey, options?: TranslationOptions): string => {
 		const {args, count, countAsArgs = false, skipKey = false} = options ?? {};
-		if (translationMap === undefined) return skipKey ? '' : key;
 		let translationKey = key;
 		if (count !== undefined) {
 			translationKey = count === 1 ? `${key}.singular` : `${key}.plural`;
 		}
 
-		let translation = translationMap?.[translationKey];
+		let translation = translationMap[translationKey];
 		if (!translation) {
 			console.error(`Text key ${translationKey} does not exist`);
 			translation = skipKey ? '' : translationKey;
@@ -104,8 +71,9 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 		return translation;
 	};
 
+	const languageContext = useMemo(() => ({t: translationFunction}), [translationMap]);
 	return (
-		<LanguageContext.Provider value={{t: translationFunction}}>{props.children}</LanguageContext.Provider>
+		<LanguageContext.Provider value={languageContext}>{props.children}</LanguageContext.Provider>
 	);
 }
 

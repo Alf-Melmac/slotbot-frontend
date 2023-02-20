@@ -13,7 +13,8 @@ import {useEffect, useState} from 'react';
 import {isEmpty, isEqual} from 'lodash';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
 import {T} from '../../components/T';
-import {TranslationOptions, useLanguage} from '../../contexts/language/Language';
+import {useLanguage} from '../../contexts/language/Language';
+import {TranslationOptions} from '../../contexts/language/TranslationTypes';
 
 type GlobalNotificationSettingsProps = Pick<UserOwnProfileDto, 'notificationSettings'>;
 

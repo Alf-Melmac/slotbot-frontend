@@ -1,4 +1,5 @@
-import {TextKey, TranslationOptions, useLanguage} from '../contexts/language/Language';
+import {TextKey, useLanguage} from '../contexts/language/Language';
+import {TranslationOptions} from '../contexts/language/TranslationTypes';
 
 type TProps = {
 	k: TextKey;

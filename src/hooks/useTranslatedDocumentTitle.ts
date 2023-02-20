@@ -1,5 +1,6 @@
-import {TextKey, TranslationOptions, useLanguage} from '../contexts/language/Language';
+import {TextKey, useLanguage} from '../contexts/language/Language';
 import {useDocumentTitle} from '@mantine/hooks';
+import {TranslationOptions} from '../contexts/language/TranslationTypes';
 
 /**
  * Sets the current translation for the given {@link TextKey} as document title
