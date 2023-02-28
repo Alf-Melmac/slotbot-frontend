@@ -1,7 +1,6 @@
-import {Avatar, Group, Skeleton, Table} from '@mantine/core';
+import {Avatar, Button, Group} from '@mantine/core';
 import {GuildProps} from './Guild';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
-import {T} from '../../../components/T';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {AddButton} from '../../../components/Button/AddButton';
@@ -10,14 +9,14 @@ import {useGetGuildUsers} from './useGetGuild';
 import {RemoveGuildUser} from './RemoveGuildUser';
 import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
 import {UserInGuildDto} from '../guildTypes';
-import {ReactNode, useMemo} from 'react';
+import {ReactNode, useEffect, useMemo, useState} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {MRTable} from '../../../components/Table/MRTable';
+import {GuildUsersLoading} from './GuildUsersLoading';
 
 export function GuildUsers(props: GuildProps): JSX.Element {
 	const {guildId} = props;
-	const guildUsersQuery = useGetGuildUsers(guildId);
-	const guildUsers = guildUsersQuery.data;
+	const {data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching} = useGetGuildUsers(guildId);
 	const isAdmin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, guildId);
 	const {t} = useLanguage();
 
@@ -39,32 +38,22 @@ export function GuildUsers(props: GuildProps): JSX.Element {
 		return columnsDef;
 	}, [isAdmin]);
 
+	const [flatData, setFlatData] = useState<UserInGuildDto[]>([]);
+
+	useEffect(() => {
+		setFlatData(data?.pages.flatMap((page) => page.content) ?? []);
+	}, [data]);
+
 	return <>
 		{isAdmin && false && //TODO Allow member addition via web interface
             <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
 
-		{guildUsersQuery.isLoading ?
-			<Table>
-				<thead>
-				<tr>
-					<th><T k={'user.name'}/></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><Skeleton height={35}/></td>
-				</tr>
-				<tr>
-					<td><Skeleton height={35}/></td>
-				</tr>
-				<tr>
-					<td><Skeleton height={35}/></td>
-				</tr>
-				</tbody>
-			</Table>
+		{isFetching && !isFetchingNextPage ?
+			<GuildUsersLoading/>
 			:
-			guildUsers && <MRTable columns={columns} data={guildUsers}/>
+			flatData && <MRTable columns={columns} data={flatData}/>
 		}
+		<Button onClick={() => fetchNextPage()} disabled={!hasNextPage} loading={isFetchingNextPage}>Next</Button>
 	</>;
 }
 
