@@ -14,7 +14,7 @@ export function useGetGuildConfig(guildId: string): UseQueryResult<GuildConfigDt
 }
 
 export function useGetGuildUsers(guildId: string): UseInfiniteQueryResult<FrontendPageable<UserInGuildDto>, Error> {
-	const getGuildUsers = ({pageParam = 0}) => slotbotServerClient.get(`/guilds/${guildId}/users?size=1&page=${pageParam}`).then((res) => res.data);
+	const getGuildUsers = ({pageParam = 0}) => slotbotServerClient.get(`/guilds/${guildId}/users?size=5&page=${pageParam}`).then((res) => res.data);
 	return useInfiniteQuery<FrontendPageable<UserInGuildDto>, Error>(['guildUsers', guildId], getGuildUsers, {
 		getNextPageParam: (lastPage, _allPages) => {
 			const {totalPages, number} = lastPage.page;

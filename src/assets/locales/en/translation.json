@@ -80,6 +80,7 @@
   "guild.tag": "Tag",
   "guild.user.add": "Add member",
   "guild.user.removed": "Player removed",
+  "guild.users.none": "No members",
   "guilds": "Communities",
   "guilds.search": "Search Communities",
   "hour.plural": "{0} hours",

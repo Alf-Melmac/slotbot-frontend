@@ -1,4 +1,4 @@
-import {Avatar, Button, Group} from '@mantine/core';
+import {Avatar, Group} from '@mantine/core';
 import {GuildProps} from './Guild';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
@@ -9,10 +9,9 @@ import {useGetGuildUsers} from './useGetGuild';
 import {RemoveGuildUser} from './RemoveGuildUser';
 import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
 import {UserInGuildDto} from '../guildTypes';
-import {ReactNode, useEffect, useMemo, useState} from 'react';
+import {ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {MRTable} from '../../../components/Table/MRTable';
-import {GuildUsersLoading} from './GuildUsersLoading';
 
 export function GuildUsers(props: GuildProps): JSX.Element {
 	const {guildId} = props;
@@ -39,21 +38,37 @@ export function GuildUsers(props: GuildProps): JSX.Element {
 	}, [isAdmin]);
 
 	const [flatData, setFlatData] = useState<UserInGuildDto[]>([]);
-
 	useEffect(() => {
 		setFlatData(data?.pages.flatMap((page) => page.content) ?? []);
 	}, [data]);
+
+	const fetchMoreOnBottomReached = useCallback((containerRefElement: HTMLDivElement | null) => {
+		if (containerRefElement) {
+			const {scrollHeight, scrollTop, clientHeight} = containerRefElement;
+			//If there is more data, load it as soon as the user scrolls closer than 200px to the bottom of the table
+			if (scrollHeight - scrollTop - clientHeight < 200 && !isFetching && hasNextPage) {
+				fetchNextPage();
+			}
+		}
+	}, [fetchNextPage, isFetching, hasNextPage]);
+
+	const tableContainerRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		fetchMoreOnBottomReached(tableContainerRef.current);
+	}, [fetchMoreOnBottomReached]); //Initial load
 
 	return <>
 		{isAdmin && false && //TODO Allow member addition via web interface
             <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
 
-		{isFetching && !isFetchingNextPage ?
-			<GuildUsersLoading/>
-			:
-			flatData && <MRTable columns={columns} data={flatData}/>
-		}
-		<Button onClick={() => fetchNextPage()} disabled={!hasNextPage} loading={isFetchingNextPage}>Next</Button>
+		<MRTable columns={columns} data={flatData}
+				 localization={{noRecordsToDisplay: t('guild.users.none')}}
+				 mantineTableContainerProps={{
+					 ref: tableContainerRef,
+					 sx: {maxHeight: '318px'},
+					 onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
+				 }}
+				 state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
 	</>;
 }
 
