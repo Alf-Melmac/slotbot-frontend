@@ -1,5 +1,7 @@
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
+export type PartialExcept<T, K extends keyof T> = Pick<T, K> & Partial<Omit<T, K>>;
+
 export function replaceNullWithUndefined<T>(obj: T, keys: Array<keyof T>): T {
 	return replaceNullWith(obj, keys, undefined);
 }
