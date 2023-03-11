@@ -1,4 +1,4 @@
-import {EventActionPageTitle} from '../EventActionPage';
+import {EventActionPageTitle} from '../EventActionPageTitle';
 import {EventDetails} from './EventDetails';
 import {Button, Group} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';

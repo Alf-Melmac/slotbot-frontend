@@ -2,11 +2,11 @@ import {Button, Card, createStyles, Grid, Group, Image, MediaQuery, Paper, Text,
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailsDto} from '../eventTypes';
-import dayjs from 'dayjs';
 import {MutableRefObject} from 'react';
 import {EventCopy} from './EventCopy';
 import {EventEditButton} from './EventEditButton';
 import {T} from '../../../components/T';
+import {EventDetail} from '../EventFetcher';
 
 const useStyles = createStyles(() => ({
 	forceWrap: {
@@ -15,9 +15,7 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-type EventDetailsHeaderProps = {
-	event: EventDetailsDto;
-	eventDate: dayjs.Dayjs;
+type EventDetailsHeaderProps = EventDetail & {
 	descriptionRef: MutableRefObject<HTMLButtonElement>;
 	scrollToDescription: () => void;
 };

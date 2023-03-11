@@ -6,11 +6,11 @@ import {EventEditDto} from '../../eventTypes';
 import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
 import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
-import {EventAction, EventActionPageTitle} from '../EventActionPage';
+import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
@@ -28,7 +28,7 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 		);
 	};
 
-	const squadList = filterFrontendIds<EventAction['squadList'][number]>(form.values.squadList);
+	const squadList = filterFrontendIds<EventActionFormType['squadList'][number]>(form.values.squadList);
 	squadList.forEach(squad => {
 		prepareReservedFor(squad);
 		squad.slotList.forEach(slot => {
@@ -80,7 +80,7 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	</>;
 }
 
-function prepareReservedFor(el: FilteredEventAction<EventAction['squadList'][number]> | EventAction['squadList'][number]['slotList'][number]) {
+function prepareReservedFor(el: FilteredEventAction<EventActionFormType['squadList'][number]> | EventActionFormType['squadList'][number]['slotList'][number]) {
 	if (!el.reservedFor) {
 		delete el.reservedFor;
 	} else {

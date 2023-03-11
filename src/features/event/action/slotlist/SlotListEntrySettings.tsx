@@ -6,8 +6,7 @@ import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-i
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';
-import {EventAction} from '../EventActionPage';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {GuildDto} from '../../../guilds/guildTypes';
@@ -58,7 +57,7 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 }
 
 type SlotListEntryModalHeaderModalHeaderProps = {
-	entry: EventAction['squadList'][number] | EventAction['squadList'][number]['slotList'][number];
+	entry: EventActionFormType['squadList'][number] | EventActionFormType['squadList'][number]['slotList'][number];
 	isSlot: boolean;
 }
 

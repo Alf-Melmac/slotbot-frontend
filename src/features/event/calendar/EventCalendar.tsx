@@ -69,7 +69,13 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 					const start = dayjs(info.start.valueOf()).format();
 					const end = dayjs(info.end.valueOf()).format();
 					slotbotServerClient.get('events/list', {params: {start, end}})
-						.then((res) => successCallback(res.data))
+						.then((res) => {
+							const data = res.data;
+							data.forEach((event: any) => {
+								event.start = `${event.start}Z`;
+							});
+							successCallback(data);
+						})
 						.catch(failureCallback);
 				}}
 				eventContent={eventContent}

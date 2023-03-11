@@ -2,18 +2,17 @@ import {SlotDto, SlotIdDto} from '../eventTypes';
 import {FormErrors} from '@mantine/form';
 import {length, maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
 import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT, URL} from '../../../utils/maxLength';
-import {EventAction} from './EventActionPage';
+import {EventActionFormType} from '../../../contexts/event/action/EventActionFormContext';
 import dayjs from 'dayjs';
 import {T} from '../../../components/T';
 
-export const eventActionValidate = (values: EventAction, active?: number) => {
+export const eventActionValidate = (values: EventActionFormType, active?: number) => {
 	const activePresent = active != undefined;
 	let errors: FormErrors = {};
 	if (!activePresent || active === 0) {
 		errors = {
 			name: requiredFieldWithMaxLength(values.name, TEXT),
-			date: validate(values.date instanceof Date && dayjs().isAfter(values.date, 'day'), <T
-				k={'validation.onlyFuture'}/>),
+			date: validate(dayjs().isAfter(values.date, 'day'), <T k={'validation.onlyFuture'}/>),
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
 			'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), <T
@@ -44,7 +43,7 @@ export const eventActionValidate = (values: EventAction, active?: number) => {
 	return errors;
 };
 
-function validateEmbedSize(values: EventAction, errors: FormErrors): void {
+function validateEmbedSize(values: EventActionFormType, errors: FormErrors): void {
 	const embedLength =
 		//Title + Description + eventTypeName + " Mission von " + creator
 		length(values.name) + length(values.description) + length(values.eventType.name) + 13 + length(values.creator) +
@@ -66,7 +65,7 @@ function ifPresentAddLength(field: string, supplementaryText = 0): number {
 	return field ? length(field) + supplementaryText : 0;
 }
 
-function detailsFieldTextLength(field: EventAction['details'][number]): number {
+function detailsFieldTextLength(field: EventActionFormType['details'][number]): number {
 	let fieldLength = length(field.title);
 	// @ts-ignore Text may be boolean if using default field
 	if (field.text === "true" || field.text === true) {
@@ -80,7 +79,7 @@ function detailsFieldTextLength(field: EventAction['details'][number]): number {
 	return fieldLength;
 }
 
-function reserveParticipatingFieldSize(reserveParticipating: EventAction['reserveParticipating']): number {
+function reserveParticipatingFieldSize(reserveParticipating: EventActionFormType['reserveParticipating']): number {
 	if (reserveParticipating === undefined) {
 		return 0;
 	}
@@ -88,7 +87,7 @@ function reserveParticipatingFieldSize(reserveParticipating: EventAction['reserv
 	return 18 + (reserveParticipating ? 2 : 4);
 }
 
-function validateSquadList(values: EventAction, errors: FormErrors): void {
+function validateSquadList(values: EventActionFormType, errors: FormErrors): void {
 	values.squadList.forEach((squad, squadIndex) => {
 		errors[`squadList.${squadIndex}.name`] = requiredFieldWithMaxLength(squad.name, TEXT);
 		squad.slotList.forEach((slot, slotIndex) => {

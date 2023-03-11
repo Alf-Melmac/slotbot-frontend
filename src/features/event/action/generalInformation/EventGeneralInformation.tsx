@@ -1,4 +1,4 @@
-import {EventActionPageTitle} from '../EventActionPage';
+import {EventActionPageTitle} from '../EventActionPageTitle';
 import {RequiredInformation, RequiredInformationProps} from './RequiredInformation';
 import {EventTypeMask} from './EventTypeMask';
 import {EventMisc} from './EventMisc';

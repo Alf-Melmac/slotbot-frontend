@@ -8,6 +8,7 @@ import {useFormContext} from '../../../contexts/event/action/EventActionFormCont
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {usePrevious} from '@mantine/hooks';
 import {useEffect} from 'react';
+import {convertUtcDateTimeToLocal} from '../../../utils/dateHelper';
 
 export function useEventTextChange(formPath: string, value: string, onSuccess?: (saved: string) => void) {
 	const eventId = useEventPage();
@@ -30,7 +31,7 @@ export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) 
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}`, data).then((res) => res.data);
 	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
 		onSuccess: (response) => {
-			onSuccess?.(response);
+			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
 			successNotification();
 		},
 		onError: errorNotification,

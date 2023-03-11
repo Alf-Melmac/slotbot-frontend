@@ -4,6 +4,9 @@ import de from 'dayjs/locale/de';
 import en from 'dayjs/locale/en';
 import {useTranslationMap} from './useTranslationMap';
 import {TranslationFunction, TranslationOptions} from './TranslationTypes';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 export type TextKey = string;
 
@@ -34,9 +37,12 @@ function setLocale(): void {
 }
 
 /**
- * Sets dayjs locale matching the {@link currentLanguageTag}
+ * Sets dayjs locale matching the {@link currentLanguageTag} and extends dayjs with plugins
  */
 function currentDayJsLocale(): string {
+	dayjs.extend(localizedFormat);
+	dayjs.extend(utc);
+	dayjs.extend(customParseFormat);
 	switch (currentLanguageTag()) {
 		case DE:
 			return dayjs.locale(de);

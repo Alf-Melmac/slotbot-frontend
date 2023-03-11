@@ -27,13 +27,13 @@ export function EventDetails(): JSX.Element {
 	const theme = useMantineTheme();
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
 
-	const {event, eventDate, loading, error} = fetchEventDetails(eventId);
+	const {event, eventDate, isLoading, error} = fetchEventDetails(eventId);
 	useEffect(() => {
 		if (event) {
 			setTitle(`${event.name} - ${event.eventType.name}`);
 		}
 	}, [event]);
-	if (loading) return <EventDetailsLoading/>;
+	if (isLoading) return <EventDetailsLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 
 	const breadcrumbItems = [

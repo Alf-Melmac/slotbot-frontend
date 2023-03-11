@@ -4,14 +4,13 @@ import {EventActionTextInput} from '../EventActionTextInput';
 import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {EventAction} from '../EventActionPage';
+import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useLanguage} from '../../../../contexts/language/Language';
 
 type EventDetailProps = {
-	item: EventAction['details'][number]
+	item: EventActionFormType['details'][number]
 	index: number;
 };
 

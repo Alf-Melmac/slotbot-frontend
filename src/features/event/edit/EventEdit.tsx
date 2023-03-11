@@ -8,7 +8,6 @@ import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {EventEditProvider, useEventEditForm} from '../../../contexts/event/action/EventActionFormContext';
 import {EventPageParams} from '../EventRoutes';
 import {eventActionValidate} from '../action/validation';
-import {EventEditFormType} from './EventEditPage';
 
 export type EventEditProps = EventPageParams & {
 	event: EventEditDto;
@@ -31,9 +30,11 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 			title: 'breadcrumb.edit',
 		}];
 
+	const {dateTime, ...initialValues} = event;
+	const date = new Date(dateTime);
 	const form = useEventEditForm({
-		initialValues: event,
-		validate: (values) => eventActionValidate(values as EventEditFormType),
+		initialValues: {...initialValues, date: date, startTime: date},
+		validate: (values) => eventActionValidate(values),
 		validateInputOnChange: true,
 	});
 

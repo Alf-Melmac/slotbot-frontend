@@ -5,9 +5,9 @@ import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {Skeleton, Text} from '@mantine/core';
 import {isGerman} from '../../../contexts/language/Language';
+import {DATE_TEMPLATE} from '../../../utils/dateHelper';
 
 const currentDay: Dayjs = dayjs();
-const dateFormat = 'YYYY-MM-DD';
 
 function getLoadingEvents(): EventSourceInput[] {
 	const events: EventInput[] = [];
@@ -51,8 +51,8 @@ export function LoadingCalendar(props: LoadingCalendarProps): JSX.Element {
 			eventSources={getLoadingEvents()}
 			eventContent={eventContent}
 			validRange={{
-				start: currentDay.startOf('month').format(dateFormat),
-				end: currentDay.endOf('month').format(dateFormat),
+				start: currentDay.startOf('month').format(DATE_TEMPLATE),
+				end: currentDay.endOf('month').format(DATE_TEMPLATE),
 			}}
 		/>
 	);

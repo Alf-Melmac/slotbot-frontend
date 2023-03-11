@@ -1,14 +1,16 @@
-import {EventPostDto, SlotDto} from '../../eventTypes';
+import {SlotDto} from '../../eventTypes';
 import {Box, Group, NumberInput, TextInput} from '@mantine/core';
 import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
 import {AddButton} from '../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
-import {EventAction} from '../EventActionPage';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {UseFormReturnType} from '@mantine/form';
-import {EventEditFormType} from '../../edit/EventEditPage';
+import {
+	EventActionFormType,
+	EventEditFormReturn,
+	EventWizardFormReturn,
+	useFormContext,
+} from '../../../../contexts/event/action/EventActionFormContext';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {useGetGuilds} from '../../../guilds/useGetGuilds';
 
@@ -60,7 +62,7 @@ export function SquadList(): JSX.Element {
 	</>;
 }
 
-function buildNewSlot(form: UseFormReturnType<EventEditFormType> | UseFormReturnType<EventPostDto>): SlotDto {
+function buildNewSlot(form: EventEditFormReturn | EventWizardFormReturn): SlotDto {
 	return {
 		number: findFirstUnusedSlotNumber(form.values.squadList),
 		name: '',
@@ -71,7 +73,7 @@ function buildNewSlot(form: UseFormReturnType<EventEditFormType> | UseFormReturn
 	};
 }
 
-function findFirstUnusedSlotNumber(squadList: EventAction['squadList']): number {
+function findFirstUnusedSlotNumber(squadList: EventActionFormType['squadList']): number {
 	const slotNumbers = squadList.flatMap((squad => squad.slotList.map(slot => slot.number)))
 		.sort((a, b) => a - b);
 	let slotNumber = 1;

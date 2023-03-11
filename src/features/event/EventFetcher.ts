@@ -1,39 +1,59 @@
 import {EventDetailsDto, EventEditDto} from './eventTypes';
-import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import localeData from 'dayjs/plugin/localeData';
+import {Dayjs} from 'dayjs';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
-import {useQuery} from '@tanstack/react-query';
+import {useQuery, UseQueryResult} from '@tanstack/react-query';
+import {convertUtcDateTimeToLocal, convertUtcToLocal} from '../../utils/dateHelper';
 
-type EventDetail = {
-	event: EventDetailsDto | undefined;
-	eventDate: dayjs.Dayjs;
-	loading: boolean;
-	error: Error | null;
+export type EventDetail = {
+	/**
+	 * Event details without the date and time
+	 */
+	event: Omit<EventDetailsDto, "dateTime">;
+	/**
+	 * Event date and time in the local timezone
+	 */
+	eventDate: Dayjs;
 }
 
-export function fetchEventDetails(eventId: string): EventDetail {
+type EventDetailResult = (
+		{
+			/**
+			 * Not yet loaded
+			 */
+			event?: never;
+			/**
+			 * Not yet loaded event
+			 */
+			eventDate?: never;
+		}
+		| EventDetail
+		)
+	& Pick<UseQueryResult<EventDetailsDto, Error>, "isLoading" | "error">;
+
+export function fetchEventDetails(eventId: string): EventDetailResult {
 	const getEventDetails = () => slotbotServerClient.get(`/events/${eventId}/details`).then((res) => res.data);
 	const query = useQuery<EventDetailsDto, Error>(['eventDetails', eventId], getEventDetails);
-	const event = query.data;
+	const queryStatus = {isLoading: query.isLoading, error: query.error};
+	if (!query.data) {
+		return queryStatus;
+	}
 
-	dayjs.extend(localizedFormat);
-	dayjs.extend(localeData);
-	const eventDate = dayjs(event?.dateTimeZoned);
-
-	return {event, eventDate, loading: query.isLoading, error: query.error};
+	const {dateTime, ...event} = query.data;
+	return {event, eventDate: convertUtcToLocal(dateTime), ...queryStatus};
 }
 
 type EventForEdit = {
 	event: EventEditDto | undefined;
-	loading: boolean;
-	error: Error | null;
-}
+} & Pick<UseQueryResult<EventEditDto, Error>, "isLoading" | "error">;
 
 export function fetchEventForEdit(eventId: string): EventForEdit {
 	const getEventForEdit = () => slotbotServerClient.get(`/events/${eventId}/edit`).then((res) => res.data);
 	const query = useQuery<EventEditDto, Error>(['eventForEdit', eventId], getEventForEdit);
-	const event = query.data;
+	let event = query.data;
 
-	return {event, loading: query.isLoading, error: query.error};
+	if (event) {
+		event = {...event, dateTime: convertUtcDateTimeToLocal(event.dateTime)};
+	}
+
+	return {event, isLoading: query.isLoading, error: query.error};
 }

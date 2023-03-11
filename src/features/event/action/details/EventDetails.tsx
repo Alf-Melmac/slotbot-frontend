@@ -3,10 +3,9 @@ import {AddButton} from '../../../../components/Button/AddButton';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
-import {EventAction} from '../EventActionPage';
 import {filterFrontendIds} from '../../../../utils/formHelper';
 import {randomId} from '@mantine/hooks';
 import {EventDetail} from './EventDetail';
@@ -25,7 +24,7 @@ export function EventDetails(): JSX.Element {
 		});
 	};
 
-	const {mutate} = useEventUpdate({details: filterFrontendIds<EventAction['details'][number]>(form.values.details)},
+	const {mutate} = useEventUpdate({details: filterFrontendIds<EventActionFormType['details'][number]>(form.values.details)},
 		// @ts-ignore Details matches here
 		result => form.setFieldValue('details', result.details));
 	return <>

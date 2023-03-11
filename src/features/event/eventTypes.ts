@@ -9,7 +9,7 @@ export interface EventDetailsDto extends AbstractIdEntityDto {
 	pictureUrl: string;
 	name: string;
 	missionLength: string;
-	dateTimeZoned: Date;
+	dateTime: Date;
 	descriptionAsHtml: string;
 	creator: string;
 	squadList: EventDetailsSquadDto[];
@@ -50,8 +50,7 @@ interface EventActionDto {
 	hidden: boolean;
 	shareable: boolean;
 	name: string;
-	date: Date | string;
-	startTime: Date | string;
+	dateTime: string;
 	creator: string;
 	eventType: EventTypeDto;
 	description: string;
