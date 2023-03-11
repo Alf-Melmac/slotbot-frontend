@@ -65,7 +65,7 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 		}
 
 		let translation = translationMap[translationKey];
-		if (!translation) {
+		if (translation === undefined) {
 			console.error(`Text key ${translationKey} does not exist`);
 			translation = skipKey ? '' : translationKey;
 		}
