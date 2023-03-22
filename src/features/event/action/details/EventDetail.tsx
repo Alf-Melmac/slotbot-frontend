@@ -7,7 +7,6 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
-import {useLanguage} from '../../../../contexts/language/Language';
 
 type EventDetailProps = {
 	item: EventActionFormType['details'][number]
@@ -16,9 +15,8 @@ type EventDetailProps = {
 
 export function EventDetail(props: EventDetailProps): JSX.Element {
 	const {item, index} = props;
-	const {t} = useLanguage();
 	const staticInputProps = {
-		placeholder: t('information'),
+		placeholder: 'information',
 		maxLength: EMBEDDABLE_VALUE,
 		required: true,
 		sx: {flex: 1},
@@ -51,7 +49,7 @@ export function EventDetail(props: EventDetailProps): JSX.Element {
 		<Group>
 			<EditModeProvider editMode={false}>
 				<EventActionTextInput inputProps={{
-					placeholder: t('event.details.title'),
+					placeholder: 'event.details.title',
 					maxLength: EMBEDDABLE_TITLE,
 					required: true,
 				}} formPath={`details.${index}.title`} overrideFormContextEditMode={editMode}/>
