@@ -48,7 +48,7 @@ export function EventDetail(props: EventDetailProps): JSX.Element {
 	}
 
 	return (
-		<Group mt={'xs'}>
+		<Group>
 			<EditModeProvider editMode={false}>
 				<EventActionTextInput inputProps={{
 					placeholder: t('event.details.title'),

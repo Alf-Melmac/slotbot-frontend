@@ -10,13 +10,14 @@ import {filterFrontendIds} from '../../../../utils/formHelper';
 import {randomId} from '@mantine/hooks';
 import {EventDetail} from './EventDetail';
 import {T} from '../../../../components/T';
+import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 
 const MAX_DETAILS = 23;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();
 
-	const details = form.values.details.map((item, index) => <EventDetail item={item} index={index} key={item.id}/>);
+	const detailsCount = form.values.details.length;
 
 	const detailsInvalid = (): boolean => {
 		return form.values.details.some((_, i) => {
@@ -28,13 +29,14 @@ export function EventDetails(): JSX.Element {
 		// @ts-ignore Details matches here
 		result => form.setFieldValue('details', result.details));
 	return <>
-		{details}
+		<SortableList<typeof form.values.details[number]> formPath={'details'} itemMt={'xs'}
+			renderItem={(item, index) => <EventDetail item={item} index={index} key={item.id}/>}/>
 
 		<Group spacing={'xs'} mt={'xs'}>
 			<AddButton label={'event.details.add'}
 					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
-					   disabled={details.length >= MAX_DETAILS}/>
-			<CounterBadge currentValue={details.length} maxValue={MAX_DETAILS} yellowPhase/>
+					   disabled={detailsCount >= MAX_DETAILS}/>
+			<CounterBadge currentValue={detailsCount} maxValue={MAX_DETAILS} yellowPhase/>
 		</Group>
 
 		{useEditMode() &&
