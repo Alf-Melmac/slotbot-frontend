@@ -1,5 +1,6 @@
 import {Accordion, Radio, Title} from '@mantine/core';
 import {T} from '../../../components/T';
+// @ts-ignore https://github.com/mantinedev/mantine-flagpack/pull/3
 import {DEFlag, GBFlag} from 'mantine-flagpack';
 import {GuildProps} from './Guild';
 import {useGetGuildConfig} from './useGetGuild';
