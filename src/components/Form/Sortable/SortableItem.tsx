@@ -1,16 +1,31 @@
-import {PropsWithChildren} from 'react';
+import {Dispatch, PropsWithChildren, SetStateAction, useEffect} from 'react';
 import {BaseItem} from './SortableList';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import {faArrowsUpDown} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ActionIcon, Box, Group, GroupProps} from '@mantine/core';
+import {ActionIcon, ActionIconProps, Box, Group, GroupProps} from '@mantine/core';
 
 /**
  * Props for {@link SortableItem}.
  */
 export type SortableItemProps = BaseItem & {
-	itemMt?: GroupProps['mt'];
+	/**
+	 * Specifies if the item is sortable. If false, the drag handle is not rendered.
+	 */
+	sortable: boolean;
+	/**
+	 * Callback to set the sorting state.
+	 */
+	setSorting: Dispatch<SetStateAction<boolean>>;
+	/**
+	 * Props for the {@link Group} that wraps the item.
+	 */
+	itemProps?: Pick<GroupProps, 'mt' | 'mb' | 'align'>;
+	/**
+	 * Props for the {@link ActionIcon} that is used as the drag handle.
+	 */
+	iconProps?: Pick<ActionIconProps, 'size'>;
 };
 
 /**
@@ -18,26 +33,31 @@ export type SortableItemProps = BaseItem & {
  * Renders a drag handle before the children.
  */
 export function SortableItem(props: PropsWithChildren<SortableItemProps>) {
+	const {id, children, sortable, setSorting, itemProps, iconProps} = props;
+
 	const {
 		attributes,
 		listeners,
 		setNodeRef,
 		transform,
 		transition,
-	} = useSortable({id: props.id});
+	} = useSortable({id: id});
 
 	const style = {
 		transform: CSS.Transform.toString(transform),
 		transition,
 	};
 
+	useEffect(() => {
+		setSorting(!!style.transform);
+	}, [style.transform, setSorting]);
 	return (
-		<Group style={style} noWrap spacing={6} mt={props.itemMt}>
-			<ActionIcon ref={setNodeRef} {...attributes} {...listeners}>
-					<FontAwesomeIcon icon={faArrowsUpDown}/>
-			</ActionIcon>
+		<Group style={style} noWrap spacing={6} {...itemProps}>
+			{sortable && <ActionIcon ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
+				<FontAwesomeIcon icon={faArrowsUpDown}/>
+			</ActionIcon>}
 			<Box style={{flex: 1}}>
-				{props.children}
+				{children}
 			</Box>
 		</Group>
 	);

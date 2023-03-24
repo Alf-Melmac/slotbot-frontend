@@ -29,7 +29,7 @@ export function EventDetails(): JSX.Element {
 		// @ts-ignore Details matches here
 		result => form.setFieldValue('details', result.details));
 	return <>
-		<SortableList<typeof form.values.details[number]> formPath={'details'} itemMt={'xs'}
+		<SortableList<typeof form.values.details[number]> formPath={'details'} itemProps={{mt: 'sm'}}
 			renderItem={(item, index) => <EventDetail item={item} index={index} key={item.id}/>}/>
 
 		<Group spacing={'xs'} mt={'xs'}>
