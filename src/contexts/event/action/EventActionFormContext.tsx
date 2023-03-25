@@ -19,6 +19,7 @@ export {useEventEditForm, useEventWizardForm};
 
 export type EventEditFormReturn = ReturnType<typeof useEventEditFormContext>;
 export type EventWizardFormReturn = ReturnType<typeof useEventWizardFormContext>;
+export type EventActionFormReturn = EventEditFormReturn | EventWizardFormReturn;
 
 export function EventEditProvider(props: FormProviderProps<EventEditFormReturn> & Pick<EventPageParams, 'eventId'>): JSX.Element {
 	return (
@@ -38,6 +39,6 @@ export function EventWizardProvider(props: FormProviderProps<EventWizardFormRetu
 	);
 }
 
-export function useFormContext(editMode = useEditMode()): EventEditFormReturn | EventWizardFormReturn {
+export function useFormContext(editMode = useEditMode()): EventActionFormReturn {
 	return editMode ? useEventEditFormContext() : useEventWizardFormContext();
 }

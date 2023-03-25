@@ -2,7 +2,7 @@ import {SlotDto} from '../../eventTypes';
 import {useState} from 'react';
 import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
+import {faClone, faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
 import {UseQueryResult} from '@tanstack/react-query';
@@ -10,6 +10,8 @@ import {EventActionFormType, useFormContext} from '../../../../contexts/event/ac
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {GuildDto} from '../../../guilds/guildTypes';
+import {getFormFieldValue} from '../../../../utils/formHelper';
+import {duplicateSlot, duplicateSquad} from './utils';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
@@ -46,6 +48,13 @@ export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.El
 				<Menu.Item icon={<FontAwesomeIcon icon={faUserGear}/>}
 						   onClick={() => setOpened(true)}>
 					<T k={'slotlistEntry.settings'}/>
+				</Menu.Item>
+				<Menu.Item icon={<FontAwesomeIcon icon={faClone}/>}
+						   onClick={() => {
+							   const entry = getFormFieldValue(form, `${path}.${index}`);
+							   form.insertListItem(path, slot ? duplicateSlot(form, entry) : duplicateSquad(form, entry), index + 1);
+						   }}>
+					<T k={'action.duplicate'}/>
 				</Menu.Item>
 				<Menu.Item icon={<FontAwesomeIcon icon={faTrashCan}/>}
 						   onClick={() => form.removeListItem(path, index)}>

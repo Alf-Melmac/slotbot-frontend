@@ -1,19 +1,13 @@
-import {SlotDto} from '../../eventTypes';
 import {Box, Group, NumberInput, TextInput} from '@mantine/core';
 import {TEXT} from '../../../../utils/maxLength';
 import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
 import {AddButton} from '../../../../components/Button/AddButton';
-import {randomId} from '@mantine/hooks';
-import {
-	EventActionFormType,
-	EventEditFormReturn,
-	EventWizardFormReturn,
-	useFormContext,
-} from '../../../../contexts/event/action/EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {useGetGuilds} from '../../../guilds/useGetGuilds';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
+import {buildNewSlot, buildNewSquad} from './utils';
 
 export function SquadList(): JSX.Element {
 	const guildsQuery = useGetGuilds();
@@ -59,34 +53,6 @@ export function SquadList(): JSX.Element {
 					</Box>
 				</Box>
 			)}/>
-		<AddButton label={'squad.add'} mt={'xs'}
-				   onClick={() => form.insertListItem('squadList', {
-					   name: '',
-					   /*@ts-ignore ????*/
-					   slotList: [buildNewSlot(form)],
-					   reservedFor: '',
-					   id: randomId(),
-				   })}/>
+		<AddButton label={'squad.add'} mt={'xs'} onClick={() => form.insertListItem('squadList', buildNewSquad(form))}/>
 	</>;
-}
-
-function buildNewSlot(form: EventEditFormReturn | EventWizardFormReturn): SlotDto {
-	return {
-		number: findFirstUnusedSlotNumber(form.values.squadList),
-		name: '',
-		reservedFor: '',
-		blocked: false,
-		replacementText: 'Gesperrt',
-		id: randomId(),
-	};
-}
-
-function findFirstUnusedSlotNumber(squadList: EventActionFormType['squadList']): number {
-	const slotNumbers = squadList.flatMap((squad => squad.slotList.map(slot => slot.number)))
-		.sort((a, b) => a - b);
-	let slotNumber = 1;
-	while (slotNumbers.includes(slotNumber)) {
-		slotNumber++;
-	}
-	return slotNumber;
 }
