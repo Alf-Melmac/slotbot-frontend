@@ -13,7 +13,10 @@ export function AdminUtils(): JSX.Element {
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>(postAction, {
-		onSuccess: () => successNotification(action),
+		onSuccess: () => {
+			successNotification(action);
+			setAction('');
+		},
 		onError: errorNotification,
 	});
 	useEffect(() => {
