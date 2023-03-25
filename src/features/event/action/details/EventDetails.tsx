@@ -11,6 +11,7 @@ import {randomId} from '@mantine/hooks';
 import {EventDetail} from './EventDetail';
 import {T} from '../../../../components/T';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
+import {convertDtoToFormEvent} from '../../edit/utils';
 
 const MAX_DETAILS = 23;
 
@@ -26,8 +27,12 @@ export function EventDetails(): JSX.Element {
 	};
 
 	const {mutate} = useEventUpdate({details: filterFrontendIds<EventActionFormType['details'][number]>(form.values.details)},
-		// @ts-ignore Details matches here
-		result => form.setFieldValue('details', result.details));
+		result => {
+			// @ts-ignore Details matches here
+			form.setFieldValue('details', result.details);
+			// @ts-ignore
+			form.resetDirty(convertDtoToFormEvent(result));
+		});
 	return <>
 		<SortableList<typeof form.values.details[number]> formPath={'details'} itemProps={{mt: 'sm'}}
 			renderItem={(item, index) => <EventDetail item={item} index={index} key={item.id}/>}/>

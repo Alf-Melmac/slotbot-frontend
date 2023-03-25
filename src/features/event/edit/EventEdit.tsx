@@ -1,20 +1,25 @@
 import {Container, Divider} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
-import {EventEditDto} from '../eventTypes';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
-import {EventEditProvider, useEventEditForm} from '../../../contexts/event/action/EventActionFormContext';
+import {
+	EventEditFormType,
+	EventEditProvider,
+	useEventEditForm,
+} from '../../../contexts/event/action/EventActionFormContext';
 import {EventPageParams} from '../EventRoutes';
 import {eventActionValidate} from '../action/validation';
+import {EventEditDto} from '../eventTypes';
 
-export type EventEditProps = EventPageParams & {
-	event: EventEditDto;
+type EventEditProps = EventPageParams & {
+	event: EventEditFormType;
+	permissions: Pick<EventEditDto, 'canRevokeShareable' | 'canUploadSlotlist'>
 }
 
 export function EventEdit(props: EventEditProps): JSX.Element {
-	const {eventId, event} = props;
+	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
 
 	const breadcrumbItems = [
 		{
@@ -30,10 +35,8 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 			title: 'breadcrumb.edit',
 		}];
 
-	const {dateTime, ...initialValues} = event;
-	const date = new Date(dateTime);
 	const form = useEventEditForm({
-		initialValues: {...initialValues, date: date, startTime: date},
+		initialValues: event,
 		validate: (values) => eventActionValidate(values),
 		validateInputOnChange: true,
 	});
@@ -44,7 +47,7 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 				<EventEditProvider form={form} eventId={eventId}>
 					<Breadcrumb items={breadcrumbItems}/>
 
-					<EventGeneralInformation canRevokeShareable={event.canRevokeShareable}/>
+					<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
 
 					<Divider my={'lg'}/>
 
@@ -52,7 +55,7 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 
 					<Divider my={'lg'}/>
 
-					<EventSlotlist canUploadSlotlist={event.canUploadSlotlist}/>
+					<EventSlotlist canUploadSlotlist={canUploadSlotlist}/>
 				</EventEditProvider>
 			</Container>
 		</Nav>

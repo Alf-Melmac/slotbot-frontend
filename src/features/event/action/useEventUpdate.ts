@@ -1,4 +1,4 @@
-import slotbotServerClient, {voidFunction} from '../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useEventPage} from '../../../contexts/event/EventPageContext';
@@ -14,11 +14,13 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 	const eventId = useEventPage();
 	const postTextChange = () => slotbotServerClient.put(`/events/${eventId}/edit/text`, {
 		[formPath]: value,
-	}).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(postTextChange, {
-		onSuccess: () => {
-			onSuccess?.(value);
-			successNotification(value);
+	}).then((res) => res.data);
+	const {mutate} = useMutation<EventEditDto, AxiosError>(postTextChange, {
+		onSuccess: (response) => {
+			// @ts-ignore Posted it like that, so response is the same format
+			onSuccess?.(response[formPath]);
+			// @ts-ignore
+			successNotification(response[formPath]);
 		},
 		onError: errorNotification,
 	});
@@ -29,13 +31,7 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) => void) {
 	const eventId = useEventPage();
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}`, data).then((res) => res.data);
-	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
-		onSuccess: (response) => {
-			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
-			successNotification();
-		},
-		onError: errorNotification,
-	});
+	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, getEventEditMutationOptions(onSuccess));
 
 	return {mutate};
 }
@@ -43,15 +39,22 @@ export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) 
 export function useEventSlotListUpdate(data: unknown, onSuccess?: (saved: EventEditDto) => void) {
 	const eventId = useEventPage();
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}/slotlist`, data).then((res) => res.data);
-	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
-		onSuccess: (response) => {
-			onSuccess?.(response);
+	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, getEventEditMutationOptions(onSuccess));
+
+	return {mutate};
+}
+
+/**
+ * Mutation options for event updates. Converts utc times to local data and shows result-notifications.
+ */
+function getEventEditMutationOptions(onSuccess?: (saved: EventEditDto) => void) {
+	return {
+		onSuccess: (response: EventEditDto) => {
+			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
 			successNotification();
 		},
 		onError: errorNotification,
-	});
-
-	return {mutate};
+	};
 }
 
 export function useChangeWatcher(field: string) {

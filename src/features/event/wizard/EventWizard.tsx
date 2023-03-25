@@ -3,7 +3,7 @@ import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useEffect, useState} from 'react';
 import {EventDetailsDto} from '../eventTypes';
-import {randomColor} from '../action/generalInformation/EventTypeInputs';
+import {randomColor} from '../action/utils';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {eventActionValidate} from '../action/validation';
 import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';

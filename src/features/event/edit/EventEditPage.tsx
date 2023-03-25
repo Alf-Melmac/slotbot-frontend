@@ -4,10 +4,10 @@ import {fetchEventForEdit} from '../EventFetcher';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventEdit} from './EventEdit';
 import {useEffect, useState} from 'react';
-import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
 import {EventEditLoading} from './EventEditLoading';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {useLanguage} from '../../../contexts/language/Language';
+import {convertDtoToFormEvent} from './utils';
 
 export function EventEditPage(): JSX.Element {
 	const {t} = useLanguage();
@@ -26,8 +26,10 @@ export function EventEditPage(): JSX.Element {
 	if (isLoading) return <EventEditLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 
-	replaceNullWithEmpty(event, ['description', 'missionLength', 'missionType', 'pictureUrl']);
-	replaceNullWithUndefined(event, ['reserveParticipating']);
-
-	return <EventEdit eventId={eventId} event={event}/>;
+	return <EventEdit eventId={eventId}
+					  event={convertDtoToFormEvent(event)}
+					  permissions={{
+						  canUploadSlotlist: event.canUploadSlotlist,
+						  canRevokeShareable: event.canRevokeShareable,
+					  }}/>;
 }

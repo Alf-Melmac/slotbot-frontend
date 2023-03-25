@@ -10,8 +10,7 @@ import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {usePrevious} from '@mantine/hooks';
 import {T} from '../../../../components/T';
-
-export const randomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+import {randomColor} from '../utils';
 
 type EventTypeInputsProps = {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;

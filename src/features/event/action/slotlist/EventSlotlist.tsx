@@ -12,6 +12,7 @@ import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
 import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
+import {convertDtoToFormEvent} from '../../edit/utils';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
@@ -42,8 +43,12 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	});
 
 	const {mutate} = useEventSlotListUpdate({squadList: squadList},
-		// @ts-ignore SquadList matches here
-		result => form.setFieldValue('squadList', result.squadList));
+		result => {
+			// @ts-ignore SquadList matches here
+			form.setFieldValue('squadList', result.squadList);
+			// @ts-ignore
+			form.resetDirty(convertDtoToFormEvent(result));
+		});
 	useChangeWatcher('reserveParticipating');
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
