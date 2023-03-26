@@ -87,11 +87,9 @@ export interface SlotDto extends FrontendIdDto {
 //endregion event post
 
 //region event edit
-export interface EventEditDto extends EventActionDto {
+interface EventUpdateDto extends EventActionDto {
 	details: EventFieldIdDto[];
 	squadList: SquadIdDto[];
-	canRevokeShareable: boolean;
-	canUploadSlotlist: boolean;
 }
 
 interface EventFieldIdDto extends Omit<EventFieldDto, 'id'>, IdEntity {
@@ -104,6 +102,11 @@ interface SquadIdDto extends AbstractIdEntityDto {
 }
 
 export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
+}
+
+export interface EventEditDto extends EventUpdateDto {
+	canRevokeShareable: boolean;
+	canUploadSlotlist: boolean;
 }
 //endregion event edit
 

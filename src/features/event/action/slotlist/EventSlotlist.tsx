@@ -8,8 +8,8 @@ import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
-import {useChangeWatcher, useEventSlotListUpdate} from '../useEventUpdate';
-import {FilteredEventAction, filterFrontendIds} from '../../../../utils/formHelper';
+import {useChangeWatcher, useEventUpdate} from '../useEventUpdate';
+import {filterFrontendIds} from '../../../../utils/formHelper';
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
@@ -30,19 +30,8 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	};
 
 	const squadList = filterFrontendIds<EventActionFormType['squadList'][number]>(form.values.squadList);
-	squadList.forEach(squad => {
-		prepareReservedFor(squad);
-		squad.slotList.forEach(slot => {
-			prepareReservedFor(slot);
-			// Translate slot blocked to expected slot user for update endpoint
-			if (editMode) {
-				// @ts-ignore
-				slot.user = slot.blocked ? {id: 11111} : undefined;
-			}
-		});
-	});
 
-	const {mutate} = useEventSlotListUpdate({squadList: squadList},
+	const {mutate} = useEventUpdate({squadList: squadList},
 		result => {
 			// @ts-ignore SquadList matches here
 			form.setFieldValue('squadList', result.squadList);
@@ -83,13 +72,4 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 				  indeterminate={form.values.reserveParticipating === undefined}
 				  {...reserveParticipatingInputProps}/>
 	</>;
-}
-
-function prepareReservedFor(el: FilteredEventAction<EventActionFormType['squadList'][number]> | EventActionFormType['squadList'][number]['slotList'][number]) {
-	if (!el.reservedFor) {
-		delete el.reservedFor;
-	} else {
-		// @ts-ignore
-		el.reservedFor = {id: el.reservedFor};
-	}
 }
