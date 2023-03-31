@@ -27,7 +27,7 @@ export function Events(): JSX.Element {
 		}
 	}, [loadingCalendarWrapper, eventCalendarWrapper]);
 
-	const [animated, setAnimated] = useState<boolean>(true);
+	const [animated, setAnimated] = useState(true);
 
 	return (
 		<Nav>

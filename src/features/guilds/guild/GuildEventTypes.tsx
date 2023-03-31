@@ -1,8 +1,10 @@
 import {useGetEventTypes} from '../../event/action/generalInformation/useGetEventTypes';
 import {GuildProps} from './Guild';
-import {Badge, ColorSwatch, Table} from '@mantine/core';
+import {Badge, ColorSwatch, CopyButton, Table} from '@mantine/core';
 import {DelayedSkeleton} from '../../../components/DelayedSkeleton';
 import {T} from '../../../components/T';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCopy} from '@fortawesome/free-regular-svg-icons';
 
 export function GuildEventTypes(props: GuildProps): JSX.Element {
 	const {guildId} = props;
@@ -42,7 +44,15 @@ export function GuildEventTypes(props: GuildProps): JSX.Element {
 				eventTypes?.map((eventType) => (
 					<tr key={eventType.name}>
 						<td>
-							<ColorSwatch color={eventType.color} radius={'sm'}/>
+							<CopyButton value={eventType.color}>
+								{({copy, copied}) => (
+									<ColorSwatch color={eventType.color} radius={'sm'} title={eventType.color}
+												 onClick={copy}>
+										{copied &&
+                                            <FontAwesomeIcon icon={faCopy} style={{mixBlendMode: 'difference'}}/>}
+									</ColorSwatch>
+								)}
+							</CopyButton>
 						</td>
 						<td>
 							{eventType.name}

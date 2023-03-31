@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import {EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {Box, ColorSwatch, createStyles, Text, Tooltip} from '@mantine/core';
+import {Box, ColorSwatch, createStyles, MediaQuery, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
 import {Bold} from '../../../components/Text/Bold';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
@@ -49,8 +49,10 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
 					<Box className={classes.eventWrapper}>
-						<ColorSwatch color={backgroundColor} className={classes.eventType} size={11} mx={2}/>
-						<Text>{arg.timeText} <Bold>{event.title}</Bold></Text>
+						<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+							<ColorSwatch color={backgroundColor} className={classes.eventType} mx={2}/>
+						</MediaQuery>
+						<Text mx={{base: 2, sm: 0}}>{arg.timeText} <Bold>{event.title}</Bold></Text>
 					</Box>
 				</Tooltip>
 			</AnchorLink>
