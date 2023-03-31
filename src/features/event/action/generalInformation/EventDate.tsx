@@ -1,20 +1,19 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay} from '@fortawesome/free-solid-svg-icons';
-import {DatePicker, DatePickerProps} from '@mantine/dates';
+import {DateInput, DateInputProps} from '@mantine/dates';
 import {usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
-import {formatLocalDateTimeToUtcDate, isDateEqual} from '../../../../utils/dateHelper';
+import {formatLocalDateTimeToUtcDate, getTimeShort, isDateEqual} from '../../../../utils/dateHelper';
 import {useLanguage} from '../../../../contexts/language/Language';
 
 export function EventDate(): JSX.Element {
 	const {t} = useLanguage();
-	const datePickerProps: DatePickerProps = {
+	const datePickerProps: DateInputProps = {
 		label: t('event.date'),
 		placeholder: t('event.date.placeholder'),
 		icon: <FontAwesomeIcon icon={faCalendarDay}/>,
-		allowFreeInput: true,
 		clearable: false,
 		required: true,
 	};
@@ -25,18 +24,18 @@ export function EventDate(): JSX.Element {
 		result => {
 			const date = new Date(result.dateTime);
 			form.setFieldValue('date', date);
-			form.setFieldValue('startTime', date);
+			form.setFieldValue('startTime', getTimeShort(date));
 		});
 	const previous = usePrevious(form.values.date);
 	const dateInputProps = form.getInputProps('date');
 	return <>
 		{useEditMode() ?
-			<DatePicker {...datePickerProps} {...dateInputProps} onDropdownClose={() => {
+			<DateInput {...datePickerProps} {...dateInputProps} onDateChange={() => {
 				if (!form.isValid('date') || previous === undefined || isDateEqual(form.values.date, previous)) return;
 				mutate();
 			}}/>
 			:
-			<DatePicker {...datePickerProps} {...dateInputProps} minDate={new Date()}/>
+			<DateInput {...datePickerProps} {...dateInputProps} minDate={new Date()}/>
 		}
 	</>;
 }

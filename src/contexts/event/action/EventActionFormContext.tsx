@@ -6,10 +6,10 @@ import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
 
 export type EventEditFormType = Omit<EventEditDto, 'dateTime' | 'canRevokeShareable' | 'canUploadSlotlist'>
-	& { date: Date, startTime: Date };
+	& { date: Date, startTime: string };
 
 type EventWizardFormType = Omit<EventPostDto, 'dateTime'>
-	& { date: Date, startTime: Date };
+	& { date: Date, startTime: string };
 
 export type EventActionFormType = EventEditFormType | EventWizardFormType;
 

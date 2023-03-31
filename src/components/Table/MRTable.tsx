@@ -8,7 +8,8 @@ export function MRTable<D extends Record<string, any>>(props: PartialExcept<Mant
 	return (
 		<MantineReactTable
 			enablePagination={false} enableColumnActions={false} enableSorting={false} enableTopToolbar={false}
-			enableStickyHeader state={{density: 'xs'}} mantineTableBodyRowProps={{sx: {backgroundColor: 'unset'}}}
+			enableStickyHeader state={{density: 'xs'}} mantinePaperProps={{withBorder: false}}
+			mantineTableBodyRowProps={{sx: {backgroundColor: 'unset'}}}
 			mantineTableBodyCellProps={{
 				sx: {
 					paddingTop: '7px !important',
@@ -20,7 +21,7 @@ export function MRTable<D extends Record<string, any>>(props: PartialExcept<Mant
 				sx: {
 					height: 8,
 					minHeight: 8,
-				}
+				},
 			}}
 			enableBottomToolbar={props.state?.showProgressBars}
 			{...props}/>

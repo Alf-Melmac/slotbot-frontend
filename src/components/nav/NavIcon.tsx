@@ -15,7 +15,7 @@ const useStyles = createStyles((theme, width: number) => ({
 		justifyContent: 'space-between',
 		borderRadius: 1000,
 		paddingLeft: theme.spacing.sm,
-		paddingRight: 4,
+		paddingRight: NAV_ICON_WRAPPER_HEIGHT / 9,
 		width: width,
 		flexShrink: 0,
 		height: NAV_ICON_WRAPPER_HEIGHT,

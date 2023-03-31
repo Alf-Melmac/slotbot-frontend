@@ -1,19 +1,15 @@
-import {useEffect, useState} from 'react';
 import {ApplicationRoles} from './authenticationTypes';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 
+/**
+ * Checks for the given authority in the given guild. Fallbacks to false while loading.
+ *
+ * @see useCheckAccessQuery
+ */
 export function useCheckAccess(authority?: ApplicationRoles, guildId?: string): boolean {
-	const [allowed, setAllowed] = useState(false);
-
-	const {query, accessAllowed} = useCheckAccessQuery(authority, guildId);
-	useEffect(() => {
-		if (query.isSuccess) {
-			setAllowed(accessAllowed || false);
-		}
-	}, [accessAllowed]);
-
-	return allowed;
+	const {accessAllowed} = useCheckAccessQuery(authority, guildId);
+	return accessAllowed || false;
 }
 
 export function useCheckAccessQuery(authority?: ApplicationRoles, guildId?: string) {

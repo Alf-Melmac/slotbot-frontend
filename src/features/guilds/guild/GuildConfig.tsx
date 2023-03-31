@@ -1,4 +1,4 @@
-import {Accordion, Radio, Title} from '@mantine/core';
+import {Accordion, Group, Radio, Title} from '@mantine/core';
 import {T} from '../../../components/T';
 // @ts-ignore https://github.com/mantinedev/mantine-flagpack/pull/3
 import {DEFlag, GBFlag} from 'mantine-flagpack';
@@ -9,7 +9,7 @@ import {useState} from 'react';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {successNotification} from '../../../utils/notificationHelper';
+import {errorNotification, successNotification} from '../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
 import {GuildEventTypes} from './GuildEventTypes';
 
@@ -45,24 +45,34 @@ type GuildLanguageProps = GuildProps & GuildConfigDto;
 
 function GuildLanguage(props: GuildLanguageProps) {
 	const {guildId, language} = props;
-	const [selectedLanguage, setSelectedLanguage] = useState<Language>(language);
+	const [selectedLanguage, setSelectedLanguage] = useState(language);
+	const [savedLanguage, setSavedLanguage] = useState(language);
 
 	const putGuildConfig = () => slotbotServerClient.put(`/guilds/${guildId}/config`, {language: selectedLanguage}).then((res) => res.data);
 	const {mutate} = useMutation<void, AxiosError>(putGuildConfig, {
-		onSuccess: () => successNotification(selectedLanguage),
+		onSuccess: () => {
+			setSavedLanguage(selectedLanguage);
+			successNotification(selectedLanguage);
+		},
+		onError: (...props) => {
+			setSelectedLanguage(savedLanguage);
+			errorNotification?.(...props);
+		},
 	});
 
 	useDidUpdate(() => {
-		selectedLanguage && mutate();
+		selectedLanguage !== savedLanguage && mutate();
 	}, [selectedLanguage]);
 
 	return <>
 		<T k={'guild.language.description'}/>
 		<Radio.Group value={selectedLanguage} onChange={(value) => setSelectedLanguage(value as Language)} withAsterisk>
-			<Radio value={Language.DE}
-				   label={<><DEFlag w={'1rem'} radius={'xs'}/> <T k={'language.german'}/></>}/>
-			<Radio value={Language.EN}
-				   label={<><GBFlag w={'1rem'} radius={'xs'}/> <T k={'language.english'}/></>}/>
+			<Group mt={'sm'}>
+				<Radio value={Language.DE}
+					   label={<><DEFlag w={'1rem'} radius={'xs'}/> <T k={'language.german'}/></>}/>
+				<Radio value={Language.EN}
+					   label={<><GBFlag w={'1rem'} radius={'xs'}/> <T k={'language.english'}/></>}/>
+			</Group>
 		</Radio.Group>
 	</>;
 }

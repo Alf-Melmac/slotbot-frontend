@@ -9,17 +9,22 @@ export const DATE_TEMPLATE = 'YYYY-MM-DD';
  */
 const TIME_TEMPLATE = 'HH:mm:ss';
 /**
+ * {@link TIME_TEMPLATE Time template} without seconds
+ */
+const TIME_TEMPLATE_SHORT = 'HH:mm';
+/**
  * Date and time template for the ISO-8601 calendar system, such as 2007-12-03T10:15:30.
  */
 const DATE_TIME_TEMPLATE = `${DATE_TEMPLATE}T${TIME_TEMPLATE}`;
 
 /**
- * Creates a {@link DATE_TIME_TEMPLATE} from the given `date` and hours and minutes from the given `time`.
+ * Creates a {@link DATE_TIME_TEMPLATE} from the given `date` and hours and minutes from the given `time` in format {@link TIME_TEMPLATE_SHORT}.
  * Sets the seconds to 0 and converts the date to UTC.
  */
-export function formatLocalDateTimeToUtcDate(date: Date, time: Date): string {
+export function formatLocalDateTimeToUtcDate(date: Date, time: string): string {
+	const timeDate = dayjs(time, TIME_TEMPLATE_SHORT);
 	return dayjs(date)
-		.set('hour', time.getHours()).set('minute', time.getMinutes()).set('second', 0)
+		.set('hour', timeDate.hour()).set('minute', timeDate.minute()).set('second', 0)
 		.utc()
 		.format(DATE_TIME_TEMPLATE);
 }
@@ -53,11 +58,18 @@ export function getDate(date: Date): string {
 }
 
 /**
- * Returns the time part of the given date in the {@link TIME_TEMPLATE} format.
+ * Returns the time part of the given date in the {@link TIME_TEMPLATE_SHORT} format.
+ */
+export function getTimeShort(time: Date): string {
+	return dayjs(time).format(TIME_TEMPLATE_SHORT);
+}
+
+/**
+ * Builds a {@link TIME_TEMPLATE} from a {@link TIME_TEMPLATE_SHORT}.
  * Sets the seconds to 0.
  */
-export function getTime(date: Date): string {
-	return dayjs(date).set('second', 0).format(TIME_TEMPLATE);
+export function expandTimeTemplateShort(date: string): string {
+	return `${date}:00`;
 }
 
 /**
@@ -65,11 +77,4 @@ export function getTime(date: Date): string {
  */
 export function isDateEqual(date1: Date, date2: Date): boolean {
 	return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
-}
-
-/**
- * Returns true if the given dates have the same hours and minutes.
- */
-export function areHoursAndMinutesEqual(date1: Date, date2: Date): boolean {
-	return date1.getHours() === date2.getHours() && date1.getMinutes() === date2.getMinutes();
 }

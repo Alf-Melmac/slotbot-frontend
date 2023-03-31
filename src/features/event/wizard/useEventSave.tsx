@@ -10,14 +10,14 @@ import {UseFormReturnType} from '@mantine/form';
 import {useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
-import {formatLocalDateTimeToUtc, getDate, getTime} from '../../../utils/dateHelper';
+import {expandTimeTemplateShort, formatLocalDateTimeToUtc, getDate} from '../../../utils/dateHelper';
 
 export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventEditFormType>;
 
 	const eventPost = {
 		...form.values,
-		dateTime: formatLocalDateTimeToUtc(`${getDate(form.values.date)}T${getTime(form.values.startTime)}`),
+		dateTime: formatLocalDateTimeToUtc(`${getDate(form.values.date)}T${expandTimeTemplateShort(form.values.startTime)}`),
 	};
 
 	const [page, setPage] = useState(

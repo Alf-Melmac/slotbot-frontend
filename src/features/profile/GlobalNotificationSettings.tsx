@@ -6,11 +6,9 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useForm} from '@mantine/form';
 import {AddButton} from '../../components/Button/AddButton';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {ButtonWithDisabledTooltip} from '../../components/Button/ButtonWithDisabledTooltip';
-import {useEffect, useState} from 'react';
-import {isEmpty, isEqual} from 'lodash';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
 import {T} from '../../components/T';
 import {useLanguage} from '../../contexts/language/Language';
@@ -25,36 +23,20 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 		},
 	});
 
-	const [existInitialSettings, setExistInitialSettings] = useState(false);
-	useEffect(() => {
-		setExistInitialSettings(!isEmpty(props.notificationSettings));
-	}, []);
-
-	useEffect(() => {
-		form.setDirty({notificationSettings: !isEqual(props.notificationSettings, form.values.notificationSettings)});
-	}, [form.values]);
-
-	const [saving, setSaving] = useState(false);
-
-	const queryClient = useQueryClient();
 	const postNotificationSettings = () => slotbotServerClient.put('/notifications/own', form.values.notificationSettings).then((res) => res.data);
-	const {mutate} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postNotificationSettings, {
-		onMutate: () => {
-			setSaving(true);
-		},
+	const {
+		mutate,
+		isLoading,
+	} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postNotificationSettings, {
 		onSuccess: (data) => {
 			const noOfNotifications = data.length;
 			successNotification(noOfNotifications === 0
 				? <T k={'notifications.disabled'}/>
 				: <T k={'notifications.enabled'} count={noOfNotifications} countAsArgs/>);
-			queryClient.setQueryData(['ownProfile'], data);
-			form.resetDirty(); //This doesn't update the initialValues where dirty checks against. But we don't expect many manual rollbacks by the user, therefore this behavior is acceptable here
-			setExistInitialSettings(!isEmpty(data));
+			form.setValues({notificationSettings: data});
+			form.resetDirty({notificationSettings: data});
 		},
 		onError: errorNotification,
-		onSettled: () => {
-			setSaving(false);
-		},
 	});
 
 	const {t} = useLanguage();
@@ -88,11 +70,11 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 							   hoursBeforeEvent: 0,
 							   minutesBeforeEvent: 0,
 						   })}/>
-				{(existInitialSettings || form.isDirty()) &&
+				{(form.values.notificationSettings.length > 0 || form.isDirty()) &&
                     <ElementWithInfo
                         text={<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
 														 disabled={!form.isDirty()} tooltip={'noChanges'}
-														 loading={saving}>
+														 loading={isLoading}>
 							<T k={'notifications.save'}/></ButtonWithDisabledTooltip>
 						}
                         tooltip={<T k={'profile.notifications.save.tooltip'}/>}

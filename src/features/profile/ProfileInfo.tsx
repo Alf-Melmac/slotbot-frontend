@@ -1,16 +1,4 @@
-import {
-	Avatar,
-	Center,
-	createStyles,
-	CSSObject,
-	Divider,
-	MantineTheme,
-	Paper,
-	Spoiler,
-	Stack,
-	Text,
-	Title,
-} from '@mantine/core';
+import {Avatar, Center, createStyles, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
@@ -21,17 +9,8 @@ import {ExternalCalendarSettings} from './ExternalCalendarSettings';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 import {T} from '../../components/T';
 
-export const userCardSize: (theme: MantineTheme) => CSSObject = (theme) => ({
-	width: '33%',
-
-	[theme.fn.smallerThan('md')]: {
-		width: '100%',
-	},
-});
-
 const useStyles = createStyles((theme) => ({
 	userCard: {
-		...userCardSize(theme),
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
 	},
 
@@ -62,7 +41,7 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 	return (
 		<Stack>
 			<Center>
-				<Paper withBorder className={classes.userCard} p={'lg'}>
+				<Paper withBorder className={classes.userCard} w={{base: '100%', md: '33%'}} p={'lg'}>
 					<Stack align={'center'} spacing={'xs'}>
 						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
 						<Title order={2} align={'center'}>{profileUser.name}</Title>

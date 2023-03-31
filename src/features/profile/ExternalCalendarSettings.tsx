@@ -1,44 +1,38 @@
 import {UserOwnProfileDto} from './profileTypes';
 import {ElementWithInfo} from '../../components/Text/ElementWithInfo';
 import {Box, Button, CopyButton, Switch, Text, Title, Tooltip} from '@mantine/core';
-import {useForm} from '@mantine/form';
 import {AnchorBlank} from '../../components/Text/AnchorBlank';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
 import {T} from '../../components/T';
+import {useDidUpdate} from '@mantine/hooks';
 
 type ExternalCalendarSettingsProps = Pick<UserOwnProfileDto, 'externalCalendarIntegrationActive' | 'icsCalendarUrl'>;
 
 export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): JSX.Element {
 	const {externalCalendarIntegrationActive, icsCalendarUrl} = props;
 
-	const form = useForm<{ externalCalendarIntegrationActive: UserOwnProfileDto['externalCalendarIntegrationActive'] }>({
-		initialValues: {
-			externalCalendarIntegrationActive: externalCalendarIntegrationActive,
+	const [selectedSetting, setSelectedSetting] = useState(externalCalendarIntegrationActive);
+	const [savedSetting, setSavedSetting] = useState(externalCalendarIntegrationActive);
+
+	const postCalendarSetting = () => slotbotServerClient.put(`/user/externalcalendar/${selectedSetting}`).then(voidFunction);
+	const {mutate, isLoading} = useMutation<void, AxiosError>(postCalendarSetting, {
+		onSuccess: () => {
+			setSavedSetting(selectedSetting);
+			successNotification();
+		},
+		onError: (...props) => {
+			setSelectedSetting(savedSetting);
+			errorNotification?.(...props);
 		},
 	});
 
-	useEffect(() => {
-		if (form.isTouched()) {
-			mutate();
-		}
-	}, [form.values.externalCalendarIntegrationActive]);
-
-	const [saving, setSaving] = useState(false);
-	const postCalendarSetting = () => slotbotServerClient.put(`/user/externalcalendar/${!form.values.externalCalendarIntegrationActive}`).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(postCalendarSetting, {
-		onMutate: () => {
-			setSaving(true);
-		},
-		onSuccess: () => successNotification(),
-		onError: errorNotification,
-		onSettled: () => {
-			setSaving(false);
-		},
-	});
+	useDidUpdate(() => {
+		selectedSetting !== savedSetting && mutate();
+	}, [selectedSetting]);
 
 	return (
 		<>
@@ -47,9 +41,9 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 								 tooltip={<T k={'profile.externalCalendar.tooltip'}/>}
 								 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
-			<Switch label={<T k={'profile.externalCalendar.switch'}/>} disabled={saving}
-					{...form.getInputProps('externalCalendarIntegrationActive', {type: 'checkbox'})}/>
-			{form.values.externalCalendarIntegrationActive && <>
+			<Switch label={<T k={'profile.externalCalendar.switch'}/>} checked={selectedSetting} disabled={isLoading}
+					onChange={(event) => setSelectedSetting(event.currentTarget.checked)}/>
+			{selectedSetting && <>
                 <Tooltip.Floating label={<T k={'action.clickToCopy'}/>}>
                     <Box>
                         <CopyButton value={icsCalendarUrl}>

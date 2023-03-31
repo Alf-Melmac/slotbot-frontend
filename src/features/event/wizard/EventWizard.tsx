@@ -10,6 +10,7 @@ import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/a
 import {EventWizardSteps} from './EventWizardSteps';
 import {useEventCopy} from './useEventCopy';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {getTimeShort} from '../../../utils/dateHelper';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -30,14 +31,13 @@ export function EventWizard(): JSX.Element {
 	const [active, setActive] = useState(0);
 
 	const date = new Date();
-	date.setSeconds(0);
 	const form = useEventWizardForm({
 		initialValues: {
 			hidden: false,
 			shareable: true,
 			name: '',
 			date: date,
-			startTime: date,
+			startTime: getTimeShort(date),
 			creator: '',
 			eventType: {
 				name: '',

@@ -57,5 +57,6 @@ function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSe
 						   label: guild.groupIdentifier,
 					   };
 				   })}
+				   withinPortal
 				   {...form.getInputProps(`${path}.${index}.reservedFor`)}/>;
 }

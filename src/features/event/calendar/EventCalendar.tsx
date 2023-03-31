@@ -14,9 +14,11 @@ import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {isGerman} from '../../../contexts/language/Language';
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
 	eventType: {
-		minWidth: 11,
+		height: theme.fontSizes.xs,
+		width: theme.fontSizes.xs,
+		minWidth: theme.fontSizes.xs,
 	},
 
 	eventWrapper: {

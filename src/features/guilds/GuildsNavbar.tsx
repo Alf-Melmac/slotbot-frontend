@@ -5,11 +5,10 @@ import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
 import {DelayedSkeleton} from '../../components/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
-import {registerSpotlightActions, removeSpotlightActions, SpotlightAction} from '@mantine/spotlight';
+import {SpotlightAction} from '@mantine/spotlight';
 import {useNavigate, useParams} from 'react-router-dom';
-import {useEffect} from 'react';
+import {Dispatch, SetStateAction, useEffect} from 'react';
 import {SearchControl} from './SearchControl';
-import {SPOTLIGHT_LOADING} from './GuildsPage';
 import {GuildProps} from './guild/Guild';
 
 const useStyles = createStyles((theme) => ({
@@ -19,7 +18,11 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export function GuildsNavbar(): JSX.Element {
+type GuildsNavbarProps = {
+	setActions: Dispatch<SetStateAction<SpotlightAction[]>>;
+};
+
+export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
 	const {guildId} = useParams<GuildProps>();
 	const {classes} = useStyles();
 	const guildsQuery = useGetGuilds();
@@ -34,8 +37,7 @@ export function GuildsNavbar(): JSX.Element {
 			onTrigger: () => navigate(`/guilds/${guild.id}`),
 		})) || [];
 
-		removeSpotlightActions([SPOTLIGHT_LOADING]);
-		registerSpotlightActions(actions);
+		props.setActions(actions);
 	}, [guildsQuery.data]);
 
 	return <Navbar width={{xs: 200, sm: 300}} p={'sm'} pt={NAV_HEIGHT / 3.33}>

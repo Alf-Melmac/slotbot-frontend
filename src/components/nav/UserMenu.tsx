@@ -13,7 +13,7 @@ import {T} from '../T';
 const useStyles = createStyles((theme) => ({
 	user: {
 		borderRadius: 1000,
-		paddingLeft: 4,
+		paddingLeft: NAV_ICON_WRAPPER_HEIGHT / 9,
 		paddingRight: theme.spacing.sm,
 		height: NAV_ICON_WRAPPER_HEIGHT,
 		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,

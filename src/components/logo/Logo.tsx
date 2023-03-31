@@ -1,4 +1,4 @@
-import {createStyles, Group, Image, MediaQuery, Text, useMantineTheme} from '@mantine/core';
+import {Group, Image, MediaQuery, Text, useMantineTheme} from '@mantine/core';
 import ambLogo from './amb-256-256.png';
 import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
@@ -6,19 +6,12 @@ import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 
-const useStyles = createStyles(() => ({
-	title: {
-		letterSpacing: 1,
-	},
-}));
-
 type LogoProps = {
 	small?: boolean;
 };
 
 export function Logo(props: LogoProps): JSX.Element {
 	const {small = false} = props;
-	const {classes} = useStyles();
 	const {title, logo, logoWithName = false} = getInfo();
 	const width = logoWithName ? small ? 100 : 230 : small ? 27.9 : 70;
 
@@ -31,7 +24,7 @@ export function Logo(props: LogoProps): JSX.Element {
                     </MediaQuery>
 				}
 				{(!logoWithName || small) &&
-                    <Text size={'lg'} transform={'uppercase'} weight={700} className={classes.title}>{title}</Text>
+                    <Text size={'lg'} transform={'uppercase'} weight={700} lts={1}>{title}</Text>
 				}
 			</Group>
 		</UnstyledAnchorLink>

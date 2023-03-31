@@ -55,7 +55,7 @@ export function SortableList<T extends BaseItem>(props: SortableListProps<T>): J
 	const [sorting, setSorting] = useState(false);
 	const theme = useMantineTheme();
 	return <>
-		{sorting && <Overlay color={theme.colors.dark[8]} style={{position: 'fixed'}}/>}
+		{sorting && <Overlay color={theme.colors.dark[8]} fixed/>}
 		<Box style={{
 			borderRadius: theme.radius.sm,
 			backgroundColor: sorting ? theme.colorScheme !== 'dark' ? theme.colors.gray[1] : theme.colors.dark[7] : undefined,

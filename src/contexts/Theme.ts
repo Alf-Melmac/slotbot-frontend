@@ -32,21 +32,23 @@ export function getGuild(): Guild {
 }
 
 const globalTheme: MantineThemeOverride = {
-	datesLocale: 'de',
-	dateFormat: 'DD.MM.YYYY',
-
 	fontFamily: 'Roboto Condensed, sans-serif',
 
 	headings: {
 		fontFamily: 'Roboto Regular, sans-serif',
 		sizes: {
-			h1: {fontSize: 40},
+			h1: {fontSize: '2.5rem'},
 		},
 	},
 
 	components: {
 		Container: {
 			defaultProps: {size: 'lg'},
+		},
+		DateInput: {
+			defaultProps: {
+				valueFormat: 'L',
+			}
 		},
 	},
 

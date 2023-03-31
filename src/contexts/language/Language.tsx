@@ -19,7 +19,7 @@ export type LanguageTag = 'de' | 'en';
 /**
  * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to `EN`
  */
-function currentLanguageTag(): LanguageTag {
+export function currentLanguageTag(): LanguageTag {
 	const languageTag = navigator.language.substring(0, 2);
 	return availableLanguages.find(v => v === languageTag) || EN;
 }

@@ -9,6 +9,8 @@ import {useGetGuild} from './useGetGuild';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {GuildConfig} from './GuildConfig';
+import {useEffect, useState} from 'react';
+import {GuildDetailsDto} from '../guildTypes';
 
 const useStyles = createStyles((theme) => ({
 	guildCard: {
@@ -28,9 +30,15 @@ export function Guild(): JSX.Element {
 	const {classes} = useStyles();
 
 	const guildQuery = useGetGuild(guildId);
-	const guild = guildQuery.data;
-	const isAdmin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, guildId);
-	if (guildQuery.isLoading || !guild) return <></>;
+	const [guild, setGuild] = useState<GuildDetailsDto>();
+
+	useEffect(() => {
+		setGuild(guildQuery.data);
+	}, [guildId, guildQuery.data]);
+
+	const isAdmin = useCheckAccess(guild ? ApplicationRoles.ROLE_ADMIN : undefined, guildId);
+	if (guildQuery.isError) return <T k={'no'}/>;
+	if (guildQuery.isLoading || guild?.id !== guildId) return <></>;
 
 	const breadcrumbItems = [
 		{

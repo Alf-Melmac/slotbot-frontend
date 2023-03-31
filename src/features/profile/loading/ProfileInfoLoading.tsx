@@ -1,20 +1,11 @@
-import {Center, createStyles, Paper, Skeleton, Stack, Title} from '@mantine/core';
-import {userCardSize} from '../ProfileInfo';
+import {Center, Paper, Skeleton, Stack, Title} from '@mantine/core';
 import {T} from '../../../components/T';
 
-const useStyles = createStyles((theme) => ({
-	userCard: {
-		...userCardSize(theme),
-	},
-}));
-
 export function ProfileInfoLoading(): JSX.Element {
-	const {classes} = useStyles();
-
 	return (
 		<Stack>
 			<Center>
-				<Paper withBorder className={classes.userCard} p={'lg'}>
+				<Paper withBorder w={{base: '100%', md: '33%'}} p={'lg'}>
 					<Stack align={'center'} spacing={'xs'}>
 						<Skeleton circle height={84}/>
 						<Skeleton width={'70%'} height={35}/>

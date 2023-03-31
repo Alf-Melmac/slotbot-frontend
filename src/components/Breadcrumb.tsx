@@ -11,8 +11,7 @@ const useStyles = createStyles((theme) => ({
 	},
 
 	chevron: {
-		fontSize: theme.fontSizes.md * 0.9,
-		paddingTop: theme.fontSizes.md * 0.1,
+		fontSize: theme.fontSizes.sm,
 	},
 }));
 
