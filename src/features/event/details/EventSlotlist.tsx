@@ -5,7 +5,11 @@ import {Bold} from '../../../components/Text/Bold';
 import {T} from '../../../components/T';
 import {GuildDto} from '../../guilds/guildTypes';
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
+	ownSlot: {
+		backgroundColor: theme.fn.rgba(theme.colors.yellow[6], 0.1),
+		borderLeft: `2px solid ${theme.colors.yellow[6]}`,
+	},
 	slotNumberWrapper: {
 		flexBasis: '6%',
 	},
@@ -56,7 +60,7 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 					</Group>
 
 					{squad.slotList.map((slot) => (
-						<Grid key={slot.id}>
+						<Grid key={slot.id} className={slot.own ? classes.ownSlot : undefined}>
 							<Grid.Col py={4} className={classes.slotNumberWrapper}>
 								<Text className={classes.slotNumber}>{slot.number}</Text>
 							</Grid.Col>

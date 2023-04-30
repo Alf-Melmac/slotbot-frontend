@@ -43,6 +43,7 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	text: string;
 	occupied: boolean;
 	blocked: boolean;
+	own: boolean;
 }
 //endregion event details
 
