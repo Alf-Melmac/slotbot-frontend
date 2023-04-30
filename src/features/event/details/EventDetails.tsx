@@ -9,7 +9,7 @@ import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventFields} from './EventFields';
-import {EventSlotlist} from './EventSlotlist';
+import {EventSlotlist} from './slotlist/EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
 import {EventPageParams} from '../EventRoutes';
 import {useEffect, useState} from 'react';

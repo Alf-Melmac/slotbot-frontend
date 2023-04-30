@@ -44,6 +44,7 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	occupied: boolean;
 	blocked: boolean;
 	own: boolean;
+	slottable: boolean | null;
 }
 //endregion event details
 
