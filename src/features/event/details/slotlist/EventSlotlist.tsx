@@ -1,11 +1,12 @@
-import {EventDetailsSquadDto} from '../../eventTypes';
+import {EventDetailsDto} from '../../eventTypes';
 import {Card, Center, Group, Text} from '@mantine/core';
 import {ReservedFor} from './ReservedFor';
 import {Slot} from './Slot';
-import {PendingSlottingProvider} from '../../../../contexts/event/details/slotlist/PendingSlottingContext';
+import {EventDetailsSlotlistProvider} from '../../../../contexts/event/details/slotlist/EventDetailsSlotlistContext';
 
 export type EventSlotlistProps = {
-	squadList: Array<EventDetailsSquadDto>
+	squadList: EventDetailsDto['squadList'];
+	eventId: EventDetailsDto['id'];
 };
 
 /**
@@ -15,7 +16,7 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 	return <>
 		{props.squadList.length === 0 && <Center><Text>Keine Slotliste vorhanden.</Text></Center>}
 
-		<PendingSlottingProvider>
+		<EventDetailsSlotlistProvider eventId={props.eventId}>
 			{props.squadList.map((squad) => (
 				<Card mb={'md'} key={squad.id}>
 					<Group noWrap spacing={5} pb={5}>
@@ -28,6 +29,6 @@ export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
 					))}
 				</Card>
 			))}
-		</PendingSlottingProvider>
+		</EventDetailsSlotlistProvider>
 	</>;
 }

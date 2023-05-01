@@ -6,12 +6,13 @@ import {faTicket} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../../components/T';
 import {EventSlotlistSlotProps} from './Slot';
 import {Bold} from '../../../../components/Text/Bold';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServerClient';
-import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
-import {usePendingSlotting} from '../../../../contexts/event/details/slotlist/PendingSlottingContext';
+import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import {errorNotification} from '../../../../utils/notificationHelper';
+import {useEventDetailsSlotlist} from '../../../../contexts/event/details/slotlist/EventDetailsSlotlistContext';
 import {useEffect} from 'react';
+import {EventDetailsDto} from '../../eventTypes';
 
 /**
  * Displays the content of a slot. This includes empty, blocked and reserved slots.
@@ -19,11 +20,12 @@ import {useEffect} from 'react';
 export function SlotText(props: EventSlotlistSlotProps): JSX.Element {
 	const {id, text, blocked, slottable} = props.slot;
 
-	const putSlotting = () => slotbotServerClient.put(`slots/${id}/slotting`).then(voidFunction);
-	const {pendingSlotting, setPendingSlotting} = usePendingSlotting();
-	const {mutate, isLoading} = useMutation<void, AxiosError>(putSlotting, {
-		onSuccess: () => {
-			successNotification(); //TODO Better notification and refresh slotlist
+	const queryClient = useQueryClient();
+	const putSlotting = () => slotbotServerClient.put(`/events/slotting/${id}`).then((res) => res.data);
+	const {pendingSlotting, setPendingSlotting, eventId} = useEventDetailsSlotlist();
+	const {mutate, isLoading} = useMutation<EventDetailsDto, AxiosError>(putSlotting, {
+		onSuccess: (data) => {
+			queryClient.setQueryData(['eventDetails', eventId.toString()], data);
 			setPendingSlotting(false);
 		},
 		onError: errorNotification,
