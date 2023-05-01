@@ -1,5 +1,6 @@
-import {Image, Text, useMantineTheme} from '@mantine/core';
+import {ActionIcon, Image, Text, useMantineTheme} from '@mantine/core';
 import {EventSlotlistProps} from './EventSlotlist';
+import {Link} from 'react-router-dom';
 
 type ReservedForProps = {
 	guild: EventSlotlistProps['squadList'][number]['reservedFor'] | EventSlotlistProps['squadList'][number]['slotList'][number]['reservedFor']
@@ -13,14 +14,17 @@ export function ReservedFor(props: ReservedForProps): JSX.Element {
 	const theme = useMantineTheme();
 
 	if (guild) {
-		if (guild.emojiUrl) {
-			return <Image src={guild.emojiUrl}
-						  title={guild.groupIdentifier}
-						  alt={guild.groupIdentifier}
-						  placeholder={<Text align={'center'}>{guild.groupIdentifier}</Text>}
-						  width={theme.fontSizes.md}/>;
-		}
-		return <Text>[{guild.groupIdentifier}]</Text>;
+		return <ActionIcon variant={'transparent'} component={Link} to={`/guilds/${guild.id}`}
+						   title={guild.groupIdentifier} w={'auto'}>
+			{guild.emojiUrl ?
+				<Image src={guild.emojiUrl}
+					   alt={guild.groupIdentifier}
+					   placeholder={<Text align={'center'}>{guild.groupIdentifier}</Text>}
+					   width={theme.fontSizes.lg}/>
+				:
+				<Text>[{guild.groupIdentifier}]</Text>
+			}
+		</ActionIcon>;
 	}
 	return <></>;
 }
