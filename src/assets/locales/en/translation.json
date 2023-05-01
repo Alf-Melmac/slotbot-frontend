@@ -45,6 +45,7 @@
   "event.date.placeholder": "Event Date",
   "event.details.action.slot": "Register",
   "event.details.action.slot.disabled": "This slot is reserved for a group you do not belong to",
+  "event.details.action.unslot": "Sign Out",
   "event.details.add": "Add field",
   "event.details.add.default": "Add standard \"{0}\" details",
   "event.details.creator": "Mission from",

@@ -45,6 +45,7 @@
   "event.date.placeholder": "Event Datum",
   "event.details.action.slot": "Anmelden",
   "event.details.action.slot.disabled": "Dieser Slot ist für eine Gruppe reserviert, der du nicht angehörst",
+  "event.details.action.unslot": "Abmelden",
   "event.details.add": "Feld hinzufügen",
   "event.details.add.default": "Standard \"{0}\" Details hinzufügen",
   "event.details.creator": "Mission von",
