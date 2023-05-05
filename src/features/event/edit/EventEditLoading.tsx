@@ -1,4 +1,4 @@
-import {DelayedSkeleton} from '../../../components/DelayedSkeleton';
+import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
 import {Container, Grid, Stack, Text, Title} from '@mantine/core';
 

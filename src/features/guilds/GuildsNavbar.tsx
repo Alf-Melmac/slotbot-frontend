@@ -2,7 +2,7 @@ import {Avatar, Button, createStyles, Image, Navbar, ScrollArea} from '@mantine/
 import {useGetGuilds} from './useGetGuilds';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
-import {DelayedSkeleton} from '../../components/DelayedSkeleton';
+import {DelayedSkeleton} from '../../components/Delayed/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
 import {SpotlightAction} from '@mantine/spotlight';

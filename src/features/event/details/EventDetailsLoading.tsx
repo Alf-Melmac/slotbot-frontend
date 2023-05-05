@@ -1,6 +1,6 @@
 import {Box, Container, Grid, MediaQuery, Text, Title} from '@mantine/core';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
-import {DelayedSkeleton} from '../../../components/DelayedSkeleton';
+import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
 
 export function EventDetailsLoading(): JSX.Element {
 	return (
