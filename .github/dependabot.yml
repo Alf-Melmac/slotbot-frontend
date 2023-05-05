@@ -16,7 +16,7 @@ updates:
     ignore:
       - dependency-name: "@mantine/*"
       - dependency-name: "@types/node"
-        versions: ["19.x"]
+        versions: ["19.x", "20.x"]
 
           # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
