@@ -37,7 +37,7 @@
   "error.notFound.description": "Die Seite, die du gerade zu öffnen versuchst, existiert nicht. Hast du dich bei der Adresse vertippt?",
   "error.notFound.title": "Irgendetwas stimmt hier nicht...",
   "error.notification": "Speichern fehlgeschlagen.{0}",
-  "error.notification.copying": "Kopieren fehlgeschlagen.",
+  "error.notification.copying": "Kopieren fehlgeschlagen",
   "event": "Event",
   "event.add": "Neues Event anlegen",
   "event.creator": "Ersteller",

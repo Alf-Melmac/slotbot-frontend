@@ -10,14 +10,26 @@ import {EventWizardLocation} from './EventWizard';
 import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
 import {T} from '../../../components/T';
+import {useEffect, useState} from 'react';
+import {useAuth} from '../../../contexts/authentication/AuthProvider';
 
 export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 	const state = useLocation().state as EventWizardLocation | null;
 	const copyEvent = state?.copy;
+	const [updated, setUpdated] = useState(false);
+	const [shouldUpdate, setShouldUpdate] = useState(false);
+	useEffect(() => {
+		setShouldUpdate(!!copyEvent && !updated);
+	}, [copyEvent, updated]);
 	const getEventForCopy = () => slotbotServerClient.get(`/events/${copyEvent}/copy`).then((res) => res.data);
-	useQuery<EventPostDto, AxiosError>(['copyEvent', copyEvent], getEventForCopy, {
-		enabled: !!copyEvent,
-		onSuccess: (data) => {
+	const query = useQuery<EventPostDto, AxiosError>(['copyEvent', copyEvent], getEventForCopy, {
+		enabled: shouldUpdate,
+	});
+
+	const {user} = useAuth();
+	useEffect(() => {
+		const data = query.data;
+		if (data) {
 			data.details.forEach(field => field.id = randomId());
 			data.squadList.forEach(squad => {
 				squad.id = randomId();
@@ -25,17 +37,24 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 			});
 			replaceNullWithEmpty(data, ['description', 'missionLength', 'missionType', 'pictureUrl']);
 			replaceNullWithUndefined(data, ['reserveParticipating']);
-			form.setValues(omit(data, ['date', 'startTime']) as EventPostDto);
-		},
-		onError: (error) => {
+			if (user) {
+				data.creator = user.name;
+			}
+			form.setValues(omit(data, ['dateTime']) as EventPostDto);
+			setUpdated(true);
+		}
+	}, [query.data]);
+
+	useEffect(() => {
+		if (query.error) {
 			showNotification({
 				title: <T k={'error.notification.copying'}/>,
-				message: error.message,
+				message: query.error.message,
 				color: 'red',
 				autoClose: false,
 			});
-		},
-	});
+		}
+	}, [query.error]);
 
-	return {copyEvent};
+	return {isLoading: query.isLoading};
 }

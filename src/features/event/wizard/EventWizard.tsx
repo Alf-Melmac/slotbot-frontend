@@ -1,10 +1,9 @@
-import {Container} from '@mantine/core';
+import {Container, LoadingOverlay} from '@mantine/core';
 import {Nav} from '../../../components/nav/Nav';
 import {Breadcrumb} from '../../../components/Breadcrumb';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {EventDetailsDto} from '../eventTypes';
 import {randomColor} from '../action/utils';
-import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {eventActionValidate} from '../action/validation';
 import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 import {EventWizardSteps} from './EventWizardSteps';
@@ -57,14 +56,7 @@ export function EventWizard(): JSX.Element {
 		validateInputOnBlur: true,
 	});
 
-	const {copyEvent} = useEventCopy(form);
-
-	const {user} = useAuth();
-	useEffect(() => {
-		if (user && !copyEvent) {
-			form.setFieldValue('creator', user.name);
-		}
-	}, [user]);
+	const {isLoading} = useEventCopy(form);
 
 	return (
 		<Nav>
@@ -72,6 +64,7 @@ export function EventWizard(): JSX.Element {
 				<EventWizardProvider form={form}>
 					<Breadcrumb items={breadcrumbItems}/>
 
+					<LoadingOverlay visible={isLoading}/>
 					<EventWizardSteps active={active} setActive={setActive}/>
 				</EventWizardProvider>
 			</Container>

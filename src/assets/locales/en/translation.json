@@ -37,7 +37,7 @@
   "error.notFound.description": "The site you are trying to access doesn't exist. Did you write the wrong address perhaps?",
   "error.notFound.title": "Something isn't right here...",
   "error.notification": "Saving failed.{0}",
-  "error.notification.copying": "Copying failed.",
+  "error.notification.copying": "Copying failed",
   "event": "Event",
   "event.add": "Create New Event",
   "event.creator": "Creator",
