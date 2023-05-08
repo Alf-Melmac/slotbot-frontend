@@ -9,11 +9,11 @@ export function MRTable<D extends Record<string, any>>(props: PartialExcept<Mant
 		<MantineReactTable
 			enablePagination={false} enableColumnActions={false} enableSorting={false} enableTopToolbar={false}
 			enableStickyHeader state={{density: 'xs'}} mantinePaperProps={{withBorder: false}}
-			mantineTableBodyRowProps={{sx: {backgroundColor: 'unset'}}}
 			mantineTableBodyCellProps={{
 				sx: {
 					paddingTop: '7px !important',
 					paddingBottom: '7px !important',
+					backgroundColor: 'unset'
 				},
 			}}
 			//Force progress bar size
