@@ -56,5 +56,5 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 		}
 	}, [query.error]);
 
-	return {isLoading: query.isLoading};
+	return {isLoading: shouldUpdate && query.isLoading};
 }
