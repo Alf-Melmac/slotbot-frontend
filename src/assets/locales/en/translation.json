@@ -172,5 +172,6 @@
   "validation.hexColor": "Needs to be a HEX-Code",
   "validation.maxLength": "Not longer than {0} characters",
   "validation.onlyFuture": "Needs to be in the future",
-  "validation.required": "Required"
+  "validation.required": "Required",
+  "validation.url": "Must be a valid http(s) or attachment url"
 }

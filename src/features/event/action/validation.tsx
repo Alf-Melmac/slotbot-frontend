@@ -1,7 +1,14 @@
 import {SlotDto, SlotIdDto} from '../eventTypes';
 import {FormErrors} from '@mantine/form';
-import {length, maxLengthField, requiredFieldWithMaxLength, validate} from '../../../utils/formHelper';
-import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT, URL} from '../../../utils/maxLength';
+import {
+	colorField,
+	length,
+	maxLengthField,
+	requiredFieldWithMaxLength,
+	urlField,
+	validate,
+} from '../../../utils/formHelper';
+import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT} from '../../../utils/maxLength';
 import {EventActionFormType} from '../../../contexts/event/action/EventActionFormContext';
 import dayjs from 'dayjs';
 import {T} from '../../../components/T';
@@ -15,12 +22,11 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 			date: validate(dayjs().isAfter(values.date, 'day'), <T k={'validation.onlyFuture'}/>),
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
-			'eventType.color': validate(!/^#([a-f\d]{6}|[a-f\d]{3})$/.test(values.eventType.color), <T
-				k={'validation.hexColor'}/>),
+			'eventType.color': colorField(values.eventType.color),
 			description: maxLengthField(values.description, EMBEDDABLE_DESCRIPTION),
 			missionType: maxLengthField(values.missionType, TEXT),
 			missionLength: maxLengthField(values.missionLength, TEXT),
-			pictureUrl: maxLengthField(values.pictureUrl, URL),
+			pictureUrl: urlField(values.pictureUrl),
 		};
 		validateEmbedSize(values, errors);
 	}
