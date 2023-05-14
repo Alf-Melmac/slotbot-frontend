@@ -7,6 +7,7 @@ import {EventCopy} from './EventCopy';
 import {EventEditButton} from './EventEditButton';
 import {T} from '../../../components/T';
 import {EventDetail} from '../EventFetcher';
+import {hidden} from '../../../contexts/CommonStylings';
 
 const useStyles = createStyles(() => ({
 	forceWrap: {
@@ -53,10 +54,10 @@ export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element 
 					{
 						event.descriptionAsHtml &&
                         <Card mt={'sm'}>
-                            <MediaQuery largerThan={'md'} styles={{display: 'none'}}>
+                            <MediaQuery largerThan={'md'} styles={hidden}>
                                 <EventDescription description={event.descriptionAsHtml} lineClamp={1}/>
                             </MediaQuery>
-                            <MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
+                            <MediaQuery smallerThan={'md'} styles={hidden}>
                                 <EventDescription description={event.descriptionAsHtml} lineClamp={4}/>
                             </MediaQuery>
                             <Button variant={'default'} mt={'sm'}

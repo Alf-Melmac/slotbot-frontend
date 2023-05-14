@@ -1,15 +1,13 @@
-import {Nav} from "../../../components/nav/Nav";
-import {Box, Center, Container, createStyles, Title} from "@mantine/core";
+import {Box, Center, createStyles, Title} from "@mantine/core";
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {useCallback, useRef, useState} from 'react';
 import {T} from '../../../components/T';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {hidden} from '../../../contexts/CommonStylings';
 
 const useStyles = createStyles(() => ({
-	hidden: {
-		display: 'none',
-	},
+	hidden: hidden,
 }));
 
 export function Events(): JSX.Element {
@@ -29,20 +27,16 @@ export function Events(): JSX.Element {
 
 	const [animated, setAnimated] = useState(true);
 
-	return (
-		<Nav>
-			<Container>
-				<Center>
-					<Title><T k={'events'}/></Title>
-				</Center>
+	return <>
+		<Center>
+			<Title><T k={'events'}/></Title>
+		</Center>
 
-				<Box ref={loadingCalendarWrapper}>
-					<LoadingCalendar animated={animated}/>
-				</Box>
-				<Box ref={eventCalendarWrapper}>
-					<EventCalendar toggleVisible={toggleVisible} onFailure={() => setAnimated(false)}/>
-				</Box>
-			</Container>
-		</Nav>
-	);
+		<Box ref={loadingCalendarWrapper}>
+			<LoadingCalendar animated={animated}/>
+		</Box>
+		<Box ref={eventCalendarWrapper}>
+			<EventCalendar toggleVisible={toggleVisible} onFailure={() => setAnimated(false)}/>
+		</Box>
+	</>;
 }

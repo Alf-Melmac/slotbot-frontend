@@ -5,6 +5,7 @@ import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
+import {hidden} from '../../contexts/CommonStylings';
 
 type LogoProps = {
 	small?: boolean;
@@ -19,7 +20,7 @@ export function Logo(props: LogoProps): JSX.Element {
 		<UnstyledAnchorLink to={'/events'}>
 			<Group spacing={'xs'} noWrap>
 				{!small &&
-                    <MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+                    <MediaQuery smallerThan={'xs'} styles={hidden}>
                         <Image width={width} src={logo} alt={title} radius={'lg'}/>
                     </MediaQuery>
 				}

@@ -13,6 +13,7 @@ import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {isGerman} from '../../../contexts/language/Language';
+import {hidden} from '../../../contexts/CommonStylings';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {
@@ -49,7 +50,7 @@ export function EventCalendar(props: EventCalendarProps): JSX.Element {
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
 					<Box className={classes.eventWrapper}>
-						<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+						<MediaQuery smallerThan={'xs'} styles={hidden}>
 							<ColorSwatch color={backgroundColor} className={classes.eventType} mx={2}/>
 						</MediaQuery>
 						<Text mx={{base: 2, sm: 0}}>{arg.timeText} <Bold>{event.title}</Bold></Text>

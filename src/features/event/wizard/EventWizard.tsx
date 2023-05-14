@@ -1,5 +1,4 @@
-import {Container, LoadingOverlay} from '@mantine/core';
-import {Nav} from '../../../components/nav/Nav';
+import {LoadingOverlay} from '@mantine/core';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useState} from 'react';
 import {EventDetailsDto} from '../eventTypes';
@@ -59,15 +58,11 @@ export function EventWizard(): JSX.Element {
 	const {isLoading} = useEventCopy(form);
 
 	return (
-		<Nav>
-			<Container>
-				<EventWizardProvider form={form}>
-					<Breadcrumb items={breadcrumbItems}/>
+		<EventWizardProvider form={form}>
+			<Breadcrumb items={breadcrumbItems}/>
 
-					<LoadingOverlay visible={isLoading}/>
-					<EventWizardSteps active={active} setActive={setActive}/>
-				</EventWizardProvider>
-			</Container>
-		</Nav>
+			<LoadingOverlay visible={isLoading}/>
+			<EventWizardSteps active={active} setActive={setActive}/>
+		</EventWizardProvider>
 	);
 }

@@ -4,6 +4,7 @@ import {SearchKeys} from '../../components/Input/SearchKeys';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {T} from '../../components/T';
+import {hidden} from '../../contexts/CommonStylings';
 
 const useStyles = createStyles((theme, big: boolean) => ({
 	root: {
@@ -34,7 +35,7 @@ export function SearchControl(props: SearchControlProps): JSX.Element {
 					<Text size={big ? 'lg' : 'sm'} color={"dimmed"}>
 						<T k={big ? 'guilds.search' : 'search'}/>
 					</Text>
-					<MediaQuery smallerThan={'md'} styles={{display: 'none'}}>
+					<MediaQuery smallerThan={'md'} styles={hidden}>
 						<Text align={'right'}>
 							<SearchKeys/>
 						</Text>

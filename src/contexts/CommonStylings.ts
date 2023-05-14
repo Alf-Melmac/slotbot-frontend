@@ -11,3 +11,7 @@ export const underlineOnHover: CSSObject = {
 		textDecoration: 'underline',
 	},
 };
+
+export const hidden: CSSObject = {
+	display: 'none',
+}

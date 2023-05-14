@@ -1,6 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {Nav} from '../../../components/nav/Nav';
-import {Alert, ColorSwatch, Container, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
+import {Alert, ColorSwatch, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
@@ -49,52 +48,48 @@ export function EventDetails(): JSX.Element {
 			</Group>,
 		}];
 
-	return (
-		<Nav>
-			<Container>
-				<Breadcrumb items={breadcrumbItems}/>
+	return <>
+		<Breadcrumb items={breadcrumbItems}/>
 
-				{event.hidden &&
-                    <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
-                        <T k={'event.details.hiddenEventWarning'}/>
-                    </Alert>}
+		{event.hidden &&
+            <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
+                <T k={'event.details.hiddenEventWarning'}/>
+            </Alert>}
 
-				<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
-									scrollToDescription={scrollToDescription}/>
+		<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
+							scrollToDescription={scrollToDescription}/>
 
-				<Tabs mt={'xs'} defaultValue={'slotlist'}>
-					<Tabs.List>
-						<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
-							<T k={'slotlist'}/>
-						</Tabs.Tab>
-						{event.descriptionAsHtml &&
-                            <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
-                                      ref={descriptionRef}>
-                                <T k={'description'}/>
-                            </Tabs.Tab>
-						}
-						{event.details.length !== 0 &&
-                            <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
-                                <T k={'moreDetails'}/>
-                            </Tabs.Tab>
-						}
-					</Tabs.List>
+		<Tabs mt={'xs'} defaultValue={'slotlist'}>
+			<Tabs.List>
+				<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
+					<T k={'slotlist'}/>
+				</Tabs.Tab>
+				{event.descriptionAsHtml &&
+                    <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
+                              ref={descriptionRef}>
+                        <T k={'description'}/>
+                    </Tabs.Tab>
+				}
+				{event.details.length !== 0 &&
+                    <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                        <T k={'moreDetails'}/>
+                    </Tabs.Tab>
+				}
+			</Tabs.List>
 
-					<Tabs.Panel value={'slotlist'}>
-						<EventSlotlist squadList={event.squadList} eventId={event.id}/>
-					</Tabs.Panel>
-					{event.descriptionAsHtml &&
-                        <Tabs.Panel value={'description'}>
-                            <Text dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}></Text>
-                        </Tabs.Panel>
-					}
-					{event.details.length !== 0 &&
-                        <Tabs.Panel value={'details'}>
-                            <EventFields fields={event.details}/>
-                        </Tabs.Panel>
-					}
-				</Tabs>
-			</Container>
-		</Nav>
-	);
+			<Tabs.Panel value={'slotlist'}>
+				<EventSlotlist squadList={event.squadList} eventId={event.id}/>
+			</Tabs.Panel>
+			{event.descriptionAsHtml &&
+                <Tabs.Panel value={'description'}>
+                    <Text dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}></Text>
+                </Tabs.Panel>
+			}
+			{event.details.length !== 0 &&
+                <Tabs.Panel value={'details'}>
+                    <EventFields fields={event.details}/>
+                </Tabs.Panel>
+			}
+		</Tabs>
+	</>;
 }

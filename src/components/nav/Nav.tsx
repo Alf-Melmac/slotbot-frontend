@@ -11,6 +11,7 @@ import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {PropsWithChildren} from 'react';
+import {hidden} from '../../contexts/CommonStylings';
 
 const useStyles = createStyles(() => ({
 	inner: {
@@ -49,7 +50,7 @@ export function Nav(props: PropsWithChildren<NavProps>): JSX.Element {
 						<Logo/>
 						<Box styles={{alignSelf: "flex-end"}}>
 							<Group noWrap>
-								<MediaQuery smallerThan={'xs'} styles={{display: 'none'}}>
+								<MediaQuery smallerThan={'xs'} styles={hidden}>
 									<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
 												 width={110}/>
 								</MediaQuery>

@@ -11,8 +11,10 @@ import {ApplicationRoles} from '../../../contexts/authentication/authenticationT
 import {GuildConfig} from './GuildConfig';
 import {useEffect, useState} from 'react';
 import {GuildDetailsDto} from '../guildTypes';
+import {NotFound} from '../../error/NotFound';
+import {GuildLoading} from './GuildLoading';
 
-const useStyles = createStyles((theme) => ({
+export const useGuildStyles = createStyles((theme) => ({
 	guildCard: {
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
 	},
@@ -27,7 +29,7 @@ export function Guild(): JSX.Element {
 	const {guildId} = useParams<GuildProps>();
 	if (!guildId) throw Error('Invalid state: Guild id required');
 
-	const {classes} = useStyles();
+	const {classes} = useGuildStyles();
 
 	const guildQuery = useGetGuild(guildId);
 	const [guild, setGuild] = useState<GuildDetailsDto>();
@@ -37,8 +39,8 @@ export function Guild(): JSX.Element {
 	}, [guildId, guildQuery.data]);
 
 	const isAdmin = useCheckAccess(guild ? ApplicationRoles.ROLE_ADMIN : undefined, guildId);
-	if (guildQuery.isError) return <T k={'no'}/>;
-	if (guildQuery.isLoading || guild?.id !== guildId) return <></>;
+	if (guildQuery.isError) return <NotFound/>;
+	if (guildQuery.isLoading || guild?.id !== guildId) return <GuildLoading/>;
 
 	const breadcrumbItems = [
 		{

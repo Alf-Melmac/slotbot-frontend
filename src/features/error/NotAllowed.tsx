@@ -1,4 +1,3 @@
-import {Nav} from '../../components/nav/Nav';
 import {createStyles, keyframes, Stack} from '@mantine/core';
 import {ErrorBackButton, ErrorLabel, ErrorTitle} from './ErrorPage';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
@@ -33,13 +32,11 @@ export function NotAllowed(): JSX.Element {
 	const {classes} = useStyles();
 
 	return (
-		<Nav>
-			<Stack spacing={'xl'} align={'center'} justify={'center'} pt={'6%'}>
-				<div className={classes.alarm}/>
-				<ErrorLabel>403</ErrorLabel>
-				<ErrorTitle title={'error.notAllowed'}/>
-				<ErrorBackButton/>
-			</Stack>
-		</Nav>
+		<Stack spacing={'xl'} align={'center'} justify={'center'} pt={'10%'}>
+			<div className={classes.alarm}/>
+			<ErrorLabel>403</ErrorLabel>
+			<ErrorTitle title={'error.notAllowed'}/>
+			<ErrorBackButton/>
+		</Stack>
 	);
 }

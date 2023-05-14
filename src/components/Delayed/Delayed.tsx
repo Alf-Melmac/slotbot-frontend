@@ -9,10 +9,16 @@ type DelayedProps<ComponentProps extends DelayedComponentProps> = ComponentProps
 /**
  * Shows children after this delay
  */
-const DELAY = 700;
+export const DELAY = 700;
 
 /**
- * Shows children after a delay of {@link DELAY}ms
+ * Shows children after a delay of {@link DELAY}ms.
+ *
+ * Supported components:
+ * <ul>
+ *     <li>{@link SkeletonProps}</li>
+ *     <li>{@link LoadingOverlayProps}</li>
+ * </ul>
  */
 export function Delayed<ComponentProps extends DelayedComponentProps>(props: DelayedProps<ComponentProps>): JSX.Element {
 	const {component: DelayedComponent, ...componentProps} = props;

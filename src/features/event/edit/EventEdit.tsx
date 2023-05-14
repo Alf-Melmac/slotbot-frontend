@@ -1,5 +1,4 @@
-import {Container, Divider} from '@mantine/core';
-import {Nav} from '../../../components/nav/Nav';
+import {Divider} from '@mantine/core';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {EventGeneralInformation} from '../action/generalInformation/EventGeneralInformation';
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
@@ -42,22 +41,18 @@ export function EventEdit(props: EventEditProps): JSX.Element {
 	});
 
 	return (
-		<Nav>
-			<Container>
-				<EventEditProvider form={form} eventId={eventId}>
-					<Breadcrumb items={breadcrumbItems}/>
+		<EventEditProvider form={form} eventId={eventId}>
+			<Breadcrumb items={breadcrumbItems}/>
 
-					<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
+			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
 
-					<Divider my={'lg'}/>
+			<Divider my={'lg'}/>
 
-					<EventDetailsPage/>
+			<EventDetailsPage/>
 
-					<Divider my={'lg'}/>
+			<Divider my={'lg'}/>
 
-					<EventSlotlist canUploadSlotlist={canUploadSlotlist}/>
-				</EventEditProvider>
-			</Container>
-		</Nav>
+			<EventSlotlist canUploadSlotlist={canUploadSlotlist}/>
+		</EventEditProvider>
 	);
 }

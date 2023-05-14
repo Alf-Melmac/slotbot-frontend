@@ -6,14 +6,17 @@ import {notFoundRoute} from './features/error/ErrorRoutes';
 import {NotAllowed} from './features/error/NotAllowed';
 import {guildRoutes} from './features/guilds/GuildRoutes';
 import {GuildsPage} from './features/guilds/GuildsPage';
+import {StandardPage} from './features/StandardPage';
 
 export const routes: RouteObject[] = [
 	{
 		path: 'events/*',
+		element: <StandardPage/>,
 		children: eventRoutes,
 	},
 	{
 		path: 'profile/*',
+		element: <StandardPage/>,
 		children: profileRoutes,
 	},
 	{
@@ -23,11 +26,20 @@ export const routes: RouteObject[] = [
 	},
 	{
 		path: 'admin/*',
+		element: <StandardPage/>,
 		children: adminRoutes,
 	},
 	{
-		path: '403',
-		element: <NotAllowed/>,
+		path: '403/*',
+		element: <StandardPage/>,
+		children: [{
+			path: '*',
+			element: <NotAllowed/>,
+		}],
 	},
-	notFoundRoute,
+	{
+		path: '*',
+		element: <StandardPage/>,
+		children: [notFoundRoute],
+	},
 ];

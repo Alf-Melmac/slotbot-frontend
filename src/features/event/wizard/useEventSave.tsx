@@ -11,6 +11,7 @@ import {useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
 import {expandTimeTemplateShort, formatLocalDateTimeToUtc, getDate} from '../../../utils/dateHelper';
+import {hidden} from '../../../contexts/CommonStylings';
 
 export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventEditFormType>;
@@ -64,7 +65,7 @@ export function useEventSave() {
 
 function DebugCodeBlock(props: { formValues: unknown }): JSX.Element {
 	return (
-		<Code block sx={{display: 'none'}}>
+		<Code block sx={hidden}>
 			{JSON.stringify(props.formValues, null, 2)}
 		</Code>
 	);

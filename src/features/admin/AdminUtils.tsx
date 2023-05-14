@@ -1,5 +1,4 @@
-import {Nav} from '../../components/nav/Nav';
-import {Button, Container, Stack} from '@mantine/core';
+import {Button, Stack} from '@mantine/core';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useEffect, useState} from 'react';
 import {useMutation} from '@tanstack/react-query';
@@ -25,23 +24,19 @@ export function AdminUtils(): JSX.Element {
 	}, [action]);
 
 	return (
-		<Nav>
-			<Container>
-				<Stack mt={'xl'}>
-					<Button size={'lg'} onClick={() => setAction('listFiles')}>
-						<T k={'admin.utils.listFiles'}/>
-					</Button>
-					<Button size={'lg'} color={'red'} onClick={() => setAction('deleteUnusedEventTypes')}>
-						<T k={'admin.utils.deleteUnusedEventTypes'}/>
-					</Button>
-					<Button size={'lg'} onClick={() => setAction('rebuildEventNotifications')}>
-						<T k={'admin.utils.rebuildEventNotifications'}/>
-					</Button>
-					<Button size={'lg'} onClick={() => setAction('rebuildCalendars')}>
-						<T k={'admin.utils.rebuildCalendars'}/>
-					</Button>
-				</Stack>
-			</Container>
-		</Nav>
+		<Stack mt={'xl'}>
+			<Button size={'lg'} onClick={() => setAction('listFiles')}>
+				<T k={'admin.utils.listFiles'}/>
+			</Button>
+			<Button size={'lg'} color={'red'} onClick={() => setAction('deleteUnusedEventTypes')}>
+				<T k={'admin.utils.deleteUnusedEventTypes'}/>
+			</Button>
+			<Button size={'lg'} onClick={() => setAction('rebuildEventNotifications')}>
+				<T k={'admin.utils.rebuildEventNotifications'}/>
+			</Button>
+			<Button size={'lg'} onClick={() => setAction('rebuildCalendars')}>
+				<T k={'admin.utils.rebuildCalendars'}/>
+			</Button>
+		</Stack>
 	);
 }
