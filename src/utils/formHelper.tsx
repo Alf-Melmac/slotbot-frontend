@@ -40,7 +40,7 @@ export function colorField(field: string): ReactNode {
  * Validates that the field contains a valid url
  */
 export function urlField(field: string): ReactNode {
-	return validateChain(!/^(https?|attachment):\/\/\S+$/.test(field), <T k={'validation.url'}/>,
+	return field !== '' && validateChain(!/^(https?|attachment):\/\/\S+$/.test(field), <T k={'validation.url'}/>,
 		() => maxLengthField(field, URL));
 }
 
