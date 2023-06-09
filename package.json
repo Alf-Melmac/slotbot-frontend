@@ -30,7 +30,7 @@
     "mantine-react-table": "^1.0.0-beta.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.12.1"
   },
   "scripts": {
     "dev": "vite",
