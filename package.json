@@ -27,7 +27,7 @@
     "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "mantine-flagpack": "^2.0.0",
-    "mantine-react-table": "^1.0.0-beta.7",
+    "mantine-react-table": "^1.0.0-beta.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1"
