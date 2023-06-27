@@ -21,7 +21,8 @@ export function App(): JSX.Element {
 	const toggleColorScheme = (value?: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
-	const router = createBrowserRouter(routes, {future: {v7_normalizeFormMethod: true}});
+	// @ts-ignore v7_startTransition not yet in types
+	const router = createBrowserRouter(routes, {future: {v7_normalizeFormMethod: true, v7_startTransition: true}});
 
 	return (
 		<Suspense fallback={<Skeleton/>}>
