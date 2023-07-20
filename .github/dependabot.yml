@@ -13,8 +13,11 @@ updates:
     open-pull-requests-limit: 10
     allow:
       - dependency-type: production
+    groups:
+      mantine:
+        patterns:
+          - "@mantine/*"
     ignore:
-      - dependency-name: "@mantine/*"
       - dependency-name: "@types/node"
         versions: ["19.x", "20.x"]
 
