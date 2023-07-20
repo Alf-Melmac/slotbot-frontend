@@ -6,8 +6,8 @@ import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
 import {getGuild, Guild} from '../../contexts/Theme';
-import {faHouseUser} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../T';
+import {faCircleQuestion} from '@fortawesome/free-regular-svg-icons';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({
@@ -118,12 +118,12 @@ export function PageFooter(): JSX.Element {
 			icons = [
 				{
 					icon: faWikipediaW,
-					href: 'https://docs.webalf.de',
+					href: 'https://docs.slotbot.de',
 					iconClass: classes.wiki,
 				},
 				{
-					icon: faHouseUser,
-					href: 'https://armamachtbock.de',
+					icon: faCircleQuestion,
+					href: 'https://slotbot.de/support',
 					iconClass: classes.wiki,
 				},
 			];
