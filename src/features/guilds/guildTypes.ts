@@ -1,5 +1,4 @@
 import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
-import {EventTypeDto} from '../event/eventTypes';
 
 export interface GuildDto {
 	id: string;
@@ -20,12 +19,27 @@ interface AbstractDiscordIdEntityDto {
 
 export interface GuildConfigDto {
 	language: Language;
-	eventTypes: EventTypeDto[];
+	archiveChannel: string;
 }
 
 export enum Language {
 	DE = 'DE',
 	EN = 'EN'
+}
+
+export interface GuildDiscordIntegrationDto {
+	connected: boolean;
+	categories: DiscordCategory[];
+}
+
+interface DiscordCategory {
+	name: string;
+	textChannels: DiscordTextChannel[];
+}
+
+interface DiscordTextChannel {
+	id: string;
+	name: string;
 }
 
 export interface UserInGuildDto {

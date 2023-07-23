@@ -1,17 +1,10 @@
-import {Accordion, Group, Radio, Title} from '@mantine/core';
+import {Accordion, Box, Stack, Title} from '@mantine/core';
 import {T} from '../../../components/T';
-// @ts-ignore https://github.com/mantinedev/mantine-flagpack/pull/3
-import {DEFlag, GBFlag} from 'mantine-flagpack';
 import {GuildProps} from './Guild';
 import {useGetGuildConfig} from './useGetGuild';
-import {GuildConfigDto, Language} from '../guildTypes';
-import {useState} from 'react';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useMutation} from '@tanstack/react-query';
-import {AxiosError} from 'axios';
-import {errorNotification, successNotification} from '../../../utils/notificationHelper';
-import {useDidUpdate} from '@mantine/hooks';
 import {GuildEventTypes} from './GuildEventTypes';
+import {GuildLanguage} from './config/GuildLanguage';
+import {GuildArchive} from './config/GuildArchive';
 
 export function GuildConfig(props: GuildProps): JSX.Element {
 	const {guildId} = props;
@@ -21,11 +14,20 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 
 	return <>
 		<Title order={3}>Konfiguration</Title>
-		<Accordion>
-			<Accordion.Item value={'language'}>
-				<Accordion.Control><T k={'language'}/></Accordion.Control>
+		<Accordion variant={'separated'} mt={8}>
+			<Accordion.Item value={'integration.discord'}>
+				<Accordion.Control><T k={'integration.discord'}/></Accordion.Control>
 				<Accordion.Panel>
-					<GuildLanguage guildId={guildId} {...guildConfig}/>
+					<Stack>
+						<Box>
+							<Title order={4}><T k={'language'}/></Title>
+							<GuildLanguage guildId={guildId} {...guildConfig}/>
+						</Box>
+						<Box>
+							<Title order={4}><T k={'integration.discord'}/></Title>
+							<GuildArchive guildId={guildId} {...guildConfig}/>
+						</Box>
+					</Stack>
 				</Accordion.Panel>
 			</Accordion.Item>
 			<Accordion.Item value={'types'}>
@@ -38,41 +40,5 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 
 
 		<Title order={3} mt={'lg'}>Spieler</Title>
-	</>;
-}
-
-type GuildLanguageProps = GuildProps & GuildConfigDto;
-
-function GuildLanguage(props: GuildLanguageProps) {
-	const {guildId, language} = props;
-	const [selectedLanguage, setSelectedLanguage] = useState(language);
-	const [savedLanguage, setSavedLanguage] = useState(language);
-
-	const putGuildConfig = () => slotbotServerClient.put(`/guilds/${guildId}/config`, {language: selectedLanguage}).then((res) => res.data);
-	const {mutate} = useMutation<void, AxiosError>(putGuildConfig, {
-		onSuccess: () => {
-			setSavedLanguage(selectedLanguage);
-			successNotification(selectedLanguage);
-		},
-		onError: (...props) => {
-			setSelectedLanguage(savedLanguage);
-			errorNotification?.(...props);
-		},
-	});
-
-	useDidUpdate(() => {
-		selectedLanguage !== savedLanguage && mutate();
-	}, [selectedLanguage]);
-
-	return <>
-		<T k={'guild.language.description'}/>
-		<Radio.Group value={selectedLanguage} onChange={(value) => setSelectedLanguage(value as Language)} withAsterisk>
-			<Group mt={'sm'}>
-				<Radio value={Language.DE}
-					   label={<><DEFlag w={'1rem'} radius={'xs'}/> <T k={'language.german'}/></>}/>
-				<Radio value={Language.EN}
-					   label={<><GBFlag w={'1rem'} radius={'xs'}/> <T k={'language.english'}/></>}/>
-			</Group>
-		</Radio.Group>
 	</>;
 }
