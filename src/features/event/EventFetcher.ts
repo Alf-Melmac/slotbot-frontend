@@ -30,7 +30,7 @@ type EventDetailResult = (
 		)
 	& Pick<UseQueryResult<EventDetailsDto, Error>, "isLoading" | "error">;
 
-export function fetchEventDetails(eventId: string): EventDetailResult {
+export function useFetchEventDetails(eventId: string): EventDetailResult {
 	const getEventDetails = () => slotbotServerClient.get(`/events/${eventId}/details`).then((res) => res.data);
 	const query = useQuery<EventDetailsDto, Error>(['eventDetails', eventId], getEventDetails);
 	const queryStatus = {isLoading: query.isLoading, error: query.error};
@@ -46,7 +46,7 @@ type EventForEdit = {
 	event: EventEditDto | undefined;
 } & Pick<UseQueryResult<EventEditDto, Error>, "isLoading" | "error">;
 
-export function fetchEventForEdit(eventId: string): EventForEdit {
+export function useFetchEventForEdit(eventId: string): EventForEdit {
 	const getEventForEdit = () => slotbotServerClient.get(`/events/${eventId}/edit`).then((res) => res.data);
 	const query = useQuery<EventEditDto, Error>(['eventForEdit', eventId], getEventForEdit);
 	let event = query.data;

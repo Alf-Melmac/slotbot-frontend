@@ -22,7 +22,7 @@
     "@mantine/hooks": "^6.0.17",
     "@mantine/notifications": "^6.0.17",
     "@mantine/spotlight": "^6.0.17",
-    "@tanstack/react-query": "^4.29.25",
+    "@tanstack/react-query": "^4.32.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
@@ -39,13 +39,13 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
-    "@types/node": "^18.16.19",
-    "@types/react": "^18.2.15",
+    "@types/node": "^18.17.0",
+    "@types/react": "^18.2.16",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.0.3",
     "typescript": "^5.1.6",
-    "vite": "^4.4.5"
+    "vite": "^4.4.7"
   },
   "browserslist": {
     "production": [

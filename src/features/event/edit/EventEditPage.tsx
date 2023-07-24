@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
 import {EventPageParams} from '../EventRoutes';
-import {fetchEventForEdit} from '../EventFetcher';
+import {useFetchEventForEdit} from '../EventFetcher';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventEdit} from './EventEdit';
 import {useEffect, useState} from 'react';
@@ -17,12 +17,12 @@ export function EventEditPage(): JSX.Element {
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 
-	const {event, isLoading, error} = fetchEventForEdit(eventId);
+	const {event, isLoading, error} = useFetchEventForEdit(eventId);
 	useEffect(() => {
 		if (event) {
 			setTitle(event.name);
 		}
-	}, [event]);
+	}, [event?.name]);
 	if (isLoading) return <EventEditLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 

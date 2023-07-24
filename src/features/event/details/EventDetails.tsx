@@ -3,7 +3,7 @@ import {Alert, ColorSwatch, Group, Tabs, Text, useMantineTheme} from '@mantine/c
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
-import {fetchEventDetails} from '../EventFetcher';
+import {useFetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {GeneralError} from '../../../components/error/GeneralError';
@@ -26,12 +26,12 @@ export function EventDetails(): JSX.Element {
 	const theme = useMantineTheme();
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
 
-	const {event, eventDate, isLoading, error} = fetchEventDetails(eventId);
+	const {event, eventDate, isLoading, error} = useFetchEventDetails(eventId);
 	useEffect(() => {
 		if (event) {
 			setTitle(`${event.name} - ${event.eventType.name}`);
 		}
-	}, [event]);
+	}, [event?.name, event?.eventType.name]);
 	if (isLoading) return <EventDetailsLoading/>;
 	if (error || !event) return <GeneralError error={error}/>;
 
