@@ -1,16 +1,21 @@
 {
   "name": "slotbot-frontend",
   "version": "1.5.0",
-  "homepage": "https://alf-melmac.github.io/slotbot-frontend",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alf-Melmac/slotbot-frontend.git"
+  },
+  "homepage": "https://docs.slotbot.de",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@emotion/react": "^11.11.1",
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@fullcalendar/core": "^6.1.8",
     "@fullcalendar/daygrid": "^6.1.8",
@@ -22,7 +27,7 @@
     "@mantine/hooks": "^6.0.17",
     "@mantine/notifications": "^6.0.17",
     "@mantine/spotlight": "^6.0.17",
-    "@tanstack/react-query": "^4.32.0",
+    "@tanstack/react-query": "^4.32.6",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
@@ -38,14 +43,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^18.17.0",
-    "@types/react": "^18.2.16",
+    "@types/lodash": "^4.14.196",
+    "@types/node": "^18.17.3",
+    "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^4.0.3",
+    "@vitejs/plugin-react": "^4.0.4",
     "typescript": "^5.1.6",
-    "vite": "^4.4.7"
+    "vite": "^4.4.8"
   },
   "browserslist": {
     "production": [
