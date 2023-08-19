@@ -20,22 +20,22 @@
     "@fullcalendar/core": "^6.1.8",
     "@fullcalendar/daygrid": "^6.1.8",
     "@fullcalendar/react": "^6.1.8",
-    "@mantine/core": "^6.0.17",
-    "@mantine/dates": "^6.0.17",
-    "@mantine/dropzone": "^6.0.17",
-    "@mantine/form": "^6.0.17",
-    "@mantine/hooks": "^6.0.17",
-    "@mantine/notifications": "^6.0.17",
-    "@mantine/spotlight": "^6.0.17",
-    "@tanstack/react-query": "^4.32.6",
+    "@mantine/core": "^6.0.19",
+    "@mantine/dates": "^6.0.19",
+    "@mantine/dropzone": "^6.0.19",
+    "@mantine/form": "^6.0.19",
+    "@mantine/hooks": "^6.0.19",
+    "@mantine/notifications": "^6.0.19",
+    "@mantine/spotlight": "^6.0.19",
+    "@tanstack/react-query": "^4.33.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
     "mantine-flagpack": "^2.0.0",
-    "mantine-react-table": "^1.0.0",
+    "mantine-react-table": "^1.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.15.0"
   },
   "scripts": {
     "dev": "vite",
@@ -43,14 +43,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.196",
-    "@types/node": "^18.17.3",
-    "@types/react": "^18.2.18",
+    "@types/lodash": "^4.14.197",
+    "@types/node": "^18.17.6",
+    "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.0.4",
     "typescript": "^5.1.6",
-    "vite": "^4.4.8"
+    "vite": "^4.4.9"
   },
   "browserslist": {
     "production": [
