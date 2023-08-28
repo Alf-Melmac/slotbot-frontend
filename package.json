@@ -28,7 +28,7 @@
     "@mantine/notifications": "^6.0.19",
     "@mantine/spotlight": "^6.0.19",
     "@tanstack/react-query": "^4.33.0",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
     "mantine-flagpack": "^2.0.0",
