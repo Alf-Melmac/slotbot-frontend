@@ -24,7 +24,9 @@ updates:
           - "@fortawesome/react-fontawesome"
     ignore:
       - dependency-name: "@types/node"
-        versions: ["19.x", "20.x"]
+        versions: [ "19.x", "20.x" ] # LTS versions only
+      - dependency-name: "@mantine/*
+        versions: [ "7.x" ] # Major rework needed for new major version
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
