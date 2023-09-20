@@ -1,6 +1,6 @@
 import {AppShell, Box, Container, createStyles, Footer, Group, Header, MediaQuery} from "@mantine/core";
 import {Logo} from '../logo/Logo';
-import {faArrowRightToBracket, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
+import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
@@ -49,7 +49,11 @@ export function Nav(props: PropsWithChildren<NavProps>): JSX.Element {
 					<Container className={classes.inner}>
 						<Logo/>
 						<Box styles={{alignSelf: "flex-end"}}>
-							<Group noWrap>
+							<Group noWrap spacing={'xs'}>
+								<MediaQuery smallerThan={'xs'} styles={hidden}>
+									<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
+												 width={130}/>
+								</MediaQuery>
 								<MediaQuery smallerThan={'xs'} styles={hidden}>
 									<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
 												 width={110}/>
