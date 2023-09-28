@@ -1,14 +1,13 @@
 import {useGetEventTypes} from '../../event/action/generalInformation/useGetEventTypes';
-import {GuildProps} from './Guild';
 import {Badge, ColorSwatch, CopyButton, Table} from '@mantine/core';
 import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
 import {T} from '../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCopy} from '@fortawesome/free-regular-svg-icons';
+import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
 
-export function GuildEventTypes(props: GuildProps): JSX.Element {
-	const {guildId} = props;
-
+export function GuildEventTypes(): JSX.Element {
+	const {guildId} = useGuildPage();
 	const eventTypesQuery = useGetEventTypes(guildId);
 	const eventTypes = eventTypesQuery.data;
 

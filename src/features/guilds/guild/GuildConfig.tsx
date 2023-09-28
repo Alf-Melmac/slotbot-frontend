@@ -1,19 +1,19 @@
 import {Accordion, Box, Stack, Title} from '@mantine/core';
 import {T} from '../../../components/T';
-import {GuildProps} from './Guild';
 import {useGetGuildConfig} from './useGetGuild';
 import {GuildEventTypes} from './GuildEventTypes';
 import {GuildLanguage} from './config/GuildLanguage';
 import {GuildArchive} from './config/GuildArchive';
+import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
 
-export function GuildConfig(props: GuildProps): JSX.Element {
-	const {guildId} = props;
+export function GuildConfig(): JSX.Element {
+	const {guildId} = useGuildPage();
 	const guildConfigQuery = useGetGuildConfig(guildId);
 	const guildConfig = guildConfigQuery.data;
 	if (guildConfigQuery.isLoading || !guildConfig) return <></>;
 
 	return <>
-		<Title order={3}>Konfiguration</Title>
+		<Title order={3}><T k={'configuration'}/></Title>
 		<Accordion variant={'separated'} mt={8}>
 			<Accordion.Item value={'integration.discord'}>
 				<Accordion.Control><T k={'integration.discord'}/></Accordion.Control>
@@ -21,11 +21,11 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 					<Stack>
 						<Box>
 							<Title order={4}><T k={'language'}/></Title>
-							<GuildLanguage guildId={guildId} {...guildConfig}/>
+							<GuildLanguage {...guildConfig}/>
 						</Box>
 						<Box>
 							<Title order={4}><T k={'integration.discord'}/></Title>
-							<GuildArchive guildId={guildId} {...guildConfig}/>
+							<GuildArchive {...guildConfig}/>
 						</Box>
 					</Stack>
 				</Accordion.Panel>
@@ -33,12 +33,12 @@ export function GuildConfig(props: GuildProps): JSX.Element {
 			<Accordion.Item value={'types'}>
 				<Accordion.Control><T k={'event.eventTypes'}/></Accordion.Control>
 				<Accordion.Panel>
-					<GuildEventTypes guildId={guildId}/>
+					<GuildEventTypes/>
 				</Accordion.Panel>
 			</Accordion.Item>
 		</Accordion>
 
 
-		<Title order={3} mt={'lg'}>Spieler</Title>
+		<Title order={3} mt={'lg'}><T k={'members'}/></Title>
 	</>;
 }

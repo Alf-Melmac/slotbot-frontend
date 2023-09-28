@@ -14,3 +14,7 @@ export const guildRoutes: RouteObject[] = [
 	},
 	notFoundRoute,
 ];
+
+export type GuildPageParams = {
+	guildId: string;
+};

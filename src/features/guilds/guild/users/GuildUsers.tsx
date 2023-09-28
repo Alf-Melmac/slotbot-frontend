@@ -1,37 +1,37 @@
-import {Avatar, Group} from '@mantine/core';
-import {GuildProps} from './Guild';
-import {AnchorLink} from '../../../components/Text/AnchorLink';
-import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
-import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
-import {AddButton} from '../../../components/Button/AddButton';
-import {voidFunction} from '../../../hooks/slotbotServerClient';
-import {useGetGuildUsers} from './useGetGuild';
-import {RemoveGuildUser} from './RemoveGuildUser';
+import {AddButton} from '../../../../components/Button/AddButton';
+import {voidFunction} from '../../../../hooks/slotbotServerClient';
+import {useGetGuildUsers} from '../useGetGuild';
 import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
-import {UserInGuildDto} from '../guildTypes';
+import {UserInGuildDto} from '../../guildTypes';
 import {ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {useLanguage} from '../../../contexts/language/Language';
-import {MRTable} from '../../../components/Table/MRTable';
+import {useLanguage} from '../../../../contexts/language/Language';
+import {MRTable} from '../../../../components/Table/MRTable';
+import {GuildUser} from './GuildUser';
+import {RemoveGuildUser} from './RemoveGuildUser';
+import {GuildUserRole} from './GuildUserRole';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
-export function GuildUsers(props: GuildProps): JSX.Element {
-	const {guildId} = props;
+export function GuildUsers(): JSX.Element {
+	const {guildId, isAdmin} = useGuildPage();
 	const {data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching} = useGetGuildUsers(guildId);
-	const isAdmin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, guildId);
 	const {t} = useLanguage();
 
 	const columns: MRT_ColumnDef<UserInGuildDto>[] = useMemo(() => {
 		const columnsDef: MRT_ColumnDef<UserInGuildDto>[] = [
 			{
-				accessorKey: 'user.name',
 				header: t('user.name'),
 				Cell: GuildUser,
+			},
+			{
+				header: t('user.role'),
+				Cell: GuildUserRole,
 			},
 		];
 		if (isAdmin) {
 			columnsDef.push({
 				id: 'guild-user-action',
 				header: '',
-				Cell: (props) => <GuildUserAction guildId={guildId} {...props}/>,
+				Cell: RemoveGuildUser,
 			});
 		}
 		return columnsDef;
@@ -72,28 +72,7 @@ export function GuildUsers(props: GuildProps): JSX.Element {
 	</>;
 }
 
-type TableCellProps = {
+export type TableCellProps = {
 	renderedCellValue: ReactNode;
 	row: MRT_Row<UserInGuildDto>;
-}
-
-function GuildUser(props: TableCellProps): JSX.Element {
-	const {renderedCellValue, row} = props;
-	const {user} = row.original;
-
-	return <AnchorLink to={`/profile/${user.id}`}>
-		<Group spacing={'sm'}>
-			<Avatar src={user.avatarUrl} radius={40}/>
-			{renderedCellValue}
-		</Group>
-	</AnchorLink>;
-}
-
-function GuildUserAction(props: TableCellProps & GuildProps): JSX.Element {
-	const {row, guildId} = props;
-	const {user} = row.original;
-
-	return <Group position={'right'}>
-		<RemoveGuildUser guildId={guildId} userId={user.id}/>
-	</Group>;
 }

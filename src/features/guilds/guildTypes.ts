@@ -42,6 +42,13 @@ interface DiscordTextChannel {
 	name: string;
 }
 
+export enum Role {
+	SYSTEM_ADMIN = 'SYSTEM_ADMIN',
+	ADMINISTRATOR = 'ADMINISTRATOR',
+	EVENT_MANAGE = 'EVENT_MANAGE',
+}
+
 export interface UserInGuildDto {
 	user: DiscordUserDto;
+	role: Role;
 }
