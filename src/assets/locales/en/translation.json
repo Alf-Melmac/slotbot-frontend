@@ -140,6 +140,8 @@
   "regex.hours": "\\s?hours?",
   "regex.minutes": "\\s?minutes?",
   "search": "Search",
+  "session.expired": "Session expired",
+  "session.expired.description": "Your session has expired. Please log in again.",
   "slot": "Slot",
   "slot.add": "Add Slot",
   "slot.blocked": "Blocked",

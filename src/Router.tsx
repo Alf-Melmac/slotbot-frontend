@@ -7,6 +7,7 @@ import {NotAllowed} from './features/error/NotAllowed';
 import {guildRoutes} from './features/guilds/GuildRoutes';
 import {GuildsPage} from './features/guilds/GuildsPage';
 import {StandardPage} from './features/StandardPage';
+import {SessionExpired} from './features/error/SessionExpired';
 
 export const routes: RouteObject[] = [
 	{
@@ -35,6 +36,14 @@ export const routes: RouteObject[] = [
 		children: [{
 			path: '*',
 			element: <NotAllowed/>,
+		}],
+	},
+	{
+		path: 'session-expired/*',
+		element: <StandardPage/>,
+		children: [{
+			path: '*',
+			element: <SessionExpired/>,
 		}],
 	},
 	{
