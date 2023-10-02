@@ -33,7 +33,6 @@ export interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	reservedFor: GuildDto;
 	slotList: EventDetailsSlotDto[];
 	notEmpty: boolean;
-	reserve: boolean;
 }
 
 interface EventDetailsSlotDto extends AbstractIdEntityDto {

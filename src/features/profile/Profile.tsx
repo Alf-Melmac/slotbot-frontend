@@ -5,14 +5,11 @@ import {UserProfileDto} from './profileTypes';
 import {ProfileInfo} from './ProfileInfo';
 import {ProfileInfoLoading} from './loading/ProfileInfoLoading';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
-
-type ProfileProps = {
-	userId: string
-};
+import {ProfilePageParams} from './ProfileRoutes';
 
 export function Profile(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.profile');
-	const {userId} = useParams<ProfileProps>();
+	const {userId} = useParams<ProfilePageParams>();
 	if (!userId) throw Error('Invalid state: User id required');
 
 	const getProfileInfo = () => slotbotServerClient.get(`/user/${userId}`).then((res) => res.data);
