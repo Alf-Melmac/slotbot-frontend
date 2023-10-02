@@ -9,7 +9,7 @@ import {SpotlightAction} from '@mantine/spotlight';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Dispatch, SetStateAction, useEffect} from 'react';
 import {SearchControl} from './SearchControl';
-import {GuildProps} from './guild/Guild';
+import {GuildPageParams} from './GuildRoutes';
 
 const useStyles = createStyles((theme) => ({
 	guildButton: {
@@ -23,7 +23,7 @@ type GuildsNavbarProps = {
 };
 
 export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
-	const {guildId} = useParams<GuildProps>();
+	const {guildId} = useParams<GuildPageParams>();
 	const {classes} = useStyles();
 	const guildsQuery = useGetGuilds();
 	const navigate = useNavigate();

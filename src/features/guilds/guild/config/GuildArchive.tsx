@@ -1,4 +1,3 @@
-import {GuildProps} from '../Guild';
 import {GuildConfigDto} from '../../guildTypes';
 import {useGetDiscordIntegration} from '../useGetGuild';
 import {T} from '../../../../components/T';
@@ -13,6 +12,7 @@ import {useDidUpdate} from '@mantine/hooks';
 import {AnchorBlank} from '../../../../components/Text/AnchorBlank';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDiscord} from '@fortawesome/free-brands-svg-icons';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
 const useStyles = createStyles(() => ({
 	group: {
@@ -21,10 +21,9 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-type GuildArchiveProps = GuildProps & GuildConfigDto;
-
-export function GuildArchive(props: GuildArchiveProps): JSX.Element {
-	const {guildId, archiveChannel} = props;
+export function GuildArchive(props: GuildConfigDto): JSX.Element {
+	const {archiveChannel} = props;
+	const {guildId} = useGuildPage();
 	const {classes} = useStyles();
 	const {t} = useLanguage();
 
@@ -48,8 +47,8 @@ export function GuildArchive(props: GuildArchiveProps): JSX.Element {
 	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60}/>;
 	const {connected, categories} = integrationQuery.data;
 	if (!connected) return <Button color={'blue'} mt={3}
-								  leftIcon={<FontAwesomeIcon icon={faDiscord}/>}
-								  component={AnchorBlank} href={'https://slotbot.de/invite'}>
+								   leftIcon={<FontAwesomeIcon icon={faDiscord}/>}
+								   component={AnchorBlank} href={'https://slotbot.de/invite'}>
 		<T k={'integration.discord.invite'}/>
 	</Button>;
 

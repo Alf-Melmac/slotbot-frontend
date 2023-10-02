@@ -1,4 +1,3 @@
-import {GuildProps} from '../Guild';
 import {GuildConfigDto, Language} from '../../guildTypes';
 import {useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
@@ -9,11 +8,11 @@ import {useDidUpdate} from '@mantine/hooks';
 import {Group, Radio} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {DEFlag, GBFlag} from 'mantine-flagpack';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
-type GuildLanguageProps = GuildProps & GuildConfigDto;
-
-export function GuildLanguage(props: GuildLanguageProps): JSX.Element {
-	const {guildId, language} = props;
+export function GuildLanguage(props: GuildConfigDto): JSX.Element {
+	const {language} = props;
+	const guildId = useGuildPage();
 	const [selectedLanguage, setSelectedLanguage] = useState(language);
 	const [savedLanguage, setSavedLanguage] = useState(language);
 

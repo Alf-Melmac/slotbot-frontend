@@ -1,6 +1,6 @@
 import {createStyles, Image, Paper, SimpleGrid, Stack, Title} from '@mantine/core';
 import {AnchorBlank} from '../../../components/Text/AnchorBlank';
-import {GuildUsers} from './GuildUsers';
+import {GuildUsers} from './users/GuildUsers';
 import {T} from '../../../components/T';
 import {useParams} from 'react-router-dom';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
@@ -13,6 +13,8 @@ import {useEffect, useState} from 'react';
 import {GuildDetailsDto} from '../guildTypes';
 import {NotFound} from '../../error/NotFound';
 import {GuildLoading} from './GuildLoading';
+import {GuildPageProvider} from '../../../contexts/guild/GuildPageContext';
+import {GuildPageParams} from '../GuildRoutes';
 
 export const useGuildStyles = createStyles((theme) => ({
 	guildCard: {
@@ -20,13 +22,9 @@ export const useGuildStyles = createStyles((theme) => ({
 	},
 }));
 
-export type GuildProps = {
-	guildId: string;
-};
-
 export function Guild(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.guild');
-	const {guildId} = useParams<GuildProps>();
+	const {guildId} = useParams<GuildPageParams>();
 	if (!guildId) throw Error('Invalid state: Guild id required');
 
 	const {classes} = useGuildStyles();
@@ -78,11 +76,14 @@ export function Guild(): JSX.Element {
 				</Stack>
 			</Paper>
 
-			{isAdmin &&
-                <GuildConfig guildId={guildId}/>
-			}
+			<GuildPageProvider guildId={guildId} isAdmin={isAdmin}>
+				{isAdmin &&
+                    <GuildConfig/>
+				}
 
-			<GuildUsers guildId={guildId}/>
+				<GuildUsers/>
+			</GuildPageProvider>
+
 		</>
 	);
 }

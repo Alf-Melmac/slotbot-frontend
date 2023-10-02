@@ -21,3 +21,7 @@ export const profileRoutes: RouteObject[] = [
 	},
 	notFoundRoute,
 ];
+
+export type ProfilePageParams = {
+	userId: string
+};
