@@ -9,7 +9,7 @@ import {useQuery} from '@tanstack/react-query';
  */
 export function useCheckAccess(authority?: ApplicationRoles, guildId?: string): boolean {
 	const {accessAllowed} = useCheckAccessQuery(authority, guildId);
-	return accessAllowed || false;
+	return accessAllowed ?? false;
 }
 
 export function useCheckAccessQuery(authority?: ApplicationRoles, guildId?: string) {
