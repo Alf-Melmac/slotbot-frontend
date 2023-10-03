@@ -20,6 +20,9 @@ interface AbstractDiscordIdEntityDto {
 export interface GuildConfigDto {
 	language: Language;
 	archiveChannel: string;
+	memberRole: string;
+	eventManageRole: string;
+	adminRole: string;
 }
 
 export enum Language {
@@ -30,6 +33,7 @@ export enum Language {
 export interface GuildDiscordIntegrationDto {
 	connected: boolean;
 	categories: DiscordCategory[];
+	roles: DiscordRole[];
 }
 
 interface DiscordCategory {
@@ -38,6 +42,11 @@ interface DiscordCategory {
 }
 
 interface DiscordTextChannel {
+	id: string;
+	name: string;
+}
+
+interface DiscordRole {
 	id: string;
 	name: string;
 }

@@ -44,7 +44,7 @@ export function GuildArchive(props: GuildConfigDto): JSX.Element {
 	if (integrationQuery.isError) return <TextInput label={<T k={'guild.config.archive.description'}/>}
 													error={<T k={'guild.config.archive.loadingError'}/>}
 													disabled value={archive ?? '—'}/>;
-	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60}/>;
+	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60.8}/>;
 	const {connected, categories} = integrationQuery.data;
 	if (!connected) return <Button color={'blue'} mt={3}
 								   leftIcon={<FontAwesomeIcon icon={faDiscord}/>}
