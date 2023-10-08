@@ -1,5 +1,5 @@
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useEventPage} from '../../../contexts/event/EventPageContext';
 import {EventEditDto} from '../eventTypes';
@@ -11,6 +11,7 @@ import {useEffect} from 'react';
 import {convertUtcDateTimeToLocal} from '../../../utils/dateHelper';
 
 export function useEventTextChange(formPath: string, value: string, onSuccess?: (saved: string) => void) {
+	const queryClient = useQueryClient();
 	const eventId = useEventPage();
 	const postTextChange = () => slotbotServerClient.put(`/events/${eventId}/edit/text`, {
 		[formPath]: value,
@@ -21,6 +22,7 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 			onSuccess?.(response[formPath]);
 			// @ts-ignore
 			successNotification(response[formPath]);
+			queryClient.invalidateQueries({queryKey: ['eventForEdit', eventId]});
 		},
 		onError: errorNotification,
 	});
@@ -29,12 +31,14 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 }
 
 export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) => void) {
+	const queryClient = useQueryClient();
 	const eventId = useEventPage();
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}`, data).then((res) => res.data);
 	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
 		onSuccess: (response: EventEditDto) => {
 			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
 			successNotification();
+			queryClient.invalidateQueries({queryKey: ['eventForEdit', eventId]});
 		},
 		onError: errorNotification,
 	});
