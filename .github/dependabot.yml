@@ -22,6 +22,9 @@ updates:
           - "@fortawesome/*"
         exclude-patterns:
           - "@fortawesome/react-fontawesome"
+      fullcalendar:
+        patterns:
+          - "@fullcalendar/*"
     ignore:
       - dependency-name: "@types/node"
         versions: [ "19.x", "20.x" ] # LTS versions only
