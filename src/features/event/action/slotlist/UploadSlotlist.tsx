@@ -62,10 +62,6 @@ const useStyles = createStyles((theme, hasError: boolean) => ({
 				theme.colors[theme.primaryColor][4],
 		},
 	},
-
-	acceptIcon: {
-		color: theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6],
-	},
 }));
 
 type SqmDropzoneProps = {
