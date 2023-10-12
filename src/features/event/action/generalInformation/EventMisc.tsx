@@ -1,12 +1,12 @@
 import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
 import {EventActionTextarea} from '../EventActionTextarea';
 import {Grid, Select} from '@mantine/core';
-import {EventActionTextInput} from '../EventActionTextInput';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useChangeWatcher} from '../useEventUpdate';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {EventActionUpload} from '../EventActionUpload';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();
@@ -37,8 +37,9 @@ export function EventMisc(): JSX.Element {
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
 			<Grid.Col span={4}>
-				<EventActionTextInput inputProps={{
+				<EventActionUpload inputProps={{
 					label: 'event.pictureUrl',
+					placeholder: 'https://',
 					maxLength: URL,
 				}} formPath={'pictureUrl'}/>
 			</Grid.Col>

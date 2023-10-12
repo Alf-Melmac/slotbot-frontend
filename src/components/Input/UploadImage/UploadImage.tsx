@@ -1,16 +1,15 @@
 import {useEffect, useState} from 'react';
 import {Anchor, createStyles, Group, Input, InputWrapperBaseProps, Stack, Text, useMantineTheme} from '@mantine/core';
-import slotbotServerClient from '../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {T} from '../T';
+import {T} from '../../T';
 import {Dropzone, MIME_TYPES} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileCircleXmark, faFileImport} from '@fortawesome/free-solid-svg-icons';
 import {faImage} from '@fortawesome/free-regular-svg-icons';
-import {successNotification} from '../../utils/notificationHelper';
 import {FileRejection} from 'react-dropzone';
-import {useLanguage} from '../../contexts/language/Language';
+import {useLanguage} from '../../../contexts/language/Language';
 
 const useStyles = createStyles((theme, hasError: boolean) => ({
 	dropzone: {
@@ -23,7 +22,11 @@ const useStyles = createStyles((theme, hasError: boolean) => ({
 	},
 }));
 
-export function UploadImage(): JSX.Element {
+export type UploadImageProps = {
+	onSuccess?: (fileUrl: string) => void;
+}
+
+export function UploadImage(props: UploadImageProps): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
 	const [hasError, setHasError] = useState(false);
@@ -43,7 +46,7 @@ export function UploadImage(): JSX.Element {
 			setLoading(true);
 		},
 		onSuccess: fileUrl => {
-			successNotification(fileUrl);
+			props.onSuccess?.(fileUrl);
 		},
 		onError: error => {
 			setError(error.message);
