@@ -4,11 +4,20 @@ import {Autocomplete, AutocompleteProps, Textarea, TextareaProps, TextInput, Tex
 import {TextInputMaxLength} from '../MaxLength/TextInputMaxLength';
 import {VerticalTextarea} from '../VerticalTextarea';
 import {TextareaMaxLength} from '../MaxLength/TextareaMaxLength';
+import {TextInputAndUpload} from '../TextInputAndUpload';
+import {TextInputAndUploadMaxLength} from '../MaxLength/TextInputAndUploadMaxLength';
 
 type InlineEditableTextProps = PartialBy<InlineEditableProps<TextInputProps>, 'viewModeComponent' | 'editModeComponent'>;
 export function InlineEditableText(props: InlineEditableTextProps): JSX.Element {
 	return <InlineEditable viewModeComponent={TextInput}
 						   editModeComponent={TextInput} editModeMaxLengthComponent={TextInputMaxLength}
+						   {...props}/>;
+}
+
+export function InlineEditableTextAndUpload(props: InlineEditableTextProps): JSX.Element {
+	return <InlineEditable viewModeComponent={TextInput}
+						   editModeComponent={TextInputAndUpload}
+						   editModeMaxLengthComponent={TextInputAndUploadMaxLength}
 						   {...props}/>;
 }
 

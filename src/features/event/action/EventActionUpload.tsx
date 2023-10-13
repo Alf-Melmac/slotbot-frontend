@@ -1,13 +1,13 @@
 import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
 import {Box, Group, TextInputProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 import {useState} from 'react';
 import {useEventTextChange} from './useEventUpdate';
-import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditables';
+import {InlineEditableTextAndUpload} from '../../../components/Input/InlineEditable/InlineEditables';
 import {TextKey} from '../../../contexts/language/Language';
 import {useTranslationIfPresent} from '../../../utils/translationHelper';
 import {ImageUploadModal} from '../../../components/Input/UploadImage/ImageUploadModal';
+import {useEditMode} from '../../../contexts/event/action/EditModeContext';
 
 interface TranslatableTextInputProps extends TextInputProps {
 	label?: TextKey;
@@ -30,17 +30,17 @@ export function EventActionUpload(props: FormTextInputProps): JSX.Element {
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
-	return <Group spacing={'xs'} grow noWrap>
-		<Box maw={'unset !important'}>
-			{useEditMode() ?
-				<InlineEditableText {...translatedInputProps} position={'group'} {...formInputProps}
-									onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
-				:
-				<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
-			}
-		</Box>
-		{useEditMode() ||
-            <ImageUploadModal onSuccess={fileUrl => form.setFieldValue('pictureUrl', fileUrl)}/>
-		}
-	</Group>;
+	return (
+		useEditMode() ?
+			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} noWrap {...formInputProps}
+										 onSubmit={() => mutate()}
+										 onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+			:
+			<Group spacing={'xs'} grow noWrap>
+				<Box maw={'unset !important'}>
+					<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
+				</Box>
+				<ImageUploadModal onSuccess={fileUrl => form.setFieldValue('pictureUrl', fileUrl)}/>
+			</Group>
+	);
 }

@@ -8,6 +8,10 @@ import {faCheck, faPen, faXmark} from '@fortawesome/free-solid-svg-icons';
 type EditableInputProps = TextInputProps | TextareaProps | AutocompleteProps;
 export type InlineEditableProps<InputProps extends EditableInputProps> = InputProps & {
 	position?: 'stack' | 'group';
+	/**
+	 * Pass noWrap to the group containing the input and buttons in edit mode and the action buttons.
+	 */
+	noWrap?: boolean;
 	onSubmit: () => void;
 	onCancel: () => void;
 	viewModeComponent: any;
@@ -20,7 +24,7 @@ function filterComponentsProps<InputProps extends EditableInputProps>(props: Inl
 }
 
 export function InlineEditable<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): JSX.Element {
-	const {viewModeComponent: ViewMode, onFocus, position = 'stack', onSubmit, onCancel} = props;
+	const {viewModeComponent: ViewMode, onFocus, position = 'stack', noWrap, onSubmit, onCancel} = props;
 
 	const [viewMode, setViewMode] = useState(true);
 
@@ -53,7 +57,7 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Inl
                     </Stack>}
 
 				{position === 'group' &&
-                    <Group spacing={'xs'} ref={ref}>
+                    <Group spacing={'xs'} noWrap={noWrap} ref={ref}>
 						{/*@ts-ignore*/}
                         <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Group>
@@ -66,6 +70,7 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Inl
 function EditMode<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): JSX.Element {
 	const {
 		position,
+		noWrap,
 		label,
 		editModeComponent: EditMode,
 		maxLength,
@@ -86,7 +91,7 @@ function EditMode<InputProps extends EditableInputProps>(props: InlineEditablePr
 				<EditMode {...filterComponentsProps(props)} autoFocus/>
 			}
 		</Box>
-		<Group position={'right'} spacing={'xs'} mt={marginTop}>
+		<Group position={'right'} spacing={'xs'} noWrap={noWrap} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
 			</ActionIcon>
