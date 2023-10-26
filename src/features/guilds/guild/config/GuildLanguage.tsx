@@ -12,7 +12,7 @@ import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
 export function GuildLanguage(props: GuildConfigDto): JSX.Element {
 	const {language} = props;
-	const guildId = useGuildPage();
+	const {guildId} = useGuildPage();
 	const [selectedLanguage, setSelectedLanguage] = useState(language);
 	const [savedLanguage, setSavedLanguage] = useState(language);
 
