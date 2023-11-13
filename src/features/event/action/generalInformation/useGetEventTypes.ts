@@ -5,5 +5,8 @@ import {EventTypeDto} from '../../eventTypes';
 export function useGetEventTypes(guildId?: string): UseQueryResult<EventTypeDto[], Error> {
 	const guild = guildId ? `/${guildId}` : '';
 	const getEventTypes = () => slotbotServerClient.get(`/events/types${guild}`).then((res) => res.data);
-	return useQuery<EventTypeDto[], Error>(['eventTypes', guildId], getEventTypes);
+	return useQuery<EventTypeDto[], Error>({
+		queryKey: ['eventTypes', guildId],
+		queryFn: getEventTypes,
+	});
 }

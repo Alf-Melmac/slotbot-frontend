@@ -16,7 +16,8 @@ export function RemoveGuildUser(props: TableCellProps): JSX.Element {
 
 	const queryClient = useQueryClient();
 	const deleteGuildUser = () => slotbotServerClient.delete(`/guilds/${guildId}/users/${(user.id)}`).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(deleteGuildUser, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: deleteGuildUser,
 		onSuccess: () => {
 			queryClient.invalidateQueries({queryKey: ['guildUsers', guildId]});
 			showNotification({

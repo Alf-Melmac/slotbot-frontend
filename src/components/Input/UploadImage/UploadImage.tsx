@@ -41,7 +41,8 @@ export function UploadImage(props: UploadImageProps): JSX.Element {
 	const postImageFile = () => slotbotServerClient.post('/files/uploadImage', formData, {
 		headers: {'Content-Type': 'multipart/form-data'},
 	}).then((res) => res.data);
-	const {mutate} = useMutation<string, AxiosError>(postImageFile, {
+	const {mutate} = useMutation<string, AxiosError>({
+		mutationFn: postImageFile,
 		onMutate: () => {
 			setLoading(true);
 		},

@@ -23,7 +23,8 @@ export function ProfileSteamId(props: ProfileSteamIdProps): JSX.Element {
 	});
 
 	const postSteamId = () => slotbotServerClient.put(`/user/steamid/${form.values.steamId}`).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(postSteamId, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: postSteamId,
 		onSuccess: () => {
 			setSavedSteamId(form.values.steamId);
 			successNotification();

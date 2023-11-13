@@ -22,7 +22,9 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 		setShouldUpdate(!!copyEvent && !updated);
 	}, [copyEvent, updated]);
 	const getEventForCopy = () => slotbotServerClient.get(`/events/${copyEvent}/copy`).then((res) => res.data);
-	const query = useQuery<EventPostDto, AxiosError>(['copyEvent', copyEvent], getEventForCopy, {
+	const query = useQuery<EventPostDto, AxiosError>({
+		queryKey: ['copyEvent', copyEvent],
+		queryFn: getEventForCopy,
 		enabled: shouldUpdate,
 	});
 

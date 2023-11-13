@@ -32,7 +32,10 @@ export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
 	let ownProfileInfo;
 	if (ownProfile) {
 		const getOwnProfileInfo = () => slotbotServerClient.get('/user/own').then((res) => res.data);
-		const query = useQuery<UserOwnProfileDto, Error>(['ownProfile'], getOwnProfileInfo);
+		const query = useQuery<UserOwnProfileDto, Error>({
+			queryKey: ['ownProfile'],
+			queryFn: getOwnProfileInfo,
+		});
 		ownProfileInfo = query.data;
 	}
 

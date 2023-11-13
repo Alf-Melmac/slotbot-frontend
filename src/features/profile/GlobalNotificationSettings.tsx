@@ -26,8 +26,9 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
 	const postNotificationSettings = () => slotbotServerClient.put('/notifications/own', form.values.notificationSettings).then((res) => res.data);
 	const {
 		mutate,
-		isLoading,
-	} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>(postNotificationSettings, {
+		isPending,
+	} = useMutation<UserOwnProfileDto['notificationSettings'], AxiosError>({
+		mutationFn: postNotificationSettings,
 		onSuccess: (data) => {
 			const noOfNotifications = data.length;
 			successNotification(noOfNotifications === 0
@@ -74,7 +75,7 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
                     <ElementWithInfo
                         text={<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
 														 disabled={!form.isDirty()} tooltip={'noChanges'}
-														 loading={isLoading}>
+														 loading={isPending}>
 							<T k={'notifications.save'}/></ButtonWithDisabledTooltip>
 						}
                         tooltip={<T k={'profile.notifications.save.tooltip'}/>}

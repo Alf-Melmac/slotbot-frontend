@@ -38,7 +38,8 @@ export function useEventSave() {
 
 	const postEvent = () => slotbotServerClient.post('/events', eventPost).then((res) => res.data);
 	const navigate = useNavigate();
-	const {mutate} = useMutation<number, AxiosError>(postEvent, {
+	const {mutate} = useMutation<number, AxiosError>({
+		mutationFn: postEvent,
 		onSuccess: data => {
 			navigate(generatePath('/events/:eventId', {eventId: data.toString()}));
 		},

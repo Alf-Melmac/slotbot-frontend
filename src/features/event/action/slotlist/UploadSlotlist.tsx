@@ -83,7 +83,8 @@ function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
 
 	const form = useFormContext();
 	const postSlotlist = () => slotbotServerClient.post('/files/uploadSqm', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => res.data);
-	const {mutate} = useMutation<SquadDto[], AxiosError>(postSlotlist, {
+	const {mutate} = useMutation<SquadDto[], AxiosError>({
+		mutationFn: postSlotlist,
 		onMutate: () => {
 			setLoading(true);
 		},

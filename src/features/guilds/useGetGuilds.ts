@@ -4,5 +4,8 @@ import {GuildDto} from './guildTypes';
 
 export function useGetGuilds(): UseQueryResult<Array<GuildDto>, Error> {
 	const getGuilds = () => slotbotServerClient.get('/guilds').then((res) => res.data);
-	return useQuery<Array<GuildDto>, Error>(['guilds'], getGuilds);
+	return useQuery({
+		queryKey: ['guilds'],
+		queryFn: getGuilds,
+	});
 }

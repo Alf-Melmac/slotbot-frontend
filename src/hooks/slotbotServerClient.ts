@@ -1,10 +1,30 @@
 import axios from 'axios';
 import {getBackendUrl} from '../utils/urlHelper';
+import {showNotification} from '@mantine/notifications';
 
 const slotbotServerClient = axios.create({
 	baseURL: getBackendUrl(),
 	withCredentials: true,
 });
+
+// Workaround https://github.com/axios/axios/pull/6028: Attach XSRF token to requests
+slotbotServerClient.interceptors.request.use((config) => {
+	if (config.url?.startsWith('/')) { // Only attach XSRF token to relative URLs
+		const token = readCookie(config.xsrfCookieName ?? 'XSRF-TOKEN');
+		if (token) {
+			config.headers[config.xsrfHeaderName ?? 'X-XSRF-TOKEN'] = token;
+		}
+	}
+	return config;
+});
+
+/**
+ * @see node_modules/axios/lib/helpers/cookies.js
+ */
+function readCookie(name: string): string | null {
+	const match = new RegExp('(^|;\\s*)(' + name + ')=([^;]*)').exec(document.cookie);
+	return match ? decodeURIComponent(match[3]) : null;
+}
 
 slotbotServerClient.interceptors.response.use(
 	(response) => {

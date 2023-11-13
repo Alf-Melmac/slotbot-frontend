@@ -43,7 +43,8 @@ export function GuildUserRole(props: TableCellProps): JSX.Element {
 	const {guildId, isAdmin} = useGuildPage();
 	const putRole = () => slotbotServerClient.put(`/guilds/${guildId}/users/${user.id}`, selectedRole,
 		{headers: {'Content-Type': 'text/plain'}}).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(putRole, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: putRole,
 		onSuccess: () => {
 			successNotification();
 		},

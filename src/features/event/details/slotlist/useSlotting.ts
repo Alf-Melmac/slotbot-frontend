@@ -20,13 +20,13 @@ export function useSlotting(id: EventSlotlistSlotProps['slot']['id']) {
 	const putSlotting = () => slotbotServerClient.put(`/events/slotting/${id}`).then((res) => res.data);
 	const {
 		mutate: mutateSlotting,
-		isLoading: slottingLoading,
-	} = useMutation<EventDetailsDto, AxiosError>(putSlotting, mutationOptions);
+		isPending: slottingLoading,
+	} = useMutation<EventDetailsDto, AxiosError>({mutationFn: putSlotting, ...mutationOptions});
 	const putUnslotting = () => slotbotServerClient.put(`/events/unslotting/${id}`).then((res) => res.data);
 	const {
 		mutate: mutateUnslotting,
-		isLoading: unslottingLoading,
-	} = useMutation<EventDetailsDto, AxiosError>(putUnslotting, mutationOptions);
+		isPending: unslottingLoading,
+	} = useMutation<EventDetailsDto, AxiosError>({mutationFn: putUnslotting, ...mutationOptions});
 
 	useEffect(() => {
 		if (slottingLoading || unslottingLoading) {

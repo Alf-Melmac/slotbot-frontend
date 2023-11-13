@@ -52,7 +52,8 @@ function RoleSelect(props: RoleSelectType): JSX.Element {
 	const {t} = useLanguage();
 
 	const putGuildConfig = () => slotbotServerClient.put(`/guilds/${guildId}/config`, {[`${roleName}Role`]: role}).then((res) => res.data);
-	const {mutate} = useMutation<void, AxiosError>(putGuildConfig, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: putGuildConfig,
 		onSuccess: () => {
 			successNotification();
 		},
@@ -75,9 +76,9 @@ function RoleSelect(props: RoleSelectType): JSX.Element {
 function RoleSelectLoadingError(props: Pick<RoleSelectType, 'roleName' | 'role'>): JSX.Element {
 	const {roleName, role} = props;
 
-	return <TextInput label={<T k={`user.role.${roleName}`}/>} description={<T k={`user.role.${roleName}.description`}/>}
-				   error={<T k={'guild.config.role.loadingError'}/>}
-				   disabled value={role ?? '—'}/>;
+	return <TextInput label={<T k={`user.role.${roleName}`}/>}
+					  description={<T k={`user.role.${roleName}.description`}/>}
+					  error={<T k={'guild.config.role.loadingError'}/>} disabled value={role ?? '—'}/>;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -94,7 +95,8 @@ function GuildRolesPageWrapper(props: PropsWithChildren): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Box>
-		<Spoiler maxHeight={22} hideLabel={<T k={'spoiler.less'}/>} showLabel={<T k={'spoiler.more'}/>} className={classes.description}>
+		<Spoiler maxHeight={22} hideLabel={<T k={'spoiler.less'}/>} showLabel={<T k={'spoiler.more'}/>}
+				 className={classes.description}>
 			<T k={'guild.config.roles.description'}/>
 		</Spoiler>
 		<Group grow>

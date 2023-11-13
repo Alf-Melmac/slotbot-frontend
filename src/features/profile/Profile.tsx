@@ -13,7 +13,10 @@ export function Profile(): JSX.Element {
 	if (!userId) throw Error('Invalid state: User id required');
 
 	const getProfileInfo = () => slotbotServerClient.get(`/user/${userId}`).then((res) => res.data);
-	const query = useQuery<UserProfileDto, Error>(['user', userId], getProfileInfo);
+	const query = useQuery<UserProfileDto, Error>({
+		queryKey: ['user', userId],
+		queryFn: getProfileInfo,
+	});
 	const profileInfo = query.data;
 
 	return <>

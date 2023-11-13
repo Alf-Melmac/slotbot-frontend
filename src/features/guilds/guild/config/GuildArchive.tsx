@@ -29,7 +29,8 @@ export function GuildArchive(props: GuildConfigDto): JSX.Element {
 
 	const [archive, setArchive] = useState<string | null>(archiveChannel);
 	const putGuildConfig = () => slotbotServerClient.put(`/guilds/${guildId}/config`, {archiveChannel: archive}).then((res) => res.data);
-	const {mutate} = useMutation<void, AxiosError>(putGuildConfig, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: putGuildConfig,
 		onSuccess: () => {
 			successNotification();
 		},

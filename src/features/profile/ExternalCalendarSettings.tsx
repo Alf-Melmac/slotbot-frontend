@@ -19,7 +19,8 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 	const [savedSetting, setSavedSetting] = useState(externalCalendarIntegrationActive);
 
 	const postCalendarSetting = () => slotbotServerClient.put(`/user/externalcalendar/${selectedSetting}`).then(voidFunction);
-	const {mutate, isLoading} = useMutation<void, AxiosError>(postCalendarSetting, {
+	const {mutate, isPending} = useMutation<void, AxiosError>({
+		mutationFn: postCalendarSetting,
 		onSuccess: () => {
 			setSavedSetting(selectedSetting);
 			successNotification();
@@ -41,7 +42,7 @@ export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): 
 								 tooltip={<T k={'profile.externalCalendar.tooltip'}/>}
 								 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
-			<Switch label={<T k={'profile.externalCalendar.switch'}/>} checked={selectedSetting} disabled={isLoading}
+			<Switch label={<T k={'profile.externalCalendar.switch'}/>} checked={selectedSetting} disabled={isPending}
 					onChange={(event) => setSelectedSetting(event.currentTarget.checked)}/>
 			{selectedSetting && <>
                 <Tooltip.Floating label={<T k={'action.clickToCopy'}/>}>

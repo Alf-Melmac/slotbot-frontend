@@ -17,7 +17,8 @@ export function GuildLanguage(props: GuildConfigDto): JSX.Element {
 	const [savedLanguage, setSavedLanguage] = useState(language);
 
 	const putGuildConfig = () => slotbotServerClient.put(`/guilds/${guildId}/config`, {language: selectedLanguage}).then((res) => res.data);
-	const {mutate} = useMutation<void, AxiosError>(putGuildConfig, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: putGuildConfig,
 		onSuccess: () => {
 			setSavedLanguage(selectedLanguage);
 			successNotification(selectedLanguage);

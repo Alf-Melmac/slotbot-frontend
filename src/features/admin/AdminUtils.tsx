@@ -11,7 +11,8 @@ export function AdminUtils(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.admin.utils');
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>(postAction, {
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: postAction,
 		onSuccess: () => {
 			successNotification(action);
 			setAction('');

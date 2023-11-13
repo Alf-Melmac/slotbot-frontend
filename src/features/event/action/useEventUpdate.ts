@@ -16,7 +16,8 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 	const postTextChange = () => slotbotServerClient.put(`/events/${eventId}/edit/text`, {
 		[formPath]: value,
 	}).then((res) => res.data);
-	const {mutate} = useMutation<EventEditDto, AxiosError>(postTextChange, {
+	const {mutate} = useMutation<EventEditDto, AxiosError>({
+		mutationFn: postTextChange,
 		onSuccess: (response) => {
 			// @ts-ignore Posted it like that, so response is the same format
 			onSuccess?.(response[formPath]);
@@ -34,7 +35,8 @@ export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) 
 	const queryClient = useQueryClient();
 	const eventId = useEventPage();
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}`, data).then((res) => res.data);
-	const {mutate} = useMutation<EventEditDto, AxiosError>(postEventUpdate, {
+	const {mutate} = useMutation<EventEditDto, AxiosError>({
+		mutationFn: postEventUpdate,
 		onSuccess: (response: EventEditDto) => {
 			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
 			successNotification();
