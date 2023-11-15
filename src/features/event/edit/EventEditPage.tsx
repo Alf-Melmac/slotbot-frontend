@@ -3,7 +3,7 @@ import {EventPageParams} from '../EventRoutes';
 import {useFetchEventForEdit} from '../EventFetcher';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventEdit} from './EventEdit';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {EventEditLoading} from './EventEditLoading';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {useLanguage} from '../../../contexts/language/Language';

@@ -11,13 +11,14 @@ import {
 import {EventPageParams} from '../EventRoutes';
 import {eventActionValidate} from '../action/validation';
 import {EventEditDto} from '../eventTypes';
+import {JSX} from 'react';
 
 type EventEditProps = EventPageParams & {
 	event: EventEditFormType;
 	permissions: Pick<EventEditDto, 'canRevokeShareable' | 'canUploadSlotlist'>
 }
 
-export function EventEdit(props: EventEditProps): JSX.Element {
+export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
 
 	const breadcrumbItems = [

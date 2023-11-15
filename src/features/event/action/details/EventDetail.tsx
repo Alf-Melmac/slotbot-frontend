@@ -7,13 +7,14 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
+import {JSX} from 'react';
 
 type EventDetailProps = {
 	item: EventActionFormType['details'][number]
 	index: number;
 };
 
-export function EventDetail(props: EventDetailProps): JSX.Element {
+export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 	const {item, index} = props;
 	const staticInputProps = {
 		placeholder: 'information',
@@ -32,7 +33,7 @@ export function EventDetail(props: EventDetailProps): JSX.Element {
 			text = <EventActionAutocomplete inputProps={{
 				...staticInputProps,
 				data: fieldDefault.selection,
-			}} formPath={`details.${index}.text`} overrideFormContextEditMode={useEditMode()}/>;
+			}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>;
 			break;
 		case 'BOOLEAN':
 			text = <Checkbox sx={{flex: 1}} {...form.getInputProps(`details.${index}.text`)}/>;
@@ -41,7 +42,7 @@ export function EventDetail(props: EventDetailProps): JSX.Element {
 		default:
 			text = <EventActionTextInput inputProps={staticInputProps}
 										 formPath={`details.${index}.text`}
-										 overrideFormContextEditMode={useEditMode()}/>;
+										 overrideFormContextEditMode={editMode}/>;
 			break;
 	}
 

@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleChevronLeft} from '@fortawesome/free-solid-svg-icons';
 import {TextKey} from '../contexts/language/Language';
 import {T} from './T';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	breadcrumb: {
@@ -35,7 +36,7 @@ type BreadcrumbProps = {
 	items: Array<BreadcrumbItem>
 };
 
-export function Breadcrumb(props: BreadcrumbProps): JSX.Element {
+export function Breadcrumb(props: Readonly<BreadcrumbProps>): JSX.Element {
 	const {classes} = useStyles();
 
 	const breadcrumbItems = props.items.map((item, index) => {

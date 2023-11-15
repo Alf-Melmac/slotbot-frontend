@@ -3,6 +3,7 @@ import {Profile} from './Profile';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {notFoundRoute} from '../error/ErrorRoutes';
+import {JSX} from 'react';
 
 function MyProfile(): JSX.Element {
 	const {user} = useAuth();

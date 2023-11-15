@@ -6,6 +6,7 @@ import {ProfileInfo} from './ProfileInfo';
 import {ProfileInfoLoading} from './loading/ProfileInfoLoading';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 import {ProfilePageParams} from './ProfileRoutes';
+import {JSX} from 'react';
 
 export function Profile(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.profile');

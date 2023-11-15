@@ -5,10 +5,11 @@ import {EventDate} from './EventDate';
 import {EventStartTime} from './EventStartTime';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {EventEditDto} from '../../eventTypes';
+import {JSX} from 'react';
 
 export type RequiredInformationProps = Partial<Pick<EventEditDto, 'canRevokeShareable'>>;
 
-export function RequiredInformation(props: RequiredInformationProps): JSX.Element {
+export function RequiredInformation(props: Readonly<RequiredInformationProps>): JSX.Element {
 	return <>
 		<Grid>
 			<Grid.Col md={9} span={12}>

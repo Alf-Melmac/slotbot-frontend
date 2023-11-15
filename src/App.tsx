@@ -1,5 +1,5 @@
 import {ColorScheme, ColorSchemeProvider, MantineProvider, Skeleton} from '@mantine/core';
-import {Suspense, useState} from 'react';
+import {JSX, Suspense, useState} from 'react';
 import {routes} from './Router';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {getThemeOverride} from './contexts/Theme';
@@ -19,7 +19,7 @@ export function App(): JSX.Element {
 	});
 	const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 	const toggleColorScheme = (value?: ColorScheme) =>
-		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+		setColorScheme(value ?? (colorScheme === 'dark' ? 'light' : 'dark'));
 
 	const router = createBrowserRouter(routes, {future: {v7_normalizeFormMethod: true, v7_fetcherPersist: true}});
 

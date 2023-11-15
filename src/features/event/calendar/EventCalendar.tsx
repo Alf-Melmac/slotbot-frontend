@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {isGerman} from '../../../contexts/language/Language';
 import {hidden} from '../../../contexts/CommonStylings';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {
@@ -39,7 +40,7 @@ type EventCalendarProps = {
 	onFailure: () => void;
 };
 
-export function EventCalendar(props: EventCalendarProps): JSX.Element {
+export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element {
 	const {toggleVisible, onFailure} = props;
 	const {classes} = useStyles();
 

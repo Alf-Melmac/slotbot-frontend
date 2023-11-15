@@ -1,6 +1,6 @@
 import {TableCellProps} from './GuildUsers';
 import {Badge, DefaultMantineColor, Select, SelectItemProps, Stack, Text} from '@mantine/core';
-import {forwardRef, useState} from 'react';
+import {forwardRef, JSX, useState} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {Role} from '../../guildTypes';
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
@@ -18,7 +18,7 @@ type RoleItem = {
 	color: DefaultMantineColor;
 }
 
-export function GuildUserRole(props: TableCellProps): JSX.Element {
+export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 	const {role, user} = props.row.original;
 	const roleValue = role ?? '';
 	const [selectedRole, setSelectedRole] = useState<string | null>(roleValue);

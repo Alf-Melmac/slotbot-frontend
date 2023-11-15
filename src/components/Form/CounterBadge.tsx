@@ -1,4 +1,5 @@
 import {Badge} from '@mantine/core';
+import {JSX} from 'react';
 
 type CounterBadgeProps = {
 	currentValue: number;
@@ -6,7 +7,7 @@ type CounterBadgeProps = {
 	yellowPhase?: boolean;
 };
 
-export function CounterBadge(props: CounterBadgeProps): JSX.Element {
+export function CounterBadge(props: Readonly<CounterBadgeProps>): JSX.Element {
 	const {currentValue, maxValue, yellowPhase = false} = props;
 	let badgeColor;
 	if (maxValue <= currentValue) {

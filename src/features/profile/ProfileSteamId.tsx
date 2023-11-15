@@ -6,13 +6,13 @@ import {UserOwnProfileDto} from './profileTypes';
 import {InlineEditableText} from '../../components/Input/InlineEditable/InlineEditables';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
 import {T} from '../../components/T';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 
 type ProfileSteamIdProps = {
 	steamId: UserOwnProfileDto['steamId64'];
 };
 
-export function ProfileSteamId(props: ProfileSteamIdProps): JSX.Element {
+export function ProfileSteamId(props: Readonly<ProfileSteamIdProps>): JSX.Element {
 	const {steamId} = props;
 
 	const [savedSteamId, setSavedSteamId] = useState(steamId);

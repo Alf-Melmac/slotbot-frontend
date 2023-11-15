@@ -1,11 +1,11 @@
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {ActionIcon, Modal, Tooltip} from '@mantine/core';
 import {UploadImage, UploadImageProps} from './UploadImage';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUpload} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../T';
 
-export function ImageUploadModal(props: UploadImageProps): JSX.Element {
+export function ImageUploadModal(props: Readonly<UploadImageProps>): JSX.Element {
 	const [opened, setOpened] = useState(false);
 	const closeModal = () => setOpened(false);
 	return <>

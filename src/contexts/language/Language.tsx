@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useContext, useMemo} from 'react';
+import {createContext, JSX, PropsWithChildren, useContext, useMemo} from 'react';
 import dayjs from 'dayjs';
 import de from 'dayjs/locale/de';
 import en from 'dayjs/locale/en';
@@ -21,7 +21,7 @@ export type LanguageTag = 'de' | 'en';
  */
 export function currentLanguageTag(): LanguageTag {
 	const languageTag = navigator.language.substring(0, 2);
-	return availableLanguages.find(v => v === languageTag) || EN;
+	return availableLanguages.find(v => v === languageTag) ?? EN;
 }
 
 export function isGerman(): boolean {
@@ -33,7 +33,7 @@ export function isGerman(): boolean {
  */
 function setLocale(): void {
 	const root = document.documentElement;
-	root.setAttribute("lang", currentLanguageTag());
+	root.setAttribute('lang', currentLanguageTag());
 }
 
 /**
@@ -52,7 +52,7 @@ function currentDayJsLocale(): string {
 	}
 }
 
-export function LanguageProvider(props: PropsWithChildren): JSX.Element {
+export function LanguageProvider(props: Readonly<PropsWithChildren>): JSX.Element {
 	setLocale();
 	currentDayJsLocale();
 	const translationMap = useTranslationMap(currentLanguageTag());
@@ -72,7 +72,7 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element {
 
 		if (args || countAsArgs) {
 			// @ts-ignore If args are undefined, we know count existent because otherwise countAsArgs wouldn't be truthy
-			return resolvePlaceholders(translation, args || [count]);
+			return resolvePlaceholders(translation, args ?? [count]);
 		}
 		return translation;
 	};
@@ -110,7 +110,7 @@ const LanguageContext = createContext<LanguageContextValues | undefined>(undefin
 export function useLanguage(): LanguageContextValues {
 	const context = useContext(LanguageContext);
 	if (context === undefined) {
-		throw new Error("useLanguage must be used within a LanguageProvider");
+		throw new Error('useLanguage must be used within a LanguageProvider');
 	}
 	return context;
 }

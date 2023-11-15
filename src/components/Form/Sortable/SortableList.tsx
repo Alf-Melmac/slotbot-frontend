@@ -11,7 +11,7 @@ import {
 import {SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy} from '@dnd-kit/sortable';
 import {SortableItem, SortableItemProps} from './SortableItem';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {Box, Overlay, useMantineTheme} from '@mantine/core';
 
 /**
@@ -29,7 +29,7 @@ type SortableListProps<T extends BaseItem> = {
 	renderItem: (item: T, index: number) => JSX.Element;
 } & Pick<SortableItemProps, 'itemProps' | 'iconProps'>;
 
-export function SortableList<T extends BaseItem>(props: SortableListProps<T>): JSX.Element {
+export function SortableList<T extends BaseItem>(props: Readonly<SortableListProps<T>>): JSX.Element {
 	const {formPath, renderItem, ...sortableItemProps} = props;
 	const form = useFormContext();
 	const formValues: T[] = form.getInputProps(formPath).value;

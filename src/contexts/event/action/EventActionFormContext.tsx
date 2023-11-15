@@ -4,6 +4,7 @@ import {EditModeProvider, useEditMode} from './EditModeContext';
 import {FormProviderProps} from '@mantine/form/lib/FormProvider/FormProvider';
 import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
+import {JSX} from 'react';
 
 export type EventEditFormType = Omit<EventEditDto, 'dateTime' | 'canRevokeShareable' | 'canUploadSlotlist'>
 	& { date: Date, startTime: string };
@@ -21,7 +22,7 @@ export type EventEditFormReturn = ReturnType<typeof useEventEditFormContext>;
 export type EventWizardFormReturn = ReturnType<typeof useEventWizardFormContext>;
 export type EventActionFormReturn = EventEditFormReturn | EventWizardFormReturn;
 
-export function EventEditProvider(props: FormProviderProps<EventEditFormReturn> & Pick<EventPageParams, 'eventId'>): JSX.Element {
+export function EventEditProvider(props: Readonly<FormProviderProps<EventEditFormReturn> & Pick<EventPageParams, 'eventId'>>): JSX.Element {
 	return (
 		<EventPageProvider eventId={props.eventId}>
 			<EditModeProvider editMode={true}>
@@ -31,7 +32,7 @@ export function EventEditProvider(props: FormProviderProps<EventEditFormReturn> 
 	);
 }
 
-export function EventWizardProvider(props: FormProviderProps<EventWizardFormReturn>): JSX.Element {
+export function EventWizardProvider(props: Readonly<FormProviderProps<EventWizardFormReturn>>): JSX.Element {
 	return (
 		<EditModeProvider editMode={false}>
 			<EventWizardFormProvider {...props}>{props.children}</EventWizardFormProvider>

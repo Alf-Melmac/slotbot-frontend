@@ -1,6 +1,6 @@
 import {Anchor} from '@mantine/core';
 import {Link, To} from 'react-router-dom';
-import {ReactNode} from 'react';
+import {JSX, ReactNode} from 'react';
 
 export type ReactRouterAnchorProps = {
 	to: To;
@@ -8,7 +8,7 @@ export type ReactRouterAnchorProps = {
 	className?: string;
 };
 
-export function AnchorLink(props: ReactRouterAnchorProps): JSX.Element {
+export function AnchorLink(props: Readonly<ReactRouterAnchorProps>): JSX.Element {
 	const {to, children, className} = props;
 
 	return (

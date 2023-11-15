@@ -5,6 +5,7 @@ import {AnchorLink} from '../Text/AnchorLink';
 import {underlineOnHover} from '../../contexts/CommonStylings';
 import {TextKey} from '../../contexts/language/Language';
 import {T} from '../T';
+import {JSX} from 'react';
 
 export const NAV_ICON_WRAPPER_HEIGHT = 36;
 export const NAV_ICON_SIZE = 28;
@@ -50,7 +51,7 @@ interface NavIconActionProps extends NavIconProps {
 	onClick?: () => void;
 }
 
-function NavIcon(props: NavIconProps): JSX.Element {
+function NavIcon(props: Readonly<NavIconProps>): JSX.Element {
 	const {classes} = useStyles(props.width);
 
 	return (
@@ -63,7 +64,7 @@ function NavIcon(props: NavIconProps): JSX.Element {
 	);
 }
 
-export function NavIconLink(props: NavIconLinkProps): JSX.Element {
+export function NavIconLink(props: Readonly<NavIconLinkProps>): JSX.Element {
 	const {classes, cx} = useStyles(props.width);
 
 	return (
@@ -73,7 +74,7 @@ export function NavIconLink(props: NavIconLinkProps): JSX.Element {
 	);
 }
 
-export function NavIconAction(props: NavIconActionProps): JSX.Element {
+export function NavIconAction(props: Readonly<NavIconActionProps>): JSX.Element {
 	const {classes, cx} = useStyles(props.width);
 
 	return (

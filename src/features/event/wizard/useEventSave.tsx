@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHandshakeSlash} from '@fortawesome/free-solid-svg-icons';
 import {EventEditFormType, useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {UseFormReturnType} from '@mantine/form';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
 import {expandTimeTemplateShort, formatLocalDateTimeToUtc, getDate} from '../../../utils/dateHelper';
@@ -64,7 +64,7 @@ export function useEventSave() {
 	};
 }
 
-function DebugCodeBlock(props: { formValues: unknown }): JSX.Element {
+function DebugCodeBlock(props: Readonly<{ formValues: unknown }>): JSX.Element {
 	return (
 		<Code block sx={hidden}>
 			{JSON.stringify(props.formValues, null, 2)}

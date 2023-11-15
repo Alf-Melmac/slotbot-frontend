@@ -8,13 +8,14 @@ import {find} from 'lodash';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {JSX} from 'react';
 
 type SlotListEntryReservationSettingProps = {
 	data?: GuildDto[];
 	slot: boolean;
 } & Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
 
-export function SlotListEntryReservationSetting(props: SlotListEntryReservationSettingProps): JSX.Element {
+export function SlotListEntryReservationSetting(props: Readonly<SlotListEntryReservationSettingProps>): JSX.Element {
 	const {t} = useLanguage();
 	return (
 		!props.data ?
@@ -32,7 +33,7 @@ export function SlotListEntryReservationSetting(props: SlotListEntryReservationS
 	);
 }
 
-function SlotListEntryReservationSettingSelect(props: SlotListEntryReservationSettingProps): JSX.Element {
+function SlotListEntryReservationSettingSelect(props: Readonly<SlotListEntryReservationSettingProps>): JSX.Element {
 	const {data = [], path, index, slot} = props; //Shouldn't be used with undefined data prop
 	const form = useFormContext();
 	const {t} = useLanguage();

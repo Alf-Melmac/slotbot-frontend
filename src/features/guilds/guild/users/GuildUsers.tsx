@@ -3,7 +3,7 @@ import {voidFunction} from '../../../../hooks/slotbotServerClient';
 import {useGetGuildUsers} from '../useGetGuild';
 import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
 import {UserInGuildDto} from '../../guildTypes';
-import {ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {JSX, ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {MRTable} from '../../../../components/Table/MRTable';
 import {GuildUser} from './GuildUser';

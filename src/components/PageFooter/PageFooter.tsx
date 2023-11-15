@@ -8,6 +8,7 @@ import {Logo} from '../logo/Logo';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {T} from '../T';
 import {faCircleQuestion} from '@fortawesome/free-regular-svg-icons';
+import {JSX} from 'react';
 
 const iconTextShadow = '0 0 15px';
 const useStyles = createStyles((theme) => ({

@@ -12,7 +12,7 @@ import {
 	Text,
 	useMantineTheme,
 } from '@mantine/core';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {Dropzone} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileArrowUp, faFileCircleQuestion, faFileImport} from '@fortawesome/free-solid-svg-icons';
@@ -68,7 +68,7 @@ type SqmDropzoneProps = {
 	closeModal: ModalProps['onClose'];
 }
 
-function SqmDropzone(props: SqmDropzoneProps): JSX.Element {
+function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
 	const [hasError, setHasError] = useState(false);

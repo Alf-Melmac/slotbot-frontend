@@ -1,6 +1,7 @@
 import {Bold} from '../../../components/Text/Bold';
 import {Stack, Text} from '@mantine/core';
 import {T} from '../../../components/T';
+import {JSX} from 'react';
 
 type EventTooltipProps = {
 	eventName: string;
@@ -10,7 +11,7 @@ type EventTooltipProps = {
 	missionLength: string;
 };
 
-export function EventTooltip(props: EventTooltipProps): JSX.Element {
+export function EventTooltip(props: Readonly<EventTooltipProps>): JSX.Element {
 	const {eventName, emptySlotsCount, slotCount, emptyReserveSlotsCount, missionLength} = props;
 
 	return (

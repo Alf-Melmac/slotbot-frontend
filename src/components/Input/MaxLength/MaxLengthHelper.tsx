@@ -10,7 +10,7 @@ export function MaxLengthHelper(maxLength: number | undefined, value: string, pr
 		throw Error('MaxLength is missing.');
 	}
 
-	// noinspection UnnecessaryLocalVariableJS Want to type the variable
+	// noinspection UnnecessaryLocalVariableJS Want to type the variable. Any is required for the usages
 	const ret: InputProps = {
 		...props,
 		maxLength: maxLength,

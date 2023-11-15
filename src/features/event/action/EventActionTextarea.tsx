@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {TextareaProps} from '@mantine/core';
 import {TextareaMaxLength} from '../../../components/Input/MaxLength/TextareaMaxLength';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
@@ -18,7 +18,7 @@ type FormTextInputProps = {
 	formPath: string;
 };
 
-export function EventActionTextarea(props: FormTextInputProps): JSX.Element {
+export function EventActionTextarea(props: Readonly<FormTextInputProps>): JSX.Element {
 	const {inputProps, formPath} = props;
 	const form = useFormContext();
 	const formInputProps = form.getInputProps(formPath);

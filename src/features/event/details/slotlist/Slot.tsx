@@ -2,6 +2,7 @@ import {createStyles, Grid, Group, Text} from '@mantine/core';
 import {ReservedFor} from './ReservedFor';
 import {EventSlotlistProps} from './EventSlotlist';
 import {SlotText} from './SlotText';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	ownSlot: {
@@ -33,7 +34,7 @@ export type EventSlotlistSlotProps = {
 /**
  * Displays a single slot inside the slotlist
  */
-export function Slot(props: EventSlotlistSlotProps): JSX.Element {
+export function Slot(props: Readonly<EventSlotlistSlotProps>): JSX.Element {
 	const {slot} = props;
 	const {classes} = useStyles();
 

@@ -12,6 +12,7 @@ import {EventDetail} from './EventDetail';
 import {T} from '../../../../components/T';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {convertDtoToFormEvent} from '../../edit/utils';
+import {JSX} from 'react';
 
 const MAX_DETAILS = 23;
 
@@ -35,7 +36,8 @@ export function EventDetails(): JSX.Element {
 		});
 	return <>
 		<SortableList<typeof form.values.details[number]> formPath={'details'} itemProps={{mt: 'sm'}}
-			renderItem={(item, index) => <EventDetail item={item} index={index} key={item.id}/>}/>
+														  renderItem={(item, index) =>
+															  <EventDetail item={item} index={index} key={item.id}/>}/>
 
 		<Group spacing={'xs'} mt={'xs'}>
 			<AddButton label={'event.details.add'}

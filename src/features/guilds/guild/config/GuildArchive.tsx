@@ -3,7 +3,7 @@ import {useGetDiscordIntegration} from '../useGetGuild';
 import {T} from '../../../../components/T';
 import {Button, createStyles, Select, Skeleton, TextInput} from '@mantine/core';
 import {useLanguage} from '../../../../contexts/language/Language';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -21,7 +21,7 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-export function GuildArchive(props: GuildConfigDto): JSX.Element {
+export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {archiveChannel} = props;
 	const {guildId} = useGuildPage();
 	const {classes} = useStyles();

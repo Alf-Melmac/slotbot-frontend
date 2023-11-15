@@ -2,6 +2,7 @@ import {isEmpty} from 'lodash';
 import {Button} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
+import {JSX} from 'react';
 
 export function RenumberSlots(): JSX.Element {
 	const form = useFormContext();

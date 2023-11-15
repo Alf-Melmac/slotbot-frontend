@@ -1,5 +1,5 @@
-import {Anchor} from "@mantine/core";
-import {ReactNode} from "react";
+import {Anchor} from '@mantine/core';
+import {JSX, ReactNode} from 'react';
 
 type AnchorBlankProps = {
 	href: string;
@@ -7,7 +7,7 @@ type AnchorBlankProps = {
 	children: ReactNode;
 };
 
-export function AnchorBlank(props: AnchorBlankProps): JSX.Element {
+export function AnchorBlank(props: Readonly<AnchorBlankProps>): JSX.Element {
 	return (
 		<Anchor href={props.href} className={props.className} target={'_blank'}
 				rel={'noopener noreferrer'}>{props.children}</Anchor>

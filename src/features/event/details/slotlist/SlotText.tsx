@@ -8,11 +8,12 @@ import {EventSlotlistSlotProps} from './Slot';
 import {Bold} from '../../../../components/Text/Bold';
 import {useEventDetailsSlotlist} from '../../../../contexts/event/details/slotlist/EventDetailsSlotlistContext';
 import {useSlotting} from './useSlotting';
+import {JSX} from 'react';
 
 /**
  * Displays the content of a slot. This includes empty, blocked and reserved slots.
  */
-export function SlotText(props: EventSlotlistSlotProps): JSX.Element {
+export function SlotText(props: Readonly<EventSlotlistSlotProps>): JSX.Element {
 	const {id, text, blocked, slottable, own} = props.slot;
 
 	const {mutateSlotting, mutateUnslotting} = useSlotting(id);

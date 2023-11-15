@@ -1,5 +1,5 @@
 import {ActionIcon, AutocompleteProps, Box, Group, Stack, TextareaProps, TextInputProps} from '@mantine/core';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {useClickOutside} from '@mantine/hooks';
 import {omit} from 'lodash';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -19,11 +19,11 @@ export type InlineEditableProps<InputProps extends EditableInputProps> = InputPr
 	editModeMaxLengthComponent?: any;
 };
 
-function filterComponentsProps<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): Omit<InputProps, 'viewModeComponent' | 'editModeComponent' | 'editModeMaxLengthComponent'> {
+function filterComponentsProps<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): Omit<InputProps, 'viewModeComponent' | 'editModeComponent' | 'editModeMaxLengthComponent'> {
 	return omit(props, ['viewModeComponent', 'editModeComponent', 'editModeMaxLengthComponent']);
 }
 
-export function InlineEditable<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): JSX.Element {
+export function InlineEditable<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): JSX.Element {
 	const {viewModeComponent: ViewMode, onFocus, position = 'stack', noWrap, onSubmit, onCancel} = props;
 
 	const [viewMode, setViewMode] = useState(true);
@@ -67,14 +67,14 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Inl
 	</>;
 }
 
-function EditMode<InputProps extends EditableInputProps>(props: InlineEditableProps<InputProps>): JSX.Element {
+function EditMode<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): JSX.Element {
 	const {
 		position,
 		noWrap,
 		label,
 		editModeComponent: EditMode,
 		maxLength,
-		editModeMaxLengthComponent,
+		editModeMaxLengthComponent: EditModeMaxLength,
 		onCancel,
 		onSubmit,
 		required,
@@ -82,10 +82,9 @@ function EditMode<InputProps extends EditableInputProps>(props: InlineEditablePr
 	} = props;
 
 	const marginTop = (position === 'group' && label) ? 25 : undefined;
-	const EditModeMaxLength = editModeMaxLengthComponent;
 	return <>
 		<Box style={{flexGrow: position === 'group' ? 1 : undefined}}>
-			{maxLength && editModeMaxLengthComponent ?
+			{maxLength && EditModeMaxLength ?
 				<EditModeMaxLength {...filterComponentsProps(props)} autoFocus/>
 				:
 				<EditMode {...filterComponentsProps(props)} autoFocus/>

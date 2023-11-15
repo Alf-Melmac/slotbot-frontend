@@ -1,5 +1,6 @@
 import {EventFieldReferencelessDto} from '../eventTypes';
 import {Anchor, Grid, Text} from '@mantine/core';
+import {JSX} from 'react';
 
 type EventFieldsProps = {
 	fields: Array<EventFieldReferencelessDto>;
@@ -12,7 +13,7 @@ function getFieldText(field: EventFieldReferencelessDto, index: number): JSX.Ele
 		<Text id={`field${index}`}>{field.text}</Text>;
 }
 
-export function EventFields(props: EventFieldsProps): JSX.Element {
+export function EventFields(props: Readonly<EventFieldsProps>): JSX.Element {
 	return (
 		<>
 			{props.fields.map((field, index) => (

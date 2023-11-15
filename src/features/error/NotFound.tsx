@@ -1,6 +1,7 @@
 import {Stack} from '@mantine/core';
 import {ErrorBackButton, ErrorDescription, ErrorLabel, ErrorTitle} from './ErrorPage';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {JSX} from 'react';
 
 export function NotFound(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.error.404');

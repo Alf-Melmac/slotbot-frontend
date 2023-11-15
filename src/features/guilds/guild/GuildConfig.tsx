@@ -6,6 +6,7 @@ import {GuildLanguage} from './config/GuildLanguage';
 import {GuildArchive} from './config/GuildArchive';
 import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
 import {GuildRoles} from './config/GuildRoles';
+import {JSX} from 'react';
 
 export function GuildConfig(): JSX.Element {
 	const {guildId} = useGuildPage();

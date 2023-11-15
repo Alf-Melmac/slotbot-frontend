@@ -1,10 +1,11 @@
 import {Alert, Center} from '@mantine/core';
+import {JSX} from 'react';
 
 type GeneralErrorProps = {
 	error: Error | null
 };
 
-export function GeneralError(props: GeneralErrorProps): JSX.Element {
+export function GeneralError(props: Readonly<GeneralErrorProps>): JSX.Element {
 	const {error} = props;
 
 	return (

@@ -5,12 +5,12 @@ import {SpotlightAction, SpotlightProvider} from '@mantine/spotlight';
 import {voidFunction} from '../../hooks/slotbotServerClient';
 import {useLanguage} from '../../contexts/language/Language';
 import {Outlet} from 'react-router-dom';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 
 /**
  * ID of the default spotlight action
  */
-export const SPOTLIGHT_LOADING = "loading-spotlight";
+export const SPOTLIGHT_LOADING = 'loading-spotlight';
 
 export function GuildsPage(): JSX.Element {
 	const {t} = useLanguage();

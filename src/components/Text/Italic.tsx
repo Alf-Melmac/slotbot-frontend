@@ -1,11 +1,11 @@
-import {Text} from "@mantine/core";
-import {ReactNode} from "react";
+import {Text} from '@mantine/core';
+import {JSX, ReactNode} from 'react';
 
 type ItalicProps = {
 	children: ReactNode;
 };
 
-export function Italic(props: ItalicProps): JSX.Element {
+export function Italic(props: Readonly<ItalicProps>): JSX.Element {
 	return (
 		<Text italic span>{props.children}</Text>
 	);

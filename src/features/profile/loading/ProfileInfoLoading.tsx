@@ -1,5 +1,6 @@
 import {Center, Paper, Skeleton, Stack, Title} from '@mantine/core';
 import {T} from '../../../components/T';
+import {JSX} from 'react';
 
 export function ProfileInfoLoading(): JSX.Element {
 	return (

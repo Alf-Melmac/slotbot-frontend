@@ -1,4 +1,4 @@
-import {createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState} from 'react';
+import {createContext, Dispatch, JSX, PropsWithChildren, SetStateAction, useContext, useMemo, useState} from 'react';
 import {EventDetailsDto} from '../../../../features/event/eventTypes';
 
 type EventDetailsSlotlist = {
@@ -7,10 +7,12 @@ type EventDetailsSlotlist = {
 	eventId: EventDetailsDto['id'];
 };
 
-export function EventDetailsSlotlistProvider(props: PropsWithChildren<Pick<EventDetailsSlotlist, 'eventId'>>): JSX.Element {
+export function EventDetailsSlotlistProvider(props: Readonly<PropsWithChildren<Pick<EventDetailsSlotlist, 'eventId'>>>): JSX.Element {
 	const [pendingSlotting, setPendingSlotting] = useState(false);
 
-	return <EventDetailsSlotlistContext.Provider value={{pendingSlotting, setPendingSlotting, eventId: props.eventId}}>
+	const value = useMemo((): EventDetailsSlotlist => ({pendingSlotting, setPendingSlotting, eventId: props.eventId}),
+		[pendingSlotting, props.eventId]);
+	return <EventDetailsSlotlistContext.Provider value={value}>
 		{props.children}
 	</EventDetailsSlotlistContext.Provider>;
 }

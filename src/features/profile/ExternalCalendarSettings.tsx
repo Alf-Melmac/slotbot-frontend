@@ -2,7 +2,7 @@ import {UserOwnProfileDto} from './profileTypes';
 import {ElementWithInfo} from '../../components/Text/ElementWithInfo';
 import {Box, Button, CopyButton, Switch, Text, Title, Tooltip} from '@mantine/core';
 import {AnchorBlank} from '../../components/Text/AnchorBlank';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -12,7 +12,7 @@ import {useDidUpdate} from '@mantine/hooks';
 
 type ExternalCalendarSettingsProps = Pick<UserOwnProfileDto, 'externalCalendarIntegrationActive' | 'icsCalendarUrl'>;
 
-export function ExternalCalendarSettings(props: ExternalCalendarSettingsProps): JSX.Element {
+export function ExternalCalendarSettings(props: Readonly<ExternalCalendarSettingsProps>): JSX.Element {
 	const {externalCalendarIntegrationActive, icsCalendarUrl} = props;
 
 	const [selectedSetting, setSelectedSetting] = useState(externalCalendarIntegrationActive);

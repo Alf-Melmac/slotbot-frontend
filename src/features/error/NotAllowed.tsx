@@ -1,6 +1,7 @@
 import {createStyles, keyframes, Stack} from '@mantine/core';
 import {ErrorBackButton, ErrorLabel, ErrorTitle} from './ErrorPage';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {JSX} from 'react';
 
 const alarmOn = keyframes({
 	to: {

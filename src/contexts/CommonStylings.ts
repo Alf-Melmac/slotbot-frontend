@@ -1,4 +1,4 @@
-import {CSSObject} from "@mantine/core";
+import {CSSObject} from '@mantine/core';
 
 export const flexGrow: CSSObject = {
 	// @ts-ignore
@@ -14,4 +14,4 @@ export const underlineOnHover: CSSObject = {
 
 export const hidden: CSSObject = {
 	display: 'none',
-}
+};

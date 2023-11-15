@@ -6,6 +6,7 @@ import {useEventFieldDefaults} from './useEventFieldDefaults';
 import {EventFieldDefaultsProvider} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {randomId} from '@mantine/hooks';
 import {T} from '../../../../components/T';
+import {JSX} from 'react';
 
 export function EventDetailsPage(): JSX.Element {
 	const form = useFormContext();

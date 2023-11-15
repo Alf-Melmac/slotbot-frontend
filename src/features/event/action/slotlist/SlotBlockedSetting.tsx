@@ -8,10 +8,11 @@ import {getFormFieldValue} from '../../../../utils/formHelper';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {JSX} from 'react';
 
 type SlotBlockedSettingProps = Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
 
-export function SlotBlockedSetting(props: SlotBlockedSettingProps): JSX.Element {
+export function SlotBlockedSetting(props: Readonly<SlotBlockedSettingProps>): JSX.Element {
 	const {path, index} = props;
 	const {t} = useLanguage();
 	const form = useFormContext();

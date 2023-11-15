@@ -1,5 +1,5 @@
 import {Button, createStyles, Group, Text, Title} from '@mantine/core';
-import {PropsWithChildren} from 'react';
+import {JSX, PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
 import {T} from '../../components/T';
 import {TextKey} from '../../contexts/language/Language';
@@ -30,19 +30,19 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-export function ErrorLabel(props: PropsWithChildren): JSX.Element {
+export function ErrorLabel(props: Readonly<PropsWithChildren>): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Text align={'center'} size={220} weight={900} mb={'xl'} className={classes.label}>{props.children}</Text>;
 }
 
-export function ErrorTitle(props: { title: TextKey }): JSX.Element {
+export function ErrorTitle(props: Readonly<{ title: TextKey }>): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Title align={'center'} size={38} className={classes.title}><T k={props.title}/></Title>;
 }
 
-export function ErrorDescription(props: { description: TextKey }): JSX.Element {
+export function ErrorDescription(props: Readonly<{ description: TextKey }>): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Text color={'dimmed'} size={'lg'} align={'center'} className={classes.description}>

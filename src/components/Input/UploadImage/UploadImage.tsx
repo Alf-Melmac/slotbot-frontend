@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {Anchor, createStyles, Group, Input, InputWrapperBaseProps, Stack, Text, useMantineTheme} from '@mantine/core';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
@@ -26,7 +26,7 @@ export type UploadImageProps = {
 	onSuccess?: (fileUrl: string) => void;
 }
 
-export function UploadImage(props: UploadImageProps): JSX.Element {
+export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperBaseProps['error']>();
 	const [hasError, setHasError] = useState(false);

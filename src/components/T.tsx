@@ -1,5 +1,6 @@
 import {TextKey, useLanguage} from '../contexts/language/Language';
 import {TranslationOptions} from '../contexts/language/TranslationTypes';
+import {JSX} from 'react';
 
 type TProps = {
 	k: TextKey;
@@ -16,7 +17,7 @@ type TProps = {
 	}
 	);
 
-export function T(props: TProps): JSX.Element {
+export function T(props: Readonly<TProps>): JSX.Element {
 	const {k, args, count, countAsArgs} = props;
 	const {t} = useLanguage();
 

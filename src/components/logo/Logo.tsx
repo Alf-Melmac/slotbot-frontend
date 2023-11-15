@@ -6,14 +6,15 @@ import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {hidden} from '../../contexts/CommonStylings';
+import {JSX} from 'react';
 
 type LogoProps = {
 	small?: boolean;
 };
 
-export function Logo(props: LogoProps): JSX.Element {
+export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
-	const {title, logo, logoWithName = false} = getInfo();
+	const {title, logo, logoWithName = false} = useGetInfo();
 	const width = logoWithName ? small ? 100 : 230 : small ? 27.9 : 70;
 
 	return (
@@ -48,15 +49,16 @@ type LogoInfo = {
 	logoWithName?: boolean;
 }
 
-function getInfo(): LogoInfo {
+function useGetInfo(): LogoInfo {
 	switch (getGuild()) {
-		case Guild.DAA:
+		case Guild.DAA: {
 			const theme = useMantineTheme();
 			return {
 				title: 'Deutsche Arma Allianz',
 				logo: theme.colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
 				logoWithName: true,
 			};
+		}
 		case Guild.AMB:
 			return {
 				title: 'Arma macht Bock',

@@ -8,6 +8,7 @@ import {useLanguage} from '../../../../contexts/language/Language';
 import {useGetGuilds} from '../../../guilds/useGetGuilds';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {buildNewSlot, buildNewSquad} from './utils';
+import {JSX} from 'react';
 
 export function SquadList(): JSX.Element {
 	const guildsQuery = useGetGuilds();

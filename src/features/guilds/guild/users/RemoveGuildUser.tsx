@@ -9,8 +9,9 @@ import {T} from '../../../../components/T';
 import {errorNotification} from '../../../../utils/notificationHelper';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUserMinus} from '@fortawesome/free-solid-svg-icons';
+import {JSX} from 'react';
 
-export function RemoveGuildUser(props: TableCellProps): JSX.Element {
+export function RemoveGuildUser(props: Readonly<TableCellProps>): JSX.Element {
 	const {user} = props.row.original;
 	const {guildId} = useGuildPage();
 

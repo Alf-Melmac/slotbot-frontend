@@ -3,7 +3,7 @@ import {EventTypeDto} from '../../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../../utils/maxLength';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
@@ -16,7 +16,7 @@ type EventTypeInputsProps = {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;
 };
 
-export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
+export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Element {
 	const {query} = props;
 	const eventTypes = query.data;
 	const form = useFormContext();
@@ -26,19 +26,19 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 		form.setFieldValue('eventType.color', color);
 	}
 
-	const [disabledColorInput, disableColorInput] = useState(false);
-	const [data, setData] = useState(eventTypes?.map(type => type.name) || []);
+	const [colorInputDisabled, setColorInputDisabled] = useState(false);
+	const [data, setData] = useState(eventTypes?.map(type => type.name) ?? []);
 
 	useEffect(() => {
 		const existingEventType = eventTypes?.find(value => form.values.eventType.name === value.name);
 		if (existingEventType) {
 			setEventTypeColor(existingEventType.color);
-			disableColorInput(true);
+			setColorInputDisabled(true);
 		} else {
-			if (disabledColorInput) {
+			if (colorInputDisabled) {
 				setEventTypeColor(randomColor());
 			}
-			disableColorInput(false);
+			setColorInputDisabled(false);
 		}
 	}, [form.values.eventType.name]);
 
@@ -83,7 +83,7 @@ export function EventTypeInputs(props: EventTypeInputsProps): JSX.Element {
 				</Grid.Col>
 				<Grid.Col span={4}>
 					<ColorInput label={<T k={'event.eventType.color'}/>}
-								disabled={disabledColorInput}
+								disabled={colorInputDisabled}
 								{...form.getInputProps('eventType.color')}/>
 				</Grid.Col>
 			</Grid>

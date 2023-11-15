@@ -1,11 +1,12 @@
 import {Group, TooltipProps} from '@mantine/core';
 import {InfoTooltip} from './InfoTooltip';
+import {JSX} from 'react';
 
 type TextWithInfoProps = {
 	text: JSX.Element;
 	tooltip: JSX.Element;
 	/**
-	 * @default {@link YPosition.RIGHT}
+	 * @default YPosition.RIGHT
 	 */
 	iconPosition?: YPosition;
 	multiline?: TooltipProps['multiline'];
@@ -18,7 +19,7 @@ export enum YPosition {
 	LEFT
 }
 
-export function ElementWithInfo(props: TextWithInfoProps): JSX.Element {
+export function ElementWithInfo(props: Readonly<TextWithInfoProps>): JSX.Element {
 	const {text, iconPosition = YPosition.RIGHT} = props;
 
 	return (
@@ -37,7 +38,7 @@ export function ElementWithInfo(props: TextWithInfoProps): JSX.Element {
 	);
 }
 
-function InfoTooltipIcon(props: TextWithInfoProps): JSX.Element {
+function InfoTooltipIcon(props: Readonly<TextWithInfoProps>): JSX.Element {
 	const {tooltip, multiline, tooltipWidth, tooltipPosition} = props;
 
 	return <InfoTooltip sx={{fontWeight: 350}} label={tooltip} multiline={multiline} width={tooltipWidth}

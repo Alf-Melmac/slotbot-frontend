@@ -7,7 +7,7 @@ import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
 import {SpotlightAction} from '@mantine/spotlight';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Dispatch, SetStateAction, useEffect} from 'react';
+import {Dispatch, JSX, SetStateAction, useEffect} from 'react';
 import {SearchControl} from './SearchControl';
 import {GuildPageParams} from './GuildRoutes';
 
@@ -22,7 +22,7 @@ type GuildsNavbarProps = {
 	setActions: Dispatch<SetStateAction<SpotlightAction[]>>;
 };
 
-export function GuildsNavbar(props: GuildsNavbarProps): JSX.Element {
+export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 	const {guildId} = useParams<GuildPageParams>();
 	const {classes} = useStyles();
 	const guildsQuery = useGetGuilds();

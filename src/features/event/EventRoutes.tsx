@@ -4,11 +4,11 @@ import {Events} from './calendar/Events';
 import {EventWizard} from './wizard/EventWizard';
 import {EventEditPage} from './edit/EventEditPage';
 import {notFoundRoute} from '../error/ErrorRoutes';
-import {PropsWithChildren} from 'react';
+import {JSX, PropsWithChildren} from 'react';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
 
-function EventManageRoute(props: PropsWithChildren): JSX.Element {
+function EventManageRoute(props: Readonly<PropsWithChildren>): JSX.Element {
 	return <RequireAuth authority={ApplicationRoles.ROLE_EVENT_MANAGE}>{props.children}</RequireAuth>;
 }
 

@@ -3,7 +3,7 @@ import {EventGeneralInformation} from '../action/generalInformation/EventGeneral
 import {EventDetailsPage} from '../action/details/EventDetailsPage';
 import {EventSlotlist} from '../action/slotlist/EventSlotlist';
 import {useEventSave} from './useEventSave';
-import {Dispatch, SetStateAction} from 'react';
+import {Dispatch, JSX, SetStateAction} from 'react';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../components/T';
 
@@ -12,7 +12,7 @@ type EventWizardStepsProps = {
 	setActive: Dispatch<SetStateAction<number>>;
 };
 
-export function EventWizardSteps(props: EventWizardStepsProps): JSX.Element {
+export function EventWizardSteps(props: Readonly<EventWizardStepsProps>): JSX.Element {
 	const {active, setActive} = props;
 	const form = useFormContext();
 

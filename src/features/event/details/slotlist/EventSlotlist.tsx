@@ -3,6 +3,7 @@ import {Card, Center, Group, Text} from '@mantine/core';
 import {ReservedFor} from './ReservedFor';
 import {Slot} from './Slot';
 import {EventDetailsSlotlistProvider} from '../../../../contexts/event/details/slotlist/EventDetailsSlotlistContext';
+import {JSX} from 'react';
 
 export type EventSlotlistProps = {
 	squadList: EventDetailsDto['squadList'];
@@ -12,7 +13,7 @@ export type EventSlotlistProps = {
 /**
  * Displays the slotlist inside the event details
  */
-export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
+export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element {
 	return <>
 		{props.squadList.length === 0 && <Center><Text>Keine Slotliste vorhanden.</Text></Center>}
 

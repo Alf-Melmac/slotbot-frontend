@@ -11,7 +11,7 @@ import {EventFields} from './EventFields';
 import {EventSlotlist} from './slotlist/EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
 import {EventPageParams} from '../EventRoutes';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {T} from '../../../components/T';
 

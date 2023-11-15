@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import {Skeleton, Text} from '@mantine/core';
 import {isGerman} from '../../../contexts/language/Language';
 import {DATE_TEMPLATE} from '../../../utils/dateHelper';
+import {JSX} from 'react';
 
 const currentDay: Dayjs = dayjs();
 
@@ -33,7 +34,7 @@ type LoadingCalendarProps = {
 	animated: boolean;
 };
 
-export function LoadingCalendar(props: LoadingCalendarProps): JSX.Element {
+export function LoadingCalendar(props: Readonly<LoadingCalendarProps>): JSX.Element {
 	const {animated} = props;
 
 	const eventContent: CustomContentGenerator<EventContentArg> = (arg: EventContentArg) => {

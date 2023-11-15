@@ -4,14 +4,14 @@ import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {useGetDiscordIntegration} from '../useGetGuild';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
-import {Dispatch, PropsWithChildren, SetStateAction, useState} from 'react';
+import {Dispatch, JSX, PropsWithChildren, SetStateAction, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
 
-export function GuildRoles(props: GuildConfigDto): JSX.Element {
+export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {memberRole, eventManageRole, adminRole} = props;
 	const {guildId} = useGuildPage();
 
@@ -46,7 +46,7 @@ type RoleSelectType = {
 	setRole: Dispatch<SetStateAction<RoleSelectType['role']>>;
 } & Pick<GuildDiscordIntegrationDto, 'roles'>
 
-function RoleSelect(props: RoleSelectType): JSX.Element {
+function RoleSelect(props: Readonly<RoleSelectType>): JSX.Element {
 	const {roleName, role, setRole, roles} = props;
 	const {guildId} = useGuildPage();
 	const {t} = useLanguage();
@@ -73,7 +73,7 @@ function RoleSelect(props: RoleSelectType): JSX.Element {
 				   }))}/>;
 }
 
-function RoleSelectLoadingError(props: Pick<RoleSelectType, 'roleName' | 'role'>): JSX.Element {
+function RoleSelectLoadingError(props: Readonly<Pick<RoleSelectType, 'roleName' | 'role'>>): JSX.Element {
 	const {roleName, role} = props;
 
 	return <TextInput label={<T k={`user.role.${roleName}`}/>}
@@ -91,7 +91,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-function GuildRolesPageWrapper(props: PropsWithChildren): JSX.Element {
+function GuildRolesPageWrapper(props: Readonly<PropsWithChildren>): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Box>

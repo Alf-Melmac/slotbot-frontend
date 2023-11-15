@@ -6,8 +6,9 @@ import {Stack} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useChangeWatcher} from '../useEventUpdate';
 import {T} from '../../../../components/T';
+import {JSX} from 'react';
 
-export function EventPrivacySettings(props: RequiredInformationProps): JSX.Element {
+export function EventPrivacySettings(props: Readonly<RequiredInformationProps>): JSX.Element {
 	const {canRevokeShareable = true} = props;
 	const form = useFormContext();
 

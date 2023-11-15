@@ -2,7 +2,7 @@ import {Button, Card, createStyles, Grid, Group, Image, MediaQuery, Paper, Text,
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailsDto} from '../eventTypes';
-import {MutableRefObject} from 'react';
+import {JSX, MutableRefObject} from 'react';
 import {EventCopy} from './EventCopy';
 import {EventEditButton} from './EventEditButton';
 import {T} from '../../../components/T';
@@ -21,7 +21,7 @@ type EventDetailsHeaderProps = EventDetail & {
 	scrollToDescription: () => void;
 };
 
-export function EventDetailsHeader(props: EventDetailsHeaderProps): JSX.Element {
+export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JSX.Element {
 	const {event, eventDate, descriptionRef, scrollToDescription} = props;
 
 	const {classes} = useStyles();
@@ -81,7 +81,7 @@ type EventDescriptionProps = Pick<TextProps, 'className'> & {
 	lineClamp: TextProps['lineClamp'];
 }
 
-function EventDescription(props: EventDescriptionProps): JSX.Element {
+function EventDescription(props: Readonly<EventDescriptionProps>): JSX.Element {
 	const {classes, cx} = useStyles();
 	return <Text lineClamp={props.lineClamp}
 				 dangerouslySetInnerHTML={{__html: props.description}}

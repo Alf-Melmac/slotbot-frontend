@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useContext, useMemo} from 'react';
+import {createContext, JSX, PropsWithChildren, useContext, useMemo} from 'react';
 
 type GuildPage = {
 	guildId: string;
@@ -7,7 +7,7 @@ type GuildPage = {
 
 const GuildPageContext = createContext<GuildPage | undefined>(undefined);
 
-export function GuildPageProvider(props: PropsWithChildren<GuildPage>): JSX.Element {
+export function GuildPageProvider(props: Readonly<PropsWithChildren<GuildPage>>): JSX.Element {
 	const {guildId, isAdmin, children} = props;
 
 	const contextValue = useMemo(() => {

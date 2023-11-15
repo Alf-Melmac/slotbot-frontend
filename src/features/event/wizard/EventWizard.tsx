@@ -1,6 +1,6 @@
 import {LoadingOverlay} from '@mantine/core';
 import {Breadcrumb} from '../../../components/Breadcrumb';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {EventDetailsDto} from '../eventTypes';
 import {randomColor} from '../action/utils';
 import {eventActionValidate} from '../action/validation';

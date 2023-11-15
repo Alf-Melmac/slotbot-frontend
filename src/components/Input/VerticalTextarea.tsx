@@ -1,4 +1,5 @@
 import {createStyles, Textarea, TextareaProps} from '@mantine/core';
+import {JSX} from 'react';
 
 const useStyles = createStyles(() => ({
 	textarea: {
@@ -6,7 +7,7 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-export function VerticalTextarea(props: TextareaProps): JSX.Element {
+export function VerticalTextarea(props: Readonly<TextareaProps>): JSX.Element {
 	const {classes} = useStyles();
 
 	return (

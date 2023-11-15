@@ -1,4 +1,4 @@
-import {Dispatch, PropsWithChildren, SetStateAction, useEffect} from 'react';
+import {Dispatch, JSX, PropsWithChildren, SetStateAction, useEffect} from 'react';
 import {BaseItem} from './SortableList';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
@@ -32,7 +32,7 @@ export type SortableItemProps = BaseItem & {
  * A sortable item inside a {@link SortableList}.
  * Renders a drag handle before the children.
  */
-export function SortableItem(props: PropsWithChildren<SortableItemProps>) {
+export function SortableItem(props: Readonly<PropsWithChildren<SortableItemProps>>): JSX.Element {
 	const {id, children, sortable, setSorting, itemProps, iconProps} = props;
 
 	const {
@@ -53,9 +53,11 @@ export function SortableItem(props: PropsWithChildren<SortableItemProps>) {
 	}, [style.transform, setSorting]);
 	return (
 		<Group style={style} noWrap spacing={6} {...itemProps}>
-			{sortable && <ActionIcon ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
-				<FontAwesomeIcon icon={faArrowsUpDown}/>
-			</ActionIcon>}
+			{sortable &&
+                <ActionIcon ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
+                    <FontAwesomeIcon icon={faArrowsUpDown}/>
+                </ActionIcon>
+			}
 			<Box style={{flex: 1}}>
 				{children}
 			</Box>

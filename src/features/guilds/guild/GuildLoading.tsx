@@ -3,6 +3,7 @@ import {Paper, SimpleGrid, Stack, Text, Title} from '@mantine/core';
 import {T} from '../../../components/T';
 import {useGuildStyles} from './Guild';
 import {DelayedVisible} from '../../../components/Delayed/DelayedVisible';
+import {JSX} from 'react';
 
 export function GuildLoading(): JSX.Element {
 	const {classes} = useGuildStyles();

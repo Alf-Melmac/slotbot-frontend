@@ -1,7 +1,7 @@
 import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
 import {Box, Group, TextInputProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {useEventTextChange} from './useEventUpdate';
 import {InlineEditableTextAndUpload} from '../../../components/Input/InlineEditable/InlineEditables';
 import {TextKey} from '../../../contexts/language/Language';
@@ -21,7 +21,7 @@ type FormTextInputProps = {
 	overrideFormContextEditMode?: boolean;
 };
 
-export function EventActionUpload(props: FormTextInputProps): JSX.Element {
+export function EventActionUpload(props: Readonly<FormTextInputProps>): JSX.Element {
 	const {inputProps, formPath, overrideFormContextEditMode = false} = props;
 	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);

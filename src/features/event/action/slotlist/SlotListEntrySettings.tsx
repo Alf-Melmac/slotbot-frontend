@@ -1,5 +1,5 @@
 import {SlotDto} from '../../eventTypes';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClone, faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ export type SlotListEntrySettingsProps = {
 	guildsQuery: UseQueryResult<GuildDto[], Error>
 };
 
-export function SlotListEntrySettings(props: SlotListEntrySettingsProps): JSX.Element {
+export function SlotListEntrySettings(props: Readonly<SlotListEntrySettingsProps>): JSX.Element {
 	const {entry, path, index, slot = false, guildsQuery} = props;
 	const [opened, setOpened] = useState(false);
 	const form = useFormContext();
@@ -70,7 +70,7 @@ type SlotListEntryModalHeaderModalHeaderProps = {
 	isSlot: boolean;
 }
 
-function SlotListEntryModalHeader(props: SlotListEntryModalHeaderModalHeaderProps): JSX.Element {
+function SlotListEntryModalHeader(props: Readonly<SlotListEntryModalHeaderModalHeaderProps>): JSX.Element {
 	const {entry, isSlot} = props;
 	const {t} = useLanguage();
 

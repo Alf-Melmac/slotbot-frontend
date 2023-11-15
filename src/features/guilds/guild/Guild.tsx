@@ -9,7 +9,7 @@ import {useGetGuild} from './useGetGuild';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {GuildConfig} from './GuildConfig';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {GuildDetailsDto} from '../guildTypes';
 import {NotFound} from '../../error/NotFound';
 import {GuildLoading} from './GuildLoading';

@@ -74,10 +74,10 @@ function ifPresentAddLength(field: string, supplementaryText = 0): number {
 function detailsFieldTextLength(field: EventActionFormType['details'][number]): number {
 	let fieldLength = length(field.title);
 	// @ts-ignore Text may be boolean if using default field
-	if (field.text === "true" || field.text === true) {
+	if (field.text === 'true' || field.text === true) {
 		fieldLength += 2; //"Ja"
 		// @ts-ignore Text may be boolean if using default field
-	} else if (field.text === "false" || field.text === false) {
+	} else if (field.text === 'false' || field.text === false) {
 		fieldLength += 4; //"Nein"
 	} else {
 		fieldLength += length(field.text); //Currently this doesn't respect auto generated links

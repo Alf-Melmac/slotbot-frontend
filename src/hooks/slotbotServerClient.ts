@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {getBackendUrl} from '../utils/urlHelper';
-import {showNotification} from '@mantine/notifications';
 
 const slotbotServerClient = axios.create({
 	baseURL: getBackendUrl(),

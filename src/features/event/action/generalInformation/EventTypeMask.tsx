@@ -1,6 +1,7 @@
 import {Skeleton} from '@mantine/core';
 import {EventTypeInputs} from './EventTypeInputs';
 import {useGetEventTypes} from './useGetEventTypes';
+import {JSX} from 'react';
 
 export function EventTypeMask(): JSX.Element {
 	const query = useGetEventTypes();

@@ -7,6 +7,7 @@ import {useChangeWatcher} from '../useEventUpdate';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {EventActionUpload} from '../EventActionUpload';
+import {JSX} from 'react';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();

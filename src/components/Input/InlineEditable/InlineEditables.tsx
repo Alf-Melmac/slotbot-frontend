@@ -6,15 +6,17 @@ import {VerticalTextarea} from '../VerticalTextarea';
 import {TextareaMaxLength} from '../MaxLength/TextareaMaxLength';
 import {TextInputAndUpload} from '../TextInputAndUpload';
 import {TextInputAndUploadMaxLength} from '../MaxLength/TextInputAndUploadMaxLength';
+import {JSX} from 'react';
 
 type InlineEditableTextProps = PartialBy<InlineEditableProps<TextInputProps>, 'viewModeComponent' | 'editModeComponent'>;
-export function InlineEditableText(props: InlineEditableTextProps): JSX.Element {
+
+export function InlineEditableText(props: Readonly<InlineEditableTextProps>): JSX.Element {
 	return <InlineEditable viewModeComponent={TextInput}
 						   editModeComponent={TextInput} editModeMaxLengthComponent={TextInputMaxLength}
 						   {...props}/>;
 }
 
-export function InlineEditableTextAndUpload(props: InlineEditableTextProps): JSX.Element {
+export function InlineEditableTextAndUpload(props: Readonly<InlineEditableTextProps>): JSX.Element {
 	return <InlineEditable viewModeComponent={TextInput}
 						   editModeComponent={TextInputAndUpload}
 						   editModeMaxLengthComponent={TextInputAndUploadMaxLength}
@@ -22,7 +24,8 @@ export function InlineEditableTextAndUpload(props: InlineEditableTextProps): JSX
 }
 
 type InlineEditableTextareaProps = PartialBy<InlineEditableProps<TextareaProps>, 'viewModeComponent' | 'editModeComponent'>;
-export function InlineEditableTextarea(props: InlineEditableTextareaProps): JSX.Element {
+
+export function InlineEditableTextarea(props: Readonly<InlineEditableTextareaProps>): JSX.Element {
 	return <InlineEditable viewModeComponent={Textarea}
 						   editModeComponent={VerticalTextarea} editModeMaxLengthComponent={TextareaMaxLength}
 						   {...props}/>;
@@ -30,6 +33,6 @@ export function InlineEditableTextarea(props: InlineEditableTextareaProps): JSX.
 
 type InlineEditableAutocompleteProps = PartialBy<InlineEditableProps<AutocompleteProps>, 'viewModeComponent' | 'editModeComponent'>;
 
-export function InlineEditableAutocomplete(props: InlineEditableAutocompleteProps): JSX.Element {
+export function InlineEditableAutocomplete(props: Readonly<InlineEditableAutocompleteProps>): JSX.Element {
 	return <InlineEditable viewModeComponent={Autocomplete} editModeComponent={Autocomplete} {...props}/>;
 }

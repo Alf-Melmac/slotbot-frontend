@@ -5,12 +5,13 @@ import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {Link, LinkProps} from 'react-router-dom';
 import {omit} from 'lodash';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
+import {JSX} from 'react';
 
 interface EventDetailsButtonProps extends LinkProps {
 	icon: IconDefinition;
 }
 
-export function EventDetailsButton(props: EventDetailsButtonProps): JSX.Element {
+export function EventDetailsButton(props: Readonly<EventDetailsButtonProps>): JSX.Element {
 	const allowed = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE);
 
 	return <>

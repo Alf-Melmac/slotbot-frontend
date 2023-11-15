@@ -1,5 +1,5 @@
 import {GuildConfigDto, Language} from '../../guildTypes';
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -10,7 +10,7 @@ import {T} from '../../../../components/T';
 import {DEFlag, GBFlag} from 'mantine-flagpack';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
-export function GuildLanguage(props: GuildConfigDto): JSX.Element {
+export function GuildLanguage(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {language} = props;
 	const {guildId} = useGuildPage();
 	const [selectedLanguage, setSelectedLanguage] = useState(language);

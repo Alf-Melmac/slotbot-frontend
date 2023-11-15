@@ -13,10 +13,11 @@ import {filterFrontendIds} from '../../../../utils/formHelper';
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
+import {JSX} from 'react';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
-export function EventSlotlist(props: EventSlotlistProps): JSX.Element {
+export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element {
 	const {canUploadSlotlist = true} = props;
 	const form = useFormContext();
 	const editMode = useEditMode();

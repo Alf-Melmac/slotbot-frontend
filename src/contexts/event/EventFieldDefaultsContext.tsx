@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useContext} from 'react';
+import {createContext, JSX, PropsWithChildren, useContext} from 'react';
 import {EventFieldDefaultDto} from '../../features/event/eventTypes';
 
 type FieldDefaults = {
@@ -7,7 +7,7 @@ type FieldDefaults = {
 
 export type FieldDefault = EventFieldDefaultDto | undefined;
 
-export function EventFieldDefaultsProvider(props: PropsWithChildren<FieldDefaults>): JSX.Element {
+export function EventFieldDefaultsProvider(props: Readonly<PropsWithChildren<FieldDefaults>>): JSX.Element {
 	return <EventFieldDefaultsContext.Provider
 		value={props.fieldDefaults}>{props.children}</EventFieldDefaultsContext.Provider>;
 }

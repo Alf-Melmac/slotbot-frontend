@@ -1,6 +1,6 @@
 import {Button, Stack} from '@mantine/core';
 import slotbotServerClient, {voidFunction} from '../../hooks/slotbotServerClient';
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';

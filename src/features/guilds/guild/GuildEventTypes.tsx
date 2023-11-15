@@ -5,6 +5,7 @@ import {T} from '../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCopy} from '@fortawesome/free-regular-svg-icons';
 import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
+import {JSX} from 'react';
 
 export function GuildEventTypes(): JSX.Element {
 	const {guildId} = useGuildPage();

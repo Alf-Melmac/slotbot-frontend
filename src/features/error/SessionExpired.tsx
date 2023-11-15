@@ -4,6 +4,7 @@ import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../components/T';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {Navigate} from 'react-router-dom';
+import {JSX} from 'react';
 
 export function SessionExpired(): JSX.Element {
 	if (useAuth().user) {

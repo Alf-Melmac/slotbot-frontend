@@ -1,6 +1,7 @@
 import {ActionIcon, Image, Text, useMantineTheme} from '@mantine/core';
 import {EventSlotlistProps} from './EventSlotlist';
 import {Link} from 'react-router-dom';
+import {JSX} from 'react';
 
 type ReservedForProps = {
 	guild: EventSlotlistProps['squadList'][number]['reservedFor'] | EventSlotlistProps['squadList'][number]['slotList'][number]['reservedFor']
@@ -9,7 +10,7 @@ type ReservedForProps = {
 /**
  * Displays optional reservation info for a squad or slot
  */
-export function ReservedFor(props: ReservedForProps): JSX.Element {
+export function ReservedFor(props: Readonly<ReservedForProps>): JSX.Element {
 	const {guild} = props;
 	const theme = useMantineTheme();
 

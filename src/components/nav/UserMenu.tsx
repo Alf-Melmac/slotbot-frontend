@@ -1,4 +1,4 @@
-import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from "@mantine/core";
+import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRightFromBracket, faChevronDown, faScrewdriverWrench, faUser} from '@fortawesome/free-solid-svg-icons';
 import {ApplicationRoles, DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
@@ -9,6 +9,7 @@ import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {underlineOnHover} from '../../contexts/CommonStylings';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 import {T} from '../T';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	user: {
@@ -27,7 +28,7 @@ type UserMenuProps = {
 	user: DiscordUserDto;
 };
 
-export function UserMenu(props: UserMenuProps): JSX.Element {
+export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 	const {user} = props;
 	const {classes} = useStyles();
 	const {logout} = useAuth();

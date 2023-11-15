@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {JSX, useEffect, useRef, useState} from 'react';
 import {PaperProps} from '@mantine/core';
 import {DELAY} from './Delayed';
 
@@ -16,7 +16,7 @@ type DelayedVisibleProps<ComponentProps extends DelayedComponentProps> = Compone
  * </ul>
  * @see Delayed
  */
-export function DelayedVisible<ComponentProps extends DelayedComponentProps>(props: DelayedVisibleProps<ComponentProps>): JSX.Element {
+export function DelayedVisible<ComponentProps extends DelayedComponentProps>(props: Readonly<DelayedVisibleProps<ComponentProps>>): JSX.Element {
 	const {component: DelayedComponent, ...componentProps} = props;
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);

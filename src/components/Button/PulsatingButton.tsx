@@ -1,5 +1,5 @@
-import {Button, ButtonProps, createStyles, keyframes} from "@mantine/core";
-import {DOMAttributes} from 'react';
+import {Button, ButtonProps, createStyles, keyframes} from '@mantine/core';
+import {DOMAttributes, JSX} from 'react';
 
 const pulsate = keyframes({
 	'0%': {
@@ -25,7 +25,7 @@ const useStyles = createStyles(() => ({
 	},
 }));
 
-export function PulsatingButton(props: ButtonProps & DOMAttributes<HTMLButtonElement>): JSX.Element {
+export function PulsatingButton(props: Readonly<ButtonProps & DOMAttributes<HTMLButtonElement>>): JSX.Element {
 	const {classes} = useStyles();
 
 	return <Button {...props} className={props.disabled ? undefined : classes.button}/>;

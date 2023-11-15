@@ -45,6 +45,7 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	own: boolean;
 	slottable: boolean | null;
 }
+
 //endregion event details
 
 interface EventActionDto {
@@ -85,6 +86,7 @@ export interface SlotDto extends FrontendIdDto {
 	blocked: boolean;
 	replacementText?: string;
 }
+
 //endregion event post
 
 //region event edit
@@ -109,6 +111,7 @@ export interface EventEditDto extends EventUpdateDto {
 	canRevokeShareable: boolean;
 	canUploadSlotlist: boolean;
 }
+
 //endregion event edit
 
 export interface IdEntity {
@@ -123,5 +126,5 @@ export interface EventFieldDefaultDto {
 	text: string;
 }
 
-type EventFieldType = "TEXT" | "TEXT_WITH_SELECTION" | "BOOLEAN";
+type EventFieldType = 'TEXT' | 'TEXT_WITH_SELECTION' | 'BOOLEAN';
 //endregion event field defaults

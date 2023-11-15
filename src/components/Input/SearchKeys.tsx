@@ -1,6 +1,7 @@
 import {Group, Kbd} from '@mantine/core';
 import {T} from '../T';
 import {useOs} from '@mantine/hooks';
+import {JSX} from 'react';
 
 /**
  * Displays keys needed for opening a search

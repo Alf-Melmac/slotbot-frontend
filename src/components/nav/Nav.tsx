@@ -1,4 +1,4 @@
-import {AppShell, Box, Container, createStyles, Footer, Group, Header, MediaQuery} from "@mantine/core";
+import {AppShell, Box, Container, createStyles, Footer, Group, Header, MediaQuery} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
@@ -10,7 +10,7 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import {getGuild, Guild} from '../../contexts/Theme';
-import {PropsWithChildren} from 'react';
+import {JSX, PropsWithChildren} from 'react';
 import {hidden} from '../../contexts/CommonStylings';
 
 const useStyles = createStyles(() => ({
@@ -28,7 +28,7 @@ type NavProps = {
 export const NAV_HEIGHT = 100;
 export const FOOTER_HEIGHT = 150;
 
-export function Nav(props: PropsWithChildren<NavProps>): JSX.Element {
+export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 	const {classes} = useStyles();
 
 	const guild = getGuild();
@@ -48,7 +48,7 @@ export function Nav(props: PropsWithChildren<NavProps>): JSX.Element {
 				<Header height={NAV_HEIGHT} withBorder={false}>
 					<Container className={classes.inner}>
 						<Logo/>
-						<Box styles={{alignSelf: "flex-end"}}>
+						<Box styles={{alignSelf: 'flex-end'}}>
 							<Group noWrap spacing={'xs'}>
 								<MediaQuery smallerThan={'xs'} styles={hidden}>
 									<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}

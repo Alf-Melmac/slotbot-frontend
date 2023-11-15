@@ -1,4 +1,4 @@
-import {MantineThemeOverride} from "@mantine/core";
+import {MantineThemeOverride} from '@mantine/core';
 
 export enum Guild {
 	AMB,
@@ -48,7 +48,7 @@ const globalTheme: MantineThemeOverride = {
 		DateInput: {
 			defaultProps: {
 				valueFormat: 'L',
-			}
+			},
 		},
 	},
 
@@ -80,10 +80,10 @@ const themeAMB: MantineThemeOverride = {
 		},
 		'*::-webkit-scrollbar-thumb': {
 			backgroundColor: theme.colors.gray[5],
-			borderRadius: "6px",
+			borderRadius: '6px',
 		},
 		'@supports (-moz-appearance:none)': {
-			"*": {
+			'*': {
 				/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
 				So that nothing is broken in potential future support, these values are set only for Firefox.*/
 				scrollbarColor: `${theme.colors.gray[5]} transparent`,
@@ -107,10 +107,10 @@ const themeDAA: MantineThemeOverride = {
 		},
 		'*::-webkit-scrollbar-thumb': {
 			backgroundColor: theme.colors.gray[5],
-			borderRadius: "6px",
+			borderRadius: '6px',
 		},
 		'@supports (-moz-appearance:none)': {
-			"*": {
+			'*': {
 				/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
 				So that nothing is broken in potential future support, these values are set only for Firefox.*/
 				scrollbarColor: `${theme.colors.gray[5]} transparent`,

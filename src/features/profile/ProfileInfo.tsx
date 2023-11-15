@@ -8,6 +8,7 @@ import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 import {ExternalCalendarSettings} from './ExternalCalendarSettings';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 import {T} from '../../components/T';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	userCard: {
@@ -25,7 +26,7 @@ type ProfileInfoProps = {
 	profileInfo: UserProfileDto;
 };
 
-export function ProfileInfo(props: ProfileInfoProps): JSX.Element {
+export function ProfileInfo(props: Readonly<ProfileInfoProps>): JSX.Element {
 	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
 	useTranslatedDocumentTitle(ownProfile ? 'documentTitle.profile.own' : profileUser.name, undefined, !ownProfile);
 

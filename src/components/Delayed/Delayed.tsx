@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {LoadingOverlayProps, SkeletonProps} from '@mantine/core';
 
 type DelayedComponentProps = SkeletonProps | LoadingOverlayProps;
@@ -20,7 +20,7 @@ export const DELAY = 700;
  *     <li>{@link LoadingOverlayProps}</li>
  * </ul>
  */
-export function Delayed<ComponentProps extends DelayedComponentProps>(props: DelayedProps<ComponentProps>): JSX.Element {
+export function Delayed<ComponentProps extends DelayedComponentProps>(props: Readonly<DelayedProps<ComponentProps>>): JSX.Element {
 	const {component: DelayedComponent, ...componentProps} = props;
 
 	const [visible, setVisible] = useState(false);

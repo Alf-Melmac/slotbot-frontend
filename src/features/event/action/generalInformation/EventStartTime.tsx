@@ -5,7 +5,7 @@ import {useDebouncedValue, usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {formatLocalDateTimeToUtcDate, getTimeShort} from '../../../../utils/dateHelper';
-import {useEffect} from 'react';
+import {JSX, useEffect} from 'react';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';

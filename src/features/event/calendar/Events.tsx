@@ -1,7 +1,7 @@
-import {Box, Center, createStyles, Title} from "@mantine/core";
+import {Box, Center, createStyles, Title} from '@mantine/core';
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
-import {useCallback, useRef, useState} from 'react';
+import {JSX, useCallback, useRef, useState} from 'react';
 import {T} from '../../../components/T';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {hidden} from '../../../contexts/CommonStylings';

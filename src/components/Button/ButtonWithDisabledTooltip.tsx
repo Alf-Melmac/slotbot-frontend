@@ -1,5 +1,5 @@
 import {Box, Button, ButtonProps, Tooltip} from '@mantine/core';
-import {DOMAttributes} from 'react';
+import {DOMAttributes, JSX} from 'react';
 import {TextKey} from '../../contexts/language/Language';
 import {T} from '../T';
 
@@ -9,7 +9,7 @@ type ButtonWithDisabledTooltipProps = ButtonProps &
 		tooltip: TextKey;
 	};
 
-export function ButtonWithDisabledTooltip(props: ButtonWithDisabledTooltipProps): JSX.Element {
+export function ButtonWithDisabledTooltip(props: Readonly<ButtonWithDisabledTooltipProps>): JSX.Element {
 	const {disabled, tooltip} = props;
 
 	return (

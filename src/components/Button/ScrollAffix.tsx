@@ -3,6 +3,7 @@ import {useIntersection, useMergedRef, useScrollIntoView} from '@mantine/hooks';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../T';
+import {JSX} from 'react';
 
 type ScrollAffixProps = {
 	show: boolean;
@@ -12,7 +13,7 @@ type ScrollAffixProps = {
 /**
  * Affix to scroll to children element is shown if children element is not visible on screen and <code>props.show</code> is true
  */
-export function ScrollAffix(props: ScrollAffixProps): JSX.Element {
+export function ScrollAffix(props: Readonly<ScrollAffixProps>): JSX.Element {
 	const {children, show} = props;
 	const {scrollIntoView, targetRef} = useScrollIntoView<HTMLDivElement>();
 	const {ref, entry} = useIntersection();

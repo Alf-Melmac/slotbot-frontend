@@ -13,10 +13,11 @@ import {errorNotification, successNotification} from '../../utils/notificationHe
 import {T} from '../../components/T';
 import {useLanguage} from '../../contexts/language/Language';
 import {TranslationOptions} from '../../contexts/language/TranslationTypes';
+import {JSX} from 'react';
 
 type GlobalNotificationSettingsProps = Pick<UserOwnProfileDto, 'notificationSettings'>;
 
-export function GlobalNotificationSettings(props: GlobalNotificationSettingsProps): JSX.Element {
+export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSettingsProps>): JSX.Element {
 	const form = useForm<GlobalNotificationSettingsProps>({
 		initialValues: {
 			notificationSettings: props.notificationSettings,
@@ -90,5 +91,5 @@ export function GlobalNotificationSettings(props: GlobalNotificationSettingsProp
  * getRelativeTimeInputFormatterTranslationOptions
  */
 function getOptions(value: string | undefined): TranslationOptions {
-	return {count: parseInt(value || '0'), countAsArgs: true};
+	return {count: parseInt(value ?? '0'), countAsArgs: true};
 }

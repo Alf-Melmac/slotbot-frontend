@@ -7,6 +7,7 @@ import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {formatLocalDateTimeToUtcDate, getTimeShort, isDateEqual} from '../../../../utils/dateHelper';
 import {useLanguage} from '../../../../contexts/language/Language';
+import {JSX} from 'react';
 
 export function EventDate(): JSX.Element {
 	const {t} = useLanguage();

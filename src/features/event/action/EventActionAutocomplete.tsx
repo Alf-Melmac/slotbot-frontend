@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {JSX, useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../contexts/event/action/EditModeContext';
@@ -19,7 +19,7 @@ type FormTextInputProps = {
 	overrideFormContextEditMode?: boolean;
 };
 
-export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element {
+export function EventActionAutocomplete(props: Readonly<FormTextInputProps>): JSX.Element {
 	const {inputProps, formPath, overrideFormContextEditMode = false} = props;
 	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);
@@ -31,7 +31,8 @@ export function EventActionAutocomplete(props: FormTextInputProps): JSX.Element 
 	return <>
 		{useEditMode() ?
 			<InlineEditableAutocomplete {...translatedInputProps} position={'group'} {...formInputProps}
-										onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
+										onSubmit={() => mutate()}
+										onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
 			<Autocomplete {...translatedInputProps} {...formInputProps}/>
 		}

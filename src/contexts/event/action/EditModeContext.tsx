@@ -1,10 +1,10 @@
-import {createContext, PropsWithChildren, useContext} from 'react';
+import {createContext, JSX, PropsWithChildren, useContext} from 'react';
 
 export type EditMode = {
 	editMode: boolean;
 }
 
-export function EditModeProvider(props: PropsWithChildren<EditMode>): JSX.Element {
+export function EditModeProvider(props: Readonly<PropsWithChildren<EditMode>>): JSX.Element {
 	return <EditModeContext.Provider value={props.editMode}>{props.children}</EditModeContext.Provider>;
 }
 

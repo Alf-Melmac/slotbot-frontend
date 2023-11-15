@@ -1,7 +1,8 @@
 import {TextInput, TextInputProps} from '@mantine/core';
 import {MaxLengthHelper} from './MaxLengthHelper';
+import {JSX} from 'react';
 
-export function TextInputMaxLength(props: TextInputProps): JSX.Element {
+export function TextInputMaxLength(props: Readonly<TextInputProps>): JSX.Element {
 	const {maxLength, value} = props;
 
 	if (typeof value !== 'string') {

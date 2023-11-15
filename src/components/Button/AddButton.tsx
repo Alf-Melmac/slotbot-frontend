@@ -4,6 +4,7 @@ import {createStyles, Group, GroupProps, Text, ThemeIcon, UnstyledButton} from '
 import {Link, LinkProps} from 'react-router-dom';
 import {TextKey} from '../../contexts/language/Language';
 import {T} from '../T';
+import {JSX} from 'react';
 
 const useStyles = createStyles((theme) => ({
 	actionIcon: { /*Copy pasta from mantine ActionIcon*/
@@ -38,7 +39,7 @@ type AddButtonProps = {
 }
 	);
 
-export function AddButton(props: AddButtonProps): JSX.Element {
+export function AddButton(props: Readonly<AddButtonProps>): JSX.Element {
 	const {label, disabled, mt, mb, onClick, to} = props;
 
 	const {classes} = useStyles();

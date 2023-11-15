@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import {JSX, ReactNode} from 'react';
 import {useAuth} from './AuthProvider';
 import {OnMount} from '../../components/OnMount';
 import {ApplicationRoles} from './authenticationTypes';
@@ -10,7 +10,7 @@ type RequireAuthProps = {
 	authority?: ApplicationRoles;
 }
 
-export function RequireAuth(props: RequireAuthProps): JSX.Element {
+export function RequireAuth(props: Readonly<RequireAuthProps>): JSX.Element {
 	const {children, authority} = props;
 
 	const {user, login} = useAuth();

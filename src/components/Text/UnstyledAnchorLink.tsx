@@ -1,18 +1,20 @@
 import {AnchorLink, ReactRouterAnchorProps} from './AnchorLink';
 import {createStyles} from '@mantine/core';
+import {JSX} from 'react';
 
 const useStyles = createStyles(() => ({
-    link: {
-        color: 'inherit',
+	link: {
+		color: 'inherit',
 
-        '&:hover': {
-            textDecoration: 'unset',
-        }
-    },
+		'&:hover': {
+			textDecoration: 'unset',
+		},
+	},
 }));
 
-export function UnstyledAnchorLink(props: ReactRouterAnchorProps): JSX.Element {
-    const {classes, cx} = useStyles();
+export function UnstyledAnchorLink(props: Readonly<ReactRouterAnchorProps>): JSX.Element {
+	const {classes, cx} = useStyles();
 
-    return <AnchorLink {...props} className={cx(classes.link, props.className)}/>;
+	// noinspection RequiredAttributes children is provided by props
+	return <AnchorLink {...props} className={cx(classes.link, props.className)}/>;
 }
