@@ -3,8 +3,8 @@ import {getBackendUrl} from '../utils/urlHelper';
 
 const slotbotServerClient = axios.create({
 	baseURL: getBackendUrl(),
-	withCredentials: import.meta.env.DEV,
-	withXSRFToken: import.meta.env.DEV,
+	withCredentials: true,
+	withXSRFToken: true,
 });
 
 slotbotServerClient.interceptors.response.use(
