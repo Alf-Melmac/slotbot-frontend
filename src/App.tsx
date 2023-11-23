@@ -1,4 +1,4 @@
-import {ColorScheme, ColorSchemeProvider, MantineProvider, Skeleton} from '@mantine/core';
+import {ColorScheme, ColorSchemeProvider, Global, MantineProvider, Skeleton} from '@mantine/core';
 import {JSX, Suspense, useState} from 'react';
 import {routes} from './Router';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
@@ -8,6 +8,10 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './contexts/authentication/AuthProvider';
 import {currentLanguageTag, LanguageProvider} from './contexts/language/Language';
 import {DatesProvider} from '@mantine/dates';
+import regular from '/fonts/Roboto-400.woff2';
+import bold from '/fonts/Roboto-700.woff2';
+
+// import condensed from '/fonts/Roboto-Condensed.woff2';
 
 export function App(): JSX.Element {
 	const queryClient = new QueryClient({
@@ -29,6 +33,33 @@ export function App(): JSX.Element {
 				<LanguageProvider>
 					<ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
 						<MantineProvider theme={{colorScheme, ...getThemeOverride()}} withNormalizeCSS withGlobalStyles>
+							<Global styles={[
+								{
+									'@font-face': {
+										fontFamily: 'Roboto',
+										src: `url('${regular}') format('woff2')`,
+										fontWeight: 'normal',
+										fontStyle: 'normal',
+										fontDisplay: 'swap',
+									},
+								},
+								{
+									'@font-face': {
+										fontFamily: 'Roboto',
+										src: `url('${bold}') format('woff2')`,
+										fontWeight: 'bold',
+										fontStyle: 'normal',
+										fontDisplay: 'swap',
+									},
+								},
+								/*{
+									'@font-face': {
+										fontFamily: 'Roboto Condensed',
+										src: `url('${condensed}') format('woff2')`,
+										fontDisplay: 'swap',
+									},
+								},*/
+							]}/>
 							<Notifications/>
 							<DatesProvider settings={{locale: currentLanguageTag()}}>
 								<AuthProvider>

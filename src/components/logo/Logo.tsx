@@ -15,14 +15,12 @@ type LogoProps = {
 export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
 	const {title, logo, logoWithName = false} = useGetInfo();
-	const width = logoWithName ? small ? 100 : 230 : small ? 27.9 : 70;
-
 	return (
 		<UnstyledAnchorLink to={'/events'}>
 			<Group spacing={'xs'} noWrap>
 				{!small &&
                     <MediaQuery smallerThan={'xs'} styles={hidden}>
-                        <Image width={width} src={logo} alt={title} radius={'lg'}/>
+                        <Image width={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
                     </MediaQuery>
 				}
 				{(!logoWithName || small) &&

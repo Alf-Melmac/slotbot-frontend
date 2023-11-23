@@ -2,11 +2,9 @@ import FullCalendar from '@fullcalendar/react';
 import {EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {Box, ColorSwatch, createStyles, MediaQuery, Text, Tooltip} from '@mantine/core';
+import {ColorSwatch, createStyles, Flex, MediaQuery, rem, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
-import {Bold} from '../../../components/Text/Bold';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
-import {EventTooltip} from './EventTooltip';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {AddButton} from '../../../components/Button/AddButton';
@@ -15,23 +13,37 @@ import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {isGerman} from '../../../contexts/language/Language';
 import {hidden} from '../../../contexts/CommonStylings';
 import {JSX} from 'react';
+import {EventTooltip} from './EventTooltip';
 
 const useStyles = createStyles((theme) => ({
 	eventType: {
-		height: theme.fontSizes.xs,
-		width: theme.fontSizes.xs,
-		minWidth: theme.fontSizes.xs,
+		flex: '0 0 auto',
+		height: rem(8),
+		width: rem(8),
+	},
+
+	eventTitle: {
+		flex: 1,
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		fontSize: theme.fontSizes.sm,
+	},
+
+	eventTime: {
+		flex: '0 0 auto',
+		fontSize: theme.fontSizes.xs,
 	},
 
 	eventWrapper: {
-		all: 'inherit',
+		alignItems: 'center',
+		wrap: 'nowrap',
+		width: '100%',
+		padding: 2,
 	},
 
 	eventLink: {
-		display: 'inherit',
-		alignItems: 'inherit',
-		textDecoration: 'none !important',
-		overflow: 'hidden',
+		width: '100%',
 	},
 }));
 
@@ -50,12 +62,13 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 		return (
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
-					<Box className={classes.eventWrapper}>
-						<MediaQuery smallerThan={'xs'} styles={hidden}>
+					<Flex className={classes.eventWrapper}>
+						<MediaQuery smallerThan={'sm'} styles={hidden}>
 							<ColorSwatch color={backgroundColor} className={classes.eventType} mx={2}/>
 						</MediaQuery>
-						<Text mx={{base: 2, sm: 0}}>{arg.timeText} <Bold>{event.title}</Bold></Text>
-					</Box>
+						<Text className={classes.eventTitle}>{event.title}</Text>
+						<Text c={'dimmed'} className={classes.eventTime}>{arg.timeText}</Text>
+					</Flex>
 				</Tooltip>
 			</AnchorLink>
 		);
@@ -83,6 +96,10 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 							successCallback(data);
 						})
 						.catch(failureCallback);
+				}}
+				eventTimeFormat={{
+					hour: '2-digit',
+					minute: '2-digit',
 				}}
 				eventContent={eventContent}
 				eventSourceSuccess={(_content, _response) => toggleVisible(false)}

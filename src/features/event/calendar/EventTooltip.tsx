@@ -21,7 +21,7 @@ export function EventTooltip(props: Readonly<EventTooltipProps>): JSX.Element {
 				k={'calendarEvent.tooltip.emptySlots'}/></Text>
 			{emptyReserveSlotsCount > 0 &&
                 <Bold><T k={'calendarEvent.tooltip.emptyReserveSlots'} args={[emptyReserveSlotsCount]}/></Bold>}
-			{missionLength && <Text><Bold>Dauer:</Bold> {missionLength}</Text>}
+			{missionLength && <Text><Bold span>Dauer:</Bold> {missionLength}</Text>}
 		</Stack>
 	);
 }

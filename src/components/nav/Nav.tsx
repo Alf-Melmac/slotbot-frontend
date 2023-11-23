@@ -25,7 +25,7 @@ const useStyles = createStyles(() => ({
 type NavProps = {
 	navbar?: JSX.Element
 };
-export const NAV_HEIGHT = 100;
+export const NAV_HEIGHT = 80;
 export const FOOTER_HEIGHT = 150;
 
 export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
@@ -52,7 +52,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 							<Group noWrap spacing={'xs'}>
 								<MediaQuery smallerThan={'xs'} styles={hidden}>
 									<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
-												 width={130}/>
+												 width={135}/>
 								</MediaQuery>
 								<MediaQuery smallerThan={'xs'} styles={hidden}>
 									<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}

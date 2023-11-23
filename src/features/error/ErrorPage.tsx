@@ -1,8 +1,9 @@
-import {Button, createStyles, Group, Text, Title} from '@mantine/core';
+import {Button, createStyles, Group, Text} from '@mantine/core';
 import {JSX, PropsWithChildren} from 'react';
 import {Link} from 'react-router-dom';
 import {T} from '../../components/T';
 import {TextKey} from '../../contexts/language/Language';
+import {Bold} from '../../components/Text/Bold';
 
 const useStyles = createStyles((theme) => ({
 	label: {
@@ -33,13 +34,13 @@ const useStyles = createStyles((theme) => ({
 export function ErrorLabel(props: Readonly<PropsWithChildren>): JSX.Element {
 	const {classes} = useStyles();
 
-	return <Text align={'center'} size={220} weight={900} mb={'xl'} className={classes.label}>{props.children}</Text>;
+	return <Text align={'center'} size={220} weight={900} ff={'sans-serif'} mb={'xl'} className={classes.label}>{props.children}</Text>;
 }
 
 export function ErrorTitle(props: Readonly<{ title: TextKey }>): JSX.Element {
 	const {classes} = useStyles();
 
-	return <Title align={'center'} size={38} className={classes.title}><T k={props.title}/></Title>;
+	return <Bold align={'center'} size={38} className={classes.title}><T k={props.title}/></Bold>;
 }
 
 export function ErrorDescription(props: Readonly<{ description: TextKey }>): JSX.Element {

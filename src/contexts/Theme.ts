@@ -1,4 +1,4 @@
-import {MantineThemeOverride} from '@mantine/core';
+import {MantineThemeOverride, rem} from '@mantine/core';
 
 export enum Guild {
 	AMB,
@@ -32,12 +32,23 @@ export function getGuild(): Guild {
 }
 
 const globalTheme: MantineThemeOverride = {
-	fontFamily: 'Roboto Condensed, sans-serif',
+	fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+	fontSizes: {
+		xs: rem(12),
+		sm: rem(14),
+		md: rem(16),
+		lg: rem(18),
+		xl: rem(20),
+	},
 
 	headings: {
-		fontFamily: 'Roboto Regular, sans-serif',
 		sizes: {
-			h1: {fontSize: '2.5rem'},
+			h1: {fontSize: rem(36), fontWeight: 400, lineHeight: rem(54)},
+			h2: {fontSize: rem(28), fontWeight: 400, lineHeight: rem(42)},
+			h3: {fontSize: rem(20), fontWeight: 400, lineHeight: rem(30)},
+			h4: {fontSize: rem(18), fontWeight: 400, lineHeight: rem(27)},
+			h5: {fontSize: rem(16), fontWeight: 600, lineHeight: rem(24)},
+			h6: {fontSize: rem(16), fontWeight: 400, lineHeight: rem(24)},
 		},
 	},
 
