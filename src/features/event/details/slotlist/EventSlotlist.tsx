@@ -1,9 +1,9 @@
 import {EventDetailsDto} from '../../eventTypes';
 import {Card, Center, Group, Text} from '@mantine/core';
 import {ReservedFor} from './ReservedFor';
-import {Slot} from './Slot';
 import {EventDetailsSlotlistProvider} from '../../../../contexts/event/details/slotlist/EventDetailsSlotlistContext';
 import {JSX} from 'react';
+import {Slots} from './Slots';
 
 export type EventSlotlistProps = {
 	squadList: EventDetailsDto['squadList'];
@@ -20,14 +20,12 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 		<EventDetailsSlotlistProvider eventId={props.eventId}>
 			{props.squadList.map((squad) => (
 				<Card mb={'md'} key={squad.id}>
-					<Group noWrap spacing={1} pb={5}>
+					<Group noWrap spacing={1}>
 						<Text>{squad.name}</Text>
 						<ReservedFor guild={squad.reservedFor}/>
 					</Group>
 
-					{squad.slotList.map((slot) => (
-						<Slot key={slot.id} slot={slot}/>
-					))}
+					<Slots slots={squad.slotList}/>
 				</Card>
 			))}
 		</EventDetailsSlotlistProvider>

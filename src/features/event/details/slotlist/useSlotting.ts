@@ -5,9 +5,9 @@ import {errorNotification} from '../../../../utils/notificationHelper';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {AxiosError} from 'axios';
 import {useEffect} from 'react';
-import {EventSlotlistSlotProps} from './Slot';
+import {SlotTextProps} from './SlotText';
 
-export function useSlotting(id: EventSlotlistSlotProps['slot']['id']) {
+export function useSlotting(id: SlotTextProps['slot']['id']) {
 	const queryClient = useQueryClient();
 	const {setPendingSlotting, eventId} = useEventDetailsSlotlist();
 	const mutationOptions = {
