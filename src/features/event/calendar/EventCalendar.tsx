@@ -101,6 +101,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 					hour: '2-digit',
 					minute: '2-digit',
 				}}
+				nextDayThreshold={'01:00:00'}
 				eventContent={eventContent}
 				eventSourceSuccess={(_content, _response) => toggleVisible(false)}
 				eventSourceFailure={(error) => {
