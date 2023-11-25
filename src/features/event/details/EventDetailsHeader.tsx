@@ -28,12 +28,12 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 	return (
 		<>
 			<Grid gutter={'xl'} mt={1}>
-				<Grid.Col xs={4} span={12}>
+				<Grid.Col sm={4} span={12}>
 					<Paper shadow={'md'}>
 						<Image src={event.pictureUrl} radius={'sm'} withPlaceholder/>
 					</Paper>
 				</Grid.Col>
-				<Grid.Col xs={8} span={12}>
+				<Grid.Col sm={8} span={12}>
 					<Group position={'apart'} noWrap>
 						<Title order={1} className={classes.forceWrap}>{event.name}</Title>
 						<Group spacing={'xs'}>
@@ -42,13 +42,15 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 						</Group>
 					</Group>
 					<Group spacing={'xs'}>
-						<Text><FontAwesomeIcon icon={faCalendarDay}/></Text>
-						<Text size={'xl'}>{eventDate.format('L LT')} <T k={'oClock'}/></Text>
+						<Group spacing={'xs'} noWrap>
+							<Text><FontAwesomeIcon icon={faCalendarDay}/></Text>
+							<Text size={'xl'}>{eventDate.format('L LT')} <T k={'oClock'}/></Text>
+						</Group>
 						{event.missionLength &&
-                            <>
+                            <Group spacing={'xs'} noWrap>
                                 <Text><FontAwesomeIcon icon={faHourglassEnd}/></Text>
                                 <Text size={'xl'} className={classes.forceWrap}>{event.missionLength}</Text>
-                            </>
+                            </Group>
 						}
 					</Group>
 					{
