@@ -11,8 +11,6 @@ import {DatesProvider} from '@mantine/dates';
 import regular from '/fonts/Roboto-400.woff2';
 import bold from '/fonts/Roboto-700.woff2';
 
-// import condensed from '/fonts/Roboto-Condensed.woff2';
-
 export function App(): JSX.Element {
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -52,13 +50,6 @@ export function App(): JSX.Element {
 										fontDisplay: 'swap',
 									},
 								},
-								/*{
-									'@font-face': {
-										fontFamily: 'Roboto Condensed',
-										src: `url('${condensed}') format('woff2')`,
-										fontDisplay: 'swap',
-									},
-								},*/
 							]}/>
 							<Notifications/>
 							<DatesProvider settings={{locale: currentLanguageTag()}}>
