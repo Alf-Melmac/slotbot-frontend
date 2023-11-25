@@ -1,6 +1,7 @@
-import {Group, TooltipProps} from '@mantine/core';
-import {InfoTooltip} from './InfoTooltip';
+import {Box, Group, Tooltip, TooltipProps} from '@mantine/core';
 import {JSX} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCircleInfo} from '@fortawesome/free-solid-svg-icons';
 
 type TextWithInfoProps = {
 	text: JSX.Element;
@@ -41,6 +42,10 @@ export function ElementWithInfo(props: Readonly<TextWithInfoProps>): JSX.Element
 function InfoTooltipIcon(props: Readonly<TextWithInfoProps>): JSX.Element {
 	const {tooltip, multiline, tooltipWidth, tooltipPosition} = props;
 
-	return <InfoTooltip sx={{fontWeight: 350}} label={tooltip} multiline={multiline} width={tooltipWidth}
-						position={tooltipPosition}/>;
+	return <Tooltip label={tooltip} multiline={multiline} width={tooltipWidth}
+					position={tooltipPosition}>
+		<Box>
+			<FontAwesomeIcon icon={faCircleInfo}/>
+		</Box>
+	</Tooltip>;
 }
