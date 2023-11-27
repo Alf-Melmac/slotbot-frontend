@@ -63,6 +63,7 @@ export function PageFooter(): JSX.Element {
 	const {classes, cx} = useStyles();
 
 	let icons: IconType[];
+	let impressum: string;
 
 	const guild = getGuild();
 	switch (guild) {
@@ -89,6 +90,7 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
+			impressum = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 		case Guild.DAA:
 			icons = [
@@ -113,6 +115,27 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.discord,
 				},
 			];
+			impressum = 'https://www.deutsche-arma-allianz.de/impressum.html';
+			break;
+		case Guild.TTT:
+			icons = [
+				{
+					icon: faYoutube,
+					href: 'https://www.youtube.com/channel/UCUywnzXGth9-iSqR2f6hP7g',
+					iconClass: classes.youtube,
+				},
+				{
+					icon: faTwitter,
+					href: 'https://x.com/ttt_arma',
+					iconClass: classes.twitter,
+				},
+				{
+					icon: faWikipediaW,
+					href: 'https://wiki.tacticalteam.de',
+					iconClass: classes.wiki,
+				},
+			];
+			impressum = 'https://www.tacticalteam.de/impressum';
 			break;
 		case Guild.SLOTBOT:
 		default:
@@ -128,9 +151,9 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
+			impressum = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 	}
-	const impressum = guild === Guild.DAA ? 'https://www.deutsche-arma-allianz.de/impressum.html' : 'https://wiki.armamachtbock.de/de/Impressum';
 
 	return (
 		<Container className={classes.container} py={40}>

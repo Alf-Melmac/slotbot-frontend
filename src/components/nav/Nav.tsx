@@ -9,6 +9,7 @@ import {PageFooter} from '../PageFooter/PageFooter';
 import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
+import tttFavicon from './favicon/favicon-ttt.ico';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {JSX, PropsWithChildren} from 'react';
 import {hidden} from '../../contexts/CommonStylings';
@@ -37,6 +38,8 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 		favicon = ambFavicon;
 	} else if (guild === Guild.DAA) {
 		favicon = daaFavicon;
+	} else if (guild === Guild.TTT) {
+		favicon = tttFavicon;
 	}
 	favicon && useFavicon(favicon);
 

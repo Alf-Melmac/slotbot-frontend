@@ -2,6 +2,8 @@ import {Group, Image, MediaQuery, Text, useMantineTheme} from '@mantine/core';
 import ambLogo from './amb-256-256.png';
 import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
+import tttLogo from './ttt.png';
+import tttLogoWhite from './ttt-white.png';
 import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
@@ -49,6 +51,11 @@ type LogoInfo = {
 
 function useGetInfo(): LogoInfo {
 	switch (getGuild()) {
+		case Guild.AMB:
+			return {
+				title: 'Arma macht Bock',
+				logo: ambLogo,
+			};
 		case Guild.DAA: {
 			const theme = useMantineTheme();
 			return {
@@ -57,10 +64,12 @@ function useGetInfo(): LogoInfo {
 				logoWithName: true,
 			};
 		}
-		case Guild.AMB:
+		case Guild.TTT:
+			const theme = useMantineTheme();
 			return {
-				title: 'Arma macht Bock',
-				logo: ambLogo,
+				title: 'Tactical Training Team',
+				logo: theme.colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
+				logoWithName: true,
 			};
 		case Guild.SLOTBOT:
 		default:
