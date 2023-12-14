@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import {EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {ColorSwatch, createStyles, Flex, MediaQuery, rem, Text, Tooltip} from '@mantine/core';
+import {Box, ColorSwatch, createStyles, Flex, MediaQuery, rem, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
@@ -14,8 +14,30 @@ import {isGerman} from '../../../contexts/language/Language';
 import {hidden} from '../../../contexts/CommonStylings';
 import {JSX} from 'react';
 import {EventTooltip} from './EventTooltip';
+import './eventCalendar.css';
 
 const useStyles = createStyles((theme) => ({
+	today: {
+		height: 26,
+		width: 26,
+		backgroundColor: theme.colors.red[8],
+		borderRadius: '50%',
+		display: 'inline-block',
+		fontWeight: 'bold',
+		textAlign: 'center',
+	},
+
+	eventLink: {
+		width: '100%',
+	},
+
+	eventWrapper: {
+		alignItems: 'center',
+		wrap: 'nowrap',
+		width: '100%',
+		padding: 2,
+	},
+
 	eventType: {
 		flex: '0 0 auto',
 		height: rem(8),
@@ -33,17 +55,6 @@ const useStyles = createStyles((theme) => ({
 	eventTime: {
 		flex: '0 0 auto',
 		fontSize: theme.fontSizes.xs,
-	},
-
-	eventWrapper: {
-		alignItems: 'center',
-		wrap: 'nowrap',
-		width: '100%',
-		padding: 2,
-	},
-
-	eventLink: {
-		width: '100%',
 	},
 }));
 
@@ -84,6 +95,9 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 				initialView="dayGridMonth"
 				locale={isGerman() ? de : undefined}
 				viewDidMount={(_arg) => toggleVisible(true)}
+				dayCellContent={(arg) =>
+					arg.isToday ? <Box className={classes.today}>{arg.dayNumberText}</Box> : arg.dayNumberText
+				}
 				events={(info, successCallback, failureCallback) => {
 					const start = dayjs(info.start.valueOf()).format();
 					const end = dayjs(info.end.valueOf()).format();
