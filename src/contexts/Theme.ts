@@ -18,11 +18,11 @@ const advancedGuilds: AdvancedGuild[] = [
 	},
 	{
 		guild: Guild.DAA,
-		urlPattern: /.*deutsche-arma-allianz.*/,
+		urlPattern: /.*deutsche-arma-allianz.de.*/,
 	},
 	{
 		guild: Guild.TTT,
-		urlPattern: /.*localhost.*/,
+		urlPattern: /.*tacticalteam.de.*/,
 	},
 ];
 
