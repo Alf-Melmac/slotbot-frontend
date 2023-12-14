@@ -120,13 +120,18 @@ export function PageFooter(): JSX.Element {
 		case Guild.TTT:
 			icons = [
 				{
+					icon: faDiscord,
+					href: 'https://discord.tacticalteam.de',
+					iconClass: classes.discord,
+				},
+				{
 					icon: faYoutube,
-					href: 'https://www.youtube.com/channel/UCUywnzXGth9-iSqR2f6hP7g',
+					href: 'https://www.youtube.com/tacticaltrainingteam',
 					iconClass: classes.youtube,
 				},
 				{
 					icon: faTwitter,
-					href: 'https://x.com/ttt_arma',
+					href: 'https://x.com/TTT_ArmA',
 					iconClass: classes.twitter,
 				},
 				{

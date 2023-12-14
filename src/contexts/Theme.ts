@@ -141,11 +141,28 @@ const themeDAA: MantineThemeOverride = {
 };
 
 const themeTTT: MantineThemeOverride = {
-	primaryColor: 'red',
+	colors: {
+		brand: [
+			'#f2f8ec',
+			'#e7ece1',
+			'#cfd6c4',
+			'#b4c0a5',
+			'#9eac8a',
+			'#8fa079',
+			'#879a6f',
+			'#74865d',
+			'#667751',
+			'#576741',
+		],
+	},
+	primaryColor: 'brand',
 
 	globalStyles: (theme) => ({
+		'.mantine-Header-root': {
+			backgroundColor: theme.colorScheme !== 'dark' ? 'white' : 'black',
+		},
 		'body, main': {
-			backgroundColor: theme.colorScheme !== 'dark' ? theme.colors.gray[1] : `#191919`,
+			backgroundColor: theme.colorScheme !== 'dark' ? '#f5f3f2' : '#191919',
 		},
 		'*::-webkit-scrollbar': {
 			width: 8,
