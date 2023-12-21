@@ -1,4 +1,6 @@
 :root {
     --fc-button-bg-color: #a10f2b;
     --fc-button-border-color: #a10f2b;
+    --fc-button-hover-bg-color: #63091a;
+    --fc-button-hover-border-color: #63091a;
 }
