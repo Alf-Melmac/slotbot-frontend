@@ -161,7 +161,7 @@
   "slotlist.save": "Save slotlist",
   "slotlist.upload": "Upload slotlist",
   "slotlist.upload.description.partOne": "Upload your non-binary",
-  "slotlist.upload.description.partThree": "You can find the event files after saving under",
+  "slotlist.upload.description.partThree": "You can find the mission files after saving under",
   "slotlist.upload.description.partTwo": "here to generate a slotlist. The slotlist overwrites any slots that have already been created, but you can still edit them afterwards.",
   "slotlist.upload.disabled": "To upload a slotlist the event needs to be empty",
   "slotlist.upload.error.invalidFileType": "Only .sqm files are allowed.",

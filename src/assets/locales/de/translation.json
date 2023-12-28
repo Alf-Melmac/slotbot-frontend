@@ -161,7 +161,7 @@
   "slotlist.save": "Slotliste speichern",
   "slotlist.upload": "Slotliste hochladen",
   "slotlist.upload.description.partOne": "Lade hier deine nicht binarisierte",
-  "slotlist.upload.description.partThree": "Die Eventdateien findest du nach dem Speichern unter",
+  "slotlist.upload.description.partThree": "Die Missionsdateien findest du nach dem Speichern unter",
   "slotlist.upload.description.partTwo": "hoch, um daraus die Slotliste generieren zu lassen. Die Slotliste überschreibt alle bereits angelegten Plätze, du kannst sie danach aber noch bearbeiten.",
   "slotlist.upload.disabled": "Zum Hochladen einer Slotliste muss das Event leer sein",
   "slotlist.upload.error.invalidFileType": "Nur .sqm Dateien erlaubt.",
