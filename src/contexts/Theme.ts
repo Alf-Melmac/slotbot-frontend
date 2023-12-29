@@ -18,7 +18,7 @@ const advancedGuilds: AdvancedGuild[] = [
 	},
 	{
 		guild: Guild.DAA,
-		urlPattern: /.*deutsche-arma-allianz.de.*/,
+		urlPattern: /.*(test1|localhost).*/,
 	},
 	{
 		guild: Guild.TTT,
@@ -161,7 +161,7 @@ const themeTTT: MantineThemeOverride = {
 		'.mantine-Header-root': {
 			backgroundColor: theme.colorScheme !== 'dark' ? 'white' : 'black',
 		},
-		'body, main': {
+		'body, main, .mantine-Navbar-root': {
 			backgroundColor: theme.colorScheme !== 'dark' ? '#f5f3f2' : '#191919',
 		},
 		'*::-webkit-scrollbar': {
