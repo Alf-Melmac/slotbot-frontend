@@ -1,4 +1,4 @@
-import {RouteObject} from 'react-router-dom';
+import {Navigate, RouteObject} from 'react-router-dom';
 import {eventRoutes} from './features/event/EventRoutes';
 import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
@@ -45,6 +45,10 @@ export const routes: RouteObject[] = [
 			path: '*',
 			element: <SessionExpired/>,
 		}],
+	},
+	{
+		path: '/',
+		element: <Navigate to={'/events'} replace/>
 	},
 	{
 		path: '*',
