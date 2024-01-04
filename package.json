@@ -28,8 +28,8 @@
     "@mantine/hooks": "^6.0.21",
     "@mantine/notifications": "^6.0.21",
     "@mantine/spotlight": "^6.0.21",
-    "@tanstack/react-query": "^5.15.3",
-    "axios": "^1.6.3",
+    "@tanstack/react-query": "^5.17.1",
+    "axios": "^1.6.4",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "mantine-flagpack": "^2.0.0",
@@ -45,12 +45,12 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.2.1",
-    "browserslist-to-esbuild": "^1.2.0",
+    "browserslist-to-esbuild": "^2.1.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }
