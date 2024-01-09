@@ -59,7 +59,7 @@ export function ExternalCalendarSettings(props: Readonly<ExternalCalendarSetting
                 </Tooltip.Floating>
                 <Text>
                     <T k={'profile.externalCalendar.tutorial.partOne'}/> <AnchorBlank
-                    href={'https://docs.webalf.de/slotbot/eventkalender#kalender-synchronisation'}>
+                    href={'https://docs.slotbot.de/integrationen/kalender-synchronisation'}>
                     <T k={'profile.externalCalendar.tutorial.partTwo'}/></AnchorBlank>.
                 </Text>
             </>
