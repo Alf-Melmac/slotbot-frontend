@@ -29,7 +29,7 @@ export function EventActionUpload(props: Readonly<FormTextInputProps>): JSX.Elem
 	const [oldValue, setOldValue] = useState<string>(formInputProps.value || '');
 	const {mutate} = useEventTextChange(formPath, formInputProps.value, setOldValue);
 
-	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
+	const translatedInputProps = useTranslationIfPresent(inputProps, ['label']);
 	return (
 		useEditMode() ?
 			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} noWrap {...formInputProps}
