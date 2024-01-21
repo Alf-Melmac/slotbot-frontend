@@ -11,6 +11,7 @@ import {useEventUpdate} from '../useEventUpdate';
 import {usePrevious} from '@mantine/hooks';
 import {T} from '../../../../components/T';
 import {randomColor} from '../utils';
+import {useAdditionalEventType} from '../../../../contexts/event/action/AdditionalEventTypeContext';
 
 type EventTypeInputsProps = {
 	query: UseQueryResult<Array<EventTypeDto>, Error>;
@@ -27,7 +28,10 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	}
 
 	const [colorInputDisabled, setColorInputDisabled] = useState(false);
-	const [data, setData] = useState(eventTypes?.map(type => type.name) ?? []);
+	const eventTypeNames = eventTypes?.map(type => type.name) ?? [];
+	const {additionalEventType, setAdditionalEventType} = useAdditionalEventType();
+	additionalEventType && eventTypeNames.push(additionalEventType);
+	const [data, setData] = useState(eventTypeNames);
 
 	useEffect(() => {
 		const existingEventType = eventTypes?.find(value => form.values.eventType.name === value.name);
@@ -43,7 +47,6 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	}, [form.values.eventType.name]);
 
 	const editMode = useEditMode();
-	const eventTypeNameInputProps = form.getInputProps('eventType.name');
 
 	const {mutate} = useEventUpdate({eventType: form.values.eventType},
 		result => form.setFieldValue('eventType', result.eventType));
@@ -77,9 +80,10 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 							onCreate={(input) => {
 								const item = {value: input, label: input};
 								setData((current) => [...current, input]);
+								setAdditionalEventType(input);
 								return item;
 							}}
-							{...eventTypeNameInputProps}/>
+							{...form.getInputProps('eventType.name')}/>
 				</Grid.Col>
 				<Grid.Col span={4}>
 					<ColorInput label={<T k={'event.eventType.color'}/>}

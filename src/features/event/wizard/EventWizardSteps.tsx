@@ -6,6 +6,7 @@ import {useEventSave} from './useEventSave';
 import {Dispatch, JSX, SetStateAction} from 'react';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../components/T';
+import {AdditionalEventTypesProvider} from '../../../contexts/event/action/AdditionalEventTypeContext';
 
 type EventWizardStepsProps = {
 	active: number;
@@ -28,21 +29,23 @@ export function EventWizardSteps(props: Readonly<EventWizardStepsProps>): JSX.El
 	const {mutate, eventWizardFinish} = useEventSave();
 
 	return <>
-		<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
-			<Stepper.Step label={<T k={'event'}/>} description={<T k={'generalInformation'}/>}>
-				<EventGeneralInformation/>
-			</Stepper.Step>
-			<Stepper.Step label={<T k={'event'}/>} description={<T k={'details'}/>}>
-				<EventDetailsPage/>
-			</Stepper.Step>
-			<Stepper.Step label={<T k={'slotlist'}/>} description={<T k={'slotlist.alt'}/>}>
-				<EventSlotlist/>
-			</Stepper.Step>
+		<AdditionalEventTypesProvider>
+			<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
+				<Stepper.Step label={<T k={'event'}/>} description={<T k={'generalInformation'}/>}>
+					<EventGeneralInformation/>
+				</Stepper.Step>
+				<Stepper.Step label={<T k={'event'}/>} description={<T k={'details'}/>}>
+					<EventDetailsPage/>
+				</Stepper.Step>
+				<Stepper.Step label={<T k={'slotlist'}/>} description={<T k={'slotlist.alt'}/>}>
+					<EventSlotlist/>
+				</Stepper.Step>
 
-			<Stepper.Completed>
-				{eventWizardFinish}
-			</Stepper.Completed>
-		</Stepper>
+				<Stepper.Completed>
+					{eventWizardFinish}
+				</Stepper.Completed>
+			</Stepper>
+		</AdditionalEventTypesProvider>
 
 		<Group position={'right'} mt={'xl'}>
 			{active !== 0 && active !== 3 &&
