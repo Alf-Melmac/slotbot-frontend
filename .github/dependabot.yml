@@ -28,6 +28,7 @@ updates:
     ignore:
       - dependency-name: "@mantine/*"
         versions: [ "7.x" ] # Major rework needed for new major version
+      - dependency-name: "@tanstack/react-query" # Spams too much
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
