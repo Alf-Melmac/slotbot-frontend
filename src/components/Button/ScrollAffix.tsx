@@ -25,12 +25,12 @@ export function ScrollAffix(props: Readonly<ScrollAffixProps>): JSX.Element {
 		</Box>
 
 		<Affix position={{bottom: 20, right: 20}}>
-			<Transition transition={entry?.boundingClientRect.top > 0 ? 'slide-up' : 'slide-down'}
+			<Transition transition={(entry?.boundingClientRect.top || 0) > 0 ? 'slide-up' : 'slide-down'}
 						mounted={show && !entry?.isIntersecting}>
 				{(transitionStyles) => (
 					<Button style={transitionStyles}
-							leftIcon={<FontAwesomeIcon
-								icon={entry?.boundingClientRect.top > 0 ? faArrowDown : faArrowUp}/>}
+							leftSection={<FontAwesomeIcon
+								icon={(entry?.boundingClientRect.top || 0) > 0 ? faArrowDown : faArrowUp}/>}
 							onClick={() => scrollIntoView({alignment: 'center'})}><T k={'unsavedChanges'}/></Button>
 				)}
 			</Transition>

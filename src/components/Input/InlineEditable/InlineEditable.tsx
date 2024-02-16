@@ -1,4 +1,13 @@
-import {ActionIcon, AutocompleteProps, Box, Group, Stack, TextareaProps, TextInputProps} from '@mantine/core';
+import {
+	ActionIcon,
+	AutocompleteProps,
+	Box,
+	Group,
+	GroupProps,
+	Stack,
+	TextareaProps,
+	TextInputProps,
+} from '@mantine/core';
 import {JSX, useState} from 'react';
 import {useClickOutside} from '@mantine/hooks';
 import {omit} from 'lodash';
@@ -9,9 +18,9 @@ type EditableInputProps = TextInputProps | TextareaProps | AutocompleteProps;
 export type InlineEditableProps<InputProps extends EditableInputProps> = InputProps & {
 	position?: 'stack' | 'group';
 	/**
-	 * Pass noWrap to the group containing the input and buttons in edit mode and the action buttons.
+	 * Pass wrap to the group containing the input and buttons in edit mode and the action buttons.
 	 */
-	noWrap?: boolean;
+	wrap?: GroupProps['wrap'];
 	onSubmit: () => void;
 	onCancel: () => void;
 	viewModeComponent: any;
@@ -24,7 +33,7 @@ function filterComponentsProps<InputProps extends EditableInputProps>(props: Rea
 }
 
 export function InlineEditable<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): JSX.Element {
-	const {viewModeComponent: ViewMode, onFocus, position = 'stack', noWrap, onSubmit, onCancel} = props;
+	const {viewModeComponent: ViewMode, onFocus, position = 'stack', wrap, onSubmit, onCancel} = props;
 
 	const [viewMode, setViewMode] = useState(true);
 
@@ -51,13 +60,13 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Rea
 			:
 			<>
 				{position === 'stack' &&
-                    <Stack spacing={'xs'} ref={ref}>
+                    <Stack gap={'xs'} ref={ref}>
 						{/*@ts-ignore*/}
                         <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Stack>}
 
 				{position === 'group' &&
-                    <Group spacing={'xs'} noWrap={noWrap} ref={ref}>
+                    <Group gap={'xs'} wrap={wrap} ref={ref}>
 						{/*@ts-ignore*/}
                         <EditMode {...inputProps} onSubmit={submit} onCancel={cancel}/>
                     </Group>
@@ -70,7 +79,7 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Rea
 function EditMode<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): JSX.Element {
 	const {
 		position,
-		noWrap,
+		wrap,
 		label,
 		editModeComponent: EditMode,
 		maxLength,
@@ -90,7 +99,7 @@ function EditMode<InputProps extends EditableInputProps>(props: Readonly<InlineE
 				<EditMode {...filterComponentsProps(props)} autoFocus/>
 			}
 		</Box>
-		<Group position={'right'} spacing={'xs'} noWrap={noWrap} mt={marginTop}>
+		<Group justify={'right'} gap={'xs'} wrap={wrap} mt={marginTop}>
 			<ActionIcon variant={'outline'} onClick={onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
 			</ActionIcon>

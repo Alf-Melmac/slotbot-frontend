@@ -1,0 +1,5 @@
+.dropzone {
+	&[data-hasError] {
+		border-color: light-dark(var(--mantine-color-red-4), var(--mantine-color-red-light));
+	}
+}

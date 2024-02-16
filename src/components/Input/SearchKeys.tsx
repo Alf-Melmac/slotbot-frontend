@@ -9,6 +9,6 @@ import {JSX} from 'react';
 export function SearchKeys(): JSX.Element {
 	const os = useOs();
 
-	return <Group noWrap spacing={3}><Kbd>{os === 'undetermined' || os === 'macos' ? '⌘' :
+	return <Group wrap={'nowrap'} gap={3}><Kbd>{os === 'undetermined' || os === 'macos' ? '⌘' :
 		<T k={'key.ctrl'}/>}</Kbd> + <Kbd>K</Kbd></Group>;
 }

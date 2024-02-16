@@ -1,0 +1,15 @@
+.actionIcon { /*Related to mantine ActionIcon*/
+	@mixin hover {
+		background-color: var(--mantine-primary-color-filled-hover)
+	}
+
+	&[data-disabled] {
+		color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-6));
+		background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-8));
+		border-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-8));
+
+		&:active {
+			transform: none;
+		}
+	}
+}

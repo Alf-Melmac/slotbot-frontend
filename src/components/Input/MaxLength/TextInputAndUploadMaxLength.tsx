@@ -7,7 +7,7 @@ import {JSX} from 'react';
 export function TextInputAndUploadMaxLength(props: Readonly<TextInputProps>): JSX.Element {
 	const form = useFormContext();
 
-	return <Group spacing={'xs'} grow noWrap>
+	return <Group gap={'xs'} grow wrap={'nowrap'}>
 		<Box maw={'unset !important'}>
 			<TextInputMaxLength {...props}/>
 		</Box>

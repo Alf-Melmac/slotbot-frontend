@@ -6,7 +6,7 @@ import {JSX} from 'react';
 export function TextInputAndUpload(props: Readonly<TextInputProps>): JSX.Element {
 	const form = useFormContext();
 
-	return <Group spacing={'xs'} grow noWrap>
+	return <Group gap={'xs'} grow wrap={'nowrap'}>
 		<Box maw={'unset !important'}>
 			<TextInput {...props}/>
 		</Box>

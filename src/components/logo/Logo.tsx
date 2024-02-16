@@ -1,4 +1,4 @@
-import {Group, Image, MediaQuery, Text, useMantineTheme} from '@mantine/core';
+import {Group, Image, Text, useComputedColorScheme} from '@mantine/core';
 import ambLogo from './amb-256-256.png';
 import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
@@ -7,7 +7,6 @@ import tttLogoWhite from './slotbot_ttt-logo-white.png';
 import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
-import {hidden} from '../../contexts/CommonStylings';
 import {JSX} from 'react';
 
 type LogoProps = {
@@ -19,14 +18,12 @@ export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {title, logo, logoWithName = false} = useGetInfo();
 	return (
 		<UnstyledAnchorLink to={'/events'}>
-			<Group spacing={'xs'} noWrap>
+			<Group gap={'xs'} wrap={'nowrap'}>
 				{!small &&
-                    <MediaQuery smallerThan={'xs'} styles={hidden}>
-                        <Image width={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
-                    </MediaQuery>
+                    <Image visibleFrom={'xs'} width={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
 				}
 				{(!logoWithName || small) &&
-                    <Text size={'lg'} transform={'uppercase'} weight={700} lts={1}>{title}</Text>
+                    <Text size={'lg'} tt={'uppercase'} fw={700} lts={1}>{title}</Text>
 				}
 			</Group>
 		</UnstyledAnchorLink>
@@ -57,18 +54,18 @@ function useGetInfo(): LogoInfo {
 				logo: ambLogo,
 			};
 		case Guild.DAA: {
-			const theme = useMantineTheme();
+			const colorScheme = useComputedColorScheme(); //TODO m7-2
 			return {
 				title: 'Deutsche Arma Allianz',
-				logo: theme.colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
+				logo: colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
 				logoWithName: true,
 			};
 		}
 		case Guild.TTT:
-			const theme = useMantineTheme();
+			const colorScheme = useComputedColorScheme(); //TODO m7-2
 			return {
 				title: 'Tactical Training Team',
-				logo: theme.colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
+				logo: colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
 				logoWithName: true,
 			};
 		case Guild.SLOTBOT:

@@ -1,0 +1,20 @@
+@keyframes pulsate {
+	0% {
+		transform: scale(0.95);
+	}
+	70% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+/*TODO m7-1 where to put keyframes*/
+.button {
+	animation: pulsate 2s infinite;
+
+	&:focus, &:hover {
+		animation: unset;
+	}
+}

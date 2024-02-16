@@ -1,5 +1,14 @@
 import {JSX, useEffect, useState} from 'react';
-import {Anchor, createStyles, Group, Input, InputWrapperBaseProps, Stack, Text, useMantineTheme} from '@mantine/core';
+import {
+	Anchor,
+	Group,
+	Input,
+	InputWrapperProps,
+	Stack,
+	Text,
+	useComputedColorScheme,
+	useMantineTheme,
+} from '@mantine/core';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -8,19 +17,9 @@ import {Dropzone, MIME_TYPES} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileCircleXmark, faFileImport} from '@fortawesome/free-solid-svg-icons';
 import {faImage} from '@fortawesome/free-regular-svg-icons';
-import {FileRejection} from 'react-dropzone';
+import {FileRejection} from 'react-dropzone-esm';
 import {useLanguage} from '../../../contexts/language/Language';
-
-const useStyles = createStyles((theme, hasError: boolean) => ({
-	dropzone: {
-		borderColor: hasError ?
-			theme.colorScheme === 'dark' ?
-				theme.fn.variant({color: 'red', variant: 'light'}).background
-				:
-				theme.colors.red[4]
-			: undefined,
-	},
-}));
+import classes from './UploadImage.module.css';
 
 export type UploadImageProps = {
 	onSuccess?: (fileUrl: string) => void;
@@ -28,14 +27,13 @@ export type UploadImageProps = {
 
 export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
-	const [error, setError] = useState<InputWrapperBaseProps['error']>();
+	const [error, setError] = useState<InputWrapperProps['error']>();
 	const [hasError, setHasError] = useState(false);
 	useEffect(() => {
 		setHasError(!!error);
 	}, [error]);
 	const [loading, setLoading] = useState(false);
 
-	const {classes} = useStyles(hasError);
 	const {t} = useLanguage();
 
 	const postImageFile = () => slotbotServerClient.post('/files/uploadImage', formData, {
@@ -92,24 +90,26 @@ export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 	}
 
 	const theme = useMantineTheme();
+	const colorScheme = useComputedColorScheme(); //TODO m7-2 is that the correct way to set font awesome icon color?
 	return (
 		<Input.Wrapper error={error}>
 			<Dropzone onDrop={onDrop} onReject={onReject} accept={[MIME_TYPES.png, MIME_TYPES.jpeg, 'image/jpg']}
-					  maxFiles={1} maxSize={2097000} loading={loading} className={classes.dropzone}>
-				<Group position={'center'} spacing={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} noWrap>
+					  maxFiles={1} maxSize={2097000} loading={loading}
+					  mod={{hasError: hasError}} className={classes.dropzone}>
+				<Group justify={'center'} gap={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} wrap={'nowrap'}>
 					<Dropzone.Accept>
 						<FontAwesomeIcon icon={faFileImport} size={'2x'}
-										 color={theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6]}/>
+										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
 					</Dropzone.Accept>
 					<Dropzone.Reject>
 						<FontAwesomeIcon icon={faFileCircleXmark} size={'2x'}
-										 color={theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]}/>
+										 color={theme.colors.red[colorScheme === 'dark' ? 4 : 6]}/>
 					</Dropzone.Reject>
 					<Dropzone.Idle>
 						<FontAwesomeIcon icon={faImage} size={'2x'}/>
 					</Dropzone.Idle>
 
-					<Stack spacing={7}>
+					<Stack gap={7}>
 						<Text size={'lg'} inline>
 							<T k={'dropzone.placeholder.upload.image'}/>
 						</Text>

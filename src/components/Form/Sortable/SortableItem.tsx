@@ -52,7 +52,7 @@ export function SortableItem(props: Readonly<PropsWithChildren<SortableItemProps
 		setSorting(!!style.transform);
 	}, [style.transform, setSorting]);
 	return (
-		<Group style={style} noWrap spacing={6} {...itemProps}>
+		<Group style={style} wrap={'nowrap'} gap={6} {...itemProps}>
 			{sortable &&
                 <ActionIcon ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
                     <FontAwesomeIcon icon={faArrowsUpDown}/>

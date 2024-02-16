@@ -1,8 +1,9 @@
-import {ActionIcon, createStyles, Menu, useMantineColorScheme} from '@mantine/core';
+import {ActionIcon, Menu, useMantineColorScheme} from '@mantine/core';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {T} from './T';
 import {JSX} from 'react';
+import classes from './ThemeSwitch.module.css';
 
 export function ThemeSwitch(): JSX.Element {
 	const {colorScheme, toggleColorScheme} = useMantineColorScheme();
@@ -28,28 +29,16 @@ export function ThemeSwitchAsMenuItem(): JSX.Element {
 	const dark = colorScheme === 'dark';
 
 	return (
-		<Menu.Item icon={dark ? <LightThemeIcon/> : <DarkThemeIcon/>} onClick={() => toggleColorScheme()}>
+		<Menu.Item leftSection={dark ? <LightThemeIcon/> : <DarkThemeIcon/>} onClick={() => toggleColorScheme()}>
 			<T k={dark ? 'theme.toggle.light' : 'theme.toggle.dark'}/>
 		</Menu.Item>
 	);
 }
 
-const useStyles = createStyles((theme) => ({
-	light: {
-		color: theme.colors.yellow[5],
-	},
-
-	dark: {
-		color: theme.colors.blue[6],
-	},
-}));
-
 function LightThemeIcon(props: Readonly<Omit<FontAwesomeIconProps, 'icon' | 'color'>>): JSX.Element {
-	const {classes} = useStyles();
 	return <FontAwesomeIcon icon={faSun} className={classes.light} {...props}/>;
 }
 
 function DarkThemeIcon(props: Readonly<Omit<FontAwesomeIconProps, 'icon' | 'color'>>): JSX.Element {
-	const {classes} = useStyles();
 	return <FontAwesomeIcon icon={faMoon} className={classes.dark} {...props}/>;
 }
