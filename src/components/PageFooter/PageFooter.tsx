@@ -1,4 +1,4 @@
-import {ActionIcon, Container, createStyles, Group, Stack, Text} from '@mantine/core';
+import {ActionIcon, Container, Group, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDiscord, faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
@@ -9,49 +9,8 @@ import {getGuild, Guild} from '../../contexts/Theme';
 import {T} from '../T';
 import {faCircleQuestion} from '@fortawesome/free-regular-svg-icons';
 import {JSX} from 'react';
-
-const iconTextShadow = '0 0 15px';
-const useStyles = createStyles((theme) => ({
-	container: {
-		display: 'flex',
-		justifyContent: 'space-between',
-	},
-
-	description: {
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
-	},
-
-	iconLink: {
-		'&:hover': {
-			transform: 'scale(1.2)',
-		},
-	},
-
-	twitter: {
-		color: '#1da1f2',
-		filter: `drop-shadow(${iconTextShadow} #1da1f2)`,
-	},
-	youtube: {
-		color: '#FF0000',
-		filter: `drop-shadow(${iconTextShadow} #FF0000)`,
-	},
-	twitch: {
-		color: '#9147ff',
-		filter: `drop-shadow(${iconTextShadow} #9147ff)`,
-	},
-	wiki: {
-		color: theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333',
-		filter: `drop-shadow(${iconTextShadow} ${theme.colorScheme === 'dark' ? '#e6e6e6' : '#333333'})`,
-	},
-	discord: {
-		color: '#5865f2',
-		filter: `drop-shadow(${iconTextShadow} #5865f2)`,
-	},
-
-	link: {
-		fontSize: 13,
-	},
-}));
+import cx from 'clsx';
+import classes from './PageFooter.module.css';
 
 type IconType = {
 	icon: IconDefinition;
@@ -60,10 +19,8 @@ type IconType = {
 }
 
 export function PageFooter(): JSX.Element {
-	const {classes, cx} = useStyles();
-
 	let icons: IconType[];
-	let impressum: string;
+	let publisher: string;
 
 	const guild = getGuild();
 	switch (guild) {
@@ -90,7 +47,7 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			impressum = 'https://wiki.armamachtbock.de/de/Impressum';
+			publisher = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 		case Guild.DAA:
 			icons = [
@@ -115,7 +72,7 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.discord,
 				},
 			];
-			impressum = 'https://www.deutsche-arma-allianz.de/impressum.html';
+			publisher = 'https://www.deutsche-arma-allianz.de/impressum.html';
 			break;
 		case Guild.TTT:
 			icons = [
@@ -140,7 +97,7 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			impressum = 'https://www.tacticalteam.de/impressum';
+			publisher = 'https://www.tacticalteam.de/impressum';
 			break;
 		case Guild.SLOTBOT:
 		default:
@@ -156,30 +113,30 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			impressum = 'https://wiki.armamachtbock.de/de/Impressum';
+			publisher = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 	}
 
 	return (
 		<Container className={classes.container} py={40}>
 			<Stack>
-				<Group spacing={'xs'}>
+				<Group gap={'xs'}>
 					<Logo small/>
 					<ThemeSwitch/>
 				</Group>
 				<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
 			</Stack>
-			<Stack spacing={'xs'}>
-				<Group spacing={'xl'} position={'right'}>
+			<Stack gap={'xs'}>
+				<Group gap={'xl'} justify={'right'}>
 					{icons.map((icon) =>
 						<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
-									className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
+						            className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
 							<FontAwesomeIcon icon={icon.icon} size={'lg'}/>
 						</ActionIcon>,
 					)}
 				</Group>
 				<Text size={'xs'}>
-					<AnchorBlank className={classes.link} href={impressum}><T k={'footer.legal'}/></AnchorBlank>
+					<AnchorBlank className={classes.link} href={publisher}><T k={'footer.legal'}/></AnchorBlank>
 				</Text>
 			</Stack>
 		</Container>

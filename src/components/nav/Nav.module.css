@@ -1,0 +1,10 @@
+.headerInner {
+    height: rem(80); /*This should always be NAV_HEIGHT*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center,
+}
+
+.headerRight {
+    align-self: flex-end;
+}

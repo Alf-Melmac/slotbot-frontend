@@ -1,0 +1,46 @@
+.container {
+    position: unset;
+    display: flex;
+    justify-content: space-between;
+}
+
+.description {
+    color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2)),
+}
+
+.iconLink {
+    --icon-text-shadow: '0 0 15px';
+
+    @mixin hover {
+        transform: scale(1.2);
+    }
+}
+
+.twitter {
+    color: #1da1f2;
+    filter: drop-shadow(var(--icon-text-shadow) #1da1f2);
+}
+
+.youtube {
+    color: #FF0000;
+    filter: drop-shadow(var(--icon-text-shadow) #FF0000),
+}
+
+.twitch {
+    color: #9147ff;
+    filter: drop-shadow(var(--icon-text-shadow) #9147ff),
+}
+
+.wiki {
+    color: light-dark(#333333, #e6e6e6);
+    filter: drop-shadow(var(--icon-text-shadow) light-dark(#333333, #e6e6e6)),
+}
+
+.discord {
+    color: #5865f2;
+    filter: drop-shadow(var(--icon-text-shadow) #5865f2),
+}
+
+.link {
+    font-size: 13,
+}
