@@ -7,7 +7,7 @@ export function NotFound(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.error.404');
 
 	return (
-		<Stack spacing={'xl'} align={'center'} justify={'center'} pt={'15%'}>
+		<Stack gap={'xl'} align={'center'} justify={'center'} pt={'15%'}>
 			<ErrorLabel>404</ErrorLabel>
 			<ErrorTitle title={'error.notFound.title'}/>
 			<ErrorDescription description={'error.notFound.description'}/>
