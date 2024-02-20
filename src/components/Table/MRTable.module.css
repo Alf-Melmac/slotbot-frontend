@@ -1,0 +1,10 @@
+.bodyCell {
+	padding-top: 7px !important;
+	padding-bottom: 7px !important;
+	background-color: unset;
+}
+
+.bottomToolbar {
+	height: rem(8px);
+	min-height: rem(8px);
+}
