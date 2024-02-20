@@ -61,13 +61,14 @@ function useGetInfo(): LogoInfo {
 				logoWithName: true,
 			};
 		}
-		case Guild.TTT:
+		case Guild.TTT: {
 			const colorScheme = useComputedColorScheme(); //TODO m7-2
 			return {
 				title: 'Tactical Training Team',
 				logo: colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
 				logoWithName: true,
 			};
+		}
 		case Guild.SLOTBOT:
 		default:
 			return {
