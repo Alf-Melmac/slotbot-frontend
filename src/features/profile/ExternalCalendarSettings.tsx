@@ -39,18 +39,17 @@ export function ExternalCalendarSettings(props: Readonly<ExternalCalendarSetting
 		<>
 			<Title order={3}>
 				<ElementWithInfo text={<T k={'profile.externalCalendar.title'}/>}
-								 tooltip={<T k={'profile.externalCalendar.tooltip'}/>}
-								 multiline tooltipWidth={300} tooltipPosition={'right'}/>
+				                 tooltip={<T k={'profile.externalCalendar.tooltip'}/>}
+				                 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
 			<Switch label={<T k={'profile.externalCalendar.switch'}/>} checked={selectedSetting} disabled={isPending}
-					onChange={(event) => setSelectedSetting(event.currentTarget.checked)}/>
+			        onChange={(event) => setSelectedSetting(event.currentTarget.checked)}/>
 			{selectedSetting && <>
                 <Tooltip.Floating label={<T k={'action.clickToCopy'}/>}>
                     <Box>
                         <CopyButton value={icsCalendarUrl}>
 							{({copied, copy}) => (
-								<Button color={copied ? 'teal' : 'blue'} variant={'outline'} onClick={copy}
-										sx={{width: '100%'}}>
+								<Button color={copied ? 'teal' : 'blue'} variant={'outline'} onClick={copy} w={'100%'}>
 									{icsCalendarUrl}
 								</Button>
 							)}

@@ -146,8 +146,6 @@
   "profile.notifications.title": "Global notification settings",
   "profile.notifications.tooltip": "Here you can configure notifications before an event. Notifications are sent through Discord DMs.",
   "profile.steamId": "Steam-ID",
-  "regex.hours": "\\s?hours?",
-  "regex.minutes": "\\s?minutes?",
   "search": "Search",
   "session.expired": "Session expired",
   "session.expired.description": "Your session has expired. Please log in again.",

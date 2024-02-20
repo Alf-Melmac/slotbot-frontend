@@ -146,8 +146,6 @@
   "profile.notifications.title": "Globale Benachrichtigungseinstellungen",
   "profile.notifications.tooltip": "Hier können Benachrichtigungen vor einem Event konfiguriert werden. Benachrichtigungen erhältst du in Form einer Discord-Privatnachricht.",
   "profile.steamId": "Steam-ID",
-  "regex.hours": "\\s?Stunden?",
-  "regex.minutes": "\\s?Minuten?",
   "search": "Suche",
   "session.expired": "Session abgelaufen",
   "session.expired.description": "Deine Session ist abgelaufen. Bitte logge dich erneut ein.",
