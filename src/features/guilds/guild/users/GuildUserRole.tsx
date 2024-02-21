@@ -1,5 +1,5 @@
 import {TableCellProps} from './GuildUsers';
-import {Badge, DefaultMantineColor, Select, SelectItemProps, Stack, Text} from '@mantine/core';
+import {Badge, DefaultMantineColor, Select, Stack, Text} from '@mantine/core';
 import {forwardRef, JSX, useState} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {Role} from '../../guildTypes';
@@ -63,8 +63,9 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 
 	return (
 		<Select data={roles} value={selectedRole} onChange={setSelectedRole} variant={'unstyled'}
-				itemComponent={GuildUserRoleSelection}
-				maw={200} withinPortal styles={(theme) => ({
+			// itemComponent={GuildUserRoleSelection}
+			    maw={200} withCheckIcon={false} /*TODO m7-6
+				 styles={(theme) => ({
 			item: {
 				'&[data-selected]': {
 					'&, &:hover': {
@@ -73,15 +74,16 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 					},
 				},
 			},
-		})}/>
+		})}*//>
 	);
 }
 
-type ItemProps = SelectItemProps & RoleItem;
+// type ItemProps = SelectItemProps & RoleItem;
+type ItemProps = RoleItem;
 
 const GuildUserRoleSelection = forwardRef<HTMLDivElement, ItemProps>(
 	({value, label, description, color, ...others}, ref) => (
-		<Stack ref={ref} spacing={'xs'} {...others}>
+		<Stack ref={ref} gap={'xs'} {...others}>
 			<Badge color={color} variant={'filled'}>
 				{label}
 			</Badge>

@@ -1,15 +1,16 @@
 import {GuildConfigDto, GuildDiscordIntegrationDto} from '../../guildTypes';
-import {Box, createStyles, Group, Select, Skeleton, Spoiler, TextInput} from '@mantine/core';
+import {Select, Skeleton, TextInput} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {useGetDiscordIntegration} from '../useGetGuild';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
-import {Dispatch, JSX, PropsWithChildren, SetStateAction, useState} from 'react';
+import {Dispatch, JSX, SetStateAction, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
+import {GuildRolesPageWrapper} from './GuildRolesPageWrapper';
 
 export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {memberRole, eventManageRole, adminRole} = props;
@@ -65,42 +66,18 @@ function RoleSelect(props: Readonly<RoleSelectType>): JSX.Element {
 	}, [role]);
 
 	return <Select label={<T k={`user.role.${roleName}`}/>} description={<T k={`user.role.${roleName}.description`}/>}
-				   placeholder={t('guild.config.role.select')} clearable searchable value={role} onChange={setRole}
-				   error={role && roles.find(roleItem => roleItem.id === role) === undefined ? t('guild.config.role.error') : undefined}
-				   data={roles.map(role => ({
-					   value: role.id,
-					   label: role.name,
-				   }))}/>;
+	               placeholder={t('guild.config.role.select')} clearable searchable value={role} onChange={setRole}
+	               error={role && roles.find(roleItem => roleItem.id === role) === undefined ? t('guild.config.role.error') : undefined}
+	               data={roles.map(role => ({
+		               value: role.id,
+		               label: role.name,
+	               }))}/>;
 }
 
 function RoleSelectLoadingError(props: Readonly<Pick<RoleSelectType, 'roleName' | 'role'>>): JSX.Element {
 	const {roleName, role} = props;
 
 	return <TextInput label={<T k={`user.role.${roleName}`}/>}
-					  description={<T k={`user.role.${roleName}.description`}/>}
-					  error={<T k={'guild.config.role.loadingError'}/>} disabled value={role ?? '—'}/>;
-}
-
-const useStyles = createStyles((theme) => ({
-	description: {
-		fontSize: theme.fontSizes.sm,
-		display: 'flex',
-		'& > button': {
-			flexShrink: 0,
-		},
-	},
-}));
-
-function GuildRolesPageWrapper(props: Readonly<PropsWithChildren>): JSX.Element {
-	const {classes} = useStyles();
-
-	return <Box>
-		<Spoiler maxHeight={22} hideLabel={<T k={'spoiler.less'}/>} showLabel={<T k={'spoiler.more'}/>}
-				 className={classes.description}>
-			<T k={'guild.config.roles.description'}/>
-		</Spoiler>
-		<Group grow>
-			{props.children}
-		</Group>
-	</Box>;
+	                  description={<T k={`user.role.${roleName}.description`}/>}
+	                  error={<T k={'guild.config.role.loadingError'}/>} disabled value={role ?? '—'}/>;
 }

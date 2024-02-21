@@ -62,13 +62,13 @@ export function GuildUsers(): JSX.Element {
             <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
 
 		<MRTable columns={columns} data={flatData}
-				 localization={{noRecordsToDisplay: t('guild.users.none')}}
-				 mantineTableContainerProps={{
-					 ref: tableContainerRef,
-					 sx: {maxHeight: '318px'},
-					 onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
-				 }}
-				 state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
+		         localization={{noRecordsToDisplay: t('guild.users.none')}}
+		         mantineTableContainerProps={{
+			         ref: tableContainerRef,
+			         mah: 318,
+			         onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
+		         }}
+		         state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
 	</>;
 }
 

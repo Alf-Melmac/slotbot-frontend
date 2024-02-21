@@ -66,9 +66,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 				</Container>
 			</AppShell.Header>
 
-			<AppShell.Navbar>
-				{props.navbar}
-			</AppShell.Navbar>
+			{props.navbar}
 
 			<AppShell.Main>
 				{props.children}

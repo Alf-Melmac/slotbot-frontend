@@ -1,0 +1,8 @@
+.description {
+	font-size: var(--mantine-font-size-sm);
+	display: flex;
+
+	& > button {
+		flex-shrink: 0;
+	}
+}

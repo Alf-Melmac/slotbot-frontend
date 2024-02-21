@@ -1,4 +1,4 @@
-import {createStyles, Image, Paper, SimpleGrid, Stack, Title} from '@mantine/core';
+import {Image, Paper, SimpleGrid, Stack, Title} from '@mantine/core';
 import {AnchorBlank} from '../../../components/Text/AnchorBlank';
 import {GuildUsers} from './users/GuildUsers';
 import {T} from '../../../components/T';
@@ -15,19 +15,12 @@ import {NotFound} from '../../error/NotFound';
 import {GuildLoading} from './GuildLoading';
 import {GuildPageProvider} from '../../../contexts/guild/GuildPageContext';
 import {GuildPageParams} from '../GuildRoutes';
-
-export const useGuildStyles = createStyles((theme) => ({
-	guildCard: {
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-	},
-}));
+import classes from './Guild.module.css';
 
 export function Guild(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.guild');
 	const {guildId} = useParams<GuildPageParams>();
 	if (!guildId) throw Error('Invalid state: Guild id required');
-
-	const {classes} = useGuildStyles();
 
 	const guildQuery = useGetGuild(guildId);
 	const [guild, setGuild] = useState<GuildDetailsDto>();
@@ -57,7 +50,7 @@ export function Guild(): JSX.Element {
 
 			<Paper withBorder p={'lg'} className={classes.guildCard} mb={'md'}>
 				<Stack align={'stretch'}>
-					<Title order={1} weight={100} align={'center'}>{guild.groupIdentifier}</Title>
+					<Title order={1} fw={100} ta={'center'}>{guild.groupIdentifier}</Title>
 					{guild.emojiUrl &&
                         <Image src={guild.emojiUrl} height={240} fit={'contain'}/>
 					}
