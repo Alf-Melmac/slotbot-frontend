@@ -10,7 +10,7 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
-import {getGuild, Guild} from '../../contexts/Theme';
+import {getGuild, Guild} from '../../contexts/theme/Theme';
 import {JSX, PropsWithChildren} from 'react';
 import classes from './Nav.module.css';
 

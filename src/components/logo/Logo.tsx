@@ -5,7 +5,7 @@ import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import tttLogo from './slotbot_ttt-logo-black.png';
 import tttLogoWhite from './slotbot_ttt-logo-white.png';
 import defaultLogo from './slotbot-256-256.png';
-import {getGuild, Guild} from '../../contexts/Theme';
+import {getGuild, Guild} from '../../contexts/theme/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
 

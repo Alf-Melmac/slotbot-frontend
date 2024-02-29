@@ -14,7 +14,7 @@ import {isGerman} from '../../../contexts/language/Language';
 import {JSX, lazy, Suspense} from 'react';
 import {EventTooltip} from './EventTooltip';
 import './eventCalendar.css';
-import {getGuild, Guild} from '../../../contexts/Theme';
+import {getGuild, Guild} from '../../../contexts/theme/Theme';
 import classes from './EventCalendar.module.css';
 
 type EventCalendarProps = {
