@@ -9,7 +9,7 @@ import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 import {T} from '../T';
 import {JSX} from 'react';
-import classes from './UserMenu .module.css';
+import classes from './UserMenu.module.css';
 
 type UserMenuProps = {
 	user: DiscordUserDto;

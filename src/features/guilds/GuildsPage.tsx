@@ -6,7 +6,6 @@ import {voidFunction} from '../../hooks/slotbotServerClient';
 import {useLanguage} from '../../contexts/language/Language';
 import {Outlet} from 'react-router-dom';
 import {JSX, useState} from 'react';
-// import '@mantine/spotlight/styles.css'; TODO m7-s
 
 export function GuildsPage(): JSX.Element {
 	const {t} = useLanguage();
@@ -20,7 +19,7 @@ export function GuildsPage(): JSX.Element {
 	return (
 		<Spotlight actions={actions} shortcut={['mod + K']} highlightQuery>
 			<Nav navbar={<GuildsNavbar setActions={setActions}/>}
-			     navbarProps={{width: {xs: 200, sm: 300}, breakpoint: 'xs'}}> {/*TODO m7-5 check breakpoint*/}
+				 navbarProps={{width: {xs: 200, sm: 300}, breakpoint: 'xs'}}> {/*TODO m7-5 check breakpoint*/}
 				<Container>
 					<Outlet/>
 				</Container>
