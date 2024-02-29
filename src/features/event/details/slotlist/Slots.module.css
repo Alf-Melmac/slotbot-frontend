@@ -1,0 +1,42 @@
+.grid {
+	display: grid;
+	grid-template-columns: minmax(5%, min-content) 4fr 5fr;
+	/*[`& .${getStylesRef(slotItem)}`] { // Replacement for gap to style background
+		paddingTop: rem(3),
+		paddingBottom: rem(2),
+		&:nth-child(-n+2) {
+			paddingRight: rem(8),
+		}
+	} TODO m7-10*/
+}
+
+.slotWrapper {
+	display: contents;
+}
+
+/*.slotItem {
+	  ref: getStylesRef('slotItem'),
+  }*/
+
+.slotNumber {
+	text-align: right;
+}
+
+.ownSlot {
+	background-color: alpha(var(--mantine-color-yellow-6), 0.1);
+}
+
+.ownSlotMarker {
+	position: relative;
+
+	&:before {
+		content: "";
+		position: absolute;
+		display: block;
+		top: 0;
+		bottom: 0;
+		left: rem(-8);
+		width: 2px;
+		background-color: var(--mantine-color-yellow-6);
+	}
+}

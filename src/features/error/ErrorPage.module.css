@@ -1,7 +1,7 @@
 .label {
 	color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 	text-shadow: -3px -6px light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-9));
-	@media (max-width: 48em) {
+	@media (max-width: 48em) { /*TODO m7-9 https://mantine.dev/styles/responsive/#breakpoints-variables-in-css-modules*/
 		font-size: 120px;
 	}
 
@@ -13,7 +13,7 @@
 }
 
 .title {
-	@media (max-width: 48em) {
+	@media (max-width: 48em) { /*TODO m7-9*/
 		font-size: 32px;
 	}
 }

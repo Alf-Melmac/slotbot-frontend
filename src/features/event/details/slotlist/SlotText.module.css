@@ -1,0 +1,7 @@
+.slottable {
+	gap: var(--mantine-spacing-sm);
+
+	@media (max-width: 62em) { /*TODO m7-9*/
+		gap: rem(6);
+	}
+}

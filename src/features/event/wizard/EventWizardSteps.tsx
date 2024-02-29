@@ -7,6 +7,7 @@ import {Dispatch, JSX, SetStateAction} from 'react';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../components/T';
 import {AdditionalEventTypesProvider} from '../../../contexts/event/action/AdditionalEventTypeContext';
+import {useMediaQuery} from '@mantine/hooks';
 
 type EventWizardStepsProps = {
 	active: number;
@@ -28,9 +29,10 @@ export function EventWizardSteps(props: Readonly<EventWizardStepsProps>): JSX.El
 
 	const {mutate, eventWizardFinish} = useEventSave();
 
+	const isMobile = useMediaQuery(`(max-width: 48em)`);
 	return <>
 		<AdditionalEventTypesProvider>
-			<Stepper active={active} mt={'sm'} breakpoint={'sm'}>
+			<Stepper active={active} mt={'sm'} orientation={isMobile ? 'vertical' : undefined}>
 				<Stepper.Step label={<T k={'event'}/>} description={<T k={'generalInformation'}/>}>
 					<EventGeneralInformation/>
 				</Stepper.Step>
@@ -47,7 +49,7 @@ export function EventWizardSteps(props: Readonly<EventWizardStepsProps>): JSX.El
 			</Stepper>
 		</AdditionalEventTypesProvider>
 
-		<Group position={'right'} mt={'xl'}>
+		<Group justify={'right'} mt={'xl'}>
 			{active !== 0 && active !== 3 &&
                 <Button variant={'default'} onClick={prevStep}><T k={'action.previous'}/></Button>}
 			{active < 2 && <Button onClick={nextStep}><T k={'action.next'}/></Button>}

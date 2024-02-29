@@ -41,7 +41,7 @@ export function EventDetails(): JSX.Element {
 			href: '/events',
 		},
 		{
-			title: <Group noWrap spacing={6}>
+			title: <Group wrap={'nowrap'} gap={6}>
 				<ColorSwatch color={event.eventType?.color || theme.primaryColor} radius={'sm'}
 							 size={theme.fontSizes.md}/>
 				{event.missionType} {event.eventType.name}
@@ -61,17 +61,17 @@ export function EventDetails(): JSX.Element {
 
 		<Tabs mt={'xs'} defaultValue={'slotlist'}>
 			<Tabs.List>
-				<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
+				<Tabs.Tab value={'slotlist'} leftSection={<FontAwesomeIcon icon={faUserGroup}/>}>
 					<T k={'slotlist'}/>
 				</Tabs.Tab>
 				{event.descriptionAsHtml &&
-                    <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
+                    <Tabs.Tab value={'description'} leftSection={<FontAwesomeIcon icon={faFileLines}/>}
                               ref={descriptionRef}>
                         <T k={'description'}/>
                     </Tabs.Tab>
 				}
 				{event.details.length !== 0 &&
-                    <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                    <Tabs.Tab value={'details'} leftSection={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
                         <T k={'moreDetails'}/>
                     </Tabs.Tab>
 				}

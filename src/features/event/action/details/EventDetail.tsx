@@ -10,7 +10,7 @@ import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {JSX} from 'react';
 
 type EventDetailProps = {
-	item: EventActionFormType['details'][number]
+	item: EventActionFormType['details'][number];
 	index: number;
 };
 
@@ -36,7 +36,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 			}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>;
 			break;
 		case 'BOOLEAN':
-			text = <Checkbox sx={{flex: 1}} {...form.getInputProps(`details.${index}.text`)}/>;
+			text = <Checkbox flex={1} {...form.getInputProps(`details.${index}.text`)}/>;
 			break;
 		case 'TEXT':
 		default:

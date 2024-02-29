@@ -32,11 +32,11 @@ export function EventActionUpload(props: Readonly<FormTextInputProps>): JSX.Elem
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label']);
 	return (
 		useEditMode() ?
-			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} noWrap {...formInputProps}
+			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} wrap={'nowrap'} {...formInputProps}
 										 onSubmit={() => mutate()}
 										 onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
-			<Group spacing={'xs'} grow noWrap>
+			<Group gap={'xs'} grow wrap={'nowrap'}>
 				<Box maw={'unset !important'}>
 					<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
 				</Box>

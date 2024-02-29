@@ -2,21 +2,21 @@ import {
 	Anchor,
 	Button,
 	Code,
-	createStyles,
 	Group,
 	Input,
-	InputWrapperBaseProps,
+	InputWrapperProps,
 	Modal,
 	ModalProps,
 	Stack,
 	Text,
+	useComputedColorScheme,
 	useMantineTheme,
 } from '@mantine/core';
 import {JSX, useEffect, useState} from 'react';
 import {Dropzone} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileArrowUp, faFileCircleQuestion, faFileImport} from '@fortawesome/free-solid-svg-icons';
-import {FileRejection} from 'react-dropzone';
+import {FileRejection} from 'react-dropzone-esm';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../../eventTypes';
@@ -25,6 +25,7 @@ import {randomId} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import classes from './UploadSlotlist.module.css';
 
 export function UploadSlotlist(): JSX.Element {
 	const [opened, setOpened] = useState(false);
@@ -42,35 +43,13 @@ export function UploadSlotlist(): JSX.Element {
 	</>;
 }
 
-const useStyles = createStyles((theme, hasError: boolean) => ({
-	dropzone: {
-		borderColor: hasError ?
-			theme.colorScheme === 'dark' ?
-				theme.fn.variant({color: 'red', variant: 'light'}).background
-				:
-				theme.colors.red[4]
-			: undefined,
-
-		'&[data-reject]': { //Copied from data-accepted
-			backgroundColor: theme.colorScheme === 'dark' ?
-				theme.fn.variant({color: theme.primaryColor, variant: 'light'}).background
-				:
-				theme.colors[theme.primaryColor][0],
-			borderColor: theme.colorScheme === 'dark' ?
-				theme.fn.variant({color: theme.primaryColor, variant: 'light'}).border
-				:
-				theme.colors[theme.primaryColor][4],
-		},
-	},
-}));
-
 type SqmDropzoneProps = {
 	closeModal: ModalProps['onClose'];
 }
 
 function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
-	const [error, setError] = useState<InputWrapperBaseProps['error']>();
+	const [error, setError] = useState<InputWrapperProps['error']>();
 	const [hasError, setHasError] = useState(false);
 	useEffect(() => {
 		setHasError(!!error);
@@ -78,7 +57,7 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	const [loading, setLoading] = useState(false);
 
 	const theme = useMantineTheme();
-	const {classes} = useStyles(hasError);
+	const colorScheme = useComputedColorScheme(); //TODO m7-2
 	const {t} = useLanguage();
 
 	const form = useFormContext();
@@ -134,7 +113,8 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 		if (generalFileValidation(fileRejections.map(rejection => rejection.file))) {
 			return;
 		}
-		const fileRejectionMessages = fileRejections.flatMap(rejection => rejection.errors.map(rejectionError => rejectionError.message));
+		const fileRejectionMessages = fileRejections.flatMap(rejection =>
+			rejection.errors.map(rejectionError => rejectionError.message));
 		setError(fileRejectionMessages.join(', '));
 	}
 
@@ -157,21 +137,22 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	return (
 		<Input.Wrapper error={error}>
 			<Dropzone onDrop={onDrop} onReject={onReject} accept={{'application/octet-stream': ['.sqm']}} maxFiles={1}
-					  maxSize={2097000} loading={loading} mt={'xl'} className={classes.dropzone}>
-				<Group position={'center'} spacing={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} noWrap>
+					  maxSize={2097000} loading={loading} mt={'xl'} mod={{hasError: hasError}}
+					  className={classes.dropzone}>
+				<Group justify={'center'} gap={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} wrap={'nowrap'}>
 					<Dropzone.Accept>
 						<FontAwesomeIcon icon={faFileImport} size={'2x'}
-										 color={theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6]}/>
+										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
 					</Dropzone.Accept>
 					<Dropzone.Reject>
 						<FontAwesomeIcon icon={faFileCircleQuestion} size={'2x'}
-										 color={theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6]}/>
+										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
 					</Dropzone.Reject>
 					<Dropzone.Idle>
 						<FontAwesomeIcon icon={faFileArrowUp} size={'2x'}/>
 					</Dropzone.Idle>
 
-					<Stack spacing={7}>
+					<Stack gap={7}>
 						<Text size={'lg'} inline>
 							<T k={'dropzone.placeholder.upload'}/>
 						</Text>

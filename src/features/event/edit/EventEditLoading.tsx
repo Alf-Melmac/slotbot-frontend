@@ -16,22 +16,22 @@ export function EventEditLoading(): JSX.Element {
 			</DelayedSkeleton>
 
 			<Grid>
-				<Grid.Col md={9} span={12}>
+				<Grid.Col span={{base: 12, md: 9}}>
 					<DelayedSkeleton height={DEFAULT_INPUT_HEIGHT}/>
 				</Grid.Col>
-				<Grid.Col md={3} span={12}>
+				<Grid.Col span={{base: 12, md: 3}}>
 					<DelayedSkeleton height={DEFAULT_INPUT_HEIGHT}/>
 				</Grid.Col>
 			</Grid>
 
 			<Grid>
-				<Grid.Col md={4} span={6}>
+				<Grid.Col span={{base: 6, md: 4}}>
 					<DelayedSkeleton height={DEFAULT_INPUT_HEIGHT}/>
 				</Grid.Col>
-				<Grid.Col md={4} span={6}>
+				<Grid.Col span={{base: 6, md: 4}}>
 					<DelayedSkeleton height={DEFAULT_INPUT_HEIGHT}/>
 				</Grid.Col>
-				<Grid.Col md={4} span={12}>
+				<Grid.Col span={{base: 12, md: 4}}>
 					<DelayedSkeleton height={DEFAULT_INPUT_HEIGHT}/>
 				</Grid.Col>
 			</Grid>

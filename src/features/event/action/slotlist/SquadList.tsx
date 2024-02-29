@@ -1,6 +1,5 @@
 import {Box, Group, NumberInput, TextInput} from '@mantine/core';
 import {TEXT} from '../../../../utils/maxLength';
-import {flexGrow} from '../../../../contexts/CommonStylings';
 import {SlotListEntrySettings} from './SlotListEntrySettings';
 import {AddButton} from '../../../../components/Button/AddButton';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
@@ -21,10 +20,10 @@ export function SquadList(): JSX.Element {
 			formPath={'squadList'} itemProps={{mt: 'sm', mb: 'xs', align: 'start'}} iconProps={{size: 'lg'}}
 			renderItem={(squad, squadIndex) => (
 				<Box key={squad.id}>
-					<Group spacing={5} align={'start'}>
+					<Group gap={5} align={'start'}>
 						<TextInput placeholder={t('squad.placeholder')}
 								   maxLength={TEXT} required
-								   styles={{root: flexGrow}}
+								   styles={{root: {flexGrow: '1 !important'}}}
 								   {...form.getInputProps(`squadList.${squadIndex}.name`)}/>
 						<SlotListEntrySettings
 							entry={form.values.squadList[squadIndex]}
@@ -37,12 +36,12 @@ export function SquadList(): JSX.Element {
 							renderItem={(slot, slotIndex) => {
 								const slotList = `squadList.${squadIndex}.slotList`;
 								return (
-									<Group key={slot.id} align={'start'} spacing={'xs'}>
+									<Group key={slot.id} align={'start'} gap={'xs'}>
 										<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
 													 {...form.getInputProps(`${slotList}.${slotIndex}.number`)}/>
-										<TextInput
-											placeholder={t('slot.placeholder')} styles={{root: flexGrow}}
-											{...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
+										<TextInput placeholder={t('slot.placeholder')}
+												   styles={{root: {flexGrow: '1 !important'}}}
+												   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
 										<SlotListEntrySettings
 											entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot
 											path={slotList} index={slotIndex} guildsQuery={guildsQuery}/>

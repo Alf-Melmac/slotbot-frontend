@@ -1,18 +1,13 @@
-import {Box, Center, createStyles, Title} from '@mantine/core';
+import {Box, Center, Title} from '@mantine/core';
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {JSX, useCallback, useRef, useState} from 'react';
 import {T} from '../../../components/T';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
-import {hidden} from '../../../contexts/CommonStylings';
-
-const useStyles = createStyles(() => ({
-	hidden: hidden,
-}));
+import classes from './Events.module.css';
 
 export function Events(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.events');
-	const {classes} = useStyles();
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);
 	const loadingCalendarWrapper = useRef<HTMLDivElement>(null);

@@ -58,6 +58,6 @@ function SlotListEntryReservationSettingSelect(props: Readonly<SlotListEntryRese
 						   label: guild.groupIdentifier,
 					   };
 				   })}
-				   withinPortal
+				   // withinPortal TODO m7-6
 				   {...form.getInputProps(`${path}.${index}.reservedFor`)}/>;
 }

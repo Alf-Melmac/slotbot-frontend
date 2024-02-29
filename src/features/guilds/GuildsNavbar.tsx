@@ -50,7 +50,7 @@ export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 					        classNames={{inner: classes.guildButton}}
 					        leftSection={
 						        <Image src={guild.emojiUrl} width={34} /*withPlaceholder
-						               placeholder={<FontAwesomeIcon icon={faPeopleGroup}/>} TODO m7-6*//>
+						               placeholder={<FontAwesomeIcon icon={faPeopleGroup}/>} TODO m7-8*//>
 					        }
 					        component={AnchorLink}
 					        to={`/guilds/${guild.id}`}>

@@ -1,0 +1,4 @@
+.forceWrap {
+	max-Width: 100%;
+	overflow-wrap: break-word;
+}

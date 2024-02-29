@@ -14,7 +14,7 @@ export function EventDetailsPage(): JSX.Element {
 	const {defaultFields} = useEventFieldDefaults(form.values.eventType.name);
 
 	return <EventFieldDefaultsProvider fieldDefaults={defaultFields}>
-		<Group position={'apart'}>
+		<Group justify={'apart'}>
 			<EventActionPageTitle title={'details'}/>
 			{defaultFields?.length &&
                 <Button variant={'light'} mb={'xs'} onClick={() => {

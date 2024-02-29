@@ -1,7 +1,7 @@
-import {Alert, ColorInput, Grid, Group, Select} from '@mantine/core';
+import {Alert, ColorInput, Grid, Select} from '@mantine/core';
 import {EventTypeDto} from '../../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-icons';
+import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../../utils/maxLength';
 import {JSX, useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
@@ -73,8 +73,8 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 							required
 							data={data}
 							searchable
-							creatable={!editMode}
-							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> <T
+							/*creatable={!editMode} TODO m7-6
+							nothingFound={<Group justify={'center'}><FontAwesomeIcon icon={faCirclePause}/> <T
 								k={'event.evenType.name.edit.nothingFound'}/></Group>}
 							getCreateLabel={input => input}
 							onCreate={(input) => {
@@ -82,7 +82,7 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 								setData((current) => [...current, input]);
 								setAdditionalEventType(input);
 								return item;
-							}}
+							}}*/
 							{...form.getInputProps('eventType.name')}/>
 				</Grid.Col>
 				<Grid.Col span={4}>

@@ -1,6 +1,5 @@
-import {Box, Container, Grid, MediaQuery, Text, Title} from '@mantine/core';
+import {Box, Container, Grid, Text, Title} from '@mantine/core';
 import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
-import {hidden} from '../../../contexts/CommonStylings';
 import {JSX} from 'react';
 
 export function EventDetailsLoading(): JSX.Element {
@@ -23,12 +22,8 @@ export function EventDetailsLoading(): JSX.Element {
 				</DelayedSkeleton>
 
 				<Box mt={'sm'}>
-					<MediaQuery largerThan={'md'} styles={hidden}>
-						<DelayedSkeleton height={55}/>
-					</MediaQuery>
-					<MediaQuery smallerThan={'md'} styles={hidden}>
-						<DelayedSkeleton height={130}/>
-					</MediaQuery>
+					<DelayedSkeleton hiddenFrom={'md'} height={55}/>
+					<DelayedSkeleton visibleFrom={'md'} height={130}/>
 				</Box>
 			</Grid.Col>
 		</Grid>

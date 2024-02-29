@@ -20,7 +20,7 @@ export function ReservedFor(props: Readonly<ReservedForProps>): JSX.Element {
 			{guild.emojiUrl ?
 				<Image src={guild.emojiUrl}
 					   alt={guild.groupIdentifier}
-					   placeholder={<Text align={'center'}>{guild.groupIdentifier}</Text>}
+					   // placeholder={<Text align={'center'}>{guild.groupIdentifier}</Text>} TODO m7-8
 					   width={theme.fontSizes.lg}/>
 				:
 				<Text>[{guild.groupIdentifier}]</Text>

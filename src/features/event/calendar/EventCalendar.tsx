@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import {EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {Box, ColorSwatch, createStyles, Flex, MediaQuery, rem, Text, Tooltip} from '@mantine/core';
+import {Box, ColorSwatch, Flex, Text, Tooltip} from '@mantine/core';
 import {showNotification} from '@mantine/notifications';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
@@ -11,54 +11,11 @@ import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {isGerman} from '../../../contexts/language/Language';
-import {hidden} from '../../../contexts/CommonStylings';
 import {JSX, lazy, Suspense} from 'react';
 import {EventTooltip} from './EventTooltip';
 import './eventCalendar.css';
 import {getGuild, Guild} from '../../../contexts/Theme';
-
-const useStyles = createStyles((theme) => ({
-	today: {
-		height: 26,
-		width: 26,
-		color: theme.colorScheme !== 'dark' ? 'white' : undefined,
-		backgroundColor: theme.colors.red[8],
-		borderRadius: '50%',
-		display: 'inline-block',
-		fontWeight: 'bold',
-		textAlign: 'center',
-	},
-
-	eventLink: {
-		width: '100%',
-	},
-
-	eventWrapper: {
-		alignItems: 'center',
-		wrap: 'nowrap',
-		width: '100%',
-		padding: 2,
-	},
-
-	eventType: {
-		flex: '0 0 auto',
-		height: rem(8),
-		width: rem(8),
-	},
-
-	eventTitle: {
-		flex: 1,
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-		fontSize: theme.fontSizes.sm,
-	},
-
-	eventTime: {
-		flex: '0 0 auto',
-		fontSize: theme.fontSizes.xs,
-	},
-}));
+import classes from './EventCalendar.module.css';
 
 type EventCalendarProps = {
 	toggleVisible: (isLoading: boolean) => void;
@@ -67,7 +24,6 @@ type EventCalendarProps = {
 
 export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element {
 	const {toggleVisible, onFailure} = props;
-	const {classes} = useStyles();
 	const TTTTheme = lazy(() => import('./ttt/EventCalendarTTTTheme'));
 
 	const eventContent = (arg: EventContentArg) => {
@@ -77,9 +33,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
 					<Flex className={classes.eventWrapper}>
-						<MediaQuery smallerThan={'sm'} styles={hidden}>
-							<ColorSwatch color={backgroundColor} className={classes.eventType} mx={2}/>
-						</MediaQuery>
+						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} className={classes.eventType} mx={2}/>
 						<Text className={classes.eventTitle}>{event.title}</Text>
 						<Text c={'dimmed'} className={classes.eventTime}>{arg.timeText}</Text>
 					</Flex>

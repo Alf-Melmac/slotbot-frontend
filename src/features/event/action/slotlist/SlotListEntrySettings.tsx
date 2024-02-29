@@ -45,18 +45,18 @@ export function SlotListEntrySettings(props: Readonly<SlotListEntrySettingsProps
 				</ActionIcon>
 			</Menu.Target>
 			<Menu.Dropdown>
-				<Menu.Item icon={<FontAwesomeIcon icon={faUserGear}/>}
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faUserGear}/>}
 						   onClick={() => setOpened(true)}>
 					<T k={'slotlistEntry.settings'}/>
 				</Menu.Item>
-				<Menu.Item icon={<FontAwesomeIcon icon={faClone}/>}
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faClone}/>}
 						   onClick={() => {
 							   const entry = getFormFieldValue(form, `${path}.${index}`);
 							   form.insertListItem(path, slot ? duplicateSlot(form, entry) : duplicateSquad(form, entry), index + 1);
 						   }}>
 					<T k={'action.duplicate'}/>
 				</Menu.Item>
-				<Menu.Item icon={<FontAwesomeIcon icon={faTrashCan}/>}
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faTrashCan}/>}
 						   onClick={() => form.removeListItem(path, index)}>
 					<T k={'action.delete'}/>
 				</Menu.Item>

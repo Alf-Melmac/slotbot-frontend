@@ -15,7 +15,7 @@ export function EventPrivacySettings(props: Readonly<RequiredInformationProps>):
 	useChangeWatcher('shareable');
 	useChangeWatcher('hidden');
 
-	return <Stack align={'flex-start'} spacing={'xs'}>
+	return <Stack align={'flex-start'} gap={'xs'}>
 		<IconSwitch onIcon={faUsers} offIcon={faUsersSlash}
 					label={<ElementWithInfo text={<T k={'event.shareable'}/>}
 											tooltip={<T k={'event.shareable.tooltip'}/>}/>}
