@@ -1,24 +1,6 @@
-.mantine-Header-root {
+header {
 	background-color: light-dark(white, black);
 }
-body, main, .mantine-Navbar-root {
+body, main, nav {
 	background-color: light-dark(#f5f3f2, #191919);
-}
-
-*::-webkit-scrollbar {
-	width: 8px;
-}
-
-*::-webkit-scrollbar-thumb {
-	background-color: var(--mantine-color-gray-5);
-	border-radius: 6px;
-}
-
-@supports (-moz-appearance:none) {
-	* {
-		/*The following attributes are currently supported only by Firefox. Webkit browsers are designed by the ::-webkit-scrollbar
-		So that nothing is broken in potential future support, these values are set only for Firefox.*/
-		scrollbar-color: var(--mantine-color-gray-5) transparent;
-		scrollbar-width: thin;
-	}
 }

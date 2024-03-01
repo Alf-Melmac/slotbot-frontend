@@ -1,4 +1,4 @@
-import {AppShell, AppShellProps, Box, Container, Group} from '@mantine/core';
+import {AppShell, AppShellProps, Container, Group} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
@@ -18,8 +18,7 @@ type NavProps = {
 	navbar?: JSX.Element;
 	navbarProps?: AppShellProps['navbar'];
 };
-export const NAV_HEIGHT = 80;
-export const FOOTER_HEIGHT = 150;
+export const NAV_HEIGHT = 80; /*Remember to also update classes.headerInner#height*/
 
 export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 	const guild = getGuild();
@@ -38,31 +37,27 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 	return (
 		<AppShell
 			header={{height: NAV_HEIGHT}}
-			footer={{height: 0}}
 			navbar={props.navbarProps}
 			layout={'alt'}
-			// sx={{main: {minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`}}} /*TODO*/
+			classNames={{main: classes.main, footer: classes.footer}}
 		>
 			<AppShell.Header withBorder={false}>
 				<Container className={classes.headerInner}>
 					<Logo/>
-					<Box className={classes.headerRight}>
-						<Group wrap={'nowrap'} gap={'xs'}>
-							<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
-							             width={135} visibleFrom={'xs'}/>
-							<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
-							             width={110} visibleFrom={'xs'}/>
-							{(user) ?
-								<UserMenu user={user}/>
-								:
-								<>
-									<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
-									               width={90}/>
-									<ThemeSwitch/>
-								</>
-							}
-						</Group>
-					</Box>
+					<Group wrap={'nowrap'} gap={'xs'}>
+						<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
+									 width={135} visibleFrom={'xs'}/>
+						<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
+									 width={110} visibleFrom={'xs'}/>
+						{(user) ?
+							<UserMenu user={user}/>
+							:
+							<>
+								<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket} width={90}/>
+								<ThemeSwitch/>
+							</>
+						}
+					</Group>
 				</Container>
 			</AppShell.Header>
 

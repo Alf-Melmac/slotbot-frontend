@@ -8,9 +8,6 @@ import {JSX} from 'react';
 import cx from 'clsx';
 import classes from './NavIcon.module.css';
 
-export const NAV_ICON_WRAPPER_HEIGHT = 36;
-export const NAV_ICON_SIZE = 28;
-
 interface NavIconProps {
 	text: TextKey;
 	icon: IconProp;
@@ -40,7 +37,8 @@ function NavIcon(props: Readonly<NavIconProps>): JSX.Element {
 export function NavIconLink(props: Readonly<NavIconLinkProps>): JSX.Element {
 	return (
 		<AnchorLink to={props.link}
-			className={cx(classes.wrapper, props.className)} w={props.width} visibleFrom={props.visibleFrom}>
+					className={cx(classes.wrapper_shared, classes.wrapper)} w={props.width}
+					visibleFrom={props.visibleFrom}>
 			<NavIcon {...props}/>
 		</AnchorLink>
 	);
@@ -49,7 +47,7 @@ export function NavIconLink(props: Readonly<NavIconLinkProps>): JSX.Element {
 export function NavIconAction(props: Readonly<NavIconActionProps>): JSX.Element {
 	return (
 		<Box component={'a'} onClick={props.onClick}
-		     className={cx(classes.wrapper, props.className)} w={props.width}>
+			 className={cx(classes.wrapper_shared, classes.wrapper)} w={props.width}>
 			<NavIcon {...props}/>
 		</Box>
 	);

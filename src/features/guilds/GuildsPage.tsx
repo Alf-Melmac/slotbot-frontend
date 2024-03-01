@@ -20,7 +20,7 @@ export function GuildsPage(): JSX.Element {
 		<Spotlight actions={actions} shortcut={['mod + K']} highlightQuery>
 			<Nav navbar={<GuildsNavbar setActions={setActions}/>}
 				 navbarProps={{width: {xs: 200, sm: 300}, breakpoint: 'xs'}}> {/*TODO m7-5 check breakpoint*/}
-				<Container>
+				<Container py={'md'}>
 					<Outlet/>
 				</Container>
 			</Nav>

@@ -5,6 +5,11 @@
 	align-items: center;
 }
 
-.headerRight {
-	align-self: flex-end;
+.main {
+	min-height: calc(100vh - rem(150px)) !important; /*150px is the footer height*/
+}
+
+.footer {
+	position: unset;
+	background-color: unset;
 }

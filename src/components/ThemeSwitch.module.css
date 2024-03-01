@@ -1,7 +1,7 @@
 .light {
-	color: var(--mantine-color-yellow-5),
+	color: var(--mantine-color-yellow-5);
 }
 
 .dark {
-	color: var(--mantine-color-blue-6),
+	color: var(--mantine-color-blue-6);
 }

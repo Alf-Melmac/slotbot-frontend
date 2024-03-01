@@ -127,7 +127,7 @@ export function PageFooter(): JSX.Element {
 				<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
 			</Stack>
 			<Stack gap={'xs'}>
-				<Group gap={'xl'} justify={'right'}>
+				<Group gap={'lg'} justify={'right'}>
 					{icons.map((icon) =>
 						<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
 						            className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>

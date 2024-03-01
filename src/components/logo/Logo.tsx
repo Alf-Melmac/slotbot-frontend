@@ -20,7 +20,7 @@ export function Logo(props: Readonly<LogoProps>): JSX.Element {
 		<UnstyledAnchorLink to={'/events'}>
 			<Group gap={'xs'} wrap={'nowrap'}>
 				{!small &&
-                    <Image visibleFrom={'xs'} width={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
+                    <Image visibleFrom={'xs'} w={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
 				}
 				{(!logoWithName || small) &&
                     <Text size={'lg'} tt={'uppercase'} fw={700} lts={1}>{title}</Text>

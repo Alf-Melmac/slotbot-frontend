@@ -3,13 +3,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRightFromBracket, faChevronDown, faScrewdriverWrench, faUser} from '@fortawesome/free-solid-svg-icons';
 import {ApplicationRoles, DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
-import {NAV_ICON_SIZE} from './NavIcon';
 import {Link} from 'react-router-dom';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 import {T} from '../T';
 import {JSX} from 'react';
-import classes from './UserMenu.module.css';
+import cx from 'clsx';
+import classes from './NavIcon.module.css';
 
 type UserMenuProps = {
 	user: DiscordUserDto;
@@ -24,9 +24,10 @@ export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 	return (
 		<Menu position={'bottom-end'}>
 			<Menu.Target>
-				<UnstyledButton className={classes.user}>
+				<UnstyledButton className={cx(classes.wrapper_shared, classes.wrapper_flipped)}>
 					<Group wrap={'nowrap'}>
-						<Avatar src={user.avatarUrl} radius={NAV_ICON_SIZE} size={NAV_ICON_SIZE}/>
+						<Avatar src={user.avatarUrl}
+								radius={28} size={28 /*Size and radius are intended to match NavIcon*/}/>
 						<Text size={'sm'} fw={500}>
 							{user.name}
 						</Text>

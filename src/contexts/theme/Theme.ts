@@ -1,4 +1,5 @@
 import {createTheme, MantineProviderProps, MantineThemeOverride, rem} from '@mantine/core';
+import {merge} from 'lodash';
 
 export enum Guild {
 	AMB,
@@ -51,6 +52,8 @@ const globalTheme: ReturnType<typeof createTheme> = {
 			'#101113',
 		],
 	},
+
+	fontFamily: 'Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
 
 	fontSizes: {
 		xs: rem(12),
@@ -112,22 +115,23 @@ const themeDAA: MantineThemeOverride = {
 	...globalTheme,
 };
 
-const themeTTT: MantineThemeOverride = {
-	colors: {
-		brand: [
-			'#f2f8ec',
-			'#e7ece1',
-			'#cfd6c4',
-			'#b4c0a5',
-			'#9eac8a',
-			'#8fa079',
-			'#879a6f',
-			'#74865d',
-			'#667751',
-			'#576741',
-		],
-	},
-	primaryColor: 'brand',
-
-	...globalTheme,
-};
+const themeTTT: MantineThemeOverride = merge(
+	{
+		colors: {
+			brand: [
+				'#f2f8ec',
+				'#e7ece1',
+				'#cfd6c4',
+				'#b4c0a5',
+				'#9eac8a',
+				'#8fa079',
+				'#879a6f',
+				'#74865d',
+				'#667751',
+				'#576741',
+			],
+		},
+		primaryColor: 'brand',
+	} satisfies MantineThemeOverride,
+	globalTheme,
+);

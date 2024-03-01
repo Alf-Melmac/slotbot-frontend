@@ -1,21 +1,26 @@
 .wrapper {
-	--nav-icon-wrapper-height: rem(36px);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.wrapper_shared {
 	border-radius: 1000px;
 	padding-left: var(--mantine-spacing-sm);
-	padding-right: var(--nav-icon-wrapper-height) / 9;
-	flex-shrink: 0;
-	height: var(--nav-icon-wrapper-height);
-	text-decoration: none;
-	color: light-dark(var(--mantine-color-black, var(--mantine-color-dark-0)));
+	padding-right: rem(4px);
+	height: rem(36px);
+	color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
 	background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
 
 	@mixin hover {
 		cursor: pointer;
 		text-decoration: underline;
 	}
+}
+
+.wrapper_flipped {
+	padding-right: var(--mantine-spacing-sm);
+	padding-left: rem(4px);
 }
 
 .icon {
