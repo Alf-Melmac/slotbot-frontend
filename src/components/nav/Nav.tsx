@@ -1,4 +1,4 @@
-import {AppShell, AppShellProps, Container, Group} from '@mantine/core';
+import {AppShell, AppShellProps, Container, Group, rem} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
@@ -11,14 +11,15 @@ import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
 import {getGuild, Guild} from '../../contexts/theme/Theme';
-import {JSX, PropsWithChildren} from 'react';
+import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
 import classes from './Nav.module.css';
 
 type NavProps = {
 	navbar?: JSX.Element;
 	navbarProps?: AppShellProps['navbar'];
 };
-export const NAV_HEIGHT = 80; /*Remember to also update classes.headerInner#height*/
+export const NAV_HEIGHT = 80;
+const STANDARD_FOOTER_HEIGHT = 145;
 
 export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 	const guild = getGuild();
@@ -34,6 +35,17 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 
 	const {user, login} = useAuth();
 
+	const [footerHeight, setFooterHeight] = useState(STANDARD_FOOTER_HEIGHT);
+	const ref = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		if (!ref.current) return;
+		const resizeObserver = new ResizeObserver(() => {
+			setFooterHeight(ref.current?.clientHeight ?? STANDARD_FOOTER_HEIGHT);
+		});
+		resizeObserver.observe(ref.current);
+		return () => resizeObserver.disconnect();
+	}, []);
+
 	return (
 		<AppShell
 			header={{height: NAV_HEIGHT}}
@@ -42,7 +54,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 			classNames={{main: classes.main, footer: classes.footer}}
 		>
 			<AppShell.Header withBorder={false}>
-				<Container className={classes.headerInner}>
+				<Container style={{'--nav-height': rem(NAV_HEIGHT)}} className={classes.headerInner}>
 					<Logo/>
 					<Group wrap={'nowrap'} gap={'xs'}>
 						<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
@@ -53,7 +65,8 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 							<UserMenu user={user}/>
 							:
 							<>
-								<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket} width={90}/>
+								<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
+											   width={90}/>
 								<ThemeSwitch/>
 							</>
 						}
@@ -63,11 +76,11 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 
 			{props.navbar}
 
-			<AppShell.Main>
+			<AppShell.Main style={{'--footer-height': `${footerHeight}px`}}>
 				{props.children}
 			</AppShell.Main>
 
-			<AppShell.Footer withBorder={false}>
+			<AppShell.Footer withBorder={false} ref={ref}>
 				<PageFooter/>
 			</AppShell.Footer>
 		</AppShell>

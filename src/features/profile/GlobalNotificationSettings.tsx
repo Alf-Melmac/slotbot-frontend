@@ -51,17 +51,16 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
 			</Title>
 
 			{form.values.notificationSettings.map((_item, index) => {
-					//TODO m7-4 does this dynamic suffix work?
 					const hoursInputProps = form.getInputProps(`notificationSettings.${index}.hoursBeforeEvent`);
 					const minutesInputProps = form.getInputProps(`notificationSettings.${index}.minutesBeforeEvent`);
 					return <Group key={index}>
-						<ActionIcon onClick={() => form.removeListItem('notificationSettings', index)}>
+						<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('notificationSettings', index)}>
 							<FontAwesomeIcon icon={faTrashCan}/>
 						</ActionIcon>
 						<NumberInput {...hoursInputProps} min={0}
-						             suffix={t('hour', getOptions(hoursInputProps.value))}/>
+						             suffix={` ${t('hour', getOptions(hoursInputProps.value))}`}/>
 						<NumberInput {...minutesInputProps} min={0}
-						             suffix={t('minute', getOptions(minutesInputProps.value))}/>
+						             suffix={` ${t('minute', getOptions(minutesInputProps.value))}`}/>
 						<Text><T k={'notifications.input.suffix'}/></Text>
 					</Group>;
 				},
@@ -91,5 +90,5 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
  * getRelativeTimeInputFormatterTranslationOptions
  */
 function getOptions(value: string | undefined): TranslationOptions {
-	return {count: parseInt(value ?? '0'), countAsArgs: true};
+	return {count: parseInt(value ?? '0')};
 }

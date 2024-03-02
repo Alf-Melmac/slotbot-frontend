@@ -1,12 +1,12 @@
 .headerInner {
-	height: rem(80); /*This should always be NAV_HEIGHT*/
+	height: var(--nav-height); /*var is defined in Nav.tsx*/
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
 .main {
-	min-height: calc(100vh - rem(150px)) !important; /*150px is the footer height*/
+	min-height: calc(100vh - var(--footer-height)); /*var is defined in Nav.tsx*/
 }
 
 .footer {

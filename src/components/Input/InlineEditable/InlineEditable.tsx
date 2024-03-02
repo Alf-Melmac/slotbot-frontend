@@ -54,8 +54,12 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Rea
 					  onFocus={(e: any) => {
 						  onFocus?.(e);
 						  setViewMode(false);
-					  }} readOnly rightSection={
-				<ActionIcon onClick={() => setViewMode(false)}><FontAwesomeIcon icon={faPen}/></ActionIcon>}
+					  }}
+					  readOnly
+					  rightSection={
+						  <ActionIcon color={'gray'} variant={'subtle'} onClick={() => setViewMode(false)}>
+							  <FontAwesomeIcon icon={faPen}/>
+						  </ActionIcon>}
 			/>
 			:
 			<>
@@ -100,10 +104,10 @@ function EditMode<InputProps extends EditableInputProps>(props: Readonly<InlineE
 			}
 		</Box>
 		<Group justify={'right'} gap={'xs'} wrap={wrap} mt={marginTop}>
-			<ActionIcon variant={'outline'} onClick={onCancel}>
+			<ActionIcon color={'gray'} variant={'outline'} onClick={onCancel}>
 				<FontAwesomeIcon icon={faXmark}/>
 			</ActionIcon>
-			<ActionIcon variant={'filled'} color={'primary'} onClick={onSubmit}
+			<ActionIcon variant={'filled'} onClick={onSubmit}
 						disabled={required && !value}>
 				<FontAwesomeIcon icon={faCheck}/>
 			</ActionIcon>
