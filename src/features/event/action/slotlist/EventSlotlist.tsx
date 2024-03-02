@@ -42,7 +42,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 	useChangeWatcher('reserveParticipating');
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
-		<Group justify={'apart'}>
+		<Group justify={'space-between'}>
 			<EventActionPageTitle title={'slotlist.alt'}/>
 			<Group gap={'xs'}>
 				{canUploadSlotlist ?
@@ -69,7 +69,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
             </Group>
 		}
 
-		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'}
+		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'} color={'gray'}
 				  indeterminate={form.values.reserveParticipating === undefined}
 				  {...reserveParticipatingInputProps}/>
 	</>;

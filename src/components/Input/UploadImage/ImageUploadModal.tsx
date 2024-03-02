@@ -17,7 +17,8 @@ export function ImageUploadModal(props: Readonly<UploadImageProps>): JSX.Element
 		</Modal>
 
 		<Tooltip label={<T k={'action.uploadImage'}/>}>
-			<ActionIcon onClick={() => setOpened(true)} style={{flexGrow: 0, alignSelf: 'end', marginBottom: 4}}>
+			<ActionIcon color={'gray'} variant={'subtle'}
+						onClick={() => setOpened(true)} style={{flexGrow: 0, alignSelf: 'end', marginBottom: 4}}>
 				<FontAwesomeIcon icon={faUpload}/>
 			</ActionIcon>
 		</Tooltip>

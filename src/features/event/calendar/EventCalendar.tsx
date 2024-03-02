@@ -33,7 +33,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
 					<Flex className={classes.eventWrapper}>
-						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} className={classes.eventType} mx={2}/>
+						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} size={8} className={classes.eventType} mx={2}/>
 						<Text className={classes.eventTitle}>{event.title}</Text>
 						<Text c={'dimmed'} className={classes.eventTime}>{arg.timeText}</Text>
 					</Flex>

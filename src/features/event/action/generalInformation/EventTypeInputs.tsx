@@ -1,4 +1,4 @@
-import {Alert, ColorInput, Grid, Select} from '@mantine/core';
+import {Alert, Autocomplete, ColorInput, Grid} from '@mantine/core';
 import {EventTypeDto} from '../../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
@@ -68,25 +68,17 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 			}
 			<Grid>
 				<Grid.Col span={8}>
-					<Select label={<T k={'event.eventType.name'}/>}
-							maxLength={TEXT}
-							required
-							data={data}
-							searchable
-							/*creatable={!editMode} TODO m7-6
-							nothingFound={<Group justify={'center'}><FontAwesomeIcon icon={faCirclePause}/> <T
-								k={'event.evenType.name.edit.nothingFound'}/></Group>}
-							getCreateLabel={input => input}
-							onCreate={(input) => {
-								const item = {value: input, label: input};
-								setData((current) => [...current, input]);
-								setAdditionalEventType(input);
-								return item;
-							}}*/
-							{...form.getInputProps('eventType.name')}/>
+					<Autocomplete
+						label={<T k={'event.eventType.name'}/>}
+						maxLength={TEXT}
+						required
+						data={data}
+						{...form.getInputProps('eventType.name')}
+					/> {/*TODO m7-3 additional event types and edit mode*/}
 				</Grid.Col>
 				<Grid.Col span={4}>
 					<ColorInput label={<T k={'event.eventType.color'}/>}
+								required
 								disabled={colorInputDisabled}
 								{...form.getInputProps('eventType.color')}/>
 				</Grid.Col>

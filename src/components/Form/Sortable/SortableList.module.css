@@ -3,7 +3,7 @@
 	position: relative;
 
 	&[data-sorting] {
-		background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-7));
+		background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-7));
 		z-index: var(--mantine-z-index-popover);
 	}
 }

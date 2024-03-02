@@ -1,8 +1,4 @@
 .dropzone {
-	&[data-hasError] {
-		border-color: light-dark(var(--mantine-color-red-4), var(--mantine-color-red-light));
-	}
-
 	&[data-reject] { /*Copied from data-accepted*/
 		background-color: var(--dropzone-accept-bg);
 		border-color: var(--dropzone-accept-bg);

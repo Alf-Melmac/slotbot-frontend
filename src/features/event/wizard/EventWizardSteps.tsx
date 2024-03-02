@@ -49,7 +49,7 @@ export function EventWizardSteps(props: Readonly<EventWizardStepsProps>): JSX.El
 			</Stepper>
 		</AdditionalEventTypesProvider>
 
-		<Group justify={'right'} mt={'xl'}>
+		<Group justify={'right'} mt={'lg'}>
 			{active !== 0 && active !== 3 &&
                 <Button variant={'default'} onClick={prevStep}><T k={'action.previous'}/></Button>}
 			{active < 2 && <Button onClick={nextStep}><T k={'action.next'}/></Button>}

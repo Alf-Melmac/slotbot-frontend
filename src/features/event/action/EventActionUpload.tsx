@@ -1,5 +1,5 @@
 import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
-import {Box, Group, TextInputProps} from '@mantine/core';
+import {Group, TextInputProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {JSX, useState} from 'react';
 import {useEventTextChange} from './useEventUpdate';
@@ -32,14 +32,13 @@ export function EventActionUpload(props: Readonly<FormTextInputProps>): JSX.Elem
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label']);
 	return (
 		useEditMode() ?
-			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} wrap={'nowrap'} {...formInputProps}
+			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} wrap={'nowrap'}
+										 {...formInputProps}
 										 onSubmit={() => mutate()}
 										 onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:
-			<Group gap={'xs'} grow wrap={'nowrap'}>
-				<Box maw={'unset !important'}>
-					<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
-				</Box>
+			<Group gap={'xs'} preventGrowOverflow={false} grow wrap={'nowrap'}>
+				<TextInputMaxLength {...translatedInputProps} {...formInputProps}/>
 				<ImageUploadModal onSuccess={fileUrl => form.setFieldValue('pictureUrl', fileUrl)}/>
 			</Group>
 	);

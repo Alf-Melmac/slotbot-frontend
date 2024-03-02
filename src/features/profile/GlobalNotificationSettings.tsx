@@ -66,7 +66,7 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
 					</Group>;
 				},
 			)}
-			<Group justify={'apart'}>
+			<Group justify={'space-between'}>
 				<AddButton label={'notifications.add'}
 				           onClick={() => form.insertListItem('notificationSettings', {
 					           hoursBeforeEvent: 0,

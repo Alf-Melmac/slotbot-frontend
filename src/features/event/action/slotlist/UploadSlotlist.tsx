@@ -1,17 +1,4 @@
-import {
-	Anchor,
-	Button,
-	Code,
-	Group,
-	Input,
-	InputWrapperProps,
-	Modal,
-	ModalProps,
-	Stack,
-	Text,
-	useComputedColorScheme,
-	useMantineTheme,
-} from '@mantine/core';
+import {Anchor, Button, Code, Group, Input, InputWrapperProps, Modal, ModalProps, Stack, Text} from '@mantine/core';
 import {JSX, useEffect, useState} from 'react';
 import {Dropzone} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -50,14 +37,8 @@ type SqmDropzoneProps = {
 function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperProps['error']>();
-	const [hasError, setHasError] = useState(false);
-	useEffect(() => {
-		setHasError(!!error);
-	}, [error]);
 	const [loading, setLoading] = useState(false);
 
-	const theme = useMantineTheme();
-	const colorScheme = useComputedColorScheme(); //TODO m7-2
 	const {t} = useLanguage();
 
 	const form = useFormContext();
@@ -137,16 +118,13 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 	return (
 		<Input.Wrapper error={error}>
 			<Dropzone onDrop={onDrop} onReject={onReject} accept={{'application/octet-stream': ['.sqm']}} maxFiles={1}
-					  maxSize={2097000} loading={loading} mt={'xl'} mod={{hasError: hasError}}
-					  className={classes.dropzone}>
+					  maxSize={2097000} loading={loading} mt={'xl'} className={classes.dropzone}>
 				<Group justify={'center'} gap={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} wrap={'nowrap'}>
 					<Dropzone.Accept>
-						<FontAwesomeIcon icon={faFileImport} size={'2x'}
-										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
+						<FontAwesomeIcon icon={faFileImport} size={'2x'}/>
 					</Dropzone.Accept>
 					<Dropzone.Reject>
-						<FontAwesomeIcon icon={faFileCircleQuestion} size={'2x'}
-										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
+						<FontAwesomeIcon icon={faFileCircleQuestion} size={'2x'}/>
 					</Dropzone.Reject>
 					<Dropzone.Idle>
 						<FontAwesomeIcon icon={faFileArrowUp} size={'2x'}/>
@@ -163,6 +141,5 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 				</Group>
 			</Dropzone>
 		</Input.Wrapper>
-
 	);
 }

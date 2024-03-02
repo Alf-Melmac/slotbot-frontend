@@ -57,7 +57,7 @@ export function SortableList<T extends BaseItem>(props: Readonly<SortableListPro
 	const theme = useMantineTheme();
 	return <>
 		{sorting && <Overlay color={theme.colors.dark[8]} fixed/>}
-		<Box className={classes.element}>
+		<Box mod={{sorting}} className={classes.element}>
 			<DndContext
 				sensors={sensors}
 				onDragEnd={handleDragEnd}

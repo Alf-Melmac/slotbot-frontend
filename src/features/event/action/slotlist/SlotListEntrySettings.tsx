@@ -40,7 +40,7 @@ export function SlotListEntrySettings(props: Readonly<SlotListEntrySettingsProps
 		</Modal>
 		<Menu>
 			<Menu.Target>
-				<ActionIcon size={'lg'}>
+				<ActionIcon color={'gray'} variant={'subtle'} size={'lg'}>
 					<FontAwesomeIcon icon={faEllipsisH} size={'lg'}/>
 				</ActionIcon>
 			</Menu.Target>

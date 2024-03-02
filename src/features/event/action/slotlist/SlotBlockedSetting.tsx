@@ -22,14 +22,14 @@ export function SlotBlockedSetting(props: Readonly<SlotBlockedSettingProps>): JS
 					   description={<T k={'slotlistEntry.settings.blocked.description'}/>}
 					   mt={'sm'}>
 			<Group gap={'xs'} mt={6}>
-				<ActionIcon variant={'transparent'} size={'lg'}
+				<ActionIcon color={'gray'} variant={'transparent'} size={'lg'}
 					/*@ts-ignore blocked is always a boolean*/
 							onClick={() => form.setFieldValue(`${path}.${index}.blocked`, !blocked)}>
 					<FontAwesomeIcon icon={blocked ? faLock : faLockOpen} size={'lg'}/>
 				</ActionIcon>
 				{blocked &&
                     <TextInput placeholder={t('slotlistEntry.settings.blocked.placeholder')} maxLength={TEXT} required
-                               styles={{root: {flexGrow: '1 !important'}}} {...form.getInputProps(`${path}.${index}.replacementText`)}/>
+                               flex={1} {...form.getInputProps(`${path}.${index}.replacementText`)}/>
 				}
 			</Group>
 		</Input.Wrapper>

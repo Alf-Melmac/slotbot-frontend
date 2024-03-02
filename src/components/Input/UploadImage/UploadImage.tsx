@@ -1,14 +1,5 @@
 import {JSX, useEffect, useState} from 'react';
-import {
-	Anchor,
-	Group,
-	Input,
-	InputWrapperProps,
-	Stack,
-	Text,
-	useComputedColorScheme,
-	useMantineTheme,
-} from '@mantine/core';
+import {Anchor, Group, Input, InputWrapperProps, Stack, Text} from '@mantine/core';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -19,7 +10,6 @@ import {faFileCircleXmark, faFileImport} from '@fortawesome/free-solid-svg-icons
 import {faImage} from '@fortawesome/free-regular-svg-icons';
 import {FileRejection} from 'react-dropzone-esm';
 import {useLanguage} from '../../../contexts/language/Language';
-import classes from './UploadImage.module.css';
 
 export type UploadImageProps = {
 	onSuccess?: (fileUrl: string) => void;
@@ -28,10 +18,6 @@ export type UploadImageProps = {
 export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 	const [formData, setFormData] = useState<FormData>();
 	const [error, setError] = useState<InputWrapperProps['error']>();
-	const [hasError, setHasError] = useState(false);
-	useEffect(() => {
-		setHasError(!!error);
-	}, [error]);
 	const [loading, setLoading] = useState(false);
 
 	const {t} = useLanguage();
@@ -89,21 +75,16 @@ export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 			.reduce((prev, curr) => `${prev} ${curr}`));
 	}
 
-	const theme = useMantineTheme();
-	const colorScheme = useComputedColorScheme(); //TODO m7-2 is that the correct way to set font awesome icon color?
 	return (
 		<Input.Wrapper error={error}>
 			<Dropzone onDrop={onDrop} onReject={onReject} accept={[MIME_TYPES.png, MIME_TYPES.jpeg, 'image/jpg']}
-					  maxFiles={1} maxSize={2097000} loading={loading}
-					  mod={{hasError: hasError}} className={classes.dropzone}>
+					  maxFiles={1} maxSize={2097000} loading={loading}>
 				<Group justify={'center'} gap={'xl'} style={{minHeight: 100, pointerEvents: 'none'}} wrap={'nowrap'}>
 					<Dropzone.Accept>
-						<FontAwesomeIcon icon={faFileImport} size={'2x'}
-										 color={theme.colors[theme.primaryColor][colorScheme === 'dark' ? 4 : 6]}/>
+						<FontAwesomeIcon icon={faFileImport} size={'2x'}/>
 					</Dropzone.Accept>
 					<Dropzone.Reject>
-						<FontAwesomeIcon icon={faFileCircleXmark} size={'2x'}
-										 color={theme.colors.red[colorScheme === 'dark' ? 4 : 6]}/>
+						<FontAwesomeIcon icon={faFileCircleXmark} size={'2x'}/>
 					</Dropzone.Reject>
 					<Dropzone.Idle>
 						<FontAwesomeIcon icon={faImage} size={'2x'}/>

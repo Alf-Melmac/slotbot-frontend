@@ -20,7 +20,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 		placeholder: 'information',
 		maxLength: EMBEDDABLE_VALUE,
 		required: true,
-		sx: {flex: 1},
+		flex: 1,
 	};
 
 	const form = useFormContext();
@@ -57,7 +57,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 
 				{text}
 
-				<ActionIcon onClick={() => form.removeListItem('details', index)}>
+				<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('details', index)}>
 					<FontAwesomeIcon icon={faTrashCan}/>
 				</ActionIcon>
 			</EditModeProvider>

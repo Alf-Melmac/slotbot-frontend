@@ -23,7 +23,7 @@ export function SquadList(): JSX.Element {
 					<Group gap={5} align={'start'}>
 						<TextInput placeholder={t('squad.placeholder')}
 								   maxLength={TEXT} required
-								   styles={{root: {flexGrow: '1 !important'}}}
+								   flex={1}
 								   {...form.getInputProps(`squadList.${squadIndex}.name`)}/>
 						<SlotListEntrySettings
 							entry={form.values.squadList[squadIndex]}
@@ -40,7 +40,7 @@ export function SquadList(): JSX.Element {
 										<NumberInput min={1} style={{width: 'calc(3ch + 12px + 25px + 5px)'}}
 													 {...form.getInputProps(`${slotList}.${slotIndex}.number`)}/>
 										<TextInput placeholder={t('slot.placeholder')}
-												   styles={{root: {flexGrow: '1 !important'}}}
+												   flex={1}
 												   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
 										<SlotListEntrySettings
 											entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot

@@ -24,12 +24,12 @@ export function EventMisc(): JSX.Element {
 		}} formPath={'description'}/>
 
 		<Grid>
-			<Grid.Col span={4}>
+			<Grid.Col span={{base: 6, xs: 4}}>
 				<Select label={<T k={'event.missionType'}/>} placeholder={t('input.select.placeholder')}
 						data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', t('event.missionType.special'), t('event.missionType.other')]}
 						{...form.getInputProps('missionType')}/>
 			</Grid.Col>
-			<Grid.Col span={4}>
+			<Grid.Col span={{base: 6, xs: 4}}>
 				<EventActionAutocomplete inputProps={{
 					label: 'event.missionLength',
 					placeholder: 'input.unrestricted',
@@ -37,7 +37,7 @@ export function EventMisc(): JSX.Element {
 					data: [t('length.twoHours'), t('length.threeHours'), t('length.overFourHours')],
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
-			<Grid.Col span={4}>
+			<Grid.Col span={{base: 12, xs: 4}}>
 				<EventActionUpload inputProps={{
 					label: 'event.pictureUrl',
 					placeholder: 'https://',

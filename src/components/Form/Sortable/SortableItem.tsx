@@ -54,7 +54,8 @@ export function SortableItem(props: Readonly<PropsWithChildren<SortableItemProps
 	return (
 		<Group style={style} wrap={'nowrap'} gap={6} {...itemProps}>
 			{sortable &&
-                <ActionIcon ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
+                <ActionIcon color={'gray'} variant={'subtle'}
+                            ref={setNodeRef} {...attributes} {...listeners} {...iconProps}>
                     <FontAwesomeIcon icon={faArrowsUpDown}/>
                 </ActionIcon>
 			}

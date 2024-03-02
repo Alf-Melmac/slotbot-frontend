@@ -20,7 +20,7 @@ export function SearchControl(props: Readonly<SearchControlProps>): JSX.Element 
 		                className={classes.root} mod={{big: big}}>
 			<Group wrap={'nowrap'}>
 				<FontAwesomeIcon icon={faMagnifyingGlass}/>
-				<Group justify={'apart'} className={classes.text}>
+				<Group justify={'space-between'} className={classes.text}>
 					<Text size={big ? 'lg' : 'sm'} c={'dimmed'}>
 						<T k={big ? 'guilds.search' : 'search'}/>
 					</Text>

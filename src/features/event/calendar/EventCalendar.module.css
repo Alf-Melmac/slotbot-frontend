@@ -17,15 +17,12 @@
 
 .eventWrapper {
 	align-items: center;
-	flex-wrap: nowrap; /*TODO m7-7 Flex??*/
 	width: 100%;
 	padding: 2px;
 }
 
 .eventType {
 	flex: 0 0 auto;
-	height: rem(8);
-	width: rem(8);
 }
 
 .eventTitle {

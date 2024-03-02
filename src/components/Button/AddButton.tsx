@@ -32,7 +32,7 @@ export function AddButton(props: Readonly<AddButtonProps>): JSX.Element {
 						component={to ? Link : UnstyledButton} to={to}>
 			<Group gap={6} mt={mt} mb={mb}>
 				<ThemeIcon variant={'filled'} radius={'xl'} className={classes.actionIcon}
-						   data-disabled={disabled}>
+						   mod={{disabled}}>
 					<FontAwesomeIcon icon={faPlus}/>
 				</ThemeIcon>
 				<Text><T k={label}/></Text>

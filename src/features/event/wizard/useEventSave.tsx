@@ -29,7 +29,7 @@ export function useEventSave() {
 					to={'/events'}><T k={'clickHere'}/></AnchorLink> <T k={'event.save.loading.partThree'}/>
 				</Text>
 				<Center>
-					<Loader size={'xl'} variant={'bars'}/>
+					<Loader size={'xl'} type={'bars'}/>
 				</Center>
 			</Stack>
 		</>,
