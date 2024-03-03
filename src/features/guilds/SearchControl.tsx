@@ -17,7 +17,7 @@ export function SearchControl(props: Readonly<SearchControlProps>): JSX.Element 
 	return (
 		<UnstyledButton w={big ? '70%' : '100%'} px={big ? 'md' : 'xs'} py={big ? undefined : 3}
 		                h={big ? 50 : undefined} onClick={() => openSpotlight()}
-		                className={classes.root} mod={{big: big}}>
+		                className={classes.root} mod={{big}}>
 			<Group wrap={'nowrap'}>
 				<FontAwesomeIcon icon={faMagnifyingGlass}/>
 				<Group justify={'space-between'} className={classes.text}>

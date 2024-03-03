@@ -15,15 +15,14 @@ export function ReservedFor(props: Readonly<ReservedForProps>): JSX.Element {
 	const theme = useMantineTheme();
 
 	if (guild) {
-		return <ActionIcon variant={'transparent'} component={Link} to={`/guilds/${guild.id}`}
+		return <ActionIcon color={'gray'} variant={'subtle'} component={Link} to={`/guilds/${guild.id}`}
 						   title={guild.groupIdentifier} w={'auto'}>
 			{guild.emojiUrl ?
 				<Image src={guild.emojiUrl}
 					   alt={guild.groupIdentifier}
-					   // placeholder={<Text align={'center'}>{guild.groupIdentifier}</Text>} TODO m7-8
-					   width={theme.fontSizes.lg}/>
+					   w={theme.fontSizes.lg}/>
 				:
-				<Text>[{guild.groupIdentifier}]</Text>
+				<Text mx={4}>[{guild.groupIdentifier}]</Text>
 			}
 		</ActionIcon>;
 	}

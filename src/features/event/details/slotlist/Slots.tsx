@@ -20,13 +20,14 @@ export function Slots(props: Readonly<SlotlistProps>): JSX.Element {
 				const ownSlot = slot.own ? classes.ownSlot : undefined;
 				return (
 					<Box key={slot.id} className={classes.slotWrapper}>
-						<Text
-							className={cx(classes.slotItem, classes.slotNumber, ownSlot, slot.own ? classes.ownSlotMarker : undefined)}>{slot.number}</Text>
-						<Group className={cx(classes.slotItem, ownSlot)} wrap={'nowrap'} p={0} gap={3} align={'start'}>
+						<Text className={cx(classes.slotNumber, ownSlot, slot.own ? classes.ownSlotMarker : undefined)} mod={{slot_item: true}}>
+							{slot.number}
+						</Text>
+						<Group className={ownSlot} mod={{slot_item: true}} wrap={'nowrap'} gap={3} align={'start'}>
 							<Text>{slot.name}</Text>
 							<ReservedFor guild={slot.reservedFor}/>
 						</Group>
-						<SlotText className={cx(classes.slotItem, ownSlot)} slot={slot}/>
+						<SlotText className={ownSlot} mod={{slot_item: true}} slot={slot}/>
 					</Box>
 				);
 			})}

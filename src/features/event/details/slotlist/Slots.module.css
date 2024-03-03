@@ -1,22 +1,18 @@
 .grid {
 	display: grid;
 	grid-template-columns: minmax(5%, min-content) 4fr 5fr;
-	/*[`& .${getStylesRef(slotItem)}`] { // Replacement for gap to style background
-		paddingTop: rem(3),
-		paddingBottom: rem(2),
+	& [data-slot_item] { /*Replacement for gap to style background*/
+		padding-top: rem(3);
+		padding-bottom: rem(2);
 		&:nth-child(-n+2) {
-			paddingRight: rem(8),
+			padding-right: rem(8);
 		}
-	} TODO m7-10*/
+	}
 }
 
 .slotWrapper {
 	display: contents;
 }
-
-/*.slotItem {
-	  ref: getStylesRef('slotItem'),
-  }*/
 
 .slotNumber {
 	text-align: right;

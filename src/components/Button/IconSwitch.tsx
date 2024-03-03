@@ -19,13 +19,13 @@ export function IconSwitch(props: Readonly<IconSwitchProps>): JSX.Element {
 
 	return <>
 		{title ?
-			<Tooltip mod={{disabled: disabled}} className={classes.root} label={props.title}>
+			<Tooltip mod={{disabled}} className={classes.root} label={props.title}>
 				<Box>
 					<IconSwitchElement {...props}/>
 				</Box>
 			</Tooltip>
 			:
-			<Box mod={{disabled: disabled}} className={classes.root}>
+			<Box mod={{disabled}} className={classes.root}>
 				<IconSwitchElement {...props}/>
 			</Box>
 		}
