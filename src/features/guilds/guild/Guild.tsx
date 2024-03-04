@@ -52,7 +52,7 @@ export function Guild(): JSX.Element {
 				<Stack align={'stretch'}>
 					<Title order={1} fw={100} ta={'center'}>{guild.groupIdentifier}</Title>
 					{guild.emojiUrl &&
-                        <Image src={guild.emojiUrl} height={240} fit={'contain'}/>
+                        <Image src={guild.emojiUrl} h={240} fit={'contain'} flex={'unset'}/>
 					}
 					<SimpleGrid cols={2}>
 						<Stack align={'center'}>
