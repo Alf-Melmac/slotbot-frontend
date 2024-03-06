@@ -65,7 +65,7 @@ export function GuildUsers(): JSX.Element {
 		         localization={{noRecordsToDisplay: t('guild.users.none')}}
 		         mantineTableContainerProps={{
 			         ref: tableContainerRef,
-			         mah: 318,
+					 style: { maxHeight: '318px' },
 			         onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
 		         }}
 		         state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>

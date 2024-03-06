@@ -1,17 +1,18 @@
 import {TableCellProps} from './GuildUsers';
-import {Badge, DefaultMantineColor, Select, Stack, Text} from '@mantine/core';
-import {forwardRef, JSX, useState} from 'react';
+import {DefaultMantineColor} from '@mantine/core';
+import {JSX, useState} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {Role} from '../../guildTypes';
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
-import {T} from '../../../../components/T';
 import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {AxiosError} from 'axios';
 import {useDidUpdate} from '@mantine/hooks';
+import {GuildUserRoleSelect} from './GuildUserRoleSelect';
+import {GuildUserRoleSelected} from './GuildUserRoleSelected';
 
-type RoleItem = {
+export type RoleItem = {
 	value: Role | '';
 	label: string;
 	description?: TextKey;
@@ -55,41 +56,13 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 		mutate();
 	}, [selectedRole]);
 
+	const matchingRole = roles.find(roleItem => roleItem.value === selectedRole);
+	if (!matchingRole) throw new Error(`Role '${roleValue}' not found`);
 	if (!isAdmin) {
-		const matchingRole = roles.find(roleItem => roleItem.value === roleValue);
-		if (!matchingRole) throw new Error(`Role '${roleValue}' not found`);
-		return <Badge color={matchingRole.color}>{matchingRole.label}</Badge>;
+		return <GuildUserRoleSelected role={matchingRole}/>;
 	}
 
 	return (
-		<Select data={roles} value={selectedRole} onChange={setSelectedRole} variant={'unstyled'}
-			// itemComponent={GuildUserRoleSelection}
-			    maw={200} withCheckIcon={false} /*TODO m7-6
-				 styles={(theme) => ({
-			item: {
-				'&[data-selected]': {
-					'&, &:hover': {
-						backgroundColor: theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[4],
-						color: theme.colorScheme === 'dark' ? theme.white : theme.colors.gray[9],
-					},
-				},
-			},
-		})}*//>
+		<GuildUserRoleSelect roles={roles} matchingRole={matchingRole} setSelectedRole={setSelectedRole}/>
 	);
 }
-
-// type ItemProps = SelectItemProps & RoleItem;
-type ItemProps = RoleItem;
-
-const GuildUserRoleSelection = forwardRef<HTMLDivElement, ItemProps>(
-	({value, label, description, color, ...others}, ref) => (
-		<Stack ref={ref} gap={'xs'} {...others}>
-			<Badge color={color} variant={'filled'}>
-				{label}
-			</Badge>
-			{description &&
-                <Text size={'xs'} opacity={0.65}><T k={description}/></Text>
-			}
-		</Stack>
-	),
-);
