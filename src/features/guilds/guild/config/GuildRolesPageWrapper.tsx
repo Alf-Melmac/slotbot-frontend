@@ -6,10 +6,10 @@ import classes from './GuildRolesPageWrapper.module.css';
 export function GuildRolesPageWrapper(props: Readonly<PropsWithChildren>): JSX.Element {
     return <Box>
         <Spoiler maxHeight={22} hideLabel={<T k={'spoiler.less'}/>} showLabel={<T k={'spoiler.more'}/>}
-                 className={classes.description}>
+                 classNames={{root: classes.description, control: classes.control}}>
             <T k={'guild.config.roles.description'}/>
         </Spoiler>
-        <Group grow>
+        <Group grow className={classes.roleSelections}>
             {props.children}
         </Group>
     </Box>;

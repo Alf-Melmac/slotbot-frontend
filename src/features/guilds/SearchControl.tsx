@@ -16,17 +16,15 @@ export function SearchControl(props: Readonly<SearchControlProps>): JSX.Element 
 
 	return (
 		<UnstyledButton w={big ? '70%' : '100%'} px={big ? 'md' : 'xs'} py={big ? undefined : 3}
-		                h={big ? 50 : undefined} onClick={() => openSpotlight()}
-		                className={classes.root} mod={{big}}>
+						h={big ? 50 : undefined} onClick={() => openSpotlight()}
+						className={classes.root} mod={{big}}>
 			<Group wrap={'nowrap'}>
 				<FontAwesomeIcon icon={faMagnifyingGlass}/>
 				<Group justify={'space-between'} className={classes.text}>
 					<Text size={big ? 'lg' : 'sm'} c={'dimmed'}>
 						<T k={big ? 'guilds.search' : 'search'}/>
 					</Text>
-					<Text ta={'right'} visibleFrom={'md'}>
-						<SearchKeys/>
-					</Text>
+					<SearchKeys visibleFrom={'md'}/>
 				</Group>
 			</Group>
 		</UnstyledButton>

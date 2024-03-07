@@ -47,18 +47,18 @@ export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 
 	return (
 		<Select label={<T k={'guild.config.archive.description'}/>} placeholder={t('guild.config.archive.select')}
-				clearable searchable /*classNames={{separatorLabel: classes.group}} TODO m7-6*/ value={archive}
-				onChange={setArchive}
+				clearable searchable value={archive} onChange={setArchive}
 				error={archive && categories.find(category => category.textChannels
 					.find(textChannel => textChannel.id === archive) !== undefined) === undefined
 					? t('guild.config.archive.error')
 					: undefined}
-				data={categories
-					.flatMap(category => category.textChannels
-						.map(textChannel => ({
-							value: textChannel.id,
-							label: `# ${textChannel.name}`,
-							group: category.name,
-						})))}/>
+				data={categories.map(category => ({
+					group: category.name,
+					items: category.textChannels.map(textChannel => ({
+						value: textChannel.id,
+						label: `# ${textChannel.name}`,
+					})),
+				}))}
+		/>
 	);
 }
