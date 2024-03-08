@@ -1,10 +1,9 @@
 @keyframes alarmOn {
 	to {
-		background-color: darkred;
+		background-color: darken(var(--mantine-color-red-9), 0.4);
 	}
 }
 
-/*TODO m7-1*/
 .alarm {
 	width: 60px;
 	height: 65px;
@@ -15,7 +14,7 @@
 	top: 75px;
 	z-index: 1;
 
-	@media (max-width: 48em) { /*TODO m7-9*/
+	@media (max-width: $mantine-breakpoint-sm) {
 		width: 30px;
 		height: 35px;
 		top: 50px;

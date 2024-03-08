@@ -1,18 +1,14 @@
-import {Stack} from '@mantine/core';
-import {ErrorBackButton, ErrorLabel, ErrorTitle} from './ErrorPage';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {ErrorPage} from './ErrorPage';
 import {JSX} from 'react';
 import classes from './NotAllowed.module.css';
 
 export function NotAllowed(): JSX.Element {
-	useTranslatedDocumentTitle('documentTitle.error.403');
-
 	return (
-		<Stack gap={'xl'} align={'center'} justify={'center'} pt={'10%'}>
+		<ErrorPage documentTitle={'documentTitle.error.403'}>
 			<div className={classes.alarm}/>
-			<ErrorLabel>403</ErrorLabel>
-			<ErrorTitle title={'error.notAllowed'}/>
-			<ErrorBackButton/>
-		</Stack>
+			<ErrorPage.Label>403</ErrorPage.Label>
+			<ErrorPage.Title title={'error.notAllowed'}/>
+			<ErrorPage.BackButton/>
+		</ErrorPage>
 	);
 }
