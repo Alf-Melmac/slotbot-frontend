@@ -50,7 +50,7 @@ export function EventDetails(): JSX.Element {
             <Group justify={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
-                        <T k={'action.saveFields'}/>
+                        <T k={'event.details.save'}/>
                     </PulsatingButton>
                 </ScrollAffix>
             </Group>

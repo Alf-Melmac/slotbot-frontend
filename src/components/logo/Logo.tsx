@@ -54,7 +54,7 @@ function useGetInfo(): LogoInfo {
 				logo: ambLogo,
 			};
 		case Guild.DAA: {
-			const colorScheme = useComputedColorScheme(); //TODO m7-2
+			const colorScheme = useComputedColorScheme();
 			return {
 				title: 'Deutsche Arma Allianz',
 				logo: colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
@@ -62,7 +62,7 @@ function useGetInfo(): LogoInfo {
 			};
 		}
 		case Guild.TTT: {
-			const colorScheme = useComputedColorScheme(); //TODO m7-2
+			const colorScheme = useComputedColorScheme();
 			return {
 				title: 'Tactical Training Team',
 				logo: colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
