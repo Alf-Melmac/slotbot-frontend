@@ -26,7 +26,14 @@ export function App(): JSX.Element {
 		},
 	});
 
-	const router = createBrowserRouter(routes, {future: {v7_normalizeFormMethod: true, v7_fetcherPersist: true}});
+	const router = createBrowserRouter(routes, {
+		future: {
+			v7_fetcherPersist: true,
+			v7_normalizeFormMethod: true,
+			v7_partialHydration: true,
+			v7_relativeSplatPath: true,
+		},
+	});
 
 	return (
 		<Suspense fallback={<Skeleton/>}>
