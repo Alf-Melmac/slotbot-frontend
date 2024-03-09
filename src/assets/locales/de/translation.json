@@ -60,7 +60,6 @@
   "event.details.save": "Felder speichern",
   "event.details.showDescription": "Beschreibung anzeigen",
   "event.details.title": "Titel",
-  "event.evenType.name.edit.nothingFound": "Aktuell können im Editiermodus keine neuen Event-Typen angelegt werden.",
   "event.eventType.color": "Event-Typ-Farbe",
   "event.eventType.error": "Event-Typen konnten nicht geladen werden. Bitte überprüfe deine Internetverbindung und deinen Login-Status. Du kannst so weiter arbeiten, aber vielleicht nicht speichern. Neuladen der Seite sollte das Problem beheben.",
   "event.eventType.name": "Event-Typ-Name",

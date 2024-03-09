@@ -69,7 +69,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
             </Group>
 		}
 
-		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'} color={'gray'}
+		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'}
 				  indeterminate={form.values.reserveParticipating === undefined}
 				  {...reserveParticipatingInputProps}/>
 	</>;

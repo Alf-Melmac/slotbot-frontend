@@ -60,7 +60,6 @@
   "event.details.save": "Save fields",
   "event.details.showDescription": "Show description",
   "event.details.title": "Title",
-  "event.evenType.name.edit.nothingFound": "Currently, no new event types can be created in edit mode.",
   "event.eventType.color": "Event type colour",
   "event.eventType.error": "Event types couldn't be loaded. Please check your internet connection and your login status. You can continue working, but may not be able to save your work. Reloading the site should fix the problem.",
   "event.eventType.name": "Event type name",

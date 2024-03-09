@@ -1,4 +1,4 @@
-import {Breadcrumbs, Group, Text} from '@mantine/core';
+import {Box, Breadcrumbs, Group, Text} from '@mantine/core';
 import {AnchorLink} from './Text/AnchorLink';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleChevronLeft} from '@fortawesome/free-solid-svg-icons';
@@ -44,7 +44,7 @@ export function Breadcrumb(props: Readonly<BreadcrumbProps>): JSX.Element {
 				}
 			</AnchorLink>
 			:
-			<Text key={index}>{text}</Text>;
+			<Box key={index}>{text}</Box>;
 	});
 
 	return (
