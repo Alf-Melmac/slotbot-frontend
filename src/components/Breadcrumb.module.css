@@ -1,7 +1,3 @@
-.breadcrumb {
-	overflow: scroll;
-}
-
 .chevron {
 	font-size: var(--mantine-font-size-sm);
 }

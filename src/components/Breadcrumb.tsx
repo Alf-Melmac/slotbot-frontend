@@ -48,7 +48,7 @@ export function Breadcrumb(props: Readonly<BreadcrumbProps>): JSX.Element {
 	});
 
 	return (
-		<Breadcrumbs className={classes.breadcrumb}>
+		<Breadcrumbs mb={6}>
 			{breadcrumbItems}
 		</Breadcrumbs>
 	);
