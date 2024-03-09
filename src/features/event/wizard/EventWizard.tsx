@@ -9,6 +9,7 @@ import {EventWizardSteps} from './EventWizardSteps';
 import {useEventCopy} from './useEventCopy';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {getTimeShort} from '../../../utils/dateHelper';
+import {useAuth} from '../../../contexts/authentication/AuthProvider';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -29,6 +30,7 @@ export function EventWizard(): JSX.Element {
 	const [active, setActive] = useState(0);
 
 	const date = new Date();
+	const {user} = useAuth();
 	const form = useEventWizardForm({
 		initialValues: {
 			hidden: false,
@@ -36,7 +38,7 @@ export function EventWizard(): JSX.Element {
 			name: '',
 			date: date,
 			startTime: getTimeShort(date),
-			creator: '',
+			creator: user?.name ?? '',
 			eventType: {
 				name: '',
 				color: randomColor(),
