@@ -14,7 +14,7 @@ export function EventDate(): JSX.Element {
 	const datePickerProps: DateInputProps = {
 		label: t('event.date'),
 		placeholder: t('event.date.placeholder'),
-		icon: <FontAwesomeIcon icon={faCalendarDay}/>,
+		leftSection: <FontAwesomeIcon icon={faCalendarDay}/>,
 		clearable: false,
 		required: true,
 	};

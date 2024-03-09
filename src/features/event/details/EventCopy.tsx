@@ -5,5 +5,6 @@ import {EventWizardLocation} from '../wizard/EventWizard';
 import {JSX} from 'react';
 
 export function EventCopy(props: Readonly<{ eventId: EventDetailsDto['id'] }>): JSX.Element {
-	return <EventDetailsButton icon={faClone} to={'/events/new'} state={{copy: props.eventId} as EventWizardLocation}/>;
+	return <EventDetailsButton icon={faClone} to={'/events/new'} state={{copy: props.eventId} as EventWizardLocation}
+							   tooltip={'action.duplicate'}/>;
 }

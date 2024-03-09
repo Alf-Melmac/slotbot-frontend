@@ -1,0 +1,23 @@
+.option {
+	&:hover {
+		@mixin light {
+			background-color: var(--mantine-color-dark-light-hover);
+		}
+
+		@mixin dark {
+			color: var(--mantine-color-white);
+		}
+	}
+
+	&[data-combobox-selected] {
+		background-color: light-dark(var(--mantine-color-dark-light-hover), var(--mantine-color-dark-filled-hover));
+
+		@mixin light {
+			color: unset;
+		}
+	}
+
+	&[data-selected] {
+		background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-7));
+	}
+}

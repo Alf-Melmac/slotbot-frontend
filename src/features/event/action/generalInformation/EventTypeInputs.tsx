@@ -1,20 +1,21 @@
-import {Alert, ColorInput, Grid, Group, Select} from '@mantine/core';
+import {Alert, Autocomplete, ColorInput, Grid} from '@mantine/core';
 import {EventTypeDto} from '../../eventTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleExclamation, faCirclePause} from '@fortawesome/free-solid-svg-icons';
+import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {TEXT} from '../../../../utils/maxLength';
 import {JSX, useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {useEventUpdate} from '../useEventUpdate';
-import {usePrevious} from '@mantine/hooks';
 import {T} from '../../../../components/T';
 import {randomColor} from '../utils';
-import {useAdditionalEventType} from '../../../../contexts/event/action/AdditionalEventTypeContext';
+import classes from './EventTypesInputs.module.css';
+import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
+import {convertDtoToFormEvent} from '../../edit/utils';
 
 type EventTypeInputsProps = {
-	query: UseQueryResult<Array<EventTypeDto>, Error>;
+	query: UseQueryResult<EventTypeDto[], Error>;
 };
 
 export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Element {
@@ -28,11 +29,6 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	}
 
 	const [colorInputDisabled, setColorInputDisabled] = useState(false);
-	const eventTypeNames = eventTypes?.map(type => type.name) ?? [];
-	const {additionalEventType, setAdditionalEventType} = useAdditionalEventType();
-	additionalEventType && eventTypeNames.push(additionalEventType);
-	const [data, setData] = useState(eventTypeNames);
-
 	useEffect(() => {
 		const existingEventType = eventTypes?.find(value => form.values.eventType.name === value.name);
 		if (existingEventType) {
@@ -46,19 +42,14 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 		}
 	}, [form.values.eventType.name]);
 
-	const editMode = useEditMode();
-
 	const {mutate} = useEventUpdate({eventType: form.values.eventType},
-		result => form.setFieldValue('eventType', result.eventType));
-	const previousEventType = usePrevious(form.values.eventType.color);
-	useEffect(() => {
-		if (!editMode || !previousEventType) return;
+		result => {
+			form.setFieldValue('eventType', result.eventType);
+			// @ts-ignore
+			form.resetDirty(convertDtoToFormEvent(result));
+		});
 
-		const newEventType = form.values.eventType.color;
-		if (previousEventType !== newEventType) {
-			mutate();
-		}
-	}, [form.values.eventType.color]); //Update eventType after color has been synchronized
+	const editMode = useEditMode();
 	return (
 		<>
 			{!eventTypes &&
@@ -67,29 +58,29 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
                 </Alert>
 			}
 			<Grid>
-				<Grid.Col span={8}>
-					<Select label={<T k={'event.eventType.name'}/>}
-							maxLength={TEXT}
-							required
-							data={data}
-							searchable
-							creatable={!editMode}
-							nothingFound={<Group position={'center'}><FontAwesomeIcon icon={faCirclePause}/> <T
-								k={'event.evenType.name.edit.nothingFound'}/></Group>}
-							getCreateLabel={input => input}
-							onCreate={(input) => {
-								const item = {value: input, label: input};
-								setData((current) => [...current, input]);
-								setAdditionalEventType(input);
-								return item;
-							}}
-							{...form.getInputProps('eventType.name')}/>
+				<Grid.Col span={{base: 12, [editMode ? 'sm' : 'xs']: 8}}>
+					<Autocomplete
+						label={<T k={'event.eventType.name'}/>}
+						maxLength={TEXT}
+						required
+						data={eventTypes?.map(type => type.name) ?? []}
+						{...form.getInputProps('eventType.name')}
+					/>
 				</Grid.Col>
-				<Grid.Col span={4}>
+				<Grid.Col span={editMode ? {base: 6, sm: 2} : {base: 12, xs: 4}}>
 					<ColorInput label={<T k={'event.eventType.color'}/>}
+								required
 								disabled={colorInputDisabled}
 								{...form.getInputProps('eventType.color')}/>
 				</Grid.Col>
+				{editMode &&
+                    <Grid.Col span={{base: 6, sm: 2}} className={classes.editModeControls}>
+                        <PulsatingButton onClick={() => mutate()}
+                                         disabled={!form.isDirty('eventType') || !form.isValid('eventType')}>
+                            <T k={'event.eventType.save'}/>
+                        </PulsatingButton>
+                    </Grid.Col>
+				}
 			</Grid>
 		</>
 	);

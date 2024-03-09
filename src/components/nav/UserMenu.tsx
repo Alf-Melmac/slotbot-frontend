@@ -1,28 +1,15 @@
-import {Avatar, createStyles, Group, Menu, Text, UnstyledButton} from '@mantine/core';
+import {Avatar, Group, Menu, Text, UnstyledButton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRightFromBracket, faChevronDown, faScrewdriverWrench, faUser} from '@fortawesome/free-solid-svg-icons';
 import {ApplicationRoles, DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
-import {NAV_ICON_SIZE, NAV_ICON_WRAPPER_HEIGHT} from './NavIcon';
 import {Link} from 'react-router-dom';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
-import {underlineOnHover} from '../../contexts/CommonStylings';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 import {T} from '../T';
 import {JSX} from 'react';
-
-const useStyles = createStyles((theme) => ({
-	user: {
-		borderRadius: 1000,
-		paddingLeft: NAV_ICON_WRAPPER_HEIGHT / 9,
-		paddingRight: theme.spacing.sm,
-		height: NAV_ICON_WRAPPER_HEIGHT,
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-
-		...underlineOnHover,
-	},
-}));
+import cx from 'clsx';
+import classes from './NavIcon.module.css';
 
 type UserMenuProps = {
 	user: DiscordUserDto;
@@ -30,7 +17,6 @@ type UserMenuProps = {
 
 export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 	const {user} = props;
-	const {classes} = useStyles();
 	const {logout} = useAuth();
 
 	const sysAdmin = useCheckAccess(ApplicationRoles.ROLE_SYS_ADMIN);
@@ -38,10 +24,11 @@ export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 	return (
 		<Menu position={'bottom-end'}>
 			<Menu.Target>
-				<UnstyledButton className={classes.user}>
-					<Group noWrap>
-						<Avatar src={user.avatarUrl} radius={NAV_ICON_SIZE} size={NAV_ICON_SIZE}/>
-						<Text size="sm" weight={500}>
+				<UnstyledButton className={cx(classes.wrapper_shared, classes.wrapper_flipped)}>
+					<Group wrap={'nowrap'}>
+						<Avatar src={user.avatarUrl}
+								radius={28} size={28 /*Size and radius are intended to match NavIcon*/}/>
+						<Text size={'sm'} fw={500}>
 							{user.name}
 						</Text>
 
@@ -50,17 +37,17 @@ export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 				</UnstyledButton>
 			</Menu.Target>
 			<Menu.Dropdown>
-				<Menu.Item icon={<FontAwesomeIcon icon={faUser}/>} component={Link} to={`/profile/${user.id}`}>
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faUser}/>} component={Link} to={`/profile/${user.id}`}>
 					<T k={'userMenu.myProfile'}/>
 				</Menu.Item>
 				<ThemeSwitchAsMenuItem/>
-				<Menu.Item icon={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={logout}>
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faArrowRightFromBracket}/>} onClick={logout}>
 					<T k={'userMenu.logout'}/>
 				</Menu.Item>
 				{sysAdmin &&
                     <>
                         <Menu.Label><T k={'userMenu.label.admin'}/></Menu.Label>
-                        <Menu.Item icon={<FontAwesomeIcon icon={faScrewdriverWrench}/>}
+                        <Menu.Item leftSection={<FontAwesomeIcon icon={faScrewdriverWrench}/>}
                                    component={Link} to={'/admin/utils'}>
                             <T k={'userMenu.admin.utils'}/>
                         </Menu.Item>

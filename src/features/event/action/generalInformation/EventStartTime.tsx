@@ -30,6 +30,6 @@ export function EventStartTime(): JSX.Element {
 
 	const {t} = useLanguage();
 	return <TimeInput label={<T k={'event.startTime'}/>} placeholder={t('event.startTime.placeholder')}
-					  icon={<FontAwesomeIcon icon={faClock}/>} required
+					  leftSection={<FontAwesomeIcon icon={faClock}/>} required
 					  {...form.getInputProps('startTime')}/>;
 }

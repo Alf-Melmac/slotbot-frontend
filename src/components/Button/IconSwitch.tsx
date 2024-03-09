@@ -1,16 +1,9 @@
-import {Box, createStyles, Switch, SwitchProps, Tooltip, TooltipProps} from '@mantine/core';
+import {Box, Switch, SwitchProps, Tooltip, TooltipProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {omit} from 'lodash';
 import {JSX} from 'react';
-
-const useStyles = createStyles((_theme, disabled: boolean) => ({
-	root: {
-		'& *': {
-			cursor: disabled ? 'not-allowed' : 'pointer',
-		},
-	},
-}));
+import classes from './IconSwitch.module.css';
 
 type IconSwitchProps = Omit<SwitchProps, 'title'> & {
 	/**
@@ -23,24 +16,23 @@ type IconSwitchProps = Omit<SwitchProps, 'title'> & {
 
 export function IconSwitch(props: Readonly<IconSwitchProps>): JSX.Element {
 	const {disabled, title} = props;
-	const {classes} = useStyles(!!disabled);
 
 	return <>
 		{title ?
-			<Tooltip className={classes.root} label={props.title}>
+			<Tooltip mod={{disabled}} className={classes.root} label={props.title}>
 				<Box>
 					<IconSwitchElement {...props}/>
 				</Box>
 			</Tooltip>
 			:
-			<div className={classes.root}>
+			<Box mod={{disabled}} className={classes.root}>
 				<IconSwitchElement {...props}/>
-			</div>
+			</Box>
 		}
 	</>;
 }
 
-function IconSwitchElement(props: Readonly<IconSwitchProps>) {
+function IconSwitchElement(props: Readonly<IconSwitchProps>): JSX.Element {
 	return <Switch size={'md'}
 				   onLabel={<FontAwesomeIcon icon={props.onIcon} size={'2x'} fixedWidth/>}
 				   offLabel={<FontAwesomeIcon icon={props.offIcon} size={'2x'} fixedWidth/>}

@@ -18,5 +18,5 @@ export function CounterBadge(props: Readonly<CounterBadgeProps>): JSX.Element {
 		badgeColor = 'green';
 	}
 
-	return <Badge color={badgeColor}>{currentValue}/{maxValue}</Badge>;
+	return <Badge color={badgeColor} variant={'light'}>{currentValue}/{maxValue}</Badge>;
 }

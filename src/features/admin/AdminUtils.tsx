@@ -25,7 +25,7 @@ export function AdminUtils(): JSX.Element {
 	}, [action]);
 
 	return (
-		<Stack mt={'xl'}>
+		<Stack>
 			<Button size={'lg'} onClick={() => setAction('listFiles')}>
 				<T k={'admin.utils.listFiles'}/>
 			</Button>

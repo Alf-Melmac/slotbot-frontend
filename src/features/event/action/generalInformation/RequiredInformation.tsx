@@ -12,7 +12,7 @@ export type RequiredInformationProps = Partial<Pick<EventEditDto, 'canRevokeShar
 export function RequiredInformation(props: Readonly<RequiredInformationProps>): JSX.Element {
 	return <>
 		<Grid>
-			<Grid.Col md={9} span={12}>
+			<Grid.Col span={{base: 12, md: 9}}>
 				<EventActionTextInput inputProps={{
 					label: 'event.name',
 					placeholder: 'event.name.placeholder',
@@ -20,19 +20,19 @@ export function RequiredInformation(props: Readonly<RequiredInformationProps>): 
 					required: true,
 				}} formPath={'name'}/>
 			</Grid.Col>
-			<Grid.Col md={3} span={12}>
+			<Grid.Col span={{base: 12, md: 3}}>
 				<EventPrivacySettings {...props}/>
 			</Grid.Col>
 		</Grid>
 
 		<Grid>
-			<Grid.Col md={4} span={6}>
+			<Grid.Col span={{base: 6, md: 4}}>
 				<EventDate/>
 			</Grid.Col>
-			<Grid.Col md={4} span={6}>
+			<Grid.Col span={{base: 6, md: 4}}>
 				<EventStartTime/>
 			</Grid.Col>
-			<Grid.Col md={4} span={12}>
+			<Grid.Col span={{base: 12, md: 4}}>
 				<EventActionTextInput inputProps={{
 					label: 'event.creator',
 					maxLength: TEXT,

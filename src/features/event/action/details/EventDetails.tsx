@@ -39,7 +39,7 @@ export function EventDetails(): JSX.Element {
 														  renderItem={(item, index) =>
 															  <EventDetail item={item} index={index} key={item.id}/>}/>
 
-		<Group spacing={'xs'} mt={'xs'}>
+		<Group gap={'xs'} mt={'xs'}>
 			<AddButton label={'event.details.add'}
 					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
 					   disabled={detailsCount >= MAX_DETAILS}/>
@@ -47,10 +47,10 @@ export function EventDetails(): JSX.Element {
 		</Group>
 
 		{useEditMode() &&
-            <Group position={'right'}>
+            <Group justify={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
-                        <T k={'action.saveFields'}/>
+                        <T k={'event.details.save'}/>
                     </PulsatingButton>
                 </ScrollAffix>
             </Group>

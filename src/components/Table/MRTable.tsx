@@ -9,21 +9,7 @@ export function MRTable<D extends Record<string, any>>(props: Readonly<PartialEx
 	return (
 		<MantineReactTable
 			enablePagination={false} enableColumnActions={false} enableSorting={false} enableTopToolbar={false}
-			enableStickyHeader state={{density: 'xs'}} mantinePaperProps={{withBorder: false}}
-			mantineTableBodyCellProps={{
-				sx: {
-					paddingTop: '7px !important',
-					paddingBottom: '7px !important',
-					backgroundColor: 'unset',
-				},
-			}}
-			//Force progress bar size
-			mantineBottomToolbarProps={{
-				sx: {
-					height: 8,
-					minHeight: 8,
-				},
-			}}
+			enableStickyHeader initialState={{density: 'xs'}} mantinePaperProps={{withBorder: false}}
 			enableBottomToolbar={props.state?.showProgressBars}
 			{...props}/>
 	);

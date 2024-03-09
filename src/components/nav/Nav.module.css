@@ -1,0 +1,15 @@
+.headerInner {
+	height: var(--nav-height); /*var is defined in Nav.tsx*/
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.main {
+	min-height: calc(100vh - var(--footer-height)); /*var is defined in Nav.tsx*/
+}
+
+.footer {
+	position: unset;
+	background-color: unset;
+}

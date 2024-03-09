@@ -1,15 +1,14 @@
-import {Anchor} from '@mantine/core';
+import {Anchor, AnchorProps, PolymorphicComponentProps} from '@mantine/core';
 import {JSX, ReactNode} from 'react';
 
 type AnchorBlankProps = {
 	href: string;
-	className?: string;
 	children: ReactNode;
-};
+} & Pick<PolymorphicComponentProps<'a', AnchorProps>, 'href' | 'className'>;
 
 export function AnchorBlank(props: Readonly<AnchorBlankProps>): JSX.Element {
+	const {href, children, ...anchorProps} = props;
 	return (
-		<Anchor href={props.href} className={props.className} target={'_blank'}
-				rel={'noopener noreferrer'}>{props.children}</Anchor>
+		<Anchor href={href} {...anchorProps} target={'_blank'} rel={'noopener noreferrer'}>{props.children}</Anchor>
 	);
 }

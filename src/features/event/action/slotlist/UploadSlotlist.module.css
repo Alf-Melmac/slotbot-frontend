@@ -1,0 +1,7 @@
+.dropzone {
+	&[data-reject] { /*Copied from data-accepted*/
+		background-color: var(--dropzone-accept-bg);
+		border-color: var(--dropzone-accept-bg);
+		color: var(--dropzone-accept-color);
+	}
+}

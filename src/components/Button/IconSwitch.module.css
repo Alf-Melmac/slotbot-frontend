@@ -1,0 +1,9 @@
+.root {
+	& * {
+		cursor: pointer;
+
+		&[data-disabled] {
+			cursor: not-allowed;
+		}
+	}
+}

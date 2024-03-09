@@ -1,0 +1,33 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.wrapper_shared {
+	border-radius: 1000px;
+	padding-left: var(--mantine-spacing-sm);
+	padding-right: rem(4px);
+	height: rem(36px);
+	color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+	background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+
+	@mixin hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
+.wrapper_flipped {
+	padding-right: var(--mantine-spacing-sm);
+	padding-left: rem(4px);
+}
+
+.icon {
+	--nav-icon-size: rem(28px);
+	height: var(--nav-icon-size);
+	width: var(--nav-icon-size);
+	border-radius: var(--nav-icon-size);
+	background-color: light-dark(var(--mantine-color-dark-4), var(--mantine-color-gray-2));
+	color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+}

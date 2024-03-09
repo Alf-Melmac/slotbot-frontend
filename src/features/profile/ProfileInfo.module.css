@@ -1,0 +1,8 @@
+.userCard {
+	background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+}
+
+.rolesSpoilerControl {
+	inset-inline-start: 50%;
+	transform: translateX(-50%);
+}

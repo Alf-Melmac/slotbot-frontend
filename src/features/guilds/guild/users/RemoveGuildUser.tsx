@@ -30,8 +30,8 @@ export function RemoveGuildUser(props: Readonly<TableCellProps>): JSX.Element {
 		onError: errorNotification,
 	});
 
-	return <Group position={'right'}>
-		<ActionIcon color={'red'} onClick={() => mutate()}>
+	return <Group justify={'right'}>
+		<ActionIcon color={'red'} variant={'subtle'} onClick={() => mutate()}>
 			<FontAwesomeIcon icon={faUserMinus}/>
 		</ActionIcon>
 	</Group>;

@@ -11,7 +11,6 @@ import {JSX, useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
 import {expandTimeTemplateShort, formatLocalDateTimeToUtc, getDate} from '../../../utils/dateHelper';
-import {hidden} from '../../../contexts/CommonStylings';
 
 export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventEditFormType>;
@@ -25,12 +24,12 @@ export function useEventSave() {
 		<>
 			<DebugCodeBlock formValues={eventPost}/>
 			<Stack mt={'xl'}>
-				<Text align={'center'}>
+				<Text ta={'center'}>
 					<T k={'event.save.loading.partOne'}/> <AnchorLink
 					to={'/events'}><T k={'clickHere'}/></AnchorLink> <T k={'event.save.loading.partThree'}/>
 				</Text>
 				<Center>
-					<Loader size={'xl'} variant={'bars'}/>
+					<Loader size={'xl'} type={'bars'}/>
 				</Center>
 			</Stack>
 		</>,
@@ -66,7 +65,7 @@ export function useEventSave() {
 
 function DebugCodeBlock(props: Readonly<{ formValues: unknown }>): JSX.Element {
 	return (
-		<Code block sx={hidden}>
+		<Code block style={{display: 'none'}}>
 			{JSON.stringify(props.formValues, null, 2)}
 		</Code>
 	);

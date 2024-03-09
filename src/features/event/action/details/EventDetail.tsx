@@ -10,7 +10,7 @@ import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {JSX} from 'react';
 
 type EventDetailProps = {
-	item: EventActionFormType['details'][number]
+	item: EventActionFormType['details'][number];
 	index: number;
 };
 
@@ -20,7 +20,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 		placeholder: 'information',
 		maxLength: EMBEDDABLE_VALUE,
 		required: true,
-		sx: {flex: 1},
+		flex: 1,
 	};
 
 	const form = useFormContext();
@@ -36,7 +36,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 			}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>;
 			break;
 		case 'BOOLEAN':
-			text = <Checkbox sx={{flex: 1}} {...form.getInputProps(`details.${index}.text`)}/>;
+			text = <Checkbox flex={1} {...form.getInputProps(`details.${index}.text`)}/>;
 			break;
 		case 'TEXT':
 		default:
@@ -57,7 +57,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 
 				{text}
 
-				<ActionIcon onClick={() => form.removeListItem('details', index)}>
+				<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('details', index)}>
 					<FontAwesomeIcon icon={faTrashCan}/>
 				</ActionIcon>
 			</EditModeProvider>

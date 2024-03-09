@@ -1,7 +1,7 @@
 import {GuildConfigDto} from '../../guildTypes';
 import {useGetDiscordIntegration} from '../useGetGuild';
 import {T} from '../../../../components/T';
-import {Button, createStyles, Select, Skeleton, TextInput} from '@mantine/core';
+import {Button, Select, Skeleton, TextInput} from '@mantine/core';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {JSX, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
@@ -14,17 +14,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDiscord} from '@fortawesome/free-brands-svg-icons';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
-const useStyles = createStyles(() => ({
-	group: {
-		fontSize: 'unset',
-		color: 'unset',
-	},
-}));
-
 export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {archiveChannel} = props;
 	const {guildId} = useGuildPage();
-	const {classes} = useStyles();
 	const {t} = useLanguage();
 
 	const [archive, setArchive] = useState<string | null>(archiveChannel);
@@ -48,24 +40,25 @@ export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60.8}/>;
 	const {connected, categories} = integrationQuery.data;
 	if (!connected) return <Button color={'blue'} mt={3}
-								   leftIcon={<FontAwesomeIcon icon={faDiscord}/>}
+								   leftSection={<FontAwesomeIcon icon={faDiscord}/>}
 								   component={AnchorBlank} href={'https://slotbot.de/invite'}>
 		<T k={'integration.discord.invite'}/>
 	</Button>;
 
 	return (
 		<Select label={<T k={'guild.config.archive.description'}/>} placeholder={t('guild.config.archive.select')}
-				clearable searchable classNames={{separatorLabel: classes.group}} value={archive} onChange={setArchive}
+				clearable searchable value={archive} onChange={setArchive}
 				error={archive && categories.find(category => category.textChannels
 					.find(textChannel => textChannel.id === archive) !== undefined) === undefined
 					? t('guild.config.archive.error')
 					: undefined}
-				data={categories
-					.flatMap(category => category.textChannels
-						.map(textChannel => ({
-							value: textChannel.id,
-							label: `# ${textChannel.name}`,
-							group: category.name,
-						})))}/>
+				data={categories.map(category => ({
+					group: category.name,
+					items: category.textChannels.map(textChannel => ({
+						value: textChannel.id,
+						label: `# ${textChannel.name}`,
+					})),
+				}))}
+		/>
 	);
 }

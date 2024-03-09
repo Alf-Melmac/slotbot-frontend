@@ -1,0 +1,11 @@
+.guildButton {
+	color: light-dark(var(--mantine-color-dark-7), var(--mantine-color-dark-0));
+}
+
+.guildAvatar {
+	object-fit: contain;
+}
+
+.guildAvatarPlaceholder {
+	background-color: unset;
+}

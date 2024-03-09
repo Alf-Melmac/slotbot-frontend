@@ -8,7 +8,7 @@ export function Guilds(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.guilds');
 
 	return (
-		<Stack spacing={'xl'} align={'center'} mt={'xl'}>
+		<Stack gap={'xl'} align={'center'} mt={'xl'}>
 			<Title><T k={'guilds'}/></Title>
 
 			<SearchControl big/>

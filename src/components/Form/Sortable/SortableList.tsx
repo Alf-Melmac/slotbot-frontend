@@ -13,6 +13,7 @@ import {SortableItem, SortableItemProps} from './SortableItem';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
 import {JSX, useState} from 'react';
 import {Box, Overlay, useMantineTheme} from '@mantine/core';
+import classes from './SortableList.module.css';
 
 /**
  * dnd-kit item
@@ -56,12 +57,7 @@ export function SortableList<T extends BaseItem>(props: Readonly<SortableListPro
 	const theme = useMantineTheme();
 	return <>
 		{sorting && <Overlay color={theme.colors.dark[8]} fixed/>}
-		<Box style={{
-			borderRadius: theme.radius.sm,
-			backgroundColor: sorting ? theme.colorScheme !== 'dark' ? theme.colors.gray[1] : theme.colors.dark[7] : undefined,
-			position: 'relative',
-			zIndex: sorting ? 300 : undefined,
-		}}>
+		<Box mod={{sorting}} className={classes.element}>
 			<DndContext
 				sensors={sensors}
 				onDragEnd={handleDragEnd}

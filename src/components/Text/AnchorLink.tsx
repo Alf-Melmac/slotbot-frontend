@@ -1,18 +1,17 @@
-import {Anchor} from '@mantine/core';
-import {Link, To} from 'react-router-dom';
+import {Anchor, AnchorProps} from '@mantine/core';
+import {Link, LinkProps} from 'react-router-dom';
 import {JSX, ReactNode} from 'react';
 
 export type ReactRouterAnchorProps = {
-	to: To;
+	to: LinkProps['to'];
 	children: ReactNode;
-	className?: string;
-};
+} & Pick<AnchorProps, 'className' | 'visibleFrom' | 'w'>;
 
 export function AnchorLink(props: Readonly<ReactRouterAnchorProps>): JSX.Element {
-	const {to, children, className} = props;
+	const {to, children, ...anchorProps} = props;
 
 	return (
-		<Anchor component={Link} to={to} className={className}>
+		<Anchor component={Link} to={to} {...anchorProps}>
 			{children}
 		</Anchor>
 	);

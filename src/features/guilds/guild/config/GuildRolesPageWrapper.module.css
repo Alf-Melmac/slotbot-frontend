@@ -1,0 +1,18 @@
+.description {
+	font-size: var(--mantine-font-size-sm);
+	display: flex;
+	flex-direction: row-reverse;
+
+	margin-bottom: unset;
+}
+
+.control {
+	position: unset;
+	flex-shrink: 0;
+}
+
+.roleSelections {
+	& > div {
+		min-width: rem(200);
+	}
+}

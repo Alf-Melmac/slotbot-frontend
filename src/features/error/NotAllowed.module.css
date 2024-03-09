@@ -1,0 +1,22 @@
+@keyframes alarmOn {
+	to {
+		background-color: darken(var(--mantine-color-red-9), 0.4);
+	}
+}
+
+.alarm {
+	width: 60px;
+	height: 65px;
+	background-color: var(--mantine-color-red-9);
+	border-radius: 50px 50px 0 0;
+	animation: alarmOn 0.6s infinite;
+	position: relative;
+	top: 75px;
+	z-index: 1;
+
+	@media (max-width: $mantine-breakpoint-sm) {
+		width: 30px;
+		height: 35px;
+		top: 50px;
+	}
+}

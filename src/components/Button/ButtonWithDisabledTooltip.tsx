@@ -2,6 +2,7 @@ import {Box, Button, ButtonProps, Tooltip} from '@mantine/core';
 import {DOMAttributes, JSX} from 'react';
 import {TextKey} from '../../contexts/language/Language';
 import {T} from '../T';
+import classes from './ButtonWithDisabledTooltip.module.css';
 
 type ButtonWithDisabledTooltipProps = ButtonProps &
 	DOMAttributes<HTMLButtonElement> &
@@ -15,7 +16,7 @@ export function ButtonWithDisabledTooltip(props: Readonly<ButtonWithDisabledTool
 	return (
 		disabled ?
 			<Tooltip label={<T k={tooltip}/>}>
-				<Box sx={{cursor: 'not-allowed'}} display={props.display}>
+				<Box display={props.display} className={classes.notAllowed}>
 					<Button {...props}/>
 				</Box>
 			</Tooltip>

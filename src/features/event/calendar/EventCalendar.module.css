@@ -1,0 +1,39 @@
+.today {
+	height: 26px;
+	width: 26px;
+	background-color: var(--mantine-color-red-8);
+	border-radius: 50%;
+	display: inline-block;
+	font-weight: bold;
+	text-align: center;
+	@mixin light {
+		color: white;
+	}
+}
+
+.eventLink {
+	width: 100%;
+}
+
+.eventWrapper {
+	align-items: center;
+	width: 100%;
+	padding: 2px;
+}
+
+.eventType {
+	flex: 0 0 auto;
+}
+
+.eventTitle {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: var(--mantine-font-size-sm);
+}
+
+.eventTime {
+	flex: 0 0 auto;
+	font-size: var(--mantine-font-size-xs);
+}

@@ -15,9 +15,9 @@ export function EventTooltip(props: Readonly<EventTooltipProps>): JSX.Element {
 	const {eventName, emptySlotsCount, slotCount, emptyReserveSlotsCount, missionLength} = props;
 
 	return (
-		<Stack align={'center'} spacing={0}>
+		<Stack align={'center'} gap={0}>
 			<Bold>{eventName}</Bold>
-			<Text><Text weight={emptySlotsCount > 0 ? 'bold' : ''} span>{emptySlotsCount}/{slotCount}</Text> <T
+			<Text><Text fw={emptySlotsCount > 0 ? 'bold' : ''} span>{emptySlotsCount}/{slotCount}</Text> <T
 				k={'calendarEvent.tooltip.emptySlots'}/></Text>
 			{emptyReserveSlotsCount > 0 &&
                 <Bold><T k={'calendarEvent.tooltip.emptyReserveSlots'} args={[emptyReserveSlotsCount]}/></Bold>}

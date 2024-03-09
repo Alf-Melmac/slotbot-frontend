@@ -42,9 +42,9 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 	useChangeWatcher('reserveParticipating');
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
-		<Group position={'apart'}>
+		<Group justify={'space-between'}>
 			<EventActionPageTitle title={'slotlist.alt'}/>
-			<Group spacing={'xs'}>
+			<Group gap={'xs'}>
 				{canUploadSlotlist ?
 					<UploadSlotlist/>
 					:
@@ -59,7 +59,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 
 		<SquadList/>
 		{editMode &&
-            <Group position={'right'}>
+            <Group justify={'right'}>
                 <ScrollAffix show={form.isDirty('squadList')}>
                     <PulsatingButton onClick={() => mutate()}
                                      disabled={!form.isDirty('squadList') || squadListInvalid()}>

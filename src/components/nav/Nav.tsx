@@ -1,4 +1,4 @@
-import {AppShell, Box, Container, createStyles, Footer, Group, Header, MediaQuery} from '@mantine/core';
+import {AppShell, AppShellProps, Container, Group, rem} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
@@ -10,28 +10,18 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
-import {getGuild, Guild} from '../../contexts/Theme';
-import {JSX, PropsWithChildren} from 'react';
-import {hidden} from '../../contexts/CommonStylings';
-
-const useStyles = createStyles(() => ({
-	inner: {
-		height: NAV_HEIGHT,
-		display: 'flex',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-	},
-}));
+import {getGuild, Guild} from '../../contexts/theme/Theme';
+import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
+import classes from './Nav.module.css';
 
 type NavProps = {
-	navbar?: JSX.Element
+	navbar?: JSX.Element;
+	navbarProps?: AppShellProps['navbar'];
 };
 export const NAV_HEIGHT = 80;
-export const FOOTER_HEIGHT = 150;
+const STANDARD_FOOTER_HEIGHT = 145;
 
 export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
-	const {classes} = useStyles();
-
 	const guild = getGuild();
 	let favicon;
 	if (guild === Guild.AMB) {
@@ -45,45 +35,54 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 
 	const {user, login} = useAuth();
 
+	const [footerHeight, setFooterHeight] = useState(STANDARD_FOOTER_HEIGHT);
+	const ref = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		if (!ref.current) return;
+		const resizeObserver = new ResizeObserver(() => {
+			setFooterHeight(ref.current?.clientHeight ?? STANDARD_FOOTER_HEIGHT);
+		});
+		resizeObserver.observe(ref.current);
+		return () => resizeObserver.disconnect();
+	}, []);
+
 	return (
 		<AppShell
-			header={
-				<Header height={NAV_HEIGHT} withBorder={false}>
-					<Container className={classes.inner}>
-						<Logo/>
-						<Box styles={{alignSelf: 'flex-end'}}>
-							<Group noWrap spacing={'xs'}>
-								<MediaQuery smallerThan={'xs'} styles={hidden}>
-									<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
-												 width={135}/>
-								</MediaQuery>
-								<MediaQuery smallerThan={'xs'} styles={hidden}>
-									<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
-												 width={110}/>
-								</MediaQuery>
-								{(user) ?
-									<UserMenu user={user}/>
-									:
-									<>
-										<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
-													   width={90}/>
-										<ThemeSwitch/>
-									</>
-								}
-							</Group>
-						</Box>
-					</Container>
-				</Header>
-			}
-			navbar={props.navbar}
-			footer={
-				<Footer height={0} withBorder={false} sx={{position: 'unset'}}>
-					<PageFooter/>
-				</Footer>
-			}
+			header={{height: NAV_HEIGHT}}
+			navbar={props.navbarProps}
 			layout={'alt'}
-			sx={{main: {minHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`}}}>
-			{props.children}
+			classNames={{main: classes.main, footer: classes.footer}}
+		>
+			<AppShell.Header withBorder={false}>
+				<Container style={{'--nav-height': rem(NAV_HEIGHT)}} className={classes.headerInner}>
+					<Logo/>
+					<Group wrap={'nowrap'} gap={'xs'}>
+						<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
+									 width={135} visibleFrom={'xs'}/>
+						<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
+									 width={110} visibleFrom={'xs'}/>
+						{(user) ?
+							<UserMenu user={user}/>
+							:
+							<>
+								<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
+											   width={90}/>
+								<ThemeSwitch/>
+							</>
+						}
+					</Group>
+				</Container>
+			</AppShell.Header>
+
+			{props.navbar}
+
+			<AppShell.Main style={{'--footer-height': `${footerHeight}px`}}>
+				{props.children}
+			</AppShell.Main>
+
+			<AppShell.Footer withBorder={false} ref={ref}>
+				<PageFooter/>
+			</AppShell.Footer>
 		</AppShell>
 	);
 }

@@ -1,4 +1,4 @@
-import {Avatar, Center, createStyles, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
+import {Avatar, Center, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
@@ -9,18 +9,7 @@ import {ExternalCalendarSettings} from './ExternalCalendarSettings';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 import {T} from '../../components/T';
 import {JSX} from 'react';
-
-const useStyles = createStyles((theme) => ({
-	userCard: {
-		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-	},
-
-	rolesSpoilerControl: {
-		display: 'flex',
-		marginLeft: 'auto',
-		marginRight: 'auto',
-	},
-}));
+import classes from './ProfileInfo.module.css';
 
 type ProfileInfoProps = {
 	profileInfo: UserProfileDto;
@@ -40,20 +29,18 @@ export function ProfileInfo(props: Readonly<ProfileInfoProps>): JSX.Element {
 		ownProfileInfo = query.data;
 	}
 
-	const {classes} = useStyles();
-
 	return (
 		<Stack>
 			<Center>
 				<Paper withBorder className={classes.userCard} w={{base: '100%', md: '33%'}} p={'lg'}>
-					<Stack align={'center'} spacing={'xs'}>
+					<Stack align={'center'} gap={'xs'}>
 						<Avatar src={profileUser.avatarUrl} size={'xl'} radius={1000}/>
-						<Title order={2} align={'center'}>{profileUser.name}</Title>
+						<Title order={2} ta={'center'}>{profileUser.name}</Title>
 						{useAuth().user &&
                             <Spoiler maxHeight={0} classNames={{control: classes.rolesSpoilerControl}}
                                      hideLabel={<T k={'action.hide'}/>}
                                      showLabel={<T k={'profile.action.showRoles'}/>}>
-                                <Text color={'dimmed'} align={'center'}>{roles}</Text>
+                                <Text c={'dimmed'} ta={'center'}>{roles}</Text>
                             </Spoiler>
 						}
 						{ownProfile && ownProfileInfo &&

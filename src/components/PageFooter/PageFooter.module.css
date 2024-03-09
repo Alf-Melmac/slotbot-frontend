@@ -1,0 +1,43 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.description {
+	color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+}
+
+.iconLink {
+	color: var(--icon-color);
+	filter: drop-shadow(0 0 15px var(--icon-color));
+
+	@mixin hover {
+		transform: scale(1.2);
+		color: var(--icon-color);
+		background-color: transparent;
+	}
+}
+
+.twitter {
+	--icon-color: #1da1f2;
+}
+
+.youtube {
+	--icon-color: #FF0000;
+}
+
+.twitch {
+	--icon-color: #9147ff;
+}
+
+.wiki {
+	--icon-color: light-dark(#333333, #e6e6e6);
+}
+
+.discord {
+	--icon-color: #5865f2;
+}
+
+.link {
+	font-size: rem(13px);
+}

@@ -11,7 +11,7 @@ type TextWithInfoProps = {
 	 */
 	iconPosition?: YPosition;
 	multiline?: TooltipProps['multiline'];
-	tooltipWidth?: TooltipProps['width'];
+	tooltipWidth?: TooltipProps['w'];
 	tooltipPosition?: TooltipProps['position'];
 };
 
@@ -24,7 +24,7 @@ export function ElementWithInfo(props: Readonly<TextWithInfoProps>): JSX.Element
 	const {text, iconPosition = YPosition.RIGHT} = props;
 
 	return (
-		<Group spacing={'xs'}>
+		<Group gap={'xs'}>
 			{iconPosition === YPosition.RIGHT &&
                 <>
 					{text} <InfoTooltipIcon {...props}/>
@@ -42,7 +42,7 @@ export function ElementWithInfo(props: Readonly<TextWithInfoProps>): JSX.Element
 function InfoTooltipIcon(props: Readonly<TextWithInfoProps>): JSX.Element {
 	const {tooltip, multiline, tooltipWidth, tooltipPosition} = props;
 
-	return <Tooltip label={tooltip} multiline={multiline} width={tooltipWidth}
+	return <Tooltip label={tooltip} multiline={multiline} w={tooltipWidth}
 					position={tooltipPosition}>
 		<Box>
 			<FontAwesomeIcon icon={faCircleInfo}/>

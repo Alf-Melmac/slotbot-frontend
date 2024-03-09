@@ -46,37 +46,36 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
 		<>
 			<Title order={3}>
 				<ElementWithInfo text={<T k={'profile.notifications.title'}/>}
-								 tooltip={<T k={'profile.notifications.tooltip'}/>}
-								 multiline tooltipWidth={300} tooltipPosition={'right'}/>
+				                 tooltip={<T k={'profile.notifications.tooltip'}/>}
+				                 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
 
-			{form.values.notificationSettings.map((_item, index) =>
-				<Group key={index}>
-					<ActionIcon onClick={() => form.removeListItem('notificationSettings', index)}>
-						<FontAwesomeIcon icon={faTrashCan}/>
-					</ActionIcon>
-					<NumberInput {...form.getInputProps(`notificationSettings.${index}.hoursBeforeEvent`)}
-								 min={0}
-								 parser={value => value?.replace(new RegExp(t('regex.hours'), 'g'), '')}
-								 formatter={value => t('hour', getOptions(value))}/>
-					<NumberInput {...form.getInputProps(`notificationSettings.${index}.minutesBeforeEvent`)}
-								 min={0}
-								 parser={value => value?.replace(new RegExp(t('regex.hours'), 'g'), '')}
-								 formatter={value => t('minute', getOptions(value))}/>
-					<Text><T k={'notifications.input.suffix'}/></Text>
-				</Group>,
+			{form.values.notificationSettings.map((_item, index) => {
+					const hoursInputProps = form.getInputProps(`notificationSettings.${index}.hoursBeforeEvent`);
+					const minutesInputProps = form.getInputProps(`notificationSettings.${index}.minutesBeforeEvent`);
+					return <Group key={index}>
+						<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('notificationSettings', index)}>
+							<FontAwesomeIcon icon={faTrashCan}/>
+						</ActionIcon>
+						<NumberInput {...hoursInputProps} min={0}
+						             suffix={` ${t('hour', getOptions(hoursInputProps.value))}`}/>
+						<NumberInput {...minutesInputProps} min={0}
+						             suffix={` ${t('minute', getOptions(minutesInputProps.value))}`}/>
+						<Text><T k={'notifications.input.suffix'}/></Text>
+					</Group>;
+				},
 			)}
-			<Group position={'apart'}>
+			<Group justify={'space-between'}>
 				<AddButton label={'notifications.add'}
-						   onClick={() => form.insertListItem('notificationSettings', {
-							   hoursBeforeEvent: 0,
-							   minutesBeforeEvent: 0,
-						   })}/>
+				           onClick={() => form.insertListItem('notificationSettings', {
+					           hoursBeforeEvent: 0,
+					           minutesBeforeEvent: 0,
+				           })}/>
 				{(form.values.notificationSettings.length > 0 || form.isDirty()) &&
                     <ElementWithInfo
                         text={<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
-														 disabled={!form.isDirty()} tooltip={'noChanges'}
-														 loading={isPending}>
+						                                 disabled={!form.isDirty()} tooltip={'noChanges'}
+						                                 loading={isPending}>
 							<T k={'notifications.save'}/></ButtonWithDisabledTooltip>
 						}
                         tooltip={<T k={'profile.notifications.save.tooltip'}/>}
@@ -91,5 +90,5 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
  * getRelativeTimeInputFormatterTranslationOptions
  */
 function getOptions(value: string | undefined): TranslationOptions {
-	return {count: parseInt(value ?? '0'), countAsArgs: true};
+	return {count: parseInt(value ?? '0')};
 }

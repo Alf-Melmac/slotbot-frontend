@@ -6,7 +6,7 @@ import {JSX} from 'react';
 export function StandardPage(): JSX.Element {
 	return (
 		<Nav>
-			<Container>
+			<Container py={'md'}>
 				<Outlet/>
 			</Container>
 		</Nav>

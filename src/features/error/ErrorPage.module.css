@@ -1,0 +1,25 @@
+.label {
+	color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+	text-shadow: -3px -6px light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-9));
+	font-size: rem(220);
+	@media (max-width: $mantine-breakpoint-sm) {
+		font-size: rem(120);
+	}
+
+	text-align: center;
+	line-height: 1;
+	user-select: none;
+	position: relative;
+	z-index: 2;
+}
+
+.title {
+	font-size: rem(38);
+	@media (max-width: $mantine-breakpoint-sm) {
+		font-size: rem(32);
+	}
+}
+
+.description {
+	max-width: rem(540);
+}

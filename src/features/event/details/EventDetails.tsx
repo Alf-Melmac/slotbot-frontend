@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {Alert, ColorSwatch, Group, Tabs, Text, useMantineTheme} from '@mantine/core';
+import {Alert, ColorSwatch, Group, Tabs, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
 import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
@@ -14,6 +14,7 @@ import {EventPageParams} from '../EventRoutes';
 import {JSX, useEffect, useState} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {T} from '../../../components/T';
+import {EventDescription} from './EventDescription';
 
 export function EventDetails(): JSX.Element {
 	const {t} = useLanguage();
@@ -27,6 +28,7 @@ export function EventDetails(): JSX.Element {
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
 
 	const {event, eventDate, isLoading, error} = useFetchEventDetails(eventId);
+
 	useEffect(() => {
 		if (event) {
 			setTitle(`${event.name} - ${event.eventType.name}`);
@@ -41,7 +43,7 @@ export function EventDetails(): JSX.Element {
 			href: '/events',
 		},
 		{
-			title: <Group noWrap spacing={6}>
+			title: <Group wrap={'nowrap'} gap={6}>
 				<ColorSwatch color={event.eventType?.color || theme.primaryColor} radius={'sm'}
 							 size={theme.fontSizes.md}/>
 				{event.missionType} {event.eventType.name}
@@ -52,7 +54,7 @@ export function EventDetails(): JSX.Element {
 		<Breadcrumb items={breadcrumbItems}/>
 
 		{event.hidden &&
-            <Alert color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
+            <Alert mb={'xs'} color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
                 <T k={'event.details.hiddenEventWarning'}/>
             </Alert>}
 
@@ -61,32 +63,32 @@ export function EventDetails(): JSX.Element {
 
 		<Tabs mt={'xs'} defaultValue={'slotlist'}>
 			<Tabs.List>
-				<Tabs.Tab value={'slotlist'} icon={<FontAwesomeIcon icon={faUserGroup}/>}>
+				<Tabs.Tab value={'slotlist'} leftSection={<FontAwesomeIcon icon={faUserGroup}/>}>
 					<T k={'slotlist'}/>
 				</Tabs.Tab>
 				{event.descriptionAsHtml &&
-                    <Tabs.Tab value={'description'} icon={<FontAwesomeIcon icon={faFileLines}/>}
+                    <Tabs.Tab value={'description'} leftSection={<FontAwesomeIcon icon={faFileLines}/>}
                               ref={descriptionRef}>
                         <T k={'description'}/>
                     </Tabs.Tab>
 				}
 				{event.details.length !== 0 &&
-                    <Tabs.Tab value={'details'} icon={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+                    <Tabs.Tab value={'details'} leftSection={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
                         <T k={'moreDetails'}/>
                     </Tabs.Tab>
 				}
 			</Tabs.List>
 
-			<Tabs.Panel value={'slotlist'}>
+			<Tabs.Panel value={'slotlist'} pt={'xs'}>
 				<EventSlotlist squadList={event.squadList} eventId={event.id}/>
 			</Tabs.Panel>
 			{event.descriptionAsHtml &&
-                <Tabs.Panel value={'description'}>
-                    <Text dangerouslySetInnerHTML={{__html: event.descriptionAsHtml}}></Text>
+                <Tabs.Panel value={'description'} pt={'xs'}>
+                    <EventDescription description={event.descriptionAsHtml}/>
                 </Tabs.Panel>
 			}
 			{event.details.length !== 0 &&
-                <Tabs.Panel value={'details'}>
+                <Tabs.Panel value={'details'} pt={'xs'}>
                     <EventFields fields={event.details}/>
                 </Tabs.Panel>
 			}

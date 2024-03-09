@@ -1,50 +1,41 @@
-import {Avatar, Button, createStyles, Image, Navbar, ScrollArea} from '@mantine/core';
+import {AppShell, Avatar, Button, ScrollArea} from '@mantine/core';
 import {useGetGuilds} from './useGetGuilds';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
 import {DelayedSkeleton} from '../../components/Delayed/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
-import {SpotlightAction} from '@mantine/spotlight';
+import {SpotlightActionData} from '@mantine/spotlight';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Dispatch, JSX, SetStateAction, useEffect} from 'react';
 import {SearchControl} from './SearchControl';
 import {GuildPageParams} from './GuildRoutes';
-
-const useStyles = createStyles((theme) => ({
-	guildButton: {
-		justifyContent: 'start',
-		color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.dark[9],
-	},
-}));
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
+import classes from './GuildsNavbar.module.css';
 
 type GuildsNavbarProps = {
-	setActions: Dispatch<SetStateAction<SpotlightAction[]>>;
+	setActions: Dispatch<SetStateAction<SpotlightActionData[]>>;
 };
 
 export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 	const {guildId} = useParams<GuildPageParams>();
-	const {classes} = useStyles();
 	const guildsQuery = useGetGuilds();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!guildsQuery.isSuccess) return;
-		const actions: SpotlightAction[] = guildsQuery.data.map(guild => ({
+		const actions: SpotlightActionData[] = guildsQuery.data.map(guild => ({
 			id: guild.id,
-			title: guild.groupIdentifier,
-			icon: <Avatar src={guild.emojiUrl}>{guild.groupIdentifier}</Avatar>,
-			onTrigger: () => navigate(`/guilds/${guild.id}`),
-		})) || [];
+			label: guild.groupIdentifier,
+			leftSection: <Avatar src={guild.emojiUrl}/>,
+			onClick: () => navigate(`/guilds/${guild.id}`),
+		}) satisfies SpotlightActionData) || [];
 
 		props.setActions(actions);
 	}, [guildsQuery.data]);
 
-	return <Navbar width={{xs: 200, sm: 300}} p={'sm'} pt={NAV_HEIGHT / 3.33}>
-		<Navbar.Section>
-			<SearchControl/>
-		</Navbar.Section>
-		<Navbar.Section grow component={ScrollArea}>
+	return <AppShell.Navbar p={'sm'} pt={NAV_HEIGHT / 3.33}>
+		<SearchControl/>
+		<ScrollArea>
 			{guildsQuery.isLoading ?
 				<>
 					<DelayedSkeleton width={'100%'} height={34} mt={'xs'}/>
@@ -57,18 +48,18 @@ export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 				guildsQuery.data?.map(guild => (
 					<Button key={guild.id}
 							variant={guildId === guild.id ? 'light' : 'subtle'}
-							mt={'xs'} fullWidth
-							classNames={{inner: classes.guildButton}}
-							leftIcon={
-								<Image src={guild.emojiUrl} width={34} withPlaceholder
-									   placeholder={<FontAwesomeIcon icon={faPeopleGroup}/>}/>
-							}
+							mt={'xs'} fullWidth justify={'flex-start'}
+							className={classes.guildButton}
+							leftSection={<Avatar src={guild.emojiUrl} classNames={{image: classes.guildAvatar, placeholder: classes.guildAvatarPlaceholder}}
+												 radius={0} size={34}>
+								<FontAwesomeIcon icon={faPeopleGroup}/>
+							</Avatar>}
 							component={AnchorLink}
 							to={`/guilds/${guild.id}`}>
 						{guild.groupIdentifier}
 					</Button>
 				))
 			}
-		</Navbar.Section>
-	</Navbar>;
+		</ScrollArea>
+	</AppShell.Navbar>;
 }

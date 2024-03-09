@@ -20,7 +20,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 		<EventDetailsSlotlistProvider eventId={props.eventId}>
 			{props.squadList.map((squad) => (
 				<Card mb={'md'} key={squad.id}>
-					<Group noWrap spacing={1}>
+					<Group wrap={'nowrap'} gap={1}>
 						<Text>{squad.name}</Text>
 						<ReservedFor guild={squad.reservedFor}/>
 					</Group>

@@ -1,0 +1,19 @@
+@keyframes pulsate {
+	0% {
+		transform: scale(0.95);
+	}
+	70% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+.button {
+	animation: pulsate 2s infinite;
+
+	&:focus, &:hover {
+		animation: unset;
+	}
+}

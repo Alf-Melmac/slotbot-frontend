@@ -19,7 +19,7 @@ export function EventFields(props: Readonly<EventFieldsProps>): JSX.Element {
 			{props.fields.map((field, index) => (
 				<Grid key={field.id}>
 					<Grid.Col span={4}>
-						<Text component={'label'} weight={'bold'} htmlFor={`field${index}`}>{field.title}</Text>
+						<Text component={'label'} fw={'bold'} htmlFor={`field${index}`}>{field.title}</Text>
 					</Grid.Col>
 					<Grid.Col span={8}>
 						{getFieldText(field, index)}

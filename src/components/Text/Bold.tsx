@@ -1,6 +1,6 @@
 import {Text, TextProps} from '@mantine/core';
-import {JSX} from 'react';
+import {JSX, PropsWithChildren} from 'react';
 
-export function Bold(props: Readonly<TextProps>): JSX.Element {
-	return <Text {...props} weight={'bold'}/>;
+export function Bold(props: Readonly<PropsWithChildren<TextProps>>): JSX.Element {
+	return <Text {...props} fw={'bold'}>{props.children}</Text>;
 }

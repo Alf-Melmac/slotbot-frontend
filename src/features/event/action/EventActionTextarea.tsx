@@ -8,7 +8,7 @@ import {useEventTextChange} from './useEventUpdate';
 import {TextKey} from '../../../contexts/language/Language';
 import {useTranslationIfPresent} from '../../../utils/translationHelper';
 
-interface TranslatableTextareaProps extends TextareaProps {
+type TranslatableTextareaProps = Omit<TextareaProps, 'wrap'> & { // remove wrap definition of html textarea to support inline editing
 	label?: TextKey;
 	placeholder?: TextKey;
 }

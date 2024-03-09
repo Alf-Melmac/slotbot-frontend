@@ -38,9 +38,9 @@ export function GuildLanguage(props: Readonly<GuildConfigDto>): JSX.Element {
 					 value={selectedLanguage} onChange={(value) => setSelectedLanguage(value as Language)}>
 			<Group mt={'xs'}>
 				<Radio value={Language.DE}
-					   label={<><DEFlag w={'1rem'} radius={'xs'}/> <T k={'language.german'}/></>}/>
+					   label={<><DEFlag w={'1rem'} radius={'xs'} display={'inline-block'}/> <T k={'language.german'}/></>}/>
 				<Radio value={Language.EN}
-					   label={<><GBFlag w={'1rem'} radius={'xs'}/> <T k={'language.english'}/></>}/>
+					   label={<><GBFlag w={'1rem'} radius={'xs'} display={'inline-block'}/> <T k={'language.english'}/></>}/>
 			</Group>
 		</Radio.Group>
 	);

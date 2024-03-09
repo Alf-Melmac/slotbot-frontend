@@ -1,0 +1,6 @@
+header {
+	background-color: light-dark(white, black);
+}
+body, main, nav {
+	background-color: light-dark(#f5f3f2, #191919);
+}

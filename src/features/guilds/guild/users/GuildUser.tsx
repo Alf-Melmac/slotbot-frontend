@@ -7,7 +7,7 @@ export function GuildUser(props: Readonly<TableCellProps>): JSX.Element {
 	const {id, avatarUrl, name} = props.row.original.user;
 
 	return <AnchorLink to={`/profile/${id}`}>
-		<Group spacing={'sm'}>
+		<Group gap={'sm'}>
 			<Avatar src={avatarUrl} radius={40}/>
 			{name}
 		</Group>
