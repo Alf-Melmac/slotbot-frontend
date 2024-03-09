@@ -7,7 +7,7 @@ import {errorNotification, successNotification} from '../../utils/notificationHe
 import {T} from '../../components/T';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 
-export function AdminUtils(): JSX.Element {
+export default function AdminUtils(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.admin.utils');
 	const [action, setAction] = useState('');
 	const postAction = () => slotbotServerClient.post(`/admin/utils/${action}`).then(voidFunction);
