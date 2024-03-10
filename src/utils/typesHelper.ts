@@ -19,3 +19,21 @@ function replaceNullWith<T>(obj: T, keys: Array<keyof T>, replacement: unknown):
 	}
 	return obj;
 }
+
+/**
+ * Replaces boolean strings ('true' and 'false') with their values at the given key.
+ *
+ * @param obj to update
+ * @param key to replace the boolean strings in
+ */
+export function replaceBooleanStringWithBoolean<T>(obj: T, key: keyof T): T {
+	if (obj[key] === 'true') {
+		// @ts-ignore Caller should know what he is doing
+		obj[key] = true;
+	}
+	if (obj[key] === 'false') {
+		// @ts-ignore Caller should know what he is doing
+		obj[key] = false;
+	}
+	return obj;
+}

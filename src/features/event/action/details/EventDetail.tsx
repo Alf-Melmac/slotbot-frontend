@@ -28,22 +28,18 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 
 	const fieldDefault = useEventFieldDefaultsContext(item.title);
 	let text;
-	switch (fieldDefault?.type) {
-		case 'TEXT_WITH_SELECTION':
-			text = <EventActionAutocomplete inputProps={{
-				...staticInputProps,
-				data: fieldDefault.selection,
-			}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>;
-			break;
-		case 'BOOLEAN':
-			text = <Checkbox flex={1} {...form.getInputProps(`details.${index}.text`)}/>;
-			break;
-		case 'TEXT':
-		default:
-			text = <EventActionTextInput inputProps={staticInputProps}
-										 formPath={`details.${index}.text`}
-										 overrideFormContextEditMode={editMode}/>;
-			break;
+	if (fieldDefault?.type === 'TEXT_WITH_SELECTION') {
+		text = <EventActionAutocomplete inputProps={{
+			...staticInputProps,
+			data: fieldDefault.selection,
+		}} formPath={`details.${index}.text`} overrideFormContextEditMode={editMode}/>;
+	} else if (fieldDefault?.type === 'BOOLEAN' || typeof item.text === 'boolean') { // If the text is a boolean it'll probably be checkbox
+		const booleanInputProps = form.getInputProps(`details.${index}.text`, {type: 'checkbox'});
+		text = <Checkbox flex={1} indeterminate={booleanInputProps.checked === ''} {...booleanInputProps}/>;
+	} else { // Default and type TEXT
+		text = <EventActionTextInput inputProps={staticInputProps}
+									 formPath={`details.${index}.text`}
+									 overrideFormContextEditMode={editMode}/>;
 	}
 
 	return (
