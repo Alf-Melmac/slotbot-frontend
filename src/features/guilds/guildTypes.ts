@@ -33,6 +33,7 @@ export enum Language {
 export interface GuildDiscordIntegrationDto {
 	connected: boolean;
 	categories: DiscordCategory[];
+	allowedToManageRoles: boolean;
 	roles: DiscordRole[];
 }
 

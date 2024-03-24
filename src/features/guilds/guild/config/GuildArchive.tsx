@@ -1,7 +1,6 @@
 import {GuildConfigDto} from '../../guildTypes';
-import {useGetDiscordIntegration} from '../useGetGuild';
 import {T} from '../../../../components/T';
-import {Button, Select, Skeleton, TextInput} from '@mantine/core';
+import {Select, Skeleton, TextInput} from '@mantine/core';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {JSX, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
@@ -9,10 +8,8 @@ import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
-import {AnchorBlank} from '../../../../components/Text/AnchorBlank';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faDiscord} from '@fortawesome/free-brands-svg-icons';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
+import {useGuildDiscordConfig} from '../../../../contexts/guild/GuildDiscordConfigContext';
 
 export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {archiveChannel} = props;
@@ -33,17 +30,12 @@ export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 		mutate();
 	}, [archive]);
 
-	const integrationQuery = useGetDiscordIntegration(guildId);
+	const integrationQuery = useGuildDiscordConfig();
 	if (integrationQuery.isError) return <TextInput label={<T k={'guild.config.archive.description'}/>}
 													error={<T k={'guild.config.archive.loadingError'}/>}
 													disabled value={archive ?? '—'}/>;
 	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60.8}/>;
-	const {connected, categories} = integrationQuery.data;
-	if (!connected) return <Button color={'blue'} mt={3}
-								   leftSection={<FontAwesomeIcon icon={faDiscord}/>}
-								   component={AnchorBlank} href={'https://slotbot.de/invite'}>
-		<T k={'integration.discord.invite'}/>
-	</Button>;
+	const {categories} = integrationQuery.data;
 
 	return (
 		<Select label={<T k={'guild.config.archive.description'}/>} placeholder={t('guild.config.archive.select')}

@@ -7,6 +7,7 @@ import {GuildArchive} from './config/GuildArchive';
 import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
 import {GuildRoles} from './config/GuildRoles';
 import {JSX} from 'react';
+import {GuildDiscordConfig} from './config/discord/GuildDiscordConfig';
 
 export function GuildConfig(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -22,8 +23,10 @@ export function GuildConfig(): JSX.Element {
 				<Accordion.Panel>
 					<Stack>
 						<GuildLanguage {...guildConfig}/>
-						<GuildArchive {...guildConfig}/>
-						<GuildRoles {...guildConfig}/>
+						<GuildDiscordConfig>
+							<GuildArchive {...guildConfig}/>
+							<GuildRoles {...guildConfig}/>
+						</GuildDiscordConfig>
 					</Stack>
 				</Accordion.Panel>
 			</Accordion.Item>

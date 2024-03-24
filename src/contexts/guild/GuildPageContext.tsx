@@ -22,7 +22,7 @@ export function GuildPageProvider(props: Readonly<PropsWithChildren<GuildPage>>)
 export function useGuildPage(): GuildPage {
 	const context = useContext(GuildPageContext);
 	if (context === undefined) {
-		throw new Error('useGuild must be used within a GuildProvider');
+		throw new Error('useGuildPage must be used within a GuildProvider');
 	}
 	return context;
 }

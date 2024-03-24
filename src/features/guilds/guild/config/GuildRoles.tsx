@@ -2,7 +2,6 @@ import {GuildConfigDto, GuildDiscordIntegrationDto} from '../../guildTypes';
 import {Select, Skeleton, TextInput} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
-import {useGetDiscordIntegration} from '../useGetGuild';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {Dispatch, JSX, SetStateAction, useState} from 'react';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
@@ -11,16 +10,16 @@ import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
 import {GuildRolesPageWrapper} from './GuildRolesPageWrapper';
+import {useGuildDiscordConfig} from '../../../../contexts/guild/GuildDiscordConfigContext';
 
 export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {memberRole, eventManageRole, adminRole} = props;
-	const {guildId} = useGuildPage();
 
 	const [roleMember, setRoleMember] = useState<string | null>(memberRole);
 	const [roleEventManage, setRoleEventManage] = useState<string | null>(eventManageRole);
 	const [roleAdmin, setRoleAdmin] = useState<string | null>(adminRole);
 
-	const integrationQuery = useGetDiscordIntegration(guildId);
+	const integrationQuery = useGuildDiscordConfig();
 	if (integrationQuery.isError) return <GuildRolesPageWrapper>
 		<RoleSelectLoadingError roleName={'member'} role={roleMember}/>
 		<RoleSelectLoadingError roleName={'eventManage'} role={roleEventManage}/>
@@ -31,10 +30,10 @@ export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 		<Skeleton height={80.2}/>
 		<Skeleton height={80.2}/>
 	</GuildRolesPageWrapper>;
-	const {connected, roles} = integrationQuery.data;
-	if (!connected) return <></>;
+	const {roles} = integrationQuery.data;
 
-	return <GuildRolesPageWrapper>
+	return <GuildRolesPageWrapper
+		warning={!integrationQuery.data.allowedToManageRoles ? 'guild.config.role.noPermission' : undefined}>
 		<RoleSelect roleName={'member'} role={roleMember} setRole={setRoleMember} roles={roles}/>
 		<RoleSelect roleName={'eventManage'} role={roleEventManage} setRole={setRoleEventManage} roles={roles}/>
 		<RoleSelect roleName={'admin'} role={roleAdmin} setRole={setRoleAdmin} roles={roles}/>
@@ -66,18 +65,18 @@ function RoleSelect(props: Readonly<RoleSelectType>): JSX.Element {
 	}, [role]);
 
 	return <Select label={<T k={`user.role.${roleName}`}/>} description={<T k={`user.role.${roleName}.description`}/>}
-	               placeholder={t('guild.config.role.select')} clearable searchable value={role} onChange={setRole}
-	               error={role && roles.find(roleItem => roleItem.id === role) === undefined ? t('guild.config.role.error') : undefined}
-	               data={roles.map(role => ({
-		               value: role.id,
-		               label: role.name,
-	               }))}/>;
+				   placeholder={t('guild.config.role.select')} clearable searchable value={role} onChange={setRole}
+				   error={role && roles.find(roleItem => roleItem.id === role) === undefined ? t('guild.config.role.error') : undefined}
+				   data={roles.map(role => ({
+					   value: role.id,
+					   label: role.name,
+				   }))}/>;
 }
 
 function RoleSelectLoadingError(props: Readonly<Pick<RoleSelectType, 'roleName' | 'role'>>): JSX.Element {
 	const {roleName, role} = props;
 
 	return <TextInput label={<T k={`user.role.${roleName}`}/>}
-	                  description={<T k={`user.role.${roleName}.description`}/>}
-	                  error={<T k={'guild.config.role.loadingError'}/>} disabled value={role ?? '—'}/>;
+					  description={<T k={`user.role.${roleName}.description`}/>}
+					  error={<T k={'guild.config.role.loadingError'}/>} disabled value={role ?? '—'}/>;
 }
