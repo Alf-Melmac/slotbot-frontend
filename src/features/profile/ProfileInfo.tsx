@@ -1,4 +1,4 @@
-import {Avatar, Center, Divider, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
+import {Avatar, Center, Divider, Group, Paper, Spoiler, Stack, Text, Title} from '@mantine/core';
 import {UserOwnProfileDto, UserProfileDto} from './profileTypes';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {ProfileSteamId} from './ProfileSteamId';
@@ -10,13 +10,14 @@ import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle
 import {T} from '../../components/T';
 import {JSX} from 'react';
 import classes from './ProfileInfo.module.css';
+import {AnchorLink} from '../../components/Text/AnchorLink';
 
 type ProfileInfoProps = {
 	profileInfo: UserProfileDto;
 };
 
 export function ProfileInfo(props: Readonly<ProfileInfoProps>): JSX.Element {
-	const {user: profileUser, roles, participatedEventsCount, ownProfile} = props.profileInfo;
+	const {user: profileUser, roles, participatedEventsCount, lastEvent, ownProfile} = props.profileInfo;
 	useTranslatedDocumentTitle(ownProfile ? 'documentTitle.profile.own' : profileUser.name, undefined, !ownProfile);
 
 	let ownProfileInfo;
@@ -46,8 +47,23 @@ export function ProfileInfo(props: Readonly<ProfileInfoProps>): JSX.Element {
 						{ownProfile && ownProfileInfo &&
                             <ProfileSteamId steamId={ownProfileInfo.steamId64}/>
 						}
-						<Text mt={'xl'} size={'xl'}>{participatedEventsCount}</Text>
-						<Title order={5}><T k={'profile.info.participatedEvents'}/></Title>
+						<Group mt={'xl'} justify={'center'}>
+							<Stack align={'center'} gap={'xs'}>
+								<Title order={5}><T k={'profile.info.participatedEvents'}/></Title>
+								<Text size={'xl'}>{participatedEventsCount}</Text>
+							</Stack>
+							<Stack align={'center'} gap={'xs'}>
+								<Title order={5}><T k={'profile.info.lastEvent'}/></Title>
+								{
+									lastEvent ?
+										<AnchorLink to={`/events/${lastEvent.id}`} size={'xl'}>
+											<T k={'time.diff.past.day'} count={lastEvent.daysSince} countAsArgs/>
+										</AnchorLink>
+										:
+										<Text size={'xl'}>–</Text>
+								}
+							</Stack>
+						</Group>
 					</Stack>
 				</Paper>
 			</Center>

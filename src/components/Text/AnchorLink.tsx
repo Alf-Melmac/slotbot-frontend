@@ -5,7 +5,7 @@ import {JSX, ReactNode} from 'react';
 export type ReactRouterAnchorProps = {
 	to: LinkProps['to'];
 	children: ReactNode;
-} & Pick<AnchorProps, 'className' | 'visibleFrom' | 'w'>;
+} & Pick<AnchorProps, 'className' | 'visibleFrom' | 'w' | 'size'>;
 
 export function AnchorLink(props: Readonly<ReactRouterAnchorProps>): JSX.Element {
 	const {to, children, ...anchorProps} = props;

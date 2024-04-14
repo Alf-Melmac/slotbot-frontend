@@ -1,11 +1,16 @@
 import {DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
-import {FrontendIdEntityDto} from '../../contexts/sharedTypes';
+import {AbstractIdEntityDto, FrontendIdEntityDto} from '../../contexts/sharedTypes';
 
 export interface UserProfileDto {
 	user: DiscordUserDto;
 	roles: string;
 	participatedEventsCount: number;
+	lastEvent: LastEventInfo;
 	ownProfile: boolean;
+}
+
+interface LastEventInfo extends AbstractIdEntityDto {
+	daysSince: number;
 }
 
 export interface UserOwnProfileDto {
