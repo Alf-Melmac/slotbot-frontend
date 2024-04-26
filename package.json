@@ -33,7 +33,7 @@
     "lodash": "^4.17.21",
     "mantine-flagpack": "^4.0.1",
     "mantine-react-table": "^2.0.0-beta.1",
-    "react": "^18.2.0",
+    "react": "^18.3.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"
   },
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.7",
-    "@types/react": "^18.2.78",
+    "@types/react": "^18.3.0",
     "@types/react-dom": "^18.2.25",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.2.1",
