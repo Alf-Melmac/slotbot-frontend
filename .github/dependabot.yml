@@ -25,6 +25,9 @@ updates:
       fullcalendar:
         patterns:
           - "@fullcalendar/*"
+      tiptap:
+        patterns:
+          - "@tiptap/*"
     ignore:
       - dependency-name: "@tanstack/react-query" # Spams too much
 

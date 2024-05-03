@@ -8,6 +8,7 @@ import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {EventActionUpload} from '../EventActionUpload';
 import {JSX} from 'react';
+import {EventDescription} from './EventDescription';
 
 export function EventMisc(): JSX.Element {
 	const form = useFormContext();
@@ -22,6 +23,8 @@ export function EventMisc(): JSX.Element {
 			minRows: 3,
 			maxLength: EMBEDDABLE_DESCRIPTION,
 		}} formPath={'description'}/>
+
+		<EventDescription/>
 
 		<Grid>
 			<Grid.Col span={{base: 6, xs: 4}}>
