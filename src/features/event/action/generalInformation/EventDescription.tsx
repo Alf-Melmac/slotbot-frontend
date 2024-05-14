@@ -1,7 +1,8 @@
 import {RichTextEditor} from '@mantine/tiptap';
 import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
-import {BubbleMenu, FloatingMenu, useEditor} from '@tiptap/react';
+import {BubbleMenu, Extension, FloatingMenu, useEditor} from '@tiptap/react';
+import {Editor} from '@tiptap/core';
 import {Placeholder} from '@tiptap/extension-placeholder';
 import {JSX} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
@@ -18,47 +19,60 @@ import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {Strike} from '@tiptap/extension-strike';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 
-type EventDescriptionProps = {};
+function toMarkdown(editor: Editor): string {
+	let markdown = '';
+	editor.state.doc.content.forEach((element) => {
+		if (markdown !== '') {
+			markdown += '\n';
+		}
+		if (element.type.name === Heading.name) {
+			markdown += `${'#'.repeat(element.attrs.level)} `;
+		}
+		element.content.forEach((node) => {
+			if (node.type.name === Text.name) {
+				let item = node.text;
+				if (item === undefined) return;
+				node.marks.forEach((mark) => {
+					if (mark.type.name === Underline.name) {
+						item = `__${item}__`;
+					} else if (mark.type.name === Bold.name) {
+						item = `**${item}**`;
+					} else if (mark.type.name === Italic.name) {
+						item = `*${item}*`;
+					} else if (mark.type.name === Strike.name) {
+						item = `~~${item}~~`;
+					}
+				});
+				markdown += item;
+			}
+		});
+	});
+	return markdown;
+}
 
-export function EventDescription(props: EventDescriptionProps): JSX.Element {
-	const {} = props;
+export function EventDescription(): JSX.Element {
 	const form = useFormContext();
+
+	const Markdown = Extension.create({
+		name: 'markdown',
+
+		addStorage() {
+			return {
+				markdown: () => '',
+			};
+		},
+
+		onBeforeCreate() {
+			this.storage.markdown = () => {
+				return toMarkdown(this.editor);
+			}
+		}
+	});
 
 	const CustomCharacterCount = CharacterCount.extend({
 		onBeforeCreate() {
-			this.storage.characters = options => {
-				const node = options?.node || this.editor.state.doc;
-
-				let length = 0;
-				node.content.forEach((paragraph, i) => {
-					if (i !== 0) {
-						length += 1; // new line
-					}
-					paragraph.content.forEach((text) => {
-						const marks = text.marks;
-						length += text.text?.length ?? 0;
-						if (marks.length !== 0) {
-							if (marks.some(mark => mark.type.name === Bold.name)) {
-								length += 4; //**text**
-							}
-							if (marks.some(mark => mark.type.name === Italic.name)) {
-								length += 2; //*text*
-							}
-							if (marks.some(mark => mark.type.name === Underline.name)) {
-								length += 4; //__text__
-							}
-							if (marks.some(mark => mark.type.name === Strike.name)) {
-								length += 4; //~~text~~
-							}
-						}
-						if (paragraph.type.name === Heading.name) {
-							console.log(paragraph.attrs.level);
-							length += paragraph.attrs.level + 1; // # text
-						}
-					});
-				});
-
-				return length;
+			this.storage.characters = () => {
+				return this.editor.storage.markdown.markdown().length;
 			};
 		},
 	});
@@ -77,9 +91,10 @@ export function EventDescription(props: EventDescriptionProps): JSX.Element {
 			Placeholder.configure({placeholder: t('description')}),
 			History,
 			CustomCharacterCount.configure({limit: EMBEDDABLE_DESCRIPTION}),
+			Markdown,
 		],
 		onUpdate: ({editor}) => {
-			form.setFieldValue('description', editor.getHTML());
+			form.setFieldValue('description', toMarkdown(editor));
 		},
 	});
 
