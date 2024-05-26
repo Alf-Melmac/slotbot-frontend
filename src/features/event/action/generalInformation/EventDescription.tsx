@@ -28,10 +28,11 @@ function toMarkdown(editor: Editor): string {
 		if (element.type.name === Heading.name) {
 			markdown += `${'#'.repeat(element.attrs.level)} `;
 		}
-		element.content.forEach((node) => {
+		element.content.forEach((node, i) => {
 			if (node.type.name === Text.name) {
 				let item = node.text;
 				if (item === undefined) return;
+				item = escape(item);
 				node.marks.forEach((mark) => {
 					if (mark.type.name === Underline.name) {
 						item = `__${item}__`;
@@ -43,11 +44,19 @@ function toMarkdown(editor: Editor): string {
 						item = `~~${item}~~`;
 					}
 				});
+				if (i === 0 && item.startsWith('#')) {
+					item = `\\${item}`; //escape fake headings
+				}
 				markdown += item;
 			}
 		});
 	});
 	return markdown;
+}
+
+function escape(text: string): string {
+	return text.replace(/([*_~\\])/g, '\\$1')
+		.replace(/^#/g, '\\#');
 }
 
 export function EventDescription(): JSX.Element {
@@ -65,8 +74,8 @@ export function EventDescription(): JSX.Element {
 		onBeforeCreate() {
 			this.storage.markdown = () => {
 				return toMarkdown(this.editor);
-			}
-		}
+			};
+		},
 	});
 
 	const CustomCharacterCount = CharacterCount.extend({
@@ -93,8 +102,9 @@ export function EventDescription(): JSX.Element {
 			CustomCharacterCount.configure({limit: EMBEDDABLE_DESCRIPTION}),
 			Markdown,
 		],
+		content: form.values.description,
 		onUpdate: ({editor}) => {
-			form.setFieldValue('description', toMarkdown(editor));
+			form.setFieldValue('description', editor.getHTML());
 		},
 	});
 
