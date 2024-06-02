@@ -18,6 +18,7 @@ import {EMBEDDABLE_DESCRIPTION} from '../../../../utils/maxLength';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {Strike} from '@tiptap/extension-strike';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {HardBreak} from '@tiptap/extension-hard-break';
 
 function toMarkdown(editor: Editor): string {
 	let markdown = '';
@@ -92,6 +93,7 @@ export function EventDescription(): JSX.Element {
 			Document,
 			Text,
 			Paragraph,
+			HardBreak,
 			Bold,
 			Italic,
 			Underline,

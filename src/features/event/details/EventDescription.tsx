@@ -20,11 +20,11 @@ export function EventDescription(props: EventDescriptionProps): JSX.Element {
 	useEffect(() => {
 		if (!descriptionTextRef.current) return;
 
-		const h1Element: HTMLHeadingElement | null = descriptionTextRef.current.querySelector('p > :is(h1, h2, h3, h4, h5, h6)');
-		if (!h1Element) return;
-		const previousSibling = h1Element.previousSibling;
+		const htmlElement: HTMLElement | null = descriptionTextRef.current.querySelector('p > :is(p, h1, h2, h3, h4, h5, h6)');
+		if (!htmlElement) return;
+		const previousSibling = htmlElement.previousSibling;
 		if (previousSibling == null) {
-			h1Element.style.marginTop = '0';
+			htmlElement.style.marginTop = '0';
 		}
 	}, [description]);
 
