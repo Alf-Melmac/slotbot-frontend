@@ -1,5 +1,4 @@
-import {EMBEDDABLE_DESCRIPTION, TEXT, URL} from '../../../../utils/maxLength';
-import {EventActionTextarea} from '../EventActionTextarea';
+import {TEXT, URL} from '../../../../utils/maxLength';
 import {Grid, Select} from '@mantine/core';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
@@ -16,14 +15,6 @@ export function EventMisc(): JSX.Element {
 
 	useChangeWatcher('missionType');
 	return <>
-		<EventActionTextarea inputProps={{
-			label: 'description',
-			placeholder: 'description',
-			autosize: true,
-			minRows: 3,
-			maxLength: EMBEDDABLE_DESCRIPTION,
-		}} formPath={'description'}/>
-
 		<EventDescription/>
 
 		<Grid>

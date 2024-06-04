@@ -1,8 +1,7 @@
 import {RichTextEditor} from '@mantine/tiptap';
 import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
-import {BubbleMenu, Extension, FloatingMenu, useEditor} from '@tiptap/react';
-import {Editor} from '@tiptap/core';
+import {BubbleMenu, FloatingMenu, useEditor} from '@tiptap/react';
 import {Placeholder} from '@tiptap/extension-placeholder';
 import {JSX} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
@@ -13,79 +12,23 @@ import {Italic} from '@tiptap/extension-italic';
 import {Underline} from '@tiptap/extension-underline';
 import {History} from '@tiptap/extension-history';
 import {NAV_HEIGHT} from '../../../../components/nav/Nav';
-import {CharacterCount} from '@tiptap/extension-character-count';
 import {EMBEDDABLE_DESCRIPTION} from '../../../../utils/maxLength';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {Strike} from '@tiptap/extension-strike';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {HardBreak} from '@tiptap/extension-hard-break';
-
-function toMarkdown(editor: Editor): string {
-	let markdown = '';
-	editor.state.doc.content.forEach((element) => {
-		if (markdown !== '') {
-			markdown += '\n';
-		}
-		if (element.type.name === Heading.name) {
-			markdown += `${'#'.repeat(element.attrs.level)} `;
-		}
-		element.content.forEach((node, i) => {
-			if (node.type.name === Text.name) {
-				let item = node.text;
-				if (item === undefined) return;
-				item = escape(item);
-				node.marks.forEach((mark) => {
-					if (mark.type.name === Underline.name) {
-						item = `__${item}__`;
-					} else if (mark.type.name === Bold.name) {
-						item = `**${item}**`;
-					} else if (mark.type.name === Italic.name) {
-						item = `*${item}*`;
-					} else if (mark.type.name === Strike.name) {
-						item = `~~${item}~~`;
-					}
-				});
-				if (i === 0 && item.startsWith('#')) {
-					item = `\\${item}`; //escape fake headings
-				}
-				markdown += item;
-			}
-		});
-	});
-	return markdown;
-}
-
-function escape(text: string): string {
-	return text.replace(/([*_~\\])/g, '\\$1')
-		.replace(/^#/g, '\\#');
-}
+import {DiscordMarkdown} from '../../../../utils/tiptap/DiscordMarkdown';
+import {DiscordMarkdownCharacterCount} from '../../../../utils/tiptap/DiscordMarkdownCharacterCount';
+import {Box, Group, Input} from '@mantine/core';
+import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
+import {T} from '../../../../components/T';
+import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
+import {useEventTextChange} from '../useEventUpdate';
+import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {maxLengthField} from '../../../../utils/formHelper';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
-
-	const Markdown = Extension.create({
-		name: 'markdown',
-
-		addStorage() {
-			return {
-				markdown: () => '',
-			};
-		},
-
-		onBeforeCreate() {
-			this.storage.markdown = () => {
-				return toMarkdown(this.editor);
-			};
-		},
-	});
-
-	const CustomCharacterCount = CharacterCount.extend({
-		onBeforeCreate() {
-			this.storage.characters = () => {
-				return this.editor.storage.markdown.markdown().length;
-			};
-		},
-	});
 
 	const {t} = useLanguage();
 	const editor = useEditor({
@@ -101,55 +44,76 @@ export function EventDescription(): JSX.Element {
 			Heading.configure({levels: [1, 2, 3]}),
 			Placeholder.configure({placeholder: t('description')}),
 			History,
-			CustomCharacterCount.configure({limit: EMBEDDABLE_DESCRIPTION}),
-			Markdown,
+			DiscordMarkdown,
+			DiscordMarkdownCharacterCount.configure({limit: EMBEDDABLE_DESCRIPTION}),
 		],
 		content: form.values.description,
 		onUpdate: ({editor}) => {
 			form.setFieldValue('description', editor.getHTML());
+			form.setFieldError('description', maxLengthField(editor.storage.markdown.markdown(), EMBEDDABLE_DESCRIPTION));
 		},
 	});
 
+	const {mutate} = useEventTextChange('description', form.values.description, () => form.resetDirty());
+
 	return (
 		<>
-			<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
-				<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.Bold/>
-						<RichTextEditor.Italic/>
-						<RichTextEditor.Underline/>
-						<RichTextEditor.Strikethrough/>
-					</RichTextEditor.ControlsGroup>
-					<RichTextEditor.ControlsGroup>
-						<RichTextEditor.H1/>
-						<RichTextEditor.H2/>
-						<RichTextEditor.H3/>
-					</RichTextEditor.ControlsGroup>
-					<RichTextEditor.ControlsGroup ml={'auto'}>
-						<RichTextEditor.Undo/>
-						<RichTextEditor.Redo/>
-					</RichTextEditor.ControlsGroup>
-				</RichTextEditor.Toolbar>
-				{editor && <BubbleMenu editor={editor}>
-                    <RichTextEditor.ControlsGroup>
-                        <RichTextEditor.Bold/>
-                        <RichTextEditor.Italic/>
-                        <RichTextEditor.Underline/>
-                        <RichTextEditor.Strikethrough/>
-                    </RichTextEditor.ControlsGroup>
-                </BubbleMenu>}
-				{editor && (
-					<FloatingMenu editor={editor}>
+			<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
+				<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
+					<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
+						<RichTextEditor.ControlsGroup>
+							<RichTextEditor.Bold/>
+							<RichTextEditor.Italic/>
+							<RichTextEditor.Underline/>
+							<RichTextEditor.Strikethrough/>
+						</RichTextEditor.ControlsGroup>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
 						</RichTextEditor.ControlsGroup>
-					</FloatingMenu>
-				)}
-				<RichTextEditor.Content/>
-			</RichTextEditor>
-			<CounterBadge currentValue={editor?.storage.characterCount.characters()} maxValue={EMBEDDABLE_DESCRIPTION}/>
+						<RichTextEditor.ControlsGroup ml={'auto'}>
+							<RichTextEditor.Undo/>
+							<RichTextEditor.Redo/>
+						</RichTextEditor.ControlsGroup>
+					</RichTextEditor.Toolbar>
+					{editor && <BubbleMenu editor={editor}>
+                        <RichTextEditor.ControlsGroup>
+                            <RichTextEditor.Bold/>
+                            <RichTextEditor.Italic/>
+                            <RichTextEditor.Underline/>
+                            <RichTextEditor.Strikethrough/>
+                        </RichTextEditor.ControlsGroup>
+                    </BubbleMenu>}
+					{editor && (
+						<FloatingMenu editor={editor}>
+							<RichTextEditor.ControlsGroup>
+								<RichTextEditor.H1/>
+								<RichTextEditor.H2/>
+								<RichTextEditor.H3/>
+							</RichTextEditor.ControlsGroup>
+						</FloatingMenu>
+					)}
+					<RichTextEditor.Content/>
+				</RichTextEditor>
+			</Input.Wrapper>
+
+			<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
+				{editor?.isFocused &&
+                    <CounterBadge currentValue={editor?.storage.characterCount.characters()}
+                                  maxValue={EMBEDDABLE_DESCRIPTION}/>
+				}
+				{useEditMode() &&
+                    <Box ml={'auto'}>
+                        <ScrollAffix show={form.isDirty('description')}>
+                            <PulsatingButton onClick={() => mutate()}
+                                             disabled={!form.isDirty('description') || !!form.errors.description}>
+                                <T k={'action.save'}/>
+                            </PulsatingButton>
+                        </ScrollAffix>
+                    </Box>
+				}
+			</Group>
 		</>
 	);
 }

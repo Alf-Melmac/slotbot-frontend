@@ -8,7 +8,7 @@ import {
 	urlField,
 	validate,
 } from '../../../utils/formHelper';
-import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT} from '../../../utils/maxLength';
+import {EMBED, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT} from '../../../utils/maxLength';
 import {EventActionFormType} from '../../../contexts/event/action/EventActionFormContext';
 import dayjs from 'dayjs';
 import {T} from '../../../components/T';
@@ -23,7 +23,6 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
 			'eventType.color': colorField(values.eventType.color),
-			description: maxLengthField(values.description, EMBEDDABLE_DESCRIPTION),
 			missionType: maxLengthField(values.missionType, TEXT),
 			missionLength: maxLengthField(values.missionLength, TEXT),
 			pictureUrl: urlField(values.pictureUrl),
