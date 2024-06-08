@@ -3,7 +3,7 @@ import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
 import {BubbleMenu, FloatingMenu, useEditor} from '@tiptap/react';
 import {Placeholder} from '@tiptap/extension-placeholder';
-import {JSX} from 'react';
+import {JSX, useEffect, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {Heading} from '@tiptap/extension-heading';
 import {Paragraph} from '@tiptap/extension-paragraph';
@@ -25,10 +25,11 @@ import {T} from '../../../../components/T';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
-import {maxLengthField} from '../../../../utils/formHelper';
+import {validate} from '../../../../utils/formHelper';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
+	const [isUpdateFromEditor, setIsUpdateFromEditor] = useState(false);
 
 	const {t} = useLanguage();
 	const editor = useEditor({
@@ -49,10 +50,19 @@ export function EventDescription(): JSX.Element {
 		],
 		content: form.values.description,
 		onUpdate: ({editor}) => {
+			setIsUpdateFromEditor(true);
 			form.setFieldValue('description', editor.getHTML());
-			form.setFieldError('description', maxLengthField(editor.storage.markdown.markdown(), EMBEDDABLE_DESCRIPTION));
+			form.setFieldError('description', validate(editor.storage.characterCount.characters() > EMBEDDABLE_DESCRIPTION,
+				<T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>));
 		},
 	});
+
+	useEffect(() => {
+		if (!isUpdateFromEditor) {
+			form.values.description && editor?.commands.setContent(form.values.description);
+		}
+		setIsUpdateFromEditor(false); // reset flag after checking
+	}, [form.values.description]);
 
 	const {mutate} = useEventTextChange('description', form.values.description, () => form.resetDirty());
 

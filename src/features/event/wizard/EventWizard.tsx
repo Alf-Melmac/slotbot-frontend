@@ -53,7 +53,7 @@ export function EventWizard(): JSX.Element {
 		},
 		validate: (values) => eventActionValidate(values, active),
 		//Works only on first page as no state can be used inside on change validation (https://discord.com/channels/854810300876062770/1026255061241839627)
-		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'description', 'missionType', 'missionLength', 'pictureUrl'],
+		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'missionType', 'missionLength', 'pictureUrl'],
 		validateInputOnBlur: true,
 	});
 

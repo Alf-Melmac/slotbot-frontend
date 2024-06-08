@@ -6,7 +6,7 @@ import {CharacterCount} from '@tiptap/extension-character-count';
 export const DiscordMarkdownCharacterCount = CharacterCount.extend({
 	onBeforeCreate() {
 		this.storage.characters = () => {
-			return this.editor.storage.markdown.markdown().length;
+			return this.editor.storage.markdown.markdown().trim().length;
 		};
 	},
 });
