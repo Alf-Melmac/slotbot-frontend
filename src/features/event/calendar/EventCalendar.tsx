@@ -1,5 +1,5 @@
 import FullCalendar from '@fullcalendar/react';
-import {EventContentArg} from '@fullcalendar/core';
+import {DayCellContentArg, EventContentArg} from '@fullcalendar/core';
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {Box, ColorSwatch, Flex, Text, Tooltip} from '@mantine/core';
@@ -33,7 +33,8 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			<AnchorLink to={`/events/${event.id}`} className={classes.eventLink}>
 				<Tooltip label={<EventTooltip eventName={event.title} {...event.extendedProps.shortInformation}/>}>
 					<Flex className={classes.eventWrapper}>
-						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} size={8} className={classes.eventType} mx={2}/>
+						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} size={8} className={classes.eventType}
+									 mx={2}/>
 						<Text className={classes.eventTitle}>{event.title}</Text>
 						<Text c={'dimmed'} className={classes.eventTime}>{arg.timeText}</Text>
 					</Flex>
@@ -55,9 +56,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 				initialView="dayGridMonth"
 				locale={isGerman() ? de : undefined}
 				viewDidMount={(_arg) => toggleVisible(true)}
-				dayCellContent={(arg) =>
-					arg.isToday ? <Box className={classes.today}>{arg.dayNumberText}</Box> : arg.dayNumberText
-				}
+				dayCellContent={DayCellContent}
 				events={(info, successCallback, failureCallback) => {
 					const start = dayjs(info.start.valueOf()).format();
 					const end = dayjs(info.end.valueOf()).format();
@@ -90,4 +89,9 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			/>
 		</>
 	);
+}
+
+function DayCellContent(props: DayCellContentArg): JSX.Element | string {
+	const {isToday, dayNumberText} = props;
+	return isToday ? <Box className={classes.today}>{dayNumberText}</Box> : dayNumberText;
 }

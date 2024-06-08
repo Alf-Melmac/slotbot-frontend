@@ -50,10 +50,10 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
 				                 multiline tooltipWidth={300} tooltipPosition={'right'}/>
 			</Title>
 
-			{form.values.notificationSettings.map((_item, index) => {
+			{form.values.notificationSettings.map((setting, index) => {
 					const hoursInputProps = form.getInputProps(`notificationSettings.${index}.hoursBeforeEvent`);
 					const minutesInputProps = form.getInputProps(`notificationSettings.${index}.minutesBeforeEvent`);
-					return <Group key={index}>
+					return <Group key={setting.id}>
 						<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('notificationSettings', index)}>
 							<FontAwesomeIcon icon={faTrashCan}/>
 						</ActionIcon>

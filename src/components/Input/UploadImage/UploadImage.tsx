@@ -72,7 +72,7 @@ export function UploadImage(props: Readonly<UploadImageProps>): JSX.Element {
 			}));
 		setError(fileRejectionMessages
 			.filter((message, index) => fileRejectionMessages.indexOf(message) === index)
-			.reduce((prev, curr) => `${prev} ${curr}`));
+			.reduce((prev, curr) => `${prev} ${curr}`, ''));
 	}
 
 	return (
