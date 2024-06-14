@@ -46,7 +46,7 @@
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "mantine-flagpack": "^4.0.1",
-    "mantine-react-table": "^2.0.0-beta.4",
+    "mantine-react-table": "^2.0.0-beta.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1"
