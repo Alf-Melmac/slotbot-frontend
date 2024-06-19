@@ -185,6 +185,7 @@
   "theme.toggle.light": "Light on",
   "time.diff.past.day.plural": "{0} days ago",
   "time.diff.past.day.singular": "{0} day ago",
+  "today": "Today",
   "unsavedChanges": "Unsaved changes",
   "user.name": "Name",
   "user.role": "Role",

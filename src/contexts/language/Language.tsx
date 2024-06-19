@@ -7,6 +7,7 @@ import {TranslationFunction, TranslationOptions} from './TranslationTypes';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 export type TextKey = string;
 
@@ -43,6 +44,7 @@ function currentDayJsLocale(): string {
 	dayjs.extend(localizedFormat);
 	dayjs.extend(utc);
 	dayjs.extend(customParseFormat);
+	dayjs.extend(isSameOrBefore)
 	switch (currentLanguageTag()) {
 		case DE:
 			return dayjs.locale(de);

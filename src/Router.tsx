@@ -1,4 +1,4 @@
-import {Navigate, RouteObject} from 'react-router-dom';
+import {RouteObject} from 'react-router-dom';
 import {eventRoutes} from './features/event/EventRoutes';
 import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
@@ -8,6 +8,7 @@ import {guildRoutes} from './features/guilds/GuildRoutes';
 import {GuildsPage} from './features/guilds/GuildsPage';
 import {StandardPage} from './features/StandardPage';
 import {SessionExpired} from './features/error/SessionExpired';
+import {Home} from './features/home/Home';
 
 export const routes: RouteObject[] = [
 	{
@@ -48,7 +49,11 @@ export const routes: RouteObject[] = [
 	},
 	{
 		path: '/',
-		element: <Navigate to={'/events'} replace/>
+		element: <StandardPage/>,
+		children: [{
+			path: '/',
+			element: <Home/>,
+		}],
 	},
 	{
 		path: '*',

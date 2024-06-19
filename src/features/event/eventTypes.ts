@@ -114,6 +114,22 @@ export interface EventEditDto extends EventUpdateDto {
 
 //endregion event edit
 
+//region calendar
+export interface CalendarEventDto extends AbstractIdEntityDto {
+	title: string;
+	start: Date;
+	color: string;
+	shortInformation: ShortEventInformationDto;
+}
+
+interface ShortEventInformationDto {
+	emptySlotsCount: number;
+	slotCount: number;
+	emptyReserveSlotsCount: number;
+	missionLength: string;
+}
+//endregion calendar
+
 export interface IdEntity {
 	id: number;
 }
