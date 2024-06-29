@@ -10,7 +10,7 @@ import {MantineProvider, Skeleton} from '@mantine/core';
 import {JSX, Suspense} from 'react';
 import {routes} from './Router';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {getThemeOverride} from './contexts/theme/Theme';
+import {useGetThemeOverride} from './contexts/theme/Theme';
 import {Notifications} from '@mantine/notifications';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './contexts/authentication/AuthProvider';
@@ -27,6 +27,18 @@ export function App(): JSX.Element {
 		},
 	});
 
+	return (
+		<Suspense fallback={<Skeleton/>}>
+			<QueryClientProvider client={queryClient}>
+				<LanguageProvider>
+					<MantineApp/>
+				</LanguageProvider>
+			</QueryClientProvider>
+		</Suspense>
+	);
+}
+
+function MantineApp(): JSX.Element { /*To be able to use translations in the theme this needs to be its own component*/
 	const router = createBrowserRouter(routes, {
 		future: {
 			v7_fetcherPersist: true,
@@ -37,20 +49,14 @@ export function App(): JSX.Element {
 	});
 
 	return (
-		<Suspense fallback={<Skeleton/>}>
-			<QueryClientProvider client={queryClient}>
-				<LanguageProvider>
-					<MantineProvider theme={getThemeOverride()} defaultColorScheme={'dark'}>
-						<ThemeLoader/>
-						<Notifications/>
-						<DatesProvider settings={{locale: currentLanguageTag()}}>
-							<AuthProvider>
-								<RouterProvider router={router} future={{v7_startTransition: true}}/>
-							</AuthProvider>
-						</DatesProvider>
-					</MantineProvider>
-				</LanguageProvider>
-			</QueryClientProvider>
-		</Suspense>
+		<MantineProvider theme={useGetThemeOverride()} defaultColorScheme={'dark'}>
+			<ThemeLoader/>
+			<Notifications/>
+			<DatesProvider settings={{locale: currentLanguageTag()}}>
+				<AuthProvider>
+					<RouterProvider router={router} future={{v7_startTransition: true}}/>
+				</AuthProvider>
+			</DatesProvider>
+		</MantineProvider>
 	);
 }

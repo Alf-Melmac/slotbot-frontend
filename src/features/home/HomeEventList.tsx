@@ -1,4 +1,4 @@
-import {JSX} from 'react';
+import {Fragment, JSX} from 'react';
 import dayjs from 'dayjs';
 import {Card, Flex, Group, Paper, Text} from '@mantine/core';
 import classes from './HomeEventList.module.css';
@@ -35,7 +35,7 @@ export function HomeEventList(): JSX.Element {
 			todayShown = showToday;
 		}
 
-		return <>
+		return <Fragment key={event.id}>
 			{isFirstEventOfMonth &&
                 <Text className={classes.month}>{eventDate.format('MMMM')}</Text>
 			}
@@ -46,7 +46,7 @@ export function HomeEventList(): JSX.Element {
                     <hr className={cx(classes.todayRuler, classes.todayRulerRight)}/>
                 </Flex>
 			}
-			<AnchorLink to={`/events/${event.id}`} key={event.id}>
+			<AnchorLink to={`/events/${event.id}`}>
 				<Group wrap={'nowrap'} className={classes.item}>
 					<Paper className={classes.date}>
 						<Text size={'xs'}>{eventDate.format('dd')}</Text>
@@ -59,7 +59,7 @@ export function HomeEventList(): JSX.Element {
 					</Text>
 				</Group>
 			</AnchorLink>
-		</>;
+		</Fragment>;
 	});
 
 	return <Card px={0} py={4} className={classes.links}>

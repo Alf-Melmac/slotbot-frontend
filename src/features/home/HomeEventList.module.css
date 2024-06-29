@@ -36,7 +36,7 @@
 .link {
 	color: var(--mantine-color-text);
 	line-height: var(--link-height);
-	font-size: var(--mantine-font-size-sm);
+	font-size: var(--mantine-font-size-md);
 	height: var(--link-height);
 	border-left: rem(2px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
 	padding-left: var(--mantine-spacing-md);
