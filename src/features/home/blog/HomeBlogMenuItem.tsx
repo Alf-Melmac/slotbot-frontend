@@ -1,0 +1,79 @@
+import {JSX} from 'react';
+import {ActionIcon, Menu} from '@mantine/core';
+import cx from 'clsx';
+import classes from './HomeBlogMenuItem.module.css';
+import styleUtils from '../../../utils/styleUtils.module.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEllipsis, faSlash, faThumbTack, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-regular-svg-icons';
+import {T} from '../../../components/T';
+import {BlogPostDto} from '../homeTypes';
+import slotbotServerClient, {voidFunction} from '../../../hooks/slotbotServerClient';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
+
+type HomeBlogMenuItemProps = {
+	post: BlogPostDto;
+	show: boolean
+};
+
+export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.Element {
+	const {post, show} = props;
+
+	const queryClient = useQueryClient();
+	const putBlogPostPin = () => slotbotServerClient.put(`/blog/${post.id}/pin`).then(voidFunction);
+	const {mutate: pinBlogPost} = useMutation<void, AxiosError>({
+		mutationFn: putBlogPostPin,
+		onSuccess: () => {
+			//Invalidate everything as we don't know if there was another one unpinned
+			queryClient.invalidateQueries({queryKey: ['blogPosts']});
+		}
+	});
+	const putBlogPostUnpin = () => slotbotServerClient.put(`/blog/${post.id}/unpin`).then(voidFunction);
+	const {mutate: unpinBlogPost} = useMutation<void, AxiosError>({
+		mutationFn: putBlogPostUnpin,
+		onSuccess: () => {
+			//Invalidate everything as we don't know where to put the unpinned post
+			queryClient.invalidateQueries({queryKey: ['blogPosts']});
+		}
+	});
+	const deleteBlogPost = () => slotbotServerClient.delete(`/blog/${post.id}`).then(voidFunction);
+	const {mutate: deleteBlogPostMutation} = useMutation<void, AxiosError>({
+		mutationFn: deleteBlogPost,
+		onSuccess: () => {
+			queryClient.setQueryData(['blogPosts'], (data: BlogPostDto[]) => data.filter((p) => p.id !== post.id));
+		}
+	});
+
+	return <Menu withinPortal={false}>
+		<Menu.Target>
+			<ActionIcon variant={'light'} className={cx(classes.actionGroup, show && styleUtils.visuallyHidden)}>
+				<FontAwesomeIcon icon={faEllipsis}/>
+			</ActionIcon>
+		</Menu.Target>
+
+		<Menu.Dropdown>
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>} disabled>
+				<T k={'breadcrumb.edit'}/>
+			</Menu.Item>
+			{post.pinned ?
+				<Menu.Item leftSection={<span className={'fa-layers fa-fw'}>
+								<FontAwesomeIcon icon={faThumbTack}/>
+								<FontAwesomeIcon icon={faSlash}/>
+							</span>}
+						   onClick={() => unpinBlogPost()}>
+					<T k={'home.blog.unpin'}/>
+				</Menu.Item>
+				:
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTack} className={'fa-fw'}/>}
+						   onClick={() => pinBlogPost()}>
+					<T k={'home.blog.pin'}/>
+				</Menu.Item>
+			}
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faTrashCan} className={'fa-fw'}/>}
+					   onClick={() => deleteBlogPostMutation()}>
+				<T k={'action.delete'}/>
+			</Menu.Item>
+		</Menu.Dropdown>
+	</Menu>;
+}
