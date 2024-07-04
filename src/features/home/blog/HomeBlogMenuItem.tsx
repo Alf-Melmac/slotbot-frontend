@@ -1,7 +1,7 @@
-import {JSX} from 'react';
+import {Dispatch, JSX, SetStateAction} from 'react';
 import {ActionIcon, Menu} from '@mantine/core';
 import cx from 'clsx';
-import classes from './HomeBlogMenuItem.module.css';
+import classes from './HomeBlogItem.module.css';
 import styleUtils from '../../../utils/styleUtils.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEllipsis, faSlash, faThumbTack, faTrashCan} from '@fortawesome/free-solid-svg-icons';
@@ -14,11 +14,12 @@ import {AxiosError} from 'axios';
 
 type HomeBlogMenuItemProps = {
 	post: BlogPostDto;
-	show: boolean
+	show: boolean;
+	setEditMode: Dispatch<SetStateAction<boolean>>;
 };
 
 export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.Element {
-	const {post, show} = props;
+	const {post, show, setEditMode} = props;
 
 	const queryClient = useQueryClient();
 	const putBlogPostPin = () => slotbotServerClient.put(`/blog/${post.id}/pin`).then(voidFunction);
@@ -53,8 +54,8 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		</Menu.Target>
 
 		<Menu.Dropdown>
-			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>} disabled>
-				<T k={'breadcrumb.edit'}/>
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>} onClick={() => setEditMode(true)}>
+				<T k={'action.edit'}/>
 			</Menu.Item>
 			{post.pinned ?
 				<Menu.Item leftSection={<span className={'fa-layers fa-fw'}>

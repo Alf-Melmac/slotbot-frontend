@@ -32,7 +32,7 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 			href: `/events/${eventId}`,
 		},
 		{
-			title: 'breadcrumb.edit',
+			title: 'action.edit',
 		}];
 
 	const form = useEventEditForm({

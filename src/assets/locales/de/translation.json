@@ -1,7 +1,9 @@
 {
+  "action.cancel": "Abbrechen",
   "action.clickToCopy": "Klicken zum Kopieren",
   "action.delete": "Löschen",
   "action.duplicate": "Duplizieren",
+  "action.edit": "Bearbeiten",
   "action.hide": "Ausblenden",
   "action.next": "Weiter",
   "action.previous": "Vorherige",
@@ -12,7 +14,6 @@
   "admin.utils.rebuildCalendars": "Rebuild global ICS calendars",
   "admin.utils.rebuildEventNotifications": "Rebuild event notifications",
   "breadcrumb.calendar": "Event-Kalender",
-  "breadcrumb.edit": "Bearbeiten",
   "breadcrumb.event.new": "Neues Event",
   "breadcrumb.guilds": "Communities",
   "calendarEvent.tooltip.emptyReserveSlots": "{0} Reservistenplätze frei",

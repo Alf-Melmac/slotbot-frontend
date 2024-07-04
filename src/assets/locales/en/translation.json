@@ -1,7 +1,9 @@
 {
+  "action.cancel": "Cancel",
   "action.clickToCopy": "Click to Copy",
   "action.delete": "Delete",
   "action.duplicate": "Duplicate",
+  "action.edit": "Edit",
   "action.hide": "Hide",
   "action.next": "Next",
   "action.previous": "Previous",
@@ -12,7 +14,6 @@
   "admin.utils.rebuildCalendars": "Rebuild global ICS calendars",
   "admin.utils.rebuildEventNotifications": "Rebuild event notifications",
   "breadcrumb.calendar": "Event calendar",
-  "breadcrumb.edit": "Edit",
   "breadcrumb.event.new": "New Event",
   "breadcrumb.guilds": "Communities",
   "calendarEvent.tooltip.emptyReserveSlots": "{0} Reserve slots open",
