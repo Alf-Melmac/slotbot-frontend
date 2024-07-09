@@ -15,19 +15,9 @@ export function AddBlogPost(props: Readonly<AddBlogPostProps>): JSX.Element {
 		.then((res) => res.data);
 	const {mutate, isPending} = useMutation<BlogPostDto, AxiosError, string>({
 		mutationFn: postBlogPost,
-		onSuccess: (data) => {
-			queryClient.setQueryData(['blogPosts'], (posts: BlogPostDto[]) => {
-				const firstNotPinned = posts.findIndex(post => !post.pinned);
-
-				if (firstNotPinned === -1) {
-					return [data, ...posts];
-				}
-
-				const before = posts.slice(0, firstNotPinned);
-				const after = posts.slice(firstNotPinned);
-
-				return [...before, data, ...after];
-			});
+		onSuccess: () => {
+			//For the moment just invalidate everything. Optimistic updates are a bit more complicated
+			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 			props.onSuccess();
 		},
 	});

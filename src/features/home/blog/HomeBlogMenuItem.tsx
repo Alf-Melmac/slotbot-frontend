@@ -42,7 +42,8 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 	const {mutate: deleteBlogPostMutation} = useMutation<void, AxiosError>({
 		mutationFn: deleteBlogPost,
 		onSuccess: () => {
-			queryClient.setQueryData(['blogPosts'], (data: BlogPostDto[]) => data.filter((p) => p.id !== post.id));
+			//For the moment just invalidate everything. Optimistic updates are a bit more complicated
+			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 		}
 	});
 

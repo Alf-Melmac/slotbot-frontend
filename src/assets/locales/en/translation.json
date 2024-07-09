@@ -128,6 +128,7 @@
   "guilds": "Communities",
   "guilds.search": "Search Communities",
   "home.blog.add": "Add entry",
+  "home.blog.empty": "No post has landed here yet.",
   "home.blog.pin": "Pin",
   "home.blog.pinned": "Pinned post",
   "home.blog.placeholder": "What's new?",

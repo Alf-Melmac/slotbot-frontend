@@ -1,4 +1,4 @@
-import {JSX, useState} from 'react';
+import {JSX, Ref, useState} from 'react';
 import {Card, Group, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {BlogPostDto} from '../homeTypes';
@@ -10,20 +10,22 @@ import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import classes from './HomeBlogItem.module.css';
 import {BlogPostInput} from './BlogPostInput';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {InfiniteData, useMutation, useQueryClient} from '@tanstack/react-query';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {AxiosError} from 'axios';
+import {FrontendPageable} from '../../../utils/pagination';
 
 type HomeBlogItemProps = {
 	post: BlogPostDto;
+	inViewportRef?: Ref<HTMLDivElement>;
 };
 
 export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
-	const {post} = props;
+	const {post, inViewportRef} = props;
 
 	const {hovered, ref: hoverRef} = useHover();
 	const {focused, ref: focusRef} = useFocusWithin();
-	const mergedRef = useMergedRef(hoverRef, focusRef);
+	const mergedRef = useMergedRef(hoverRef, focusRef, inViewportRef);
 
 	const isAdmin = useCheckAccess(ApplicationRoles.ROLE_ADMIN);
 
@@ -34,11 +36,27 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
 	const {mutate, isPending} = useMutation<BlogPostDto, AxiosError, string>({
 		mutationFn: updateBlogPost,
 		onSuccess: (data) => {
-			queryClient.setQueryData(['blogPosts'], (posts: BlogPostDto[]) => {
-				const index = posts.findIndex((p) => p.id === data.id);
-				const newPosts = [...posts];
-				newPosts[index] = data;
-				return newPosts;
+			queryClient.setQueryData<InfiniteData<FrontendPageable<BlogPostDto>>>(['blogPosts'], (oldData) => {
+				if (!oldData) {
+					return oldData;
+				}
+
+				const newPages = [...oldData.pages];
+				for (let i = 0; i < newPages.length; i++) {
+					const page = newPages[i];
+					const index = page.content.findIndex((post) => post.id === data.id);
+					if (index !== -1) {
+						newPages[i] = {
+							...page,
+							content: page.content.map((item, itemIndex) => itemIndex === index ? data : item),
+						};
+						break;
+					}
+				}
+				return {
+					...oldData,
+					pages: newPages,
+				};
 			});
 			setEditMode(false);
 		},
