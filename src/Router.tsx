@@ -1,4 +1,4 @@
-import {RouteObject} from 'react-router-dom';
+import {Navigate, RouteObject} from 'react-router-dom';
 import {eventRoutes} from './features/event/EventRoutes';
 import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
@@ -9,6 +9,7 @@ import {GuildsPage} from './features/guilds/GuildsPage';
 import {StandardPage} from './features/StandardPage';
 import {SessionExpired} from './features/error/SessionExpired';
 import {Home} from './features/home/Home';
+import {RequireFeatureFlag} from './features/RequireFeatureFlag';
 
 export const routes: RouteObject[] = [
 	{
@@ -52,7 +53,9 @@ export const routes: RouteObject[] = [
 		element: <StandardPage/>,
 		children: [{
 			path: '/',
-			element: <Home/>,
+			element: <RequireFeatureFlag feature={'BLOG'} notEnabled={<Navigate to={'/events'} replace/>}>
+				<Home/>
+			</RequireFeatureFlag>,
 		}],
 	},
 	{
