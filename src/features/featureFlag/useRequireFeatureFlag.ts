@@ -22,5 +22,5 @@ export function useRequireFeatureFlag<T>(feature: MaybeFeatureFlag, enabled: T, 
  */
 export function useRequireFeatureFlagSave<T>(feature: MaybeFeatureFlag, enabled: T, notEnabled: T): T {
 	const featureQuery = useRequireFeatureFlag(feature, enabled, notEnabled);
-	return featureQuery === undefined ? notEnabled : featureQuery;
+	return featureQuery ?? notEnabled;
 }

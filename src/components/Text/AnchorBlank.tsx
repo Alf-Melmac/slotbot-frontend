@@ -4,7 +4,7 @@ import {JSX, ReactNode} from 'react';
 type AnchorBlankProps = {
 	href: string;
 	children: ReactNode;
-} & Pick<PolymorphicComponentProps<'a', AnchorProps>, 'href' | 'className'>;
+} & Pick<PolymorphicComponentProps<'a', AnchorProps>, 'href' | 'className' | 'size'>;
 
 export function AnchorBlank(props: Readonly<AnchorBlankProps>): JSX.Element {
 	const {href, children, ...anchorProps} = props;

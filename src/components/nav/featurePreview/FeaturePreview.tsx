@@ -7,8 +7,9 @@ import classes from './FeaturePreview.module.css';
 import {FeatureFlag, MaybeFeatureFlag, useGetFeatureFlags} from '../../../features/featureFlag/useGetFeatureFlags';
 import blogPreview from './Blog-Loading.png';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {UseMutateFunction, useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
+import {AnchorBlank} from '../../Text/AnchorBlank';
 
 type FeaturePreviewProps = Pick<ModalProps, 'opened' | 'onClose'>;
 
@@ -27,7 +28,7 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
 				}
 				return flags.filter((flag) => flag !== variables);
 			});
-		}
+		},
 	});
 
 	if (featureQuery.isLoading) {
@@ -37,12 +38,6 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
 	function leftSide(feature: MaybeFeatureFlag): JSX.Element {
 		return featureQuery.data?.includes(feature) ? <FontAwesomeIcon icon={faCircleCheck} color={'green'}/> :
 			<FontAwesomeIcon icon={faCircleXmark}/>;
-	}
-
-	function Toggle({feature}: { feature: MaybeFeatureFlag }): JSX.Element {
-		return <Button size={'xs'} variant={'default'} loading={isPending} onClick={() => mutate(feature)}>
-			{featureQuery.data?.includes(feature) ? 'Disable' : 'Enable'}
-		</Button>;
 	}
 
 	return <Modal opened={props.opened} onClose={props.onClose} title={<T k={'userMenu.featurePreview'}/>}
@@ -58,16 +53,31 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
                     <Stack p={'md'}>
                         <Group justify={'space-between'}>
                             <Title order={3}>Guild Home Page</Title>
-                            <Toggle feature={FeatureFlag.BLOG}/>
+                            <FeatureToggle feature={FeatureFlag.BLOG} featureFlags={featureQuery.data}
+										   mutate={mutate} isPending={isPending}/>
                         </Group>
                         <Image src={blogPreview}/>
                         <Text>
                             Adds a home page for your guild instead of the default calendar view. This page contains
                             messages from the community admins and the upcoming events.
                         </Text>
+                        <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
                     </Stack>
                 </Tabs.Panel>
             </Tabs>
 		}
 	</Modal>;
+}
+
+type FeatureToggleProps = {
+	feature: MaybeFeatureFlag;
+	featureFlags: MaybeFeatureFlag[];
+	mutate: UseMutateFunction<boolean, AxiosError, string>;
+	isPending: boolean;
+};
+
+function FeatureToggle({feature, featureFlags, mutate, isPending}: Readonly<FeatureToggleProps>): JSX.Element {
+	return <Button size={'xs'} variant={'default'} loading={isPending} onClick={() => mutate(feature)}>
+		{featureFlags.includes(feature) ? 'Disable' : 'Enable'}
+	</Button>;
 }
