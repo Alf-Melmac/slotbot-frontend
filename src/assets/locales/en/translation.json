@@ -226,6 +226,7 @@
   "user.role.member": "Member",
   "user.role.member.description": "Allows to register on reserved slots.",
   "userMenu.admin.utils": "Utils",
+  "userMenu.featurePreview": "Feature Preview",
   "userMenu.label.admin": "Administration",
   "userMenu.logout": "Logout",
   "userMenu.myProfile": "My profil",

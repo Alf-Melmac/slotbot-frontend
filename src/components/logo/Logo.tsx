@@ -8,6 +8,8 @@ import defaultLogo from './slotbot-256-256.png';
 import {getGuild, Guild} from '../../contexts/theme/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
+import {useRequireFeatureFlagSave} from '../../features/featureFlag/useRequireFeatureFlag';
+import {FeatureFlag} from '../../features/featureFlag/useGetFeatureFlags';
 
 type LogoProps = {
 	small?: boolean;
@@ -17,7 +19,7 @@ export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
 	const {title, logo, logoWithName = false} = useGetInfo();
 	return (
-		<UnstyledAnchorLink to={'/events'}>
+		<UnstyledAnchorLink to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', '/events')}>
 			<Group gap={'xs'} wrap={'nowrap'}>
 				{!small &&
                     <Image visibleFrom={'xs'} w={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>

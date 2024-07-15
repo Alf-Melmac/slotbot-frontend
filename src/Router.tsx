@@ -9,7 +9,8 @@ import {GuildsPage} from './features/guilds/GuildsPage';
 import {StandardPage} from './features/StandardPage';
 import {SessionExpired} from './features/error/SessionExpired';
 import {Home} from './features/home/Home';
-import {RequireFeatureFlag} from './features/RequireFeatureFlag';
+import {RequireFeatureFlag} from './features/featureFlag/RequireFeatureFlag';
+import {FeatureFlag} from './features/featureFlag/useGetFeatureFlags';
 
 export const routes: RouteObject[] = [
 	{
@@ -53,7 +54,7 @@ export const routes: RouteObject[] = [
 		element: <StandardPage/>,
 		children: [{
 			path: '/',
-			element: <RequireFeatureFlag feature={'BLOG'} notEnabled={<Navigate to={'/events'} replace/>}>
+			element: <RequireFeatureFlag feature={FeatureFlag.BLOG} notEnabled={<Navigate to={'/events'} replace/>}>
 				<Home/>
 			</RequireFeatureFlag>,
 		}],
