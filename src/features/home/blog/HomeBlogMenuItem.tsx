@@ -4,7 +4,7 @@ import cx from 'clsx';
 import classes from './HomeBlogItem.module.css';
 import styleUtils from '../../../utils/styleUtils.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEllipsis, faSlash, faThumbTack, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {faEllipsis, faThumbTack, faThumbTackSlash, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {faEdit} from '@fortawesome/free-regular-svg-icons';
 import {T} from '../../../components/T';
 import {BlogPostDto} from '../homeTypes';
@@ -28,7 +28,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		onSuccess: () => {
 			//Invalidate everything as we don't know if there was another one unpinned
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
-		}
+		},
 	});
 	const putBlogPostUnpin = () => slotbotServerClient.put(`/blog/${post.id}/unpin`).then(voidFunction);
 	const {mutate: unpinBlogPost} = useMutation<void, AxiosError>({
@@ -36,7 +36,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		onSuccess: () => {
 			//Invalidate everything as we don't know where to put the unpinned post
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
-		}
+		},
 	});
 	const deleteBlogPost = () => slotbotServerClient.delete(`/blog/${post.id}`).then(voidFunction);
 	const {mutate: deleteBlogPostMutation} = useMutation<void, AxiosError>({
@@ -44,7 +44,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		onSuccess: () => {
 			//For the moment just invalidate everything. Optimistic updates are a bit more complicated
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
-		}
+		},
 	});
 
 	return <Menu withinPortal={false}>
@@ -55,14 +55,12 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		</Menu.Target>
 
 		<Menu.Dropdown>
-			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>} onClick={() => setEditMode(true)}>
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>}
+					   onClick={() => setEditMode(true)}>
 				<T k={'action.edit'}/>
 			</Menu.Item>
 			{post.pinned ?
-				<Menu.Item leftSection={<span className={'fa-layers fa-fw'}>
-								<FontAwesomeIcon icon={faThumbTack}/>
-								<FontAwesomeIcon icon={faSlash}/>
-							</span>}
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTackSlash} className={'fa-fw'}/>}
 						   onClick={() => unpinBlogPost()}>
 					<T k={'home.blog.unpin'}/>
 				</Menu.Item>
