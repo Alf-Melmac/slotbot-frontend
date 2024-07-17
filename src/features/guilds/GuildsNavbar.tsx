@@ -23,12 +23,14 @@ export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 
 	useEffect(() => {
 		if (!guildsQuery.isSuccess) return;
-		const actions: SpotlightActionData[] = guildsQuery.data.map(guild => ({
-			id: guild.id,
-			label: guild.groupIdentifier,
-			leftSection: <Avatar src={guild.emojiUrl}/>,
-			onClick: () => navigate(`/guilds/${guild.id}`),
-		}) satisfies SpotlightActionData) || [];
+		const actions = guildsQuery.data.map(guild => {
+			return {
+				id: guild.id,
+				label: guild.groupIdentifier,
+				leftSection: <Avatar src={guild.emojiUrl}/>,
+				onClick: () => navigate(`/guilds/${guild.id}`),
+			} satisfies SpotlightActionData;
+		});
 
 		props.setActions(actions);
 	}, [guildsQuery.data]);
