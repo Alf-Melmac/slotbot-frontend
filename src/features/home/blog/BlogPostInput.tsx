@@ -20,12 +20,16 @@ import {Link, RichTextEditor} from '@mantine/tiptap';
 import {TextAlign} from '@tiptap/extension-text-align';
 import {Placeholder} from '@tiptap/extension-placeholder';
 import {History} from '@tiptap/extension-history';
+import UploadImage from 'tiptap-extension-upload-image';
+import 'tiptap-extension-upload-image/dist/upload-image.min.css';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
 import {faAlignLeft, faCaretDown, faHeading} from '@fortawesome/free-solid-svg-icons';
+import {faImage} from '@fortawesome/free-regular-svg-icons';
 import {Button, Group, Menu, Stack} from '@mantine/core';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {T} from '../../../components/T';
 import classes from './HomeBlogItem.module.css';
+import slotbotServerClient from '../../../hooks/slotbotServerClient';
 
 type BlogPostInputProps = {
 	onSave: (htmlContent: string) => void;
@@ -33,6 +37,21 @@ type BlogPostInputProps = {
 	onCancel?: () => void;
 	content?: EditorOptions['content'];
 };
+
+/**
+ * Function that uploads the given file. Returns the URL of the uploaded file on success.
+ */
+function uploadFn(file: File): Promise<string> {
+	const formData = new FormData();
+	formData.append('file', file);
+	return slotbotServerClient.post('/files/uploadImage', formData, {
+		headers: {'Content-Type': 'multipart/form-data'},
+	}).then((fileUrl) => {
+		return fileUrl.data;
+	}).catch((e) => {
+		throw e.response.data.error;
+	});
+}
 
 export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element {
 	const {onSave, isSaving, onCancel, content} = props;
@@ -59,6 +78,7 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 			TextAlign.configure({types: ['heading', 'paragraph']}),
 			Placeholder.configure({placeholder: t('home.blog.placeholder')}),
 			History,
+			UploadImage.configure({uploadFn: uploadFn}),
 		],
 		content: content,
 	});
@@ -96,6 +116,9 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup>
 					<RichTextEditor.Link/>
+					<RichTextEditor.Control onClick={() => editor?.chain().focus().addImage().run()}>
+						<FontAwesomeIcon icon={faImage} size={'xs'}/>
+					</RichTextEditor.Control>
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup ml={'auto'}>
 					<RichTextEditor.Undo/>
@@ -118,7 +141,7 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 
 		<Group className={classes.saveButton} gap={'xs'}>
 			{onCancel &&
-				<Button variant={'default'} onClick={onCancel}><T k={'action.cancel'}/></Button>
+                <Button variant={'default'} onClick={onCancel}><T k={'action.cancel'}/></Button>
 			}
 			{editor &&
                 <Button loading={isSaving} onClick={() => onSave(editor.getHTML())}>

@@ -1,5 +1,5 @@
-import {JSX, Ref, useState} from 'react';
-import {Card, Group, Text} from '@mantine/core';
+import {JSX, Ref, useEffect, useRef, useState} from 'react';
+import {Card, Group, Text, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {BlogPostDto} from '../homeTypes';
 import {faThumbTack} from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +22,21 @@ type HomeBlogItemProps = {
 
 export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
 	const {post, inViewportRef} = props;
+
+	const contentRef = useRef<HTMLParagraphElement>(null);
+	const {spacing} = useMantineTheme();
+	useEffect(() => {
+		if (!contentRef.current) return;
+
+		const htmlElement: HTMLElement | null = contentRef.current.querySelector('p > :is(img)');
+		if (!htmlElement) return;
+		if (htmlElement.previousSibling == null) { //img is the first element
+			htmlElement.style.marginTop = spacing.md;
+		}
+		if (htmlElement.nextSibling == null) { //img is the last element
+			htmlElement.style.marginBottom = spacing.xs; //The text root grows a bit bigger than the content
+		}
+	}, [post.content]);
 
 	const {hovered, ref: hoverRef} = useHover();
 	const {focused, ref: focusRef} = useFocusWithin();
@@ -75,7 +90,7 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
 					{isAdmin &&
                         <HomeBlogMenuItem post={post} show={!hovered && !focused} setEditMode={setEditMode}/>
 					}
-					<Text dangerouslySetInnerHTML={{__html: post.content}}/>
+					<Text dangerouslySetInnerHTML={{__html: post.content}} ref={contentRef}/>
 				</>
 				:
 				<BlogPostInput content={post.content}
