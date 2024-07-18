@@ -10,8 +10,11 @@ import {Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHelicopterSymbol} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../components/T';
+import {useDocumentTitle} from '@mantine/hooks';
 
 export function HomeBlog(): JSX.Element {
+	useDocumentTitle('Slotbot');
+
 	const getBlogPosts: QueryFunction<FrontendPageable<BlogPostDto>, QueryKey, unknown> = ({pageParam}) => slotbotServerClient.get(`/blog?size=5&page=${pageParam}`).then((res) => res.data);
 	const {
 		data,
