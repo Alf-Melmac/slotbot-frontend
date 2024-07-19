@@ -28,7 +28,7 @@ export function EventMisc(): JSX.Element {
 					label: 'event.missionLength',
 					placeholder: 'input.unrestricted',
 					maxLength: TEXT,
-					data: [t('length.twoHours'), t('length.threeHours'), t('length.overFourHours')],
+					data: [t('length.twoHours'), t('length.threeHours'), t('length.fourHours'), t('length.overFourHours')],
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
 			<Grid.Col span={{base: 12, xs: 4}}>
