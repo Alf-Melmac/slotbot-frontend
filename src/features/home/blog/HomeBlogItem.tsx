@@ -14,6 +14,7 @@ import {InfiniteData, useMutation, useQueryClient} from '@tanstack/react-query';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {AxiosError} from 'axios';
 import {FrontendPageable} from '../../../utils/pagination';
+import {convertUtcToLocal} from '../../../utils/dateHelper';
 
 type HomeBlogItemProps = {
 	post: BlogPostDto;
@@ -32,9 +33,6 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
 		if (!htmlElement) return;
 		if (htmlElement.previousSibling == null) { //img is the first element
 			htmlElement.style.marginTop = spacing.md;
-		}
-		if (htmlElement.nextSibling == null) { //img is the last element
-			htmlElement.style.marginBottom = spacing.xs; //The text root grows a bit bigger than the content
 		}
 	}, [post.content]);
 
@@ -78,7 +76,7 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
 	});
 
 	return (
-		<Card withBorder py={0} className={isAdmin ? classes.adminCard : undefined} ref={mergedRef}>
+		<Card withBorder pt={0} className={isAdmin ? classes.adminCard : undefined} ref={mergedRef}>
 			{post.pinned &&
                 <Group pt={'sm'} gap={'xs'} wrap={'nowrap'} c={'dimmed'}>
                     <FontAwesomeIcon icon={faThumbTack} size={'xs'}/>
@@ -91,6 +89,7 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
                         <HomeBlogMenuItem post={post} show={!hovered && !focused} setEditMode={setEditMode}/>
 					}
 					<Text dangerouslySetInnerHTML={{__html: post.content}} ref={contentRef}/>
+					<Text c={'dimmed'} size={'sm'} ta={'end'}>{convertUtcToLocal(post.timestamp).format('L LT')}</Text>
 				</>
 				:
 				<BlogPostInput content={post.content}

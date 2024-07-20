@@ -12,6 +12,7 @@ import {useQuery} from '@tanstack/react-query';
 import {GeneralError} from '../../components/error/GeneralError';
 import {CalendarEventDto} from '../event/eventTypes';
 import {HomeEventListLoading} from './HomeEventListLoading';
+import {convertUtcToLocal} from '../../utils/dateHelper';
 
 export function HomeEventList(): JSX.Element {
 	const getEventsAroundToday = () => slotbotServerClient.get('/events/around-today').then((res) => res.data);
@@ -25,7 +26,7 @@ export function HomeEventList(): JSX.Element {
 	let prevMonth: number;
 	let todayShown: boolean;
 	const items = query.data?.map((event) => {
-		const eventDate = dayjs(event.start);
+		const eventDate = convertUtcToLocal(event.start);
 		const currentMonth = eventDate.month();
 		const isFirstEventOfMonth = prevMonth !== currentMonth;
 		prevMonth = currentMonth;
