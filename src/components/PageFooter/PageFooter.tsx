@@ -1,6 +1,6 @@
 import {ActionIcon, Container, Group, Stack, Text} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faDiscord, faTwitch, faTwitter, faWikipediaW, faYoutube} from '@fortawesome/free-brands-svg-icons';
+import {faDiscord, faTwitch, faWikipediaW, faXTwitter, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
@@ -27,9 +27,9 @@ export function PageFooter(): JSX.Element {
 		case Guild.AMB:
 			icons = [
 				{
-					icon: faTwitter,
-					href: 'https://twitter.com/ArmaMachtBock',
-					iconClass: classes.twitter,
+					icon: faXTwitter,
+					href: 'https://x.com/ArmaMachtBock',
+					iconClass: classes.xTwitter,
 				},
 				{
 					icon: faYoutube,
@@ -52,9 +52,9 @@ export function PageFooter(): JSX.Element {
 		case Guild.DAA:
 			icons = [
 				{
-					icon: faTwitter,
-					href: 'https://twitter.com/ArmaAllianz_DE',
-					iconClass: classes.twitter,
+					icon: faXTwitter,
+					href: 'https://x.com/ArmaAllianz_DE',
+					iconClass: classes.xTwitter,
 				},
 				{
 					icon: faYoutube,
@@ -87,9 +87,9 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.youtube,
 				},
 				{
-					icon: faTwitter,
+					icon: faXTwitter,
 					href: 'https://x.com/TTT_ArmA',
-					iconClass: classes.twitter,
+					iconClass: classes.xTwitter,
 				},
 				{
 					icon: faWikipediaW,
@@ -130,7 +130,7 @@ export function PageFooter(): JSX.Element {
 				<Group gap={'lg'} justify={'right'}>
 					{icons.map((icon) =>
 						<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
-						            className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
+									className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
 							<FontAwesomeIcon icon={icon.icon} size={'lg'}/>
 						</ActionIcon>,
 					)}

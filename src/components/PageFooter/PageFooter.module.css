@@ -18,8 +18,8 @@
 	}
 }
 
-.twitter {
-	--icon-color: #1da1f2;
+.xTwitter {
+	--icon-color: light-dark(#000000, #e7e9ea);
 }
 
 .youtube {
