@@ -2,6 +2,7 @@ import {Fragment, JSX} from 'react';
 import dayjs from 'dayjs';
 import {Card, Flex, Group, Paper, Text} from '@mantine/core';
 import classes from './HomeEventList.module.css';
+import homeClasses from './Home.module.css';
 import cx from 'clsx';
 import {T} from '../../components/T';
 import {AnchorLink} from '../../components/Text/AnchorLink';
@@ -62,7 +63,7 @@ export function HomeEventList(): JSX.Element {
 		</Fragment>;
 	});
 
-	return <Card px={0} py={4} className={classes.links}>
+	return <Card px={0} py={4} className={cx(classes.links, homeClasses.homeChild)}>
 		{items}
 	</Card>;
 }
