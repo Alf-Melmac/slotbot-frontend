@@ -16,6 +16,8 @@ import {EventTooltip} from './EventTooltip';
 import './eventCalendar.css';
 import {getGuild, Guild} from '../../../contexts/theme/Theme';
 import classes from './EventCalendar.module.css';
+import utilsClasses from '../../../utils/styleUtils.module.css';
+import cx from 'clsx';
 
 type EventCalendarProps = {
 	toggleVisible: (isLoading: boolean) => void;
@@ -35,7 +37,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 					<Flex className={classes.eventWrapper}>
 						<ColorSwatch visibleFrom={'xs'} color={backgroundColor} size={8} className={classes.eventType}
 									 mx={2}/>
-						<Text className={classes.eventTitle}>{event.title}</Text>
+						<Text className={cx(classes.eventTitle, utilsClasses.ellipsis)}>{event.title}</Text>
 						<Text c={'dimmed'} className={classes.eventTime}>{arg.timeText}</Text>
 					</Flex>
 				</Tooltip>

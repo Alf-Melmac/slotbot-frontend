@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import {Card, Flex, Group, Paper, Text} from '@mantine/core';
 import classes from './HomeEventList.module.css';
 import homeClasses from './Home.module.css';
+import utilsClasses from '../../utils/styleUtils.module.css';
 import cx from 'clsx';
 import {T} from '../../components/T';
 import {AnchorLink} from '../../components/Text/AnchorLink';
@@ -55,7 +56,7 @@ export function HomeEventList(): JSX.Element {
 						<Bold size={'md'}>{eventDate.date()}</Bold>
 					</Paper>
 					<Text
-						className={cx(classes.link, {[classes.linkActive]: dayjs().isSame(eventDate, 'day')})}
+						className={cx(classes.link, utilsClasses.ellipsis, {[classes.linkActive]: dayjs().isSame(eventDate, 'day')})}
 					>
 						{event.title}
 					</Text>

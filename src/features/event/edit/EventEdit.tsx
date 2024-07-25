@@ -30,6 +30,7 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 			title: event.name,
 			staticTitle: true,
 			href: `/events/${eventId}`,
+			ellipsis: true,
 		},
 		{
 			title: 'action.edit',

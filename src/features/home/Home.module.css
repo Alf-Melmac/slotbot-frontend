@@ -1,6 +1,7 @@
 .homeChild {
 	flex-grow: 1;
 
+	max-width: 100%;
 	@media (min-width: $mantine-breakpoint-sm) {
 		max-width: calc(50% - (var(--mantine-spacing-md) - var(--mantine-spacing-md) / 2));
 	}
