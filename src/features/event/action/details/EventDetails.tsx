@@ -14,7 +14,7 @@ import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
 
-const MAX_DETAILS = 23;
+export const MAX_DETAILS = 23;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();

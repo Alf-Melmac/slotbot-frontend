@@ -7,6 +7,7 @@ import {faCopy} from '@fortawesome/free-regular-svg-icons';
 import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
 import {JSX} from 'react';
 import classes from './GuildEventTypes.module.css';
+import {EventDetailDefault} from './eventDetailDefault/EventDetailDefault';
 
 export function GuildEventTypes(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -20,6 +21,7 @@ export function GuildEventTypes(): JSX.Element {
 					<Table.Th><T k={'color'}/></Table.Th>
 					<Table.Th><T k={'name'}/></Table.Th>
 					<Table.Th/>
+					<Table.Th><T k={'event.details.default'}/></Table.Th>
 				</Table.Tr>
 			</Table.Thead>
 			<Table.Tbody>
@@ -27,6 +29,7 @@ export function GuildEventTypes(): JSX.Element {
 					<>{
 						[...Array(3)].map((_, i) => (
 							<Table.Tr key={i}>
+								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
 								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
 								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
 								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
@@ -52,6 +55,9 @@ export function GuildEventTypes(): JSX.Element {
 							</Table.Td>
 							<Table.Td>
 								{!eventType.guild && <Badge variant={'outline'}>Global</Badge>}
+							</Table.Td>
+							<Table.Td>
+								<EventDetailDefault name={eventType.name}/>
 							</Table.Td>
 						</Table.Tr>
 					))

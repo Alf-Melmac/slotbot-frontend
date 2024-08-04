@@ -6,6 +6,11 @@ import {IdEntity} from '../features/event/eventTypes';
 import {T} from '../components/T';
 import {URL} from './maxLength';
 
+/*
+* HINT: The more advanced version of the validations is in formValidation.tsx. Prefer using that one.
+* Maybe refactor this one to the function approach.
+*/
+
 /**
  * Validates that the field is not empty
  */
