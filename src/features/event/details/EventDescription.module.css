@@ -1,3 +1,7 @@
-.forceWrap {
+.description {
 	overflow-wrap: break-word;
+
+	& li p {
+		margin: 0;
+	}
 }

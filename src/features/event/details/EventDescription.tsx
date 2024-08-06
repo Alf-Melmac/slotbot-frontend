@@ -20,7 +20,7 @@ export function EventDescription(props: EventDescriptionProps): JSX.Element {
 	useEffect(() => {
 		if (!descriptionTextRef.current) return;
 
-		const htmlElement: HTMLElement | null = descriptionTextRef.current.querySelector('p > :is(p, h1, h2, h3, h4, h5, h6)');
+		const htmlElement: HTMLElement | null = descriptionTextRef.current.querySelector('p > :is(p, h1, h2, h3, h4, h5, h6, ul)');
 		if (!htmlElement) return;
 		const previousSibling = htmlElement.previousSibling;
 		if (previousSibling == null) {
@@ -29,5 +29,5 @@ export function EventDescription(props: EventDescriptionProps): JSX.Element {
 	}, [description]);
 
 	return <Text {...textProps} dangerouslySetInnerHTML={{__html: props.description}} ref={descriptionTextRef}
-				 className={classes.forceWrap}/>;
+				 className={classes.description}/>;
 }

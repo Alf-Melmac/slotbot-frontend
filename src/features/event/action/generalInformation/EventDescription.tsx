@@ -26,6 +26,9 @@ import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
 import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
 import {validate} from '../../../../utils/formHelper';
+import {ListItem} from '@tiptap/extension-list-item';
+import {BulletList} from '@tiptap/extension-bullet-list';
+import {OrderedList} from '@tiptap/extension-ordered-list';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
@@ -43,6 +46,9 @@ export function EventDescription(): JSX.Element {
 			Underline,
 			Strike,
 			Heading.configure({levels: [1, 2, 3]}),
+			ListItem,
+			BulletList,
+			OrderedList,
 			Placeholder.configure({placeholder: t('description')}),
 			History,
 			DiscordMarkdown,
@@ -81,6 +87,10 @@ export function EventDescription(): JSX.Element {
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
+						</RichTextEditor.ControlsGroup>
+						<RichTextEditor.ControlsGroup>
+							<RichTextEditor.BulletList/>
+							<RichTextEditor.OrderedList/>
 						</RichTextEditor.ControlsGroup>
 						<RichTextEditor.ControlsGroup ml={'auto'}>
 							<RichTextEditor.Undo/>
