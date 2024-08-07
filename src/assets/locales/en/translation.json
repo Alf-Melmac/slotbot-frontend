@@ -59,6 +59,7 @@
   "editor.control.list.bullet": "Unordered List (Ctrl+Shift+8)",
   "editor.control.list.ordered": "Ordered List (Ctrl+Shift+7)",
   "editor.control.redo": "Redo (Ctrl+Shift+Z)",
+  "editor.control.small": "Subtext (Ctrl+,)",
   "editor.control.strikethrough": "Strikethrough (Ctrl+Shift+S)",
   "editor.control.underline": "Underline (Ctrl+U)",
   "editor.control.undo": "Undo (Ctrl+Z)",

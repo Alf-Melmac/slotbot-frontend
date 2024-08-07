@@ -59,6 +59,7 @@
   "editor.control.list.bullet": "Unnummerierte Liste (Strg+Shift+8)",
   "editor.control.list.ordered": "Nummerierte Liste (Strg+Shift+7)",
   "editor.control.redo": "Wiederherstellen (Strg+Shift+Z)",
+  "editor.control.small": "Subtext (Strg+,)",
   "editor.control.strikethrough": "Durchgestrichen (Strg+Shift+S)",
   "editor.control.underline": "Unterstrichen (Strg+U)",
   "editor.control.undo": "Rückgängig (Strg+Z)",

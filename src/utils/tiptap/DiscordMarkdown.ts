@@ -10,6 +10,7 @@ import {BulletList} from '@tiptap/extension-bullet-list';
 import {ListItem} from '@tiptap/extension-list-item';
 import {Node} from 'prosemirror-model';
 import {OrderedList} from '@tiptap/extension-ordered-list';
+import {Small} from './Small';
 
 /**
  * Converts the editor content to discord markdown, closely matching the backend implementation
@@ -20,8 +21,11 @@ function toMarkdown(editor: Editor): string {
 		if (markdown !== '') {
 			markdown += '\n';
 		}
+
 		if (element.type.name === Heading.name) {
 			markdown += `${'#'.repeat(element.attrs.level)} `;
+		} else if (element.type.name === Small.name) {
+			markdown += '-# '
 		}
 
 		markdown += fragmentToMarkdown(element);
@@ -64,7 +68,7 @@ function fragmentToMarkdown(parent: Node): string {
 
 function escape(text: string): string {
 	return text.replace(/([*_`~\\])/g, '\\$1')
-		.replace(/^((?:#+|-)\s)/g, '\\$1')
+		.replace(/^((?:#+|-|-#)\s)/g, '\\$1')
 		.replace(/^(\d)(\.\s)/g, '$1\\\\$2');
 }
 

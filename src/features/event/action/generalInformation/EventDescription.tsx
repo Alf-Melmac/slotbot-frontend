@@ -29,6 +29,9 @@ import {validate} from '../../../../utils/formHelper';
 import {ListItem} from '@tiptap/extension-list-item';
 import {BulletList} from '@tiptap/extension-bullet-list';
 import {OrderedList} from '@tiptap/extension-ordered-list';
+import {Small} from '../../../../utils/tiptap/Small';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faComment} from '@fortawesome/free-regular-svg-icons';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
@@ -46,6 +49,7 @@ export function EventDescription(): JSX.Element {
 			Underline,
 			Strike,
 			Heading.configure({levels: [1, 2, 3]}),
+			Small,
 			ListItem,
 			BulletList,
 			OrderedList,
@@ -87,6 +91,10 @@ export function EventDescription(): JSX.Element {
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
+							<RichTextEditor.Control onClick={() => editor?.chain().focus().toggleSmall().run()}
+													active={editor?.isActive('small')} title={t('editor.control.small')}>
+								<FontAwesomeIcon icon={faComment} size={'xs'}/>
+							</RichTextEditor.Control>
 						</RichTextEditor.ControlsGroup>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.BulletList/>
