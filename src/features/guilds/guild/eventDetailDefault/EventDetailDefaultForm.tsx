@@ -43,7 +43,6 @@ type DetailDefaultFormType = {
 export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormProps>): JSX.Element {
 	const {defaultFields, name, onSuccess} = props;
 
-	const [submitDisabled, setSubmitDisabled] = useState(true);
 	const form = useForm<DetailDefaultFormType>({
 		mode: 'uncontrolled',
 		validateInputOnChange: true,
@@ -63,9 +62,6 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 					return null;
 				},
 			},
-		},
-		onValuesChange: () => {
-			setSubmitDisabled(!form.isDirty() || !form.isValid());
 		},
 		transformValues: (values) => ({
 			fields: filterFrontendIds<EventDetailDefaultDto>(values.fields) as EventDetailDefaultDto[],
@@ -109,7 +105,7 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 				<CounterBadge currentValue={detailsCount} maxValue={MAX_DETAILS} yellowPhase/>
 			</Group>
 
-			<Button type={'submit'} disabled={submitDisabled}><T k={'action.save'}/></Button>
+			<Button type={'submit'} disabled={!form.isDirty() || !form.isValid()}><T k={'action.save'}/></Button>
 		</Stack>
 	</form>;
 }
