@@ -8,6 +8,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import {useLocalStorage} from '@mantine/hooks';
 
 export type TextKey = string;
 
@@ -20,32 +21,28 @@ export type LanguageTag = 'de' | 'en';
 /**
  * Evaluates the {@link LanguageTag} by the users browser locale. Fallbacks to `EN`
  */
-export function currentLanguageTag(): LanguageTag {
+function browserLanguage(): LanguageTag {
 	const languageTag = navigator.language.substring(0, 2);
 	return availableLanguages.find(v => v === languageTag) ?? EN;
 }
 
-export function isGerman(): boolean {
-	return currentLanguageTag() === DE;
-}
-
 /**
- * Sets the root language attribute to the {@link currentLanguageTag}
+ * Sets the root language attribute to the language
  */
-function setLocale(): void {
+function setLocale(language: LanguageTag): void {
 	const root = document.documentElement;
-	root.setAttribute('lang', currentLanguageTag());
+	root.setAttribute('lang', language);
 }
 
 /**
- * Sets dayjs locale matching the {@link currentLanguageTag} and extends dayjs with plugins
+ * Sets dayjs locale matching the language and extends dayjs with plugins
  */
-function currentDayJsLocale(): string {
+function currentDayJsLocale(language: LanguageTag): string {
 	dayjs.extend(localizedFormat);
 	dayjs.extend(utc);
 	dayjs.extend(customParseFormat);
-	dayjs.extend(isSameOrBefore)
-	switch (currentLanguageTag()) {
+	dayjs.extend(isSameOrBefore);
+	switch (language) {
 		case DE:
 			return dayjs.locale(de);
 		case EN:
@@ -55,9 +52,14 @@ function currentDayJsLocale(): string {
 }
 
 export function LanguageProvider(props: Readonly<PropsWithChildren>): JSX.Element {
-	setLocale();
-	currentDayJsLocale();
-	const translationMap = useTranslationMap(currentLanguageTag());
+	const [language, setLanguage] = useLocalStorage({
+		key: 'language',
+		defaultValue: browserLanguage(),
+	});
+
+	setLocale(language);
+	currentDayJsLocale(language);
+	const translationMap = useTranslationMap(language);
 
 	const translationFunction: TranslationFunction = (key: TextKey, options?: TranslationOptions): string => {
 		const {args, count, countAsArgs = false, skipKey = false} = options ?? {};
@@ -79,7 +81,9 @@ export function LanguageProvider(props: Readonly<PropsWithChildren>): JSX.Elemen
 		return translation;
 	};
 
-	const languageContext = useMemo(() => ({t: translationFunction}), [translationMap]);
+	const languageContext = useMemo(() => (
+		{t: translationFunction, language: language, setLanguage: setLanguage}
+	), [translationMap, language, setLanguage]);
 	return (
 		<LanguageContext.Provider value={languageContext}>{props.children}</LanguageContext.Provider>
 	);
@@ -105,6 +109,14 @@ type LanguageContextValues = {
 	 * function to resolve language key
 	 */
 	t: TranslationFunction;
+	/**
+	 * currently active language
+	 */
+	language: LanguageTag;
+	/**
+	 * update the current language
+	 */
+	setLanguage: (val: LanguageTag) => void;
 };
 
 const LanguageContext = createContext<LanguageContextValues | undefined>(undefined);
@@ -115,4 +127,9 @@ export function useLanguage(): LanguageContextValues {
 		throw new Error('useLanguage must be used within a LanguageProvider');
 	}
 	return context;
+}
+
+export function useIsGerman(): boolean {
+	const {language} = useLanguage();
+	return language === DE;
 }

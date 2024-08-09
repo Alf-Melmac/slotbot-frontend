@@ -4,7 +4,7 @@ import {CustomContentGenerator, EventContentArg, EventInput, EventSourceInput} f
 import de from '@fullcalendar/core/locales/de';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import {Skeleton, Text} from '@mantine/core';
-import {isGerman} from '../../../contexts/language/Language';
+import {useIsGerman} from '../../../contexts/language/Language';
 import {DATE_TEMPLATE} from '../../../utils/dateHelper';
 import {JSX} from 'react';
 
@@ -48,7 +48,7 @@ export function LoadingCalendar(props: Readonly<LoadingCalendarProps>): JSX.Elem
 		<FullCalendar
 			plugins={[dayGridPlugin]}
 			initialView="dayGridMonth"
-			locale={isGerman() ? de : undefined}
+			locale={useIsGerman() ? de : undefined}
 			eventSources={getLoadingEvents()}
 			eventContent={eventContent}
 			validRange={{

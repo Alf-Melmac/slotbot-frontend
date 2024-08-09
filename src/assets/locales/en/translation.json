@@ -245,6 +245,7 @@
   "userMenu.label.admin": "Administration",
   "userMenu.logout": "Logout",
   "userMenu.myProfile": "My profil",
+  "userMenu.selectLanguage": "Select language",
   "validation.ambiguous": "Ambiguous",
   "validation.event.embedSize": "Event information cannot exceed {0} characters. Currently: {1}",
   "validation.hexColor": "Needs to be a HEX-Code",

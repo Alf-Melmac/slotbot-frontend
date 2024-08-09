@@ -10,7 +10,7 @@ import {ApplicationRoles} from '../../../contexts/authentication/authenticationT
 import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {isGerman} from '../../../contexts/language/Language';
+import {useIsGerman} from '../../../contexts/language/Language';
 import {JSX, lazy, Suspense} from 'react';
 import {EventTooltip} from './EventTooltip';
 import './eventCalendar.css';
@@ -56,7 +56,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			<FullCalendar
 				plugins={[dayGridPlugin]}
 				initialView="dayGridMonth"
-				locale={isGerman() ? de : undefined}
+				locale={useIsGerman() ? de : undefined}
 				viewDidMount={(_arg) => toggleVisible(true)}
 				dayCellContent={DayCellContent}
 				events={(info, successCallback, failureCallback) => {

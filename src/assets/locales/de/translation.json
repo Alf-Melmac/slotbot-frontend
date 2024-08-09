@@ -245,6 +245,7 @@
   "userMenu.label.admin": "Administration",
   "userMenu.logout": "Logout",
   "userMenu.myProfile": "Mein Profil",
+  "userMenu.selectLanguage": "Sprache auswählen",
   "validation.ambiguous": "Uneindeutig",
   "validation.event.embedSize": "Event-Information dürfen insgesamt nicht {0} Zeichen überschreiten. Aktuell: {1}",
   "validation.hexColor": "Muss ein HEX-Farbcode sein",

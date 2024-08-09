@@ -14,7 +14,7 @@ import {useGetThemeOverride} from './contexts/theme/Theme';
 import {Notifications} from '@mantine/notifications';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AuthProvider} from './contexts/authentication/AuthProvider';
-import {currentLanguageTag, LanguageProvider} from './contexts/language/Language';
+import {LanguageProvider, useLanguage} from './contexts/language/Language';
 import {DatesProvider} from '@mantine/dates';
 import {ThemeLoader} from './contexts/theme/ThemeLoader';
 
@@ -39,6 +39,8 @@ export function App(): JSX.Element {
 }
 
 function MantineApp(): JSX.Element { /*To be able to use translations in the theme this needs to be its own component*/
+	const {language} = useLanguage();
+
 	const router = createBrowserRouter(routes, {
 		future: {
 			v7_fetcherPersist: true,
@@ -52,7 +54,7 @@ function MantineApp(): JSX.Element { /*To be able to use translations in the the
 		<MantineProvider theme={useGetThemeOverride()} defaultColorScheme={'dark'}>
 			<ThemeLoader/>
 			<Notifications/>
-			<DatesProvider settings={{locale: currentLanguageTag()}}>
+			<DatesProvider settings={{locale: language}}>
 				<AuthProvider>
 					<RouterProvider router={router} future={{v7_startTransition: true}}/>
 				</AuthProvider>
