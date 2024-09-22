@@ -1,5 +1,5 @@
 import {createTheme, MantineProviderProps, MantineThemeOverride, rem} from '@mantine/core';
-import {merge} from 'lodash';
+import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
 

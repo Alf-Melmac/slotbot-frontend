@@ -1,7 +1,7 @@
 import {Box, Switch, SwitchProps, Tooltip, TooltipProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-import {omit} from 'lodash';
+import {omit} from 'lodash-es';
 import {JSX} from 'react';
 import classes from './IconSwitch.module.css';
 

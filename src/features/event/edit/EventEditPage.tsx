@@ -9,7 +9,7 @@ import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTi
 import {useLanguage} from '../../../contexts/language/Language';
 import {convertDtoToFormEvent} from './utils';
 
-export function EventEditPage(): JSX.Element {
+export default function EventEditPage(): JSX.Element {
 	const {t} = useLanguage();
 	const [title, setTitle] = useState(t('event'));
 	useTranslatedDocumentTitle('documentTitle.event.edit', [title]);

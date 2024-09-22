@@ -3,7 +3,7 @@ import {ActionIcon, Tooltip} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {Link, LinkProps} from 'react-router-dom';
-import {omit} from 'lodash';
+import {omit} from 'lodash-es';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {JSX} from 'react';
 import {TextKey} from '../../../contexts/language/Language';

@@ -3,14 +3,11 @@ import {eventRoutes} from './features/event/EventRoutes';
 import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';
 import {notFoundRoute} from './features/error/ErrorRoutes';
-import {NotAllowed} from './features/error/NotAllowed';
 import {guildRoutes} from './features/guilds/GuildRoutes';
-import {GuildsPage} from './features/guilds/GuildsPage';
 import {StandardPage} from './features/StandardPage';
-import {SessionExpired} from './features/error/SessionExpired';
-import {Home} from './features/home/Home';
 import {RequireFeatureFlag} from './features/featureFlag/RequireFeatureFlag';
 import {FeatureFlag} from './features/featureFlag/useGetFeatureFlags';
+import {JSX, lazy, Suspense} from 'react';
 
 export const routes: RouteObject[] = [
 	{
@@ -25,7 +22,7 @@ export const routes: RouteObject[] = [
 	},
 	{
 		path: 'guilds/*',
-		element: <GuildsPage/>,
+		element: <GuildsPageLoader/>,
 		children: guildRoutes,
 	},
 	{
@@ -38,7 +35,7 @@ export const routes: RouteObject[] = [
 		element: <StandardPage/>,
 		children: [{
 			path: '*',
-			element: <NotAllowed/>,
+			element: <NotAllowedPage/>,
 		}],
 	},
 	{
@@ -46,7 +43,7 @@ export const routes: RouteObject[] = [
 		element: <StandardPage/>,
 		children: [{
 			path: '*',
-			element: <SessionExpired/>,
+			element: <SessionExpiredPage/>,
 		}],
 	},
 	{
@@ -55,7 +52,7 @@ export const routes: RouteObject[] = [
 		children: [{
 			path: '/',
 			element: <RequireFeatureFlag feature={FeatureFlag.BLOG} notEnabled={<Navigate to={'/events'} replace/>}>
-				<Home/>
+				<HomePage/>
 			</RequireFeatureFlag>,
 		}],
 	},
@@ -65,3 +62,35 @@ export const routes: RouteObject[] = [
 		children: [notFoundRoute],
 	},
 ];
+
+function GuildsPageLoader(): JSX.Element {
+	const GuildsPage = lazy(() => import('./features/guilds/GuildsPage'));
+
+	return <Suspense fallback={<></>}>
+		<GuildsPage/>
+	</Suspense>;
+}
+
+export function NotAllowedPage(): JSX.Element {
+	const NotAllowed = lazy(() => import('./features/error/NotAllowed'));
+
+	return <Suspense fallback={<></>}>
+		<NotAllowed/>
+	</Suspense>;
+}
+
+function SessionExpiredPage(): JSX.Element {
+	const SessionExpired = lazy(() => import('./features/error/SessionExpired'));
+
+	return <Suspense fallback={<></>}>
+		<SessionExpired/>
+	</Suspense>;
+}
+
+function HomePage(): JSX.Element {
+	const Home = lazy(() => import('./features/home/Home'));
+
+	return <Suspense fallback={<></>}>
+		<Home/>
+	</Suspense>;
+}

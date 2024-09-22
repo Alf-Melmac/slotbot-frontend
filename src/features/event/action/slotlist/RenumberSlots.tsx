@@ -1,4 +1,4 @@
-import {isEmpty} from 'lodash';
+import {isEmpty} from 'lodash-es';
 import {Button} from '@mantine/core';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';

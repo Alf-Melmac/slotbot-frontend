@@ -2,7 +2,7 @@ import {ErrorPage} from './ErrorPage';
 import {JSX} from 'react';
 import classes from './NotAllowed.module.css';
 
-export function NotAllowed(): JSX.Element {
+export default function NotAllowed(): JSX.Element {
 	return (
 		<ErrorPage documentTitle={'documentTitle.error.403'}>
 			<div className={classes.alarm}/>

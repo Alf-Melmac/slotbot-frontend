@@ -4,3 +4,10 @@ header {
 body, main, nav {
 	background-color: light-dark(#f5f3f2, #191919);
 }
+
+:root {
+	--fc-button-bg-color: #a10f2b;
+	--fc-button-border-color: #a10f2b;
+	--fc-button-hover-bg-color: #63091a;
+	--fc-button-hover-border-color: #63091a;
+}

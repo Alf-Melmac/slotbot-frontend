@@ -1,10 +1,8 @@
 import {RouteObject} from 'react-router-dom';
 import {EventDetails} from './details/EventDetails';
 import {Events} from './calendar/Events';
-import {EventWizard} from './wizard/EventWizard';
-import {EventEditPage} from './edit/EventEditPage';
 import {notFoundRoute} from '../error/ErrorRoutes';
-import {JSX, PropsWithChildren} from 'react';
+import {JSX, lazy, PropsWithChildren, Suspense} from 'react';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
 
@@ -19,7 +17,7 @@ const existingEventRoutes: RouteObject[] = [
 	},
 	{
 		path: 'edit',
-		element: <EventManageRoute><EventEditPage/></EventManageRoute>,
+		element: <EventManageRoute><EventManagePage/></EventManageRoute>,
 	},
 	notFoundRoute,
 ];
@@ -35,10 +33,19 @@ export const eventRoutes: RouteObject[] = [
 	},
 	{
 		path: 'new',
-		element: <EventManageRoute><EventWizard/></EventManageRoute>,
+		element: <EventManageRoute><EventManagePage wizard/></EventManageRoute>,
 	},
 	notFoundRoute,
 ];
+
+function EventManagePage({wizard = false}: Readonly<{ wizard?: boolean }>): JSX.Element {
+	const EventWizard = lazy(() => import('./wizard/EventWizard'));
+	const EventEditPage = lazy(() => import('./edit/EventEditPage'));
+
+	return <Suspense fallback={<></>}>
+		{wizard ? <EventWizard/> : <EventEditPage/>}
+	</Suspense>;
+}
 
 export type EventPageParams = {
 	eventId: string,

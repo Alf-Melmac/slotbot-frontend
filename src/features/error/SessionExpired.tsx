@@ -8,7 +8,7 @@ import {JSX} from 'react';
 import {useRequireFeatureFlagSave} from '../featureFlag/useRequireFeatureFlag';
 import {FeatureFlag} from '../featureFlag/useGetFeatureFlags';
 
-export function SessionExpired(): JSX.Element {
+export default function SessionExpired(): JSX.Element {
 	if (useAuth().user) {
 		return <Navigate to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', '/events')} replace/>;
 	}

@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import {JSX, useState} from 'react';
 import {useClickOutside} from '@mantine/hooks';
-import {omit} from 'lodash';
+import {omit} from 'lodash-es';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faPen, faXmark} from '@fortawesome/free-solid-svg-icons';
 

@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {EventPostDto} from '../eventTypes';
 import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
-import {omit} from 'lodash';
+import {omit} from 'lodash-es';
 import {showNotification} from '@mantine/notifications';
 import {EventWizardLocation} from './EventWizard';
 import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';

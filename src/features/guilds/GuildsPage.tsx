@@ -7,7 +7,7 @@ import {useLanguage} from '../../contexts/language/Language';
 import {Outlet} from 'react-router-dom';
 import {JSX, useState} from 'react';
 
-export function GuildsPage(): JSX.Element {
+export default function GuildsPage(): JSX.Element {
 	const {t} = useLanguage();
 	const [actions, setActions] = useState<SpotlightActionData[]>([{
 		id: 'loading-spotlight',

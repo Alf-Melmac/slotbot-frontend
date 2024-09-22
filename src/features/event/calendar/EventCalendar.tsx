@@ -11,10 +11,9 @@ import {AddButton} from '../../../components/Button/AddButton';
 import dayjs from 'dayjs';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useIsGerman} from '../../../contexts/language/Language';
-import {JSX, lazy, Suspense} from 'react';
+import {JSX} from 'react';
 import {EventTooltip} from './EventTooltip';
 import './eventCalendar.css';
-import {getGuild, Guild} from '../../../contexts/theme/Theme';
 import classes from './EventCalendar.module.css';
 import utilsClasses from '../../../utils/styleUtils.module.css';
 import cx from 'clsx';
@@ -26,7 +25,6 @@ type EventCalendarProps = {
 
 export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element {
 	const {toggleVisible, onFailure} = props;
-	const TTTTheme = lazy(() => import('./ttt/EventCalendarTTTTheme'));
 
 	const eventContent = (arg: EventContentArg) => {
 		const {event, backgroundColor} = arg;
@@ -47,9 +45,6 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 
 	return (
 		<>
-			<Suspense fallback={<></>}>
-				{getGuild() === Guild.TTT && <TTTTheme/>}
-			</Suspense>
 			{useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE) &&
                 <AddButton label={'event.add'} to={'new'} mb={'sm'}/>
 			}

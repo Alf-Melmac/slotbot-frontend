@@ -1,9 +1,8 @@
 import {Navigate, RouteObject} from 'react-router-dom';
-import {Profile} from './Profile';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {notFoundRoute} from '../error/ErrorRoutes';
-import {JSX} from 'react';
+import {JSX, lazy, Suspense} from 'react';
 
 function MyProfile(): JSX.Element {
 	const {user} = useAuth();
@@ -18,7 +17,7 @@ export const profileRoutes: RouteObject[] = [
 	},
 	{
 		path: ':userId',
-		element: <Profile/>,
+		element: <ProfilePage/>,
 	},
 	notFoundRoute,
 ];
@@ -26,3 +25,11 @@ export const profileRoutes: RouteObject[] = [
 export type ProfilePageParams = {
 	userId: string
 };
+
+function ProfilePage(): JSX.Element {
+	const Profile = lazy(() => import('./Profile'));
+
+	return <Suspense fallback={<></>}>
+		<Profile/>
+	</Suspense>;
+}

@@ -11,7 +11,7 @@ import {ApplicationRoles} from '../../../contexts/authentication/authenticationT
 import {GuildConfig} from './GuildConfig';
 import {JSX, useEffect, useState} from 'react';
 import {GuildDetailsDto} from '../guildTypes';
-import {NotFound} from '../../error/NotFound';
+import {NotFoundPage} from '../../error/ErrorRoutes';
 import {GuildLoading} from './GuildLoading';
 import {GuildPageProvider} from '../../../contexts/guild/GuildPageContext';
 import {GuildPageParams} from '../GuildRoutes';
@@ -30,7 +30,7 @@ export function Guild(): JSX.Element {
 	}, [guildId, guildQuery.data]);
 
 	const isAdmin = useCheckAccess(guild ? ApplicationRoles.ROLE_ADMIN : undefined, guildId);
-	if (guildQuery.isError) return <NotFound/>;
+	if (guildQuery.isError) return <NotFoundPage/>;
 	if (guildQuery.isLoading || guild?.id !== guildId) return <GuildLoading/>;
 
 	const breadcrumbItems = [

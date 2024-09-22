@@ -2,7 +2,7 @@ import {JSX, ReactNode} from 'react';
 import {useAuth} from './AuthProvider';
 import {OnMount} from '../../components/OnMount';
 import {ApplicationRoles} from './authenticationTypes';
-import {NotAllowed} from '../../features/error/NotAllowed';
+import {NotAllowedPage} from '../../Router';
 import {useCheckAccessQuery} from './useCheckAccess';
 
 type RequireAuthProps = {
@@ -25,7 +25,7 @@ export function RequireAuth(props: Readonly<RequireAuthProps>): JSX.Element {
 			allowed ?
 				children
 				:
-				<NotAllowed/>
+				<NotAllowedPage/>
 			:
 			<OnMount do={login}/>
 		}

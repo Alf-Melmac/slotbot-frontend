@@ -9,7 +9,7 @@ import {AddButton} from '../../components/Button/AddButton';
 import {AddBlogPost} from './blog/AddBlogPost';
 import classes from './Home.module.css';
 
-export function Home(): JSX.Element {
+export default function Home(): JSX.Element {
 	const [opened, {toggle}] = useDisclosure(false);
 
 	return (

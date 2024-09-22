@@ -15,7 +15,7 @@ export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
 }
 
-export function EventWizard(): JSX.Element {
+export default function EventWizard(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.event.new');
 	const breadcrumbItems = [
 		{

@@ -8,7 +8,7 @@ import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle
 import {ProfilePageParams} from './ProfileRoutes';
 import {JSX} from 'react';
 
-export function Profile(): JSX.Element {
+export default function Profile(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.profile');
 	const {userId} = useParams<ProfilePageParams>();
 	if (!userId) throw Error('Invalid state: User id required');
