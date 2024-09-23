@@ -2,12 +2,11 @@ import {Button, Card, Grid, Group, Image, Paper, Text, Title} from '@mantine/cor
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
 import {JSX, MutableRefObject} from 'react';
-import {EventCopy} from './EventCopy';
-import {EventEditButton} from './EventEditButton';
 import {T} from '../../../components/T';
 import {EventDetail} from '../EventFetcher';
 import classes from './EventDetailsHeader.module.css';
 import {EventDescription} from './EventDescription';
+import {EventDetailsButtons} from './EventDetailsButtons';
 
 type EventDetailsHeaderProps = EventDetail & {
 	descriptionRef: MutableRefObject<HTMLButtonElement>;
@@ -28,10 +27,7 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 				<Grid.Col span={{base: 12, sm: 8}}>
 					<Group justify={'space-between'} wrap={'nowrap'}>
 						<Title order={1} className={classes.forceWrap}>{event.name}</Title>
-						<Group gap={'xs'}>
-							<EventCopy eventId={event.id}/>
-							<EventEditButton eventId={event.id}/>
-						</Group>
+						<EventDetailsButtons eventId={event.id}/>
 					</Group>
 					<Group gap={'xs'}>
 						<Group gap={'xs'} wrap={'nowrap'}>
