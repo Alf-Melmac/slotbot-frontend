@@ -4,7 +4,6 @@ import {useQuery} from '@tanstack/react-query';
 import {EventPostDto} from '../eventTypes';
 import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
-import {omit} from 'lodash-es';
 import {showNotification} from '@mantine/notifications';
 import {EventWizardLocation} from './EventWizard';
 import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
@@ -42,7 +41,8 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 			if (user) {
 				data.creator = user.name;
 			}
-			form.setValues(omit(data, ['dateTime']) as EventPostDto);
+			const {dateTime, ...formData} = data;
+			form.setValues(formData);
 			setUpdated(true);
 		}
 	}, [query.data]);

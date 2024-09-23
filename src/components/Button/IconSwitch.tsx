@@ -1,7 +1,6 @@
 import {Box, Switch, SwitchProps, Tooltip, TooltipProps} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
-import {omit} from 'lodash-es';
 import {JSX} from 'react';
 import classes from './IconSwitch.module.css';
 
@@ -19,7 +18,7 @@ export function IconSwitch(props: Readonly<IconSwitchProps>): JSX.Element {
 
 	return <>
 		{title ?
-			<Tooltip mod={{disabled}} className={classes.root} label={props.title}>
+			<Tooltip mod={{disabled}} className={classes.root} label={title}>
 				<Box>
 					<IconSwitchElement {...props}/>
 				</Box>
@@ -33,8 +32,10 @@ export function IconSwitch(props: Readonly<IconSwitchProps>): JSX.Element {
 }
 
 function IconSwitchElement(props: Readonly<IconSwitchProps>): JSX.Element {
+	const {onIcon, offIcon, title: _, ...rest} = props;
+
 	return <Switch size={'md'}
-				   onLabel={<FontAwesomeIcon icon={props.onIcon} size={'2x'} fixedWidth/>}
-				   offLabel={<FontAwesomeIcon icon={props.offIcon} size={'2x'} fixedWidth/>}
-				   {...omit(props, ['onIcon', 'offIcon', 'title'])}/>;
+				   onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
+				   offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
+				   {...rest}/>;
 }

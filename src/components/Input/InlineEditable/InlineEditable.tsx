@@ -10,7 +10,6 @@ import {
 } from '@mantine/core';
 import {JSX, useState} from 'react';
 import {useClickOutside} from '@mantine/hooks';
-import {omit} from 'lodash-es';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faPen, faXmark} from '@fortawesome/free-solid-svg-icons';
 
@@ -29,7 +28,8 @@ export type InlineEditableProps<InputProps extends EditableInputProps> = InputPr
 };
 
 function filterComponentsProps<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): Omit<InputProps, 'viewModeComponent' | 'editModeComponent' | 'editModeMaxLengthComponent'> {
-	return omit(props, ['viewModeComponent', 'editModeComponent', 'editModeMaxLengthComponent']);
+	const {viewModeComponent: _, editModeComponent: __, editModeMaxLengthComponent: ___, ...rest} = props;
+	return rest;
 }
 
 export function InlineEditable<InputProps extends EditableInputProps>(props: Readonly<InlineEditableProps<InputProps>>): JSX.Element {
@@ -47,7 +47,7 @@ export function InlineEditable<InputProps extends EditableInputProps>(props: Rea
 	};
 	const ref = useClickOutside(cancel);
 
-	const inputProps = omit(props, ['onSubmit', 'onCancel']);
+	const {onSubmit: _, onCancel: __, ...inputProps} = props;
 	return <>
 		{viewMode ?
 			<ViewMode {...filterComponentsProps(props)}
