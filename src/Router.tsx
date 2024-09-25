@@ -8,6 +8,8 @@ import {StandardPage} from './features/StandardPage';
 import {RequireFeatureFlag} from './features/featureFlag/RequireFeatureFlag';
 import {FeatureFlag} from './features/featureFlag/useGetFeatureFlags';
 import {JSX, lazy, Suspense} from 'react';
+import slotbotServerClient from './hooks/slotbotServerClient';
+import {getBackendUrl} from './utils/urlHelper';
 
 export const routes: RouteObject[] = [
 	{
@@ -47,10 +49,10 @@ export const routes: RouteObject[] = [
 		}],
 	},
 	{
-		path: '/',
+		path: '',
 		element: <StandardPage/>,
 		children: [{
-			path: '/',
+			path: '',
 			element: <RequireFeatureFlag feature={FeatureFlag.BLOG} notEnabled={<Navigate to={'/events'} replace/>}>
 				<HomePage/>
 			</RequireFeatureFlag>,
@@ -60,6 +62,26 @@ export const routes: RouteObject[] = [
 		path: '*',
 		element: <StandardPage/>,
 		children: [notFoundRoute],
+	},
+];
+
+export const base: RouteObject[] = [
+	{
+		path: ':tenant?/*',
+		children: routes,
+		loader: async ({params}) => {
+			const {tenant} = params;
+			console.log('tenant', tenant);
+			if (tenant) {
+				slotbotServerClient.interceptors.request.use(
+					async (config) => {
+						config.baseURL = getBackendUrl('yoot');
+						return config;
+					}
+				);
+			}
+			return null;
+		}
 	},
 ];
 

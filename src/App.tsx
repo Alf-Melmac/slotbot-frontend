@@ -8,7 +8,7 @@ import 'mantine-react-table/styles.css';
 import './global.css';
 import {MantineProvider, Skeleton} from '@mantine/core';
 import {JSX, Suspense} from 'react';
-import {routes} from './Router';
+import {base} from './Router';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {useGetThemeOverride} from './contexts/theme/Theme';
 import {Notifications} from '@mantine/notifications';
@@ -41,7 +41,7 @@ export function App(): JSX.Element {
 function MantineApp(): JSX.Element { /*To be able to use translations in the theme this needs to be its own component*/
 	const {language} = useLanguage();
 
-	const router = createBrowserRouter(routes, {
+	const router = createBrowserRouter(base, {
 		future: {
 			v7_fetcherPersist: true,
 			v7_normalizeFormMethod: true,

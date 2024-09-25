@@ -1,7 +1,6 @@
 import {createContext, JSX, PropsWithChildren, useContext, useEffect, useMemo, useState} from 'react';
 import {DiscordUserDto} from './authenticationTypes';
 import authenticationQuery from './authenticationQuery';
-import {getBackendUrl} from '../../utils/urlHelper';
 
 export function AuthProvider(props: Readonly<PropsWithChildren>): JSX.Element {
 	const [user, setUser] = useState<AuthContextType['user']>();
@@ -13,12 +12,13 @@ export function AuthProvider(props: Readonly<PropsWithChildren>): JSX.Element {
 		}, [authenticatedUser],
 	);
 
+	const backendUrl = 'moin';
 	const login = () => {
-		window.location.href = `${getBackendUrl()}/login?redirectUrl=${window.location.pathname}`;
+		window.location.href = `${backendUrl}/login?redirectUrl=${window.location.pathname}`;
 	};
 
 	const logout = () => {
-		window.location.href = `${getBackendUrl()}/logout`;
+		window.location.href = `${backendUrl}/logout`;
 	};
 
 	const value = useMemo((): AuthContextType => ({user, login, logout}), [user, login, logout]);

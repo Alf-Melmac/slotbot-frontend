@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {getBackendUrl} from '../utils/urlHelper';
+import {showNotification} from '@mantine/notifications';
 
 const slotbotServerClient = axios.create({
-	baseURL: getBackendUrl(),
+	baseURL: getBackendUrl(undefined),
 	withCredentials: import.meta.env.DEV ? true : undefined,
 	withXSRFToken: import.meta.env.DEV ? true : undefined,
 });
@@ -19,10 +20,12 @@ slotbotServerClient.interceptors.response.use(
 			// The request was made and the server responded with a status code
 			// that falls out of the range of 2xx
 			if (error.response.status === 404) {
-				window.location.replace('/404');
+				// window.location.replace('/404');
+				showNotification({title: 'Not found', message: '', color: 'red'});
 			}
 			if (error.response.status === 403) {
-				window.location.replace('/403');
+				// window.location.replace('/403');
+				showNotification({title: 'Forbidden', message: '', color: 'red'});
 			}
 			console.error(error.response.data);
 			console.error(error.response.headers);
