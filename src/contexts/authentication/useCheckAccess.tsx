@@ -1,6 +1,7 @@
 import {ApplicationRoles} from './authenticationTypes';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
+import {useGuildContext} from '../guildcontext/GuildContext';
 
 /**
  * Checks for the given authority in the given guild. Fallbacks to false while loading.
@@ -13,10 +14,11 @@ export function useCheckAccess(authority?: ApplicationRoles, guildId?: string, e
 }
 
 export function useCheckAccessQuery(authority?: ApplicationRoles, guildId?: string, eventId?: number) {
-	const getAllowedToAccess = () => slotbotServerClient.get(`/authentication/access/${authority}`, {params: {guildId, eventId}})
+	const {guildUrlPath} = useGuildContext();
+	const getAllowedToAccess = () => slotbotServerClient.get(`/authentication${guildUrlPath}/access/${authority}`, {params: {guildId, eventId}})
 		.then((res) => res.data);
 	const query = useQuery<boolean>({
-		queryKey: ['allowedToAccess', authority, guildId],
+		queryKey: ['allowedToAccess', guildUrlPath, authority, guildId, eventId],
 		queryFn: getAllowedToAccess,
 		enabled: !!authority,
 	});

@@ -15,11 +15,13 @@ import {JSX, useEffect, useState} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {T} from '../../../components/T';
 import {EventDescription} from './EventDescription';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export function EventDetails(): JSX.Element {
 	const {t} = useLanguage();
 	const [title, setTitle] = useState(t('event'));
 	useDocumentTitle(title);
+	const {guildUrlPath} = useGuildContext();
 
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
@@ -40,7 +42,7 @@ export function EventDetails(): JSX.Element {
 	const breadcrumbItems = [
 		{
 			title: 'breadcrumb.calendar',
-			href: '/events',
+			href: `/events/calendar${guildUrlPath}`,
 		},
 		{
 			title: <Group wrap={'nowrap'} gap={6}>

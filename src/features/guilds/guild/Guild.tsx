@@ -2,7 +2,7 @@ import {Image, Paper, SimpleGrid, Stack, Title} from '@mantine/core';
 import {AnchorBlank} from '../../../components/Text/AnchorBlank';
 import {GuildUsers} from './users/GuildUsers';
 import {T} from '../../../components/T';
-import {useParams} from 'react-router-dom';
+import {useParams, useResolvedPath} from 'react-router-dom';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useGetGuild} from './useGetGuild';
@@ -16,6 +16,7 @@ import {GuildLoading} from './GuildLoading';
 import {GuildPageProvider} from '../../../contexts/guild/GuildPageContext';
 import {GuildPageParams} from '../GuildRoutes';
 import classes from './Guild.module.css';
+import {AnchorLink} from '../../../components/Text/AnchorLink';
 
 export function Guild(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.guild');
@@ -28,6 +29,9 @@ export function Guild(): JSX.Element {
 	useEffect(() => {
 		setGuild(guildQuery.data);
 	}, [guildId, guildQuery.data]);
+
+	const guildCalendarPath = useResolvedPath(`/events/calendar/${guild?.groupIdentifier}`).pathname;
+	const guildCalendarUrl = `${window.location.origin}${guildCalendarPath}`;
 
 	const isAdmin = useCheckAccess(guild ? ApplicationRoles.ROLE_ADMIN : undefined, guildId);
 	if (guildQuery.isError) return <NotFoundPage/>;
@@ -61,8 +65,11 @@ export function Guild(): JSX.Element {
 						</Stack>
 						<Stack align={'center'}>
 							<Title order={2}><T k={'nav.calendar'}/></Title>
-							{guild.baseUrl &&
-                                <AnchorBlank href={`${guild.baseUrl}/events`}>{guild.baseUrl}</AnchorBlank>
+							{guild.baseUrl ?
+								<AnchorBlank href={`${guild.baseUrl}/events`}>{guild.baseUrl}</AnchorBlank>
+								:
+								<AnchorLink
+									to={`/events/calendar/${guild.groupIdentifier}`}>{guildCalendarUrl}</AnchorLink>
 							}
 						</Stack>
 					</SimpleGrid>

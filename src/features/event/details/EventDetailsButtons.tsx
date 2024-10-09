@@ -12,6 +12,7 @@ import slotbotServerClient, {voidFunction} from '../../../hooks/slotbotServerCli
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useNavigate} from 'react-router-dom';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventDetailsButtonsProps = {
 	eventId: EventDetailsDto['id'];
@@ -37,6 +38,7 @@ export function EventDetailsButtons(props: Readonly<EventDetailsButtonsProps>): 
 }
 
 function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>>): JSX.Element {
+	const {guildUrlPath} = useGuildContext();
 	const [opened, {open, close}] = useDisclosure(false);
 	const [checked, setChecked] = useState(false);
 
@@ -45,7 +47,7 @@ function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>
 	const {mutate, isPending} = useMutation<void, AxiosError>({
 		mutationFn: deleteEvent,
 		onSuccess: () => {
-			navigate('/events');
+			navigate(`/events/calendar${guildUrlPath}`);
 		},
 	});
 

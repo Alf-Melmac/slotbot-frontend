@@ -3,9 +3,11 @@ import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {replaceBooleanStringWithBoolean, replaceNullWithEmpty} from '../../utils/typesHelper';
 import {EventDetailDefaultDto} from './eventDetailsDefaultTypes';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 export function useEventDetailsDefault(eventTypeName: EventTypeDto['name'], transformBooleanValues: boolean) {
-	const getEventFieldDefaults = () => slotbotServerClient.get('/events/details/defaults', {params: {eventTypeName: eventTypeName}})
+	const {guildUrlPath} = useGuildContext();
+	const getEventFieldDefaults = () => slotbotServerClient.get(`/events/details/defaults${guildUrlPath}`, {params: {eventTypeName: eventTypeName}})
 		.then((res) => res.data);
 	const query = useQuery<EventDetailDefaultDto[], Error>({
 		queryKey: ['field-defaults', eventTypeName],

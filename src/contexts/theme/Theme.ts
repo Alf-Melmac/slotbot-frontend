@@ -2,6 +2,7 @@ import {createTheme, MantineProviderProps, MantineThemeOverride, rem} from '@man
 import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
+import {useGuildContext} from '../guildcontext/GuildContext';
 
 export enum Guild {
 	AMB,
@@ -13,25 +14,31 @@ export enum Guild {
 type AdvancedGuild = {
 	guild: Guild,
 	urlPattern: RegExp,
+	identifier: string,
 }
 const advancedGuilds: AdvancedGuild[] = [
 	{
 		guild: Guild.AMB,
 		urlPattern: /.*armamachtbock.de.*/,
+		identifier: 'AMB',
 	},
 	{
 		guild: Guild.DAA,
 		urlPattern: /.*deutsche-arma-allianz.de.*/,
+		identifier: 'DAA'
 	},
 	{
 		guild: Guild.TTT,
 		urlPattern: /.*tacticalteam.de.*/,
+		identifier: 'TTT',
 	},
 ];
 
-export function getGuild(): Guild {
+export function useGetGuild(): Guild {
+	const {setGuild} = useGuildContext();
 	for (const advancedGuild of advancedGuilds) {
 		if (advancedGuild.urlPattern.test(window.location.origin)) {
+			setGuild(advancedGuild.identifier);
 			return advancedGuild.guild;
 		}
 	}
@@ -119,14 +126,14 @@ function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 		},
 
 		other: {
-			guild: getGuild(),
+			guild: useGetGuild(),
 		},
 	};
 }
 
 export function useGetThemeOverride(): MantineProviderProps['theme'] {
 	let theme;
-	switch (getGuild()) {
+	switch (useGetGuild()) {
 		case Guild.DAA:
 			theme = themeDAA;
 			break;

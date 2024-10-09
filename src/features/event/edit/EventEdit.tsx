@@ -12,6 +12,7 @@ import {EventPageParams} from '../EventRoutes';
 import {eventActionValidate} from '../action/validation';
 import {EventEditDto} from '../eventTypes';
 import {JSX} from 'react';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventEditProps = EventPageParams & {
 	event: EventEditFormType;
@@ -20,11 +21,12 @@ type EventEditProps = EventPageParams & {
 
 export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
+	const {guildUrlPath} = useGuildContext();
 
 	const breadcrumbItems = [
 		{
 			title: 'breadcrumb.calendar',
-			href: '/events',
+			href: `/events/calendar${guildUrlPath}`,
 		},
 		{
 			title: event.name,

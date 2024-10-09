@@ -7,10 +7,12 @@ import {Navigate} from 'react-router-dom';
 import {JSX} from 'react';
 import {useRequireFeatureFlagSave} from '../featureFlag/useRequireFeatureFlag';
 import {FeatureFlag} from '../featureFlag/useGetFeatureFlags';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 export default function SessionExpired(): JSX.Element {
+	const {guildUrlPath} = useGuildContext();
 	if (useAuth().user) {
-		return <Navigate to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', '/events')} replace/>;
+		return <Navigate to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', `/events/calendar${guildUrlPath}`)} replace/>;
 	}
 
 	return (
