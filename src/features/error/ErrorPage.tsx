@@ -6,6 +6,7 @@ import {TextKey} from '../../contexts/language/Language';
 import {Bold} from '../../components/Text/Bold';
 import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
 import classes from './ErrorPage.module.css';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 export function ErrorPage(props: Readonly<PropsWithChildren<{ documentTitle: TextKey }>>): JSX.Element {
 	useTranslatedDocumentTitle(props.documentTitle);
@@ -32,9 +33,10 @@ ErrorPage.Description = function ErrorDescription(props: Readonly<{ description:
 }
 
 ErrorPage.BackButton = function ErrorBackButton(): JSX.Element {
+	const {guildUrlPath} = useGuildContext();
 	return (
 		<Group justify={'center'}>
-			<Button size={'lg'} variant={'outline'} component={Link} to={'/events'}>
+			<Button size={'lg'} variant={'outline'} component={Link} to={`/events/calendar${guildUrlPath}`}>
 				<T k={'navigation.backToCalendar'}/>
 			</Button>
 		</Group>

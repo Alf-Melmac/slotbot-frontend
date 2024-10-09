@@ -5,7 +5,7 @@ import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
-import {getGuild, Guild} from '../../contexts/theme/Theme';
+import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {T} from '../T';
 import {faCircleQuestion} from '@fortawesome/free-regular-svg-icons';
 import {JSX} from 'react';
@@ -22,7 +22,7 @@ export function PageFooter(): JSX.Element {
 	let icons: IconType[];
 	let publisher: string;
 
-	const guild = getGuild();
+	const guild = useGetGuild();
 	switch (guild) {
 		case Guild.AMB:
 			icons = [

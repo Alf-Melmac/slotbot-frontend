@@ -30,6 +30,7 @@ import {useLanguage} from '../../../../contexts/language/Language';
 import classes from './EventDetailDefaultForm.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
 export type EventDetailDefaultFormProps = {
 	defaultFields: EventDetailDefaultDto[] | undefined;
@@ -70,9 +71,10 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 
 	const detailsCount = form.getValues().fields.length;
 
+	const {guildId} = useGuildPage();
 	const queryClient = useQueryClient();
 	const putEventFieldDefaults = (details: EventDetailDefaultDto[]) => slotbotServerClient
-		.put('/events/details/defaults',
+		.put(`/events/details/defaults/${guildId}`,
 			details,
 			{params: {eventTypeName: name}})
 		.then((res) => res.data);

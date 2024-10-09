@@ -1,5 +1,5 @@
 import {JSX, lazy, Suspense} from 'react';
-import {getGuild, Guild} from './Theme';
+import {Guild, useGetGuild} from './Theme';
 import './themeStandard.css';
 
 export function ThemeLoader(): JSX.Element {
@@ -7,7 +7,7 @@ export function ThemeLoader(): JSX.Element {
 	const TTTTheme = lazy(() => import('./ThemeTTT'));
 
 	return <Suspense fallback={<></>}>
-		{getGuild() === Guild.DAA && <DAATheme/>}
-		{getGuild() === Guild.TTT && <TTTTheme/>}
+		{useGetGuild() === Guild.DAA && <DAATheme/>}
+		{useGetGuild() === Guild.TTT && <TTTTheme/>}
 	</Suspense>;
 }

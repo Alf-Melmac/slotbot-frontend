@@ -11,9 +11,11 @@ import {JSX, useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
 import {expandTimeTemplateShort, formatLocalDateTimeToUtc, getDate} from '../../../utils/dateHelper';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export function useEventSave() {
 	const form = useFormContext() as UseFormReturnType<EventEditFormType>;
+	const {guildUrlPath} = useGuildContext();
 
 	const eventPost = {
 		...form.values,
@@ -25,8 +27,8 @@ export function useEventSave() {
 			<DebugCodeBlock formValues={eventPost}/>
 			<Stack mt={'xl'}>
 				<Text ta={'center'}>
-					<T k={'event.save.loading.partOne'}/> <AnchorLink
-					to={'/events'}><T k={'clickHere'}/></AnchorLink> <T k={'event.save.loading.partThree'}/>
+					<T k={'event.save.loading.partOne'}/> <AnchorLink to={`/events/calendar${guildUrlPath}`}>
+					<T k={'clickHere'}/></AnchorLink> <T k={'event.save.loading.partThree'}/>
 				</Text>
 				<Center>
 					<Loader size={'xl'} type={'bars'}/>
@@ -35,7 +37,7 @@ export function useEventSave() {
 		</>,
 	);
 
-	const postEvent = () => slotbotServerClient.post('/events', eventPost).then((res) => res.data);
+	const postEvent = () => slotbotServerClient.post(`/events${guildUrlPath}`, eventPost).then((res) => res.data);
 	const navigate = useNavigate();
 	const {mutate} = useMutation<number, AxiosError>({
 		mutationFn: postEvent,

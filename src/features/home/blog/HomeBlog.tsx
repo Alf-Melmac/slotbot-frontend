@@ -11,11 +11,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHelicopterSymbol} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../components/T';
 import {useDocumentTitle} from '@mantine/hooks';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export function HomeBlog(): JSX.Element {
 	useDocumentTitle('Slotbot');
+	const {guildUrlPath} = useGuildContext();
 
-	const getBlogPosts: QueryFunction<FrontendPageable<BlogPostDto>, QueryKey, unknown> = ({pageParam}) => slotbotServerClient.get(`/blog?size=5&page=${pageParam}`).then((res) => res.data);
+	const getBlogPosts: QueryFunction<FrontendPageable<BlogPostDto>, QueryKey, unknown> = ({pageParam}) => slotbotServerClient
+		.get(`/blog${guildUrlPath}?size=5&page=${pageParam}`)
+		.then((res) => res.data);
 	const {
 		data,
 		fetchNextPage,

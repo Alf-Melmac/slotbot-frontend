@@ -10,6 +10,7 @@ import {useEventCopy} from './useEventCopy';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import {getTimeShort} from '../../../utils/dateHelper';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -17,10 +18,11 @@ export type EventWizardLocation = {
 
 export default function EventWizard(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.event.new');
+	const {guildUrlPath} = useGuildContext();
 	const breadcrumbItems = [
 		{
 			title: 'breadcrumb.calendar',
-			href: '/events',
+			href: `/events/calendar${guildUrlPath}`,
 		},
 		{
 			title: 'breadcrumb.event.new',

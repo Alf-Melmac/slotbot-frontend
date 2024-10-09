@@ -1,4 +1,4 @@
-import {AppShell, AppShellProps, Container, Group, rem} from '@mantine/core';
+import {AppShell, AppShellProps, Badge, Container, Group, rem} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
@@ -10,9 +10,10 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
-import {getGuild, Guild} from '../../contexts/theme/Theme';
+import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
 import classes from './Nav.module.css';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 type NavProps = {
 	navbar?: JSX.Element;
@@ -22,7 +23,7 @@ export const NAV_HEIGHT = 80;
 const STANDARD_FOOTER_HEIGHT = 145;
 
 export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
-	const guild = getGuild();
+	const guild = useGetGuild();
 	let favicon;
 	if (guild === Guild.AMB) {
 		favicon = ambFavicon;
@@ -46,6 +47,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 		return () => resizeObserver.disconnect();
 	}, []);
 
+	const {guildUrlPath} = useGuildContext();
 	return (
 		<AppShell
 			header={{height: NAV_HEIGHT}}
@@ -59,7 +61,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 					<Group wrap={'nowrap'} gap={'xs'}>
 						<NavIconLink link={'/guilds'} text={'nav.guilds'} icon={faUsers}
 									 width={135} visibleFrom={'xs'}/>
-						<NavIconLink link={'/events'} text={'nav.calendar'} icon={faCalendarDay}
+						<NavIconLink link={`/events/calendar${guildUrlPath}`} text={'nav.calendar'} icon={faCalendarDay}
 									 width={110} visibleFrom={'xs'}/>
 						{(user) ?
 							<UserMenu user={user}/>
