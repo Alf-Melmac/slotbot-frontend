@@ -27,7 +27,7 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 				<Grid.Col span={{base: 12, sm: 8}}>
 					<Group justify={'space-between'} wrap={'nowrap'}>
 						<Title order={1} className={classes.forceWrap}>{event.name}</Title>
-						<EventDetailsButtons eventId={event.id}/>
+						<EventDetailsButtons eventId={event.id} ownerGuildIdentifier={event.ownerGuildIdentifier}/>
 					</Group>
 					<Group gap={'xs'}>
 						<Group gap={'xs'} wrap={'nowrap'}>

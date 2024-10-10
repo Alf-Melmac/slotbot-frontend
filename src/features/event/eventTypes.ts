@@ -4,6 +4,7 @@ import {GuildDto} from '../guilds/guildTypes';
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
 	hidden: boolean;
+	ownerGuildIdentifier: string;
 	missionType: string;
 	eventType: EventTypeDto;
 	pictureUrl: string;

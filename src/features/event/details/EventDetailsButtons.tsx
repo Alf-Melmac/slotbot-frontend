@@ -16,10 +16,11 @@ import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventDetailsButtonsProps = {
 	eventId: EventDetailsDto['id'];
+	ownerGuildIdentifier: EventDetailsDto['ownerGuildIdentifier'];
 };
 
 export function EventDetailsButtons(props: Readonly<EventDetailsButtonsProps>): JSX.Element {
-	const {eventId} = props;
+	const {eventId, ownerGuildIdentifier} = props;
 
 	const eventManage = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE, undefined, eventId);
 	const admin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, undefined, props.eventId);
@@ -29,7 +30,7 @@ export function EventDetailsButtons(props: Readonly<EventDetailsButtonsProps>): 
 	return <Group gap={'xs'}>
 		{eventManage && <>
             <EventDetailsLinkButton icon={faClone}
-                                    to={'/events/new'} state={{copy: props.eventId} as EventWizardLocation}
+                                    to={`/events/${ownerGuildIdentifier}/new`} state={{copy: props.eventId} as EventWizardLocation}
                                     tooltip={'action.duplicate'}/>
             <EventDetailsLinkButton icon={faEdit} to={`/events/${props.eventId}/edit`} tooltip={'action.edit'}/>
         </>}
