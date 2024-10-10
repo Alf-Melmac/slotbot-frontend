@@ -124,7 +124,7 @@
   "event.startTime": "Startzeit",
   "event.startTime.placeholder": "Event Datum",
   "eventPage.error.missingEventId": "Invalid state: Event id required",
-  "events": "Events",
+  "events": "{0} Events",
   "footer.author": "© 2024 Alf. All rights reserved.",
   "footer.legal": "Impressum & Datenschutzerklärung",
   "generalInformation": "Allgemeine Informationen",

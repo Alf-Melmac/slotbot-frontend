@@ -58,7 +58,6 @@ function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and Gu
 			<ThemeLoader/>
 			<Notifications/>
 			<DatesProvider settings={{locale: language}}>
-
 				<AuthProvider>
 					<RouterProvider router={router} future={{v7_startTransition: true}}/>
 				</AuthProvider>
