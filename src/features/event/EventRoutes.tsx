@@ -42,7 +42,7 @@ export const eventRoutes: RouteObject[] = [
 	},
 	{
 		path: `${GUILD_CONTEXT_PATH_PARAM}/new`,
-		element: <EventManageRoute><GuildContextPage><EventManagePage wizard/></GuildContextPage></EventManageRoute>,
+		element: <GuildContextPage><EventManageRoute><EventManagePage wizard/></EventManageRoute></GuildContextPage>,
 	},
 	notFoundRoute,
 ];

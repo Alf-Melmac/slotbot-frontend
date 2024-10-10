@@ -25,7 +25,7 @@ const advancedGuilds: AdvancedGuild[] = [
 	{
 		guild: Guild.DAA,
 		urlPattern: /.*deutsche-arma-allianz.de.*/,
-		identifier: 'DAA'
+		identifier: 'DAA',
 	},
 	{
 		guild: Guild.TTT,
@@ -35,10 +35,12 @@ const advancedGuilds: AdvancedGuild[] = [
 ];
 
 export function useGetGuild(): Guild {
-	const {setGuild} = useGuildContext();
+	const {guild, setGuild} = useGuildContext();
 	for (const advancedGuild of advancedGuilds) {
 		if (advancedGuild.urlPattern.test(window.location.origin)) {
-			setGuild(advancedGuild.identifier);
+			if (!guild) {
+				setGuild(advancedGuild.identifier);
+			}
 			return advancedGuild.guild;
 		}
 	}
