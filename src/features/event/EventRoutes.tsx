@@ -1,4 +1,4 @@
-import {Navigate, RouteObject} from 'react-router-dom';
+import {Navigate, RouteObject, useParams} from 'react-router-dom';
 import {EventDetails} from './details/EventDetails';
 import {Events} from './calendar/Events';
 import {notFoundRoute} from '../error/ErrorRoutes';
@@ -6,9 +6,11 @@ import {JSX, lazy, PropsWithChildren, Suspense} from 'react';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
 import {GUILD_CONTEXT_PATH_PARAM, GuildContextPage} from '../../contexts/guildcontext/GuildContextPage';
+import {useLanguage} from '../../contexts/language/Language';
+import {Alert} from '@mantine/core';
 
-function EventManageRoute(props: Readonly<PropsWithChildren>): JSX.Element {
-	return <RequireAuth authority={ApplicationRoles.ROLE_EVENT_MANAGE}>{props.children}</RequireAuth>;
+function EventManageRoute(props: Readonly<PropsWithChildren<{eventId?: number}>>): JSX.Element {
+	return <RequireAuth authority={ApplicationRoles.ROLE_EVENT_MANAGE} eventId={props.eventId}>{props.children}</RequireAuth>;
 }
 
 const existingEventRoutes: RouteObject[] = [
@@ -18,7 +20,7 @@ const existingEventRoutes: RouteObject[] = [
 	},
 	{
 		path: 'edit',
-		element: <EventManageRoute><EventManagePage/></EventManageRoute>,
+		element: <EventEdit/>,
 	},
 	notFoundRoute,
 ];
@@ -46,6 +48,13 @@ export const eventRoutes: RouteObject[] = [
 	},
 	notFoundRoute,
 ];
+
+function EventEdit(): JSX.Element {
+	const {t} = useLanguage();
+	const {eventId} = useParams<EventPageParams>();
+	if (!eventId) return <Alert title={t('eventPage.error.missingEventId')} color={'red'}/>;
+	return <EventManageRoute eventId={Number.parseInt(eventId)}><EventManagePage/></EventManageRoute>;
+}
 
 function EventManagePage({wizard = false}: Readonly<{ wizard?: boolean }>): JSX.Element {
 	const EventWizard = lazy(() => import('./wizard/EventWizard'));

@@ -7,11 +7,14 @@ import {EventFieldDefaultsProvider} from '../../../../contexts/event/EventFieldD
 import {randomId} from '@mantine/hooks';
 import {T} from '../../../../components/T';
 import {JSX} from 'react';
+import {EventEditDto} from '../../eventTypes';
 
-export function EventDetailsPage(): JSX.Element {
+type EventDetailsPageProps = Partial<Pick<EventEditDto, 'ownerGuild'>>;
+
+export function EventDetailsPage(props: Readonly<EventDetailsPageProps>): JSX.Element {
 	const form = useFormContext();
 
-	const {defaultFields} = useEventDetailsDefault(form.values.eventType.name, true);
+	const {defaultFields} = useEventDetailsDefault(form.values.eventType.name, true, props.ownerGuild);
 
 	return <EventFieldDefaultsProvider fieldDefaults={defaultFields}>
 		<Group justify={'space-between'}>

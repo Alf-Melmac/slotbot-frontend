@@ -44,15 +44,17 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 		validateInputOnChange: true,
 	});
 
+	// The form type is not allowed to have this, but we know that EventEditDto has this value
+	const ownerGuild: EventEditDto['ownerGuild'] = (event as unknown as EventEditDto).ownerGuild;
 	return (
 		<EventEditProvider form={form} eventId={eventId}>
 			<Breadcrumb items={breadcrumbItems}/>
 
-			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
+			<EventGeneralInformation canRevokeShareable={canRevokeShareable} ownerGuild={ownerGuild}/>
 
 			<Divider my={'lg'}/>
 
-			<EventDetailsPage/>
+			<EventDetailsPage ownerGuild={ownerGuild}/>
 
 			<Divider my={'lg'}/>
 

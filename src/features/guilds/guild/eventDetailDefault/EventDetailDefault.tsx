@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faReceipt} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../../components/T';
 import {EventDetailDefaultForm, EventDetailDefaultFormProps} from './EventDetailDefaultForm';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
 export type EventDetailDefaultProps = {
 	name: EventTypeDto['name'];
@@ -30,7 +31,8 @@ export function EventDetailDefault(props: Readonly<EventDetailDefaultProps>): JS
 function Form(props: Readonly<EventDetailDefaultProps & Pick<EventDetailDefaultFormProps, 'onSuccess'>>): JSX.Element {
 	const {name, onSuccess} = props;
 
-	const {query, defaultFields} = useEventDetailsDefault(name, false);
+	const {guildId} = useGuildPage();
+	const {query, defaultFields} = useEventDetailsDefault(name, false, guildId);
 	if (query.isLoading) return <>Loading...</>;
 
 	return <EventDetailDefaultForm defaultFields={defaultFields} name={name} onSuccess={onSuccess}/>;

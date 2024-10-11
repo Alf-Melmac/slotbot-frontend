@@ -8,14 +8,16 @@ import {useCheckAccessQuery} from './useCheckAccess';
 type RequireAuthProps = {
 	children: ReactNode,
 	authority?: ApplicationRoles;
+	guildId?: string;
+	eventId?: number;
 }
 
 export function RequireAuth(props: Readonly<RequireAuthProps>): JSX.Element {
-	const {children, authority} = props;
+	const {children, authority, guildId, eventId} = props;
 
 	const {user, login} = useAuth();
 
-	const {query, accessAllowed} = useCheckAccessQuery(authority);
+	const {query, accessAllowed} = useCheckAccessQuery(authority, guildId, eventId);
 
 	if (user === undefined || (authority && query.isLoading)) return <></>;
 

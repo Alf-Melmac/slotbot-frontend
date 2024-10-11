@@ -5,7 +5,7 @@ import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
 import {JSX, PropsWithChildren} from 'react';
 
-export type EventEditFormType = Omit<EventEditDto, 'dateTime' | 'canRevokeShareable' | 'canUploadSlotlist'>
+export type EventEditFormType = Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist'>
 	& { date: Date, startTime: string };
 
 type EventWizardFormType = Omit<EventPostDto, 'dateTime'>

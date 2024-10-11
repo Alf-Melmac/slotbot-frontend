@@ -109,6 +109,7 @@ export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
 }
 
 export interface EventEditDto extends EventUpdateDto {
+	ownerGuild: string;
 	canRevokeShareable: boolean;
 	canUploadSlotlist: boolean;
 }

@@ -5,12 +5,20 @@ import {replaceBooleanStringWithBoolean, replaceNullWithEmpty} from '../../utils
 import {EventDetailDefaultDto} from './eventDetailsDefaultTypes';
 import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
-export function useEventDetailsDefault(eventTypeName: EventTypeDto['name'], transformBooleanValues: boolean) {
-	const {guildUrlPath} = useGuildContext();
-	const getEventFieldDefaults = () => slotbotServerClient.get(`/events/details/defaults${guildUrlPath}`, {params: {eventTypeName: eventTypeName}})
+export function useEventDetailsDefault(eventTypeName: EventTypeDto['name'], transformBooleanValues: boolean, guildId?: string) {
+	const {guild} = useGuildContext();
+	let url;
+	if (guildId) {
+		url = `/events/details/defaults/${guildId}`;
+	} else {
+		const guildIdentifierUrl = guild ? `/guild/${guild}` : '';
+		url = `/events/details/defaults${guildIdentifierUrl}`;
+	}
+
+	const getEventFieldDefaults = () => slotbotServerClient.get(url, {params: {eventTypeName: eventTypeName}})
 		.then((res) => res.data);
 	const query = useQuery<EventDetailDefaultDto[], Error>({
-		queryKey: ['field-defaults', eventTypeName],
+		queryKey: ['field-defaults', eventTypeName, guildId],
 		queryFn: getEventFieldDefaults,
 	});
 
