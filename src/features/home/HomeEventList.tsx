@@ -14,9 +14,11 @@ import {GeneralError} from '../../components/error/GeneralError';
 import {CalendarEventDto} from '../event/eventTypes';
 import {HomeEventListLoading} from './HomeEventListLoading';
 import {convertUtcToLocal} from '../../utils/dateHelper';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 export function HomeEventList(): JSX.Element {
-	const getEventsAroundToday = () => slotbotServerClient.get('/events/around-today').then((res) => res.data);
+	const {guildUrlPath} = useGuildContext();
+	const getEventsAroundToday = () => slotbotServerClient.get(`/events${guildUrlPath}/around-today`).then((res) => res.data);
 	const query = useQuery<CalendarEventDto[], Error>({
 		queryKey: ['events-around-today'],
 		queryFn: getEventsAroundToday,
