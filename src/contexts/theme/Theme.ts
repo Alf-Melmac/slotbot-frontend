@@ -3,6 +3,7 @@ import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
 import {useGuildContext} from '../guildcontext/GuildContext';
+import {useEffect} from 'react';
 
 export enum Guild {
 	AMB,
@@ -36,16 +37,22 @@ const advancedGuilds: AdvancedGuild[] = [
 
 export function useGetGuild(): Guild {
 	const {guild, setGuild} = useGuildContext();
+
+	let detectedGuild: AdvancedGuild | undefined = undefined;
 	for (const advancedGuild of advancedGuilds) {
 		if (advancedGuild.urlPattern.test(window.location.origin)) {
-			if (!guild) {
-				setGuild(advancedGuild.identifier);
-			}
-			return advancedGuild.guild;
+			detectedGuild = advancedGuild;
+			break;
 		}
 	}
 
-	return Guild.SLOTBOT;
+	useEffect(() => {
+		if (!guild && detectedGuild) {
+			setGuild(detectedGuild.identifier);
+		}
+	}, [detectedGuild]);
+
+	return detectedGuild?.guild ?? Guild.SLOTBOT;
 }
 
 function useGetGlobalTheme(): ReturnType<typeof createTheme> {
