@@ -1,4 +1,4 @@
-import {AppShell, AppShellProps, Badge, Container, Group, rem} from '@mantine/core';
+import {AppShell, AppShellProps, Container, Group, rem} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
