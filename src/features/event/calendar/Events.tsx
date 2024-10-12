@@ -5,9 +5,11 @@ import {JSX, useCallback, useRef, useState} from 'react';
 import {T} from '../../../components/T';
 import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
 import classes from './Events.module.css';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export function Events(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.events');
+	const {guild} = useGuildContext();
 
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);
 	const loadingCalendarWrapper = useRef<HTMLDivElement>(null);
@@ -24,7 +26,7 @@ export function Events(): JSX.Element {
 
 	return <>
 		<Center>
-			<Title><T k={'events'}/></Title>
+			<Title><T k={'events'} args={[guild]}/></Title>
 		</Center>
 
 		<Box ref={loadingCalendarWrapper}>

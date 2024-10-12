@@ -12,6 +12,7 @@ import {EventPageParams} from '../EventRoutes';
 import {eventActionValidate} from '../action/validation';
 import {EventEditDto} from '../eventTypes';
 import {JSX} from 'react';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventEditProps = EventPageParams & {
 	event: EventEditFormType;
@@ -20,11 +21,12 @@ type EventEditProps = EventPageParams & {
 
 export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
+	const {guildUrlPath} = useGuildContext();
 
 	const breadcrumbItems = [
 		{
 			title: 'breadcrumb.calendar',
-			href: '/events',
+			href: `/events/calendar${guildUrlPath}`,
 		},
 		{
 			title: event.name,
@@ -42,15 +44,17 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 		validateInputOnChange: true,
 	});
 
+	// The form type is not allowed to have this, but we know that EventEditDto has this value
+	const ownerGuild: EventEditDto['ownerGuild'] = (event as unknown as EventEditDto).ownerGuild;
 	return (
 		<EventEditProvider form={form} eventId={eventId}>
 			<Breadcrumb items={breadcrumbItems}/>
 
-			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
+			<EventGeneralInformation canRevokeShareable={canRevokeShareable} ownerGuild={ownerGuild}/>
 
 			<Divider my={'lg'}/>
 
-			<EventDetailsPage/>
+			<EventDetailsPage ownerGuild={ownerGuild}/>
 
 			<Divider my={'lg'}/>
 

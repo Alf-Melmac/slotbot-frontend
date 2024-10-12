@@ -17,6 +17,7 @@ import './eventCalendar.css';
 import classes from './EventCalendar.module.css';
 import utilsClasses from '../../../utils/styleUtils.module.css';
 import cx from 'clsx';
+import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventCalendarProps = {
 	toggleVisible: (isLoading: boolean) => void;
@@ -25,6 +26,7 @@ type EventCalendarProps = {
 
 export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element {
 	const {toggleVisible, onFailure} = props;
+	const {guildUrlPath} = useGuildContext();
 
 	const eventContent = (arg: EventContentArg) => {
 		const {event, backgroundColor} = arg;
@@ -46,7 +48,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 	return (
 		<>
 			{useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE) &&
-                <AddButton label={'event.add'} to={'new'} mb={'sm'}/>
+                <AddButton label={'event.add'} to={`/events${guildUrlPath}/new`} mb={'sm'}/>
 			}
 			<FullCalendar
 				plugins={[dayGridPlugin]}
@@ -57,7 +59,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 				events={(info, successCallback, failureCallback) => {
 					const start = dayjs(info.start.valueOf()).format();
 					const end = dayjs(info.end.valueOf()).format();
-					slotbotServerClient.get('events/list', {params: {start, end}})
+					slotbotServerClient.get(`events${guildUrlPath}/list`, {params: {start, end}})
 						.then((res) => {
 							const data = res.data;
 							data.forEach((event: any) => {

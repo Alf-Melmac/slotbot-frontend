@@ -4,6 +4,7 @@ import {GuildDto} from '../guilds/guildTypes';
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
 	hidden: boolean;
+	ownerGuildIdentifier: string;
 	missionType: string;
 	eventType: EventTypeDto;
 	pictureUrl: string;
@@ -108,6 +109,7 @@ export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {
 }
 
 export interface EventEditDto extends EventUpdateDto {
+	ownerGuild: string;
 	canRevokeShareable: boolean;
 	canUploadSlotlist: boolean;
 }

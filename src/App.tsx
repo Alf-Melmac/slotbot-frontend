@@ -17,6 +17,7 @@ import {AuthProvider} from './contexts/authentication/AuthProvider';
 import {LanguageProvider, useLanguage} from './contexts/language/Language';
 import {DatesProvider} from '@mantine/dates';
 import {ThemeLoader} from './contexts/theme/ThemeLoader';
+import {GuildProvider} from './contexts/guildcontext/GuildContext';
 
 export function App(): JSX.Element {
 	const queryClient = new QueryClient({
@@ -31,14 +32,16 @@ export function App(): JSX.Element {
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
 				<LanguageProvider>
-					<MantineApp/>
+					<GuildProvider>
+						<MantineApp/>
+					</GuildProvider>
 				</LanguageProvider>
 			</QueryClientProvider>
 		</Suspense>
 	);
 }
 
-function MantineApp(): JSX.Element { /*To be able to use translations in the theme this needs to be its own component*/
+function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and GuildProvider in the theme this needs to be its own component*/
 	const {language} = useLanguage();
 
 	const router = createBrowserRouter(routes, {
