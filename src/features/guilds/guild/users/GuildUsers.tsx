@@ -7,7 +7,7 @@ import {JSX, ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 
 import {useLanguage} from '../../../../contexts/language/Language';
 import {MRTable} from '../../../../components/Table/MRTable';
 import {GuildUser} from './GuildUser';
-import {RemoveGuildUser} from './RemoveGuildUser';
+import {GuildUserActions} from './GuildUserActions';
 import {GuildUserRole} from './GuildUserRole';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 
@@ -31,7 +31,7 @@ export function GuildUsers(): JSX.Element {
 			columnsDef.push({
 				id: 'guild-user-action',
 				header: '',
-				Cell: RemoveGuildUser,
+				Cell: GuildUserActions,
 			});
 		}
 		return columnsDef;

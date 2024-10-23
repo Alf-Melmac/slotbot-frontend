@@ -8,7 +8,7 @@ export const successNotification = (message: ReactNode = <></>) => {
 	showNotification({title: <T k={'success.notification'}/>, message: message, color: 'green'});
 };
 
-export const errorNotification: MutationOptions<unknown, AxiosError>['onError'] = (error) => {
+export const errorNotification: MutationOptions<unknown, AxiosError, unknown>['onError'] = (error) => {
 	showNotification({
 		title: <T k={'error.notification'} args={[error.code ? ` (${error.code})` : '']}/>,
 		message: error.message,
