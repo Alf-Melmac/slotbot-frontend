@@ -52,10 +52,14 @@ function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>
 		},
 	});
 
+	function closeAndReset() {
+		close();
+		setChecked(false);
+	}
 	return <>
 		<EventDetailsButton icon={faTrashCan} onClick={open} tooltip={'action.delete'}/>
 
-		<Modal opened={opened} onClose={close} size={'lg'} title={<T k={'event.delete'}/>}>
+		<Modal opened={opened} onClose={closeAndReset} size={'lg'} title={<T k={'event.delete'}/>}>
 			<Stack>
 				<T k={'event.delete.description'}/>
 				<Checkbox
@@ -66,7 +70,7 @@ function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>
 					color={'red'}
 				/>
 				<Group justify={'flex-end'}>
-					<Button variant={'default'} onClick={() => setChecked(false)}><T k={'action.cancel'}/></Button>
+					<Button variant={'default'} onClick={closeAndReset}><T k={'action.cancel'}/></Button>
 					<Button color={'red'} disabled={!checked || isPending} onClick={() => mutate()}>
 						<T k={'action.delete'}/>
 					</Button>
