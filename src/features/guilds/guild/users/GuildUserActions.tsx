@@ -66,7 +66,7 @@ function BanGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
 		validate: maxLengthField(REASON),
 	});
 
-	const putGuildUserBan = (reason: string) => slotbotServerClient.put(`/guilds/${guildId}/users/${(user.id)}/ban`,
+	const putGuildUserBan = (reason: string) => slotbotServerClient.put(`/guilds/${guildId}/users/${user.id}/ban`,
 		reason, {headers: {'Content-Type': 'text/plain'}}).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError, string>({
 		mutationFn: putGuildUserBan,
@@ -84,7 +84,7 @@ function BanGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
 	return <>
 		<Modal opened={opened} onClose={close} title={<T k={'guild.user.ban.title'} args={[user.name]}/>}>
 			<Stack>
-				<T k={'guild.user.ban.description'}/>
+				<T k={'guild.user.ban.description'} html/>
 				<TextareaMaxLength label={<T k={'guild.user.ban.reason'}/>} maxLength={REASON} autosize minRows={2}
 								   key={field.key} {...field.getInputProps()}/>
 				<Group justify={'flex-end'}>

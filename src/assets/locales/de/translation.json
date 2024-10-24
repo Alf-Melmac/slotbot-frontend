@@ -142,7 +142,7 @@
   "guild.user.add": "Mitglieder hinzufügen",
   "guild.user.ban": "Mitglied bannen",
   "guild.user.ban.action": "Bannen",
-  "guild.user.ban.description": "Ein gebanntes Konto wird aus der Community entfernt und alle Anmeldungen für zukünftige Events storniert. Bisherige Teilnahmen bleiben erhalten, aber neue Anmeldungen zu Events der Community sind nicht mehr möglich.",
+  "guild.user.ban.description": "Ein gebanntes Konto wird aus der Community entfernt und alle Anmeldungen für zukünftige Events storniert. Bisherige Teilnahmen bleiben erhalten, aber neue Anmeldungen zu Events der Community sind nicht mehr möglich.<br/>Die betroffene Person wird nicht über die Sperre und deren Grund informiert.",
   "guild.user.ban.reason": "Begründung für den Ban",
   "guild.user.ban.title": "Möchtest du {0} bannen?",
   "guild.user.banned": "Mitglied gebannt",

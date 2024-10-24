@@ -142,7 +142,7 @@
   "guild.user.add": "Add member",
   "guild.user.ban": "Ban member",
   "guild.user.ban.action": "Ban",
-  "guild.user.ban.description": "A banned account will be removed from the community and all registrations for future events will be cancelled. Previous registrations will be retained, but new registrations for events of this community will not be possible.",
+  "guild.user.ban.description": "A banned account will be removed from the community and all registrations for future events will be cancelled. Previous registrations will be retained, but new registrations for events of this community will not be possible.<br/>The individual will not be notified of the ban or the reason for the ban.",
   "guild.user.ban.reason": "Reason for the ban",
   "guild.user.ban.title": "Would you like to ban {0}?",
   "guild.user.banned": "Member banned",
