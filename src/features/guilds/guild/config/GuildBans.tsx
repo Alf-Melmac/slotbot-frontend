@@ -1,14 +1,17 @@
 import {JSX} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {ActionIcon, Center, ScrollArea, Skeleton, Table, Tooltip} from '@mantine/core';
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
-import {useQuery} from '@tanstack/react-query';
+import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServerClient';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {GuildBanDto} from '../../guildTypes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {GuildUser} from '../users/GuildUser';
 import {convertUtcToLocal} from '../../../../utils/dateHelper';
 import {faUserCheck} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../../components/T';
+import {showNotification} from '@mantine/notifications';
+import {errorNotification} from '../../../../utils/notificationHelper';
+import {AxiosError} from 'axios';
 
 export function GuildBans(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -54,11 +57,7 @@ export function GuildBans(): JSX.Element {
 								{convertUtcToLocal(ban.bannedAt).format('L LT')}
 							</Table.Td>
 							<Table.Td>
-								<Tooltip label={<T k={'guild.ban.unban'}/>}>
-									<ActionIcon variant={'default'}>
-										<FontAwesomeIcon icon={faUserCheck}/>
-									</ActionIcon>
-								</Tooltip>
+								<UnbanUser ban={ban} guildId={guildId}/>
 							</Table.Td>
 						</Table.Tr>
 					))
@@ -67,4 +66,33 @@ export function GuildBans(): JSX.Element {
 		</Table>
 		{data?.length === 0 && <Center mt={'sm'}><T k={'guild.bans.none'}/></Center>}
 	</ScrollArea>;
+}
+
+type UnbanUserProps = {
+	ban: GuildBanDto;
+} & Pick<ReturnType<typeof useGuildPage>, 'guildId'>;
+
+function UnbanUser(props: Readonly<UnbanUserProps>): JSX.Element {
+	const {ban: {user}, guildId} = props;
+
+	const queryClient = useQueryClient();
+	const deleteGuildBan = () => slotbotServerClient.delete(`/guilds/${guildId}/users/${user.id}/ban`).then(voidFunction);
+	const {mutate} = useMutation<void, AxiosError>({
+		mutationFn: deleteGuildBan,
+		onSuccess: () => {
+			queryClient.setQueryData(['guildBans', guildId], (data: GuildBanDto[]) => data.filter((ban) => ban.user.id !== user.id));
+			showNotification({
+				title: <T k={'guild.ban.unbanned'}/>,
+				message: <></>,
+				color: 'green',
+			});
+		},
+		onError: errorNotification,
+	});
+
+	return <Tooltip label={<T k={'guild.ban.unban'}/>}>
+		<ActionIcon variant={'default'} onClick={() => mutate()}>
+			<FontAwesomeIcon icon={faUserCheck}/>
+		</ActionIcon>
+	</Tooltip>;
 }

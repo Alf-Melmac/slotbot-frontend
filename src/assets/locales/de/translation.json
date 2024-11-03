@@ -132,6 +132,7 @@
   "guild.ban.reason": "Grund",
   "guild.ban.timestamp": "Zeitpunkt",
   "guild.ban.unban": "Ban aufheben",
+  "guild.ban.unbanned": "Ban aufgehoben",
   "guild.bans": "Bans",
   "guild.bans.none": "Es wurden noch keine Bans ausgesprochen.",
   "guild.config.archive.description": "Wähle einen Archivierungskanal, in dem Events nach Abschluss aufgelistet werden, wenn sie archiviert werden.",

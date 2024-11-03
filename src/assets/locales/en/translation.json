@@ -132,6 +132,7 @@
   "guild.ban.reason": "Reason",
   "guild.ban.timestamp": "Timestamp",
   "guild.ban.unban": "Unban",
+  "guild.ban.unbanned": "Unbanned",
   "guild.bans": "Bans",
   "guild.bans.none": "No bans have been issued yet.",
   "guild.config.archive.description": "Select an archive channel where the events will be listed after completion.",
