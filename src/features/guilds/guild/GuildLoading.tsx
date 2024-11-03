@@ -1,9 +1,10 @@
 import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
-import {Paper, SimpleGrid, Stack, Text, Title} from '@mantine/core';
+import {Button, Group, Stack, Text, Title} from '@mantine/core';
 import {T} from '../../../components/T';
 import {DelayedVisible} from '../../../components/Delayed/DelayedVisible';
 import {JSX} from 'react';
-import classes from './Guild.module.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons';
 
 export function GuildLoading(): JSX.Element {
 	return <>
@@ -11,29 +12,25 @@ export function GuildLoading(): JSX.Element {
 			<Text>Loading breadcrumb</Text>
 		</DelayedSkeleton>
 
-		<DelayedVisible component={Paper} withBorder p={'lg'} className={classes.guildCard} mb={'md'}>
-			<Stack align={'stretch'}>
-				<Stack align={'center'}>
-					<DelayedSkeleton width={'20%'} height={35}/>
-					<DelayedSkeleton width={240} height={240}/>
-				</Stack>
-				<SimpleGrid cols={2}>
-					<Stack align={'center'}>
-						<Title order={2}><T k={'guild.tag'}/></Title>
-						<DelayedSkeleton width={40}>
-							Idtfr
-						</DelayedSkeleton>
-					</Stack>
-					<Stack align={'center'}>
-						<Title order={2}><T k={'nav.calendar'}/></Title>
-						<DelayedSkeleton width={'60%'}>
-							Base url
-						</DelayedSkeleton>
-					</Stack>
-				</SimpleGrid>
+		<Group justify={'space-between'} align={'center'} mb={'md'}>
+			<Stack gap={'xs'}>
+				<Group align={'flex-start'}>
+					<DelayedSkeleton width={54} height={54}/>
+					<DelayedSkeleton width={200}>
+						<Title order={1} fw={100}>Title</Title>
+					</DelayedSkeleton>
+				</Group>
+				<DelayedSkeleton>
+					<Text size={'sm'}>this may be length</Text>
+				</DelayedSkeleton>
 			</Stack>
-		</DelayedVisible>
+			<DelayedVisible component={Button} leftSection={<FontAwesomeIcon icon={faArrowUpRightFromSquare}/>}
+							disabled>
+				<T k={'nav.calendar'}/>
+			</DelayedVisible>
+		</Group>
 
+		<DelayedVisible component={Title} order={2} mt={'lg'}><T k={'members'}/></DelayedVisible>
 		<DelayedSkeleton height={180}/>
 	</>;
 }

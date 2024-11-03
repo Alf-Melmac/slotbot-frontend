@@ -1,3 +1,4 @@
-.guildCard {
-	background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+.image {
+	width: auto;
+	height: var(--mantine-h1-line-height);
 }

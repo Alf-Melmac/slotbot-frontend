@@ -1,20 +1,18 @@
-import {useGetEventTypes} from '../../event/action/generalInformation/useGetEventTypes';
-import {Badge, ColorSwatch, CopyButton, Table} from '@mantine/core';
-import {DelayedSkeleton} from '../../../components/Delayed/DelayedSkeleton';
-import {T} from '../../../components/T';
+import {useGetEventTypes} from '../../../event/action/generalInformation/useGetEventTypes';
+import {Badge, ColorSwatch, CopyButton, ScrollArea, Skeleton, Table} from '@mantine/core';
+import {T} from '../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCopy} from '@fortawesome/free-regular-svg-icons';
-import {useGuildPage} from '../../../contexts/guild/GuildPageContext';
+import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {JSX} from 'react';
 import classes from './GuildEventTypes.module.css';
-import {EventDetailDefault} from './eventDetailDefault/EventDetailDefault';
+import {EventDetailDefault} from '../eventDetailDefault/EventDetailDefault';
 
 export function GuildEventTypes(): JSX.Element {
 	const {guildId} = useGuildPage();
-	const eventTypesQuery = useGetEventTypes(guildId);
-	const eventTypes = eventTypesQuery.data;
+	const {data: eventTypes, isLoading} = useGetEventTypes(guildId);
 
-	return (
+	return <ScrollArea h={250}>
 		<Table highlightOnHover>
 			<Table.Thead>
 				<Table.Tr>
@@ -25,14 +23,14 @@ export function GuildEventTypes(): JSX.Element {
 				</Table.Tr>
 			</Table.Thead>
 			<Table.Tbody>
-				{eventTypesQuery.isLoading ?
+				{isLoading ?
 					<>{
 						[...Array(3)].map((_, i) => (
 							<Table.Tr key={i}>
-								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
-								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
-								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
-								<Table.Td><DelayedSkeleton height={28}/></Table.Td>
+								<Table.Td><Skeleton height={28}/></Table.Td>
+								<Table.Td><Skeleton height={28}/></Table.Td>
+								<Table.Td><Skeleton height={28}/></Table.Td>
+								<Table.Td><Skeleton height={28}/></Table.Td>
 							</Table.Tr>
 						))
 					}</>
@@ -64,5 +62,5 @@ export function GuildEventTypes(): JSX.Element {
 				}
 			</Table.Tbody>
 		</Table>
-	);
+	</ScrollArea>;
 }

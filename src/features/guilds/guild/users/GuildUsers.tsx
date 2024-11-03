@@ -6,7 +6,7 @@ import {UserInGuildDto} from '../../guildTypes';
 import {JSX, ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {MRTable} from '../../../../components/Table/MRTable';
-import {GuildUser} from './GuildUser';
+import {GuildUserCell} from './GuildUser';
 import {GuildUserActions} from './GuildUserActions';
 import {GuildUserRole} from './GuildUserRole';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
@@ -20,7 +20,7 @@ export function GuildUsers(): JSX.Element {
 		const columnsDef: MRT_ColumnDef<UserInGuildDto>[] = [
 			{
 				header: t('user.name'),
-				Cell: GuildUser,
+				Cell: GuildUserCell,
 			},
 			{
 				header: t('user.role'),
@@ -62,13 +62,13 @@ export function GuildUsers(): JSX.Element {
             <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
 
 		<MRTable columns={columns} data={flatData}
-		         localization={{noRecordsToDisplay: t('guild.users.none')}}
-		         mantineTableContainerProps={{
-			         ref: tableContainerRef,
-					 style: { maxHeight: '318px' },
-			         onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
-		         }}
-		         state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
+				 localization={{noRecordsToDisplay: t('guild.users.none')}}
+				 mantineTableContainerProps={{
+					 ref: tableContainerRef,
+					 style: {maxHeight: '318px'},
+					 onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
+				 }}
+				 state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
 	</>;
 }
 

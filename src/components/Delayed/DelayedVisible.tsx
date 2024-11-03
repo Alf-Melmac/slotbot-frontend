@@ -1,8 +1,8 @@
 import {JSX, useEffect, useRef, useState} from 'react';
-import {PaperProps} from '@mantine/core';
+import {ButtonProps, CardProps, StackProps, TitleProps} from '@mantine/core';
 import {DELAY} from './Delayed';
 
-type DelayedComponentProps = PaperProps;
+type DelayedComponentProps = CardProps | TitleProps | ButtonProps | StackProps;
 type DelayedVisibleProps<ComponentProps extends DelayedComponentProps> = ComponentProps & {
 	component: any;
 };
@@ -12,7 +12,10 @@ type DelayedVisibleProps<ComponentProps extends DelayedComponentProps> = Compone
  *
  * Supported components:
  * <ul>
- *     <li>{@link PaperProps}</li>
+ *     <li>{@link CardProps}</li>
+ *     <li>{@link TitleProps}</li>
+ *     <li>{@link ButtonProps}</li>
+ *     <li>{@link StackProps}</li>
  * </ul>
  * @see Delayed
  */
@@ -22,7 +25,7 @@ export function DelayedVisible<ComponentProps extends DelayedComponentProps>(pro
 	const eventCalendarWrapper = useRef<HTMLDivElement>(null);
 	const [visible, setVisible] = useState(false);
 	useEffect(() => {
-		eventCalendarWrapper.current?.style.setProperty('display', visible ? 'inherit' : 'none');
+		eventCalendarWrapper.current?.style.setProperty('display', visible ? '' : 'none');
 	}, [visible, eventCalendarWrapper]);
 
 	useEffect(() => {

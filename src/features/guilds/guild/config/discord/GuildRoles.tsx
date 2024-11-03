@@ -1,16 +1,16 @@
-import {GuildConfigDto, GuildDiscordIntegrationDto} from '../../guildTypes';
+import {GuildConfigDto, GuildDiscordIntegrationDto} from '../../../guildTypes';
 import {Select, Skeleton, TextInput} from '@mantine/core';
-import {T} from '../../../../components/T';
-import {useLanguage} from '../../../../contexts/language/Language';
-import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
+import {T} from '../../../../../components/T';
+import {useLanguage} from '../../../../../contexts/language/Language';
+import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 import {Dispatch, JSX, SetStateAction, useState} from 'react';
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
+import {errorNotification, successNotification} from '../../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
 import {GuildRolesPageWrapper} from './GuildRolesPageWrapper';
-import {useGuildDiscordConfig} from '../../../../contexts/guild/GuildDiscordConfigContext';
+import {useGuildDiscordConfig} from '../../../../../contexts/guild/GuildDiscordConfigContext';
 
 export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {memberRole, eventManageRole, adminRole} = props;

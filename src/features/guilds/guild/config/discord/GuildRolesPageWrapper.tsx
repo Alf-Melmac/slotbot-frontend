@@ -1,10 +1,10 @@
 import {JSX, PropsWithChildren} from 'react';
 import {Alert, Box, Group, Spoiler} from '@mantine/core';
-import {T} from '../../../../components/T';
+import {T} from '../../../../../components/T';
 import classes from './GuildRolesPageWrapper.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
-import {TextKey} from '../../../../contexts/language/Language';
+import {TextKey} from '../../../../../contexts/language/Language';
 
 type GuildRolesPageWrapperProps = {
     warning?: TextKey;

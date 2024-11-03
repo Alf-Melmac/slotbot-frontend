@@ -1,15 +1,15 @@
-import {GuildConfigDto} from '../../guildTypes';
-import {T} from '../../../../components/T';
+import {GuildConfigDto} from '../../../guildTypes';
+import {T} from '../../../../../components/T';
 import {Select, Skeleton, TextInput} from '@mantine/core';
-import {useLanguage} from '../../../../contexts/language/Language';
+import {useLanguage} from '../../../../../contexts/language/Language';
 import {JSX, useState} from 'react';
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
+import {errorNotification, successNotification} from '../../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
-import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
-import {useGuildDiscordConfig} from '../../../../contexts/guild/GuildDiscordConfigContext';
+import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
+import {useGuildDiscordConfig} from '../../../../../contexts/guild/GuildDiscordConfigContext';
 
 export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {archiveChannel} = props;

@@ -62,3 +62,9 @@ export interface UserInGuildDto {
 	user: DiscordUserDto;
 	role: Role;
 }
+
+export interface GuildBanDto {
+	user: DiscordUserDto;
+	reason: string;
+	bannedAt: Date;
+}

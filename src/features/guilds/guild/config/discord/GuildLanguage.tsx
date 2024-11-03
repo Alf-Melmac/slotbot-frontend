@@ -1,14 +1,14 @@
-import {GuildConfigDto, Language} from '../../guildTypes';
+import {GuildConfigDto, Language} from '../../../guildTypes';
 import {JSX, useState} from 'react';
-import slotbotServerClient from '../../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
+import {errorNotification, successNotification} from '../../../../../utils/notificationHelper';
 import {useDidUpdate} from '@mantine/hooks';
 import {Group, Radio} from '@mantine/core';
-import {T} from '../../../../components/T';
+import {T} from '../../../../../components/T';
 import {DEFlag, GBFlag} from 'mantine-flagpack';
-import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
+import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 
 export function GuildLanguage(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {language} = props;
