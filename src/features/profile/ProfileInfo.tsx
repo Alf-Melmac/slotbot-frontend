@@ -6,7 +6,7 @@ import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {GlobalNotificationSettings} from './GlobalNotificationSettings';
 import {ExternalCalendarSettings} from './ExternalCalendarSettings';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../hooks/useDocumentTitle';
 import {T} from '../../components/T';
 import {JSX} from 'react';
 import classes from './ProfileInfo.module.css';

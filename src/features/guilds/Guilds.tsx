@@ -1,4 +1,4 @@
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../hooks/useDocumentTitle';
 import {Stack, Title} from '@mantine/core';
 import {T} from '../../components/T';
 import {SearchControl} from './SearchControl';

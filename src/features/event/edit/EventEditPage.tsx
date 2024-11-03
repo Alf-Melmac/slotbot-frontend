@@ -3,17 +3,16 @@ import {EventPageParams} from '../EventRoutes';
 import {useFetchEventForEdit} from '../EventFetcher';
 import {GeneralError} from '../../../components/error/GeneralError';
 import {EventEdit} from './EventEdit';
-import {JSX, useEffect, useState} from 'react';
+import {JSX, useEffect} from 'react';
 import {EventEditLoading} from './EventEditLoading';
-import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {useDynamicDocumentTitleForItem} from '../../../hooks/useDocumentTitle';
 import {useLanguage} from '../../../contexts/language/Language';
 import {convertDtoToFormEvent} from './utils';
 
 export default function EventEditPage(): JSX.Element {
-	const {t} = useLanguage();
-	const [title, setTitle] = useState(t('event'));
-	useTranslatedDocumentTitle('documentTitle.event.edit', [title]);
+	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'event');
 
+	const {t} = useLanguage();
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 

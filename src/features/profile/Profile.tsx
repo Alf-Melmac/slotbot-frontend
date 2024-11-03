@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';
 import {ProfileInfo} from './ProfileInfo';
 import {ProfileInfoLoading} from './loading/ProfileInfoLoading';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../hooks/useDocumentTitle';
 import {ProfilePageParams} from './ProfileRoutes';
 import {JSX} from 'react';
 

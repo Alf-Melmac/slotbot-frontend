@@ -3,7 +3,7 @@ import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {JSX, useCallback, useRef, useState} from 'react';
 import {T} from '../../../components/T';
-import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../../hooks/useDocumentTitle';
 import classes from './Events.module.css';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 

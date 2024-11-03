@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {T} from '../../components/T';
 import {TextKey} from '../../contexts/language/Language';
 import {Bold} from '../../components/Text/Bold';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../hooks/useDocumentTitle';
 import classes from './ErrorPage.module.css';
 import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 

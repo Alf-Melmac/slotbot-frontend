@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom';
 import {Alert, ColorSwatch, Group, Tabs, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
-import {useDocumentTitle, useScrollIntoView} from '@mantine/hooks';
+import {useScrollIntoView} from '@mantine/hooks';
 import {useFetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
 import {Breadcrumb} from '../../../components/Breadcrumb';
@@ -11,18 +11,18 @@ import {EventFields} from './EventFields';
 import {EventSlotlist} from './slotlist/EventSlotlist';
 import {EventDetailsLoading} from './EventDetailsLoading';
 import {EventPageParams} from '../EventRoutes';
-import {JSX, useEffect, useState} from 'react';
+import {JSX, useEffect} from 'react';
 import {useLanguage} from '../../../contexts/language/Language';
 import {T} from '../../../components/T';
 import {EventDescription} from './EventDescription';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
+import {useDynamicDocumentTitle} from '../../../hooks/useDocumentTitle';
 
 export function EventDetails(): JSX.Element {
-	const {t} = useLanguage();
-	const [title, setTitle] = useState(t('event'));
-	useDocumentTitle(title);
+	const setTitle = useDynamicDocumentTitle('event');
 	const {guildUrlPath} = useGuildContext();
 
+	const {t} = useLanguage();
 	const {eventId} = useParams<EventPageParams>();
 	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
 

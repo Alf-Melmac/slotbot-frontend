@@ -5,7 +5,7 @@ import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {errorNotification, successNotification} from '../../utils/notificationHelper';
 import {T} from '../../components/T';
-import {useTranslatedDocumentTitle} from '../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../hooks/useDocumentTitle';
 
 export default function AdminUtils(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.admin.utils');

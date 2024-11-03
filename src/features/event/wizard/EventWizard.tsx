@@ -7,7 +7,7 @@ import {eventActionValidate} from '../action/validation';
 import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
 import {EventWizardSteps} from './EventWizardSteps';
 import {useEventCopy} from './useEventCopy';
-import {useTranslatedDocumentTitle} from '../../../hooks/useTranslatedDocumentTitle';
+import {useTranslatedDocumentTitle} from '../../../hooks/useDocumentTitle';
 import {getTimeShort} from '../../../utils/dateHelper';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
