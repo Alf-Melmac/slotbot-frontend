@@ -29,8 +29,6 @@ updates:
         patterns:
           - "@tiptap/*"
     ignore:
-      - dependency-name: "@types/node"
-        versions: [ "22.x" ] # LTS versions only
       - dependency-name: "@tanstack/react-query" # Spams too much
       - dependency-name: "@tiptap/*" # Spams too much
 
