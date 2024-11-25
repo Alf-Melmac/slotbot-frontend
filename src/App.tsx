@@ -50,6 +50,7 @@ function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and Gu
 			v7_normalizeFormMethod: true,
 			v7_partialHydration: true,
 			v7_relativeSplatPath: true,
+			v7_skipActionErrorRevalidation: true,
 		},
 	});
 
