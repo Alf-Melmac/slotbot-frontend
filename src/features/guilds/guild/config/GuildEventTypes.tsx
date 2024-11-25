@@ -6,14 +6,14 @@ import {faCopy} from '@fortawesome/free-regular-svg-icons';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {JSX} from 'react';
 import classes from './GuildEventTypes.module.css';
-import {EventDetailDefault} from '../eventDetailDefault/EventDetailDefault';
+import {EventDetailDefault} from './eventDetailDefault/EventDetailDefault';
 
 export function GuildEventTypes(): JSX.Element {
 	const {guildId} = useGuildPage();
 	const {data: eventTypes, isLoading} = useGetEventTypes(guildId);
 
 	return <ScrollArea h={250}>
-		<Table highlightOnHover>
+		<Table highlightOnHover stickyHeader>
 			<Table.Thead>
 				<Table.Tr>
 					<Table.Th><T k={'color'}/></Table.Th>

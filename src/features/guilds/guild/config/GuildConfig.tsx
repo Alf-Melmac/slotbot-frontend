@@ -17,6 +17,7 @@ import classes from './GuildConfig.module.css';
 import {TextKey} from '../../../../contexts/language/Language';
 import {GuildBans} from './GuildBans';
 import {GuildConfigLoading} from './GuildConfigLoading';
+import {GuildRequirementList} from './requirement/GuildRequirementList';
 
 export default function GuildConfig(): JSX.Element {
 	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'documentTitle.guild');
@@ -60,14 +61,8 @@ export default function GuildConfig(): JSX.Element {
 			</Box>
 
 			<GuildPageProvider guildId={guildId} isAdmin={true}>
-				<ConfigItem title={'integration.discord'}>
-					<Stack>
-						<GuildLanguage {...guildConfig}/>
-						<GuildDiscordConfig>
-							<GuildArchive {...guildConfig}/>
-							<GuildRoles {...guildConfig}/>
-						</GuildDiscordConfig>
-					</Stack>
+				<ConfigItem title={'guild.requirementList'} description={'guild.requirementList.description'}>
+					<GuildRequirementList/>
 				</ConfigItem>
 
 				<ConfigItem title={'event.eventTypes'}>
@@ -77,6 +72,16 @@ export default function GuildConfig(): JSX.Element {
 				<ConfigItem title={'guild.bans'}>
 					<GuildBans/>
 				</ConfigItem>
+
+				<ConfigItem title={'integration.discord'}>
+					<Stack>
+						<GuildLanguage {...guildConfig}/>
+						<GuildDiscordConfig>
+							<GuildArchive {...guildConfig}/>
+							<GuildRoles {...guildConfig}/>
+						</GuildDiscordConfig>
+					</Stack>
+				</ConfigItem>
 			</GuildPageProvider>
 		</Stack>
 	</>;
@@ -84,11 +89,15 @@ export default function GuildConfig(): JSX.Element {
 
 type ConfigItemProps = {
 	title: TextKey;
+	description?: TextKey;
 }
 
 function ConfigItem(props: Readonly<PropsWithChildren<ConfigItemProps>>): JSX.Element {
 	return <Stack gap={'xs'}>
-		<Title order={2} size={'h3'}><T k={props.title}/></Title>
+		<Title order={2}><T k={props.title}/></Title>
+		{props.description &&
+            <T k={props.description}/>
+		}
 		<Paper p={'md'} withBorder className={classes.card}>
 			{props.children}
 		</Paper>

@@ -23,7 +23,7 @@ export function GuildBans(): JSX.Element {
 	});
 
 	return <ScrollArea h={250}>
-		<Table highlightOnHover>
+		<Table highlightOnHover stickyHeader>
 			<Table.Thead>
 				<Table.Tr>
 					<Table.Th><T k={'user.name'}/></Table.Th>
