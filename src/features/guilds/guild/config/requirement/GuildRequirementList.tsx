@@ -1,13 +1,15 @@
-import {JSX} from 'react';
+import {JSX, useState} from 'react';
 import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
-import {RequirementListDto} from './requirementTypes';
-import {Avatar, Checkbox, ScrollArea, Skeleton, Table, Tooltip} from '@mantine/core';
+import {RequirementListDto, RequirementListPostDto} from './requirementTypes';
+import {ActionIcon, Avatar, Checkbox, Modal, ScrollArea, Skeleton, Table, Tooltip} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
-import {AddRequirementList} from './AddRequirementList';
+import {faPen, faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
+import {AddButton} from '../../../../../components/Button/AddButton';
+import {useDisclosure} from '@mantine/hooks';
+import {RequirementListForm} from './RequirementListForm';
 
 export function GuildRequirementList(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -18,6 +20,18 @@ export function GuildRequirementList(): JSX.Element {
 		queryFn: getGuildRequirementLists,
 	});
 
+	const [modal, setModal] = useState<RequirementListPostDto | undefined>(undefined);
+	const [opened, {open, close}] = useDisclosure(false);
+	function openModal(list?: RequirementListDto) {
+		setModal(list as RequirementListPostDto | undefined);
+		open();
+	}
+
+	function closeModal() {
+		close();
+		setModal(undefined);
+	}
+
 	return <>
 		<ScrollArea h={250}>
 			<Table highlightOnHover stickyHeader>
@@ -26,6 +40,7 @@ export function GuildRequirementList(): JSX.Element {
 						<Table.Th><T k={'guild.requirementList.name'}/></Table.Th>
 						<Table.Th><T k={'guild.requirementList.memberAssignable'}/></Table.Th>
 						<Table.Th><T k={'guild.requirementList.enforced'}/></Table.Th>
+						<Table.Th><T k={'guild.requirementList'}/></Table.Th>
 						<Table.Th></Table.Th>
 					</Table.Tr>
 				</Table.Thead>
@@ -34,6 +49,7 @@ export function GuildRequirementList(): JSX.Element {
 						<>{
 							[...Array(3)].map((_, i) => (
 								<Table.Tr key={i}>
+									<Table.Td><Skeleton height={28}/></Table.Td>
 									<Table.Td><Skeleton height={28}/></Table.Td>
 									<Table.Td><Skeleton height={28}/></Table.Td>
 									<Table.Td><Skeleton height={28}/></Table.Td>
@@ -56,6 +72,13 @@ export function GuildRequirementList(): JSX.Element {
 								<Table.Td>
 									<Requirements requirements={list.requirements}/>
 								</Table.Td>
+								<Table.Td>
+									<Tooltip label={<T k={'action.edit'}/>}>
+										<ActionIcon variant={'default'} onClick={() => openModal(list)}>
+											<FontAwesomeIcon icon={faPen}/>
+										</ActionIcon>
+									</Tooltip>
+								</Table.Td>
 							</Table.Tr>
 						))
 					}
@@ -63,7 +86,11 @@ export function GuildRequirementList(): JSX.Element {
 			</Table>
 		</ScrollArea>
 
-		<AddRequirementList/>
+		<AddButton label={'guild.requirementList.new'} onClick={() => openModal()}/>
+
+		<Modal opened={opened} onClose={closeModal} title={<T k={'guild.requirementList.new'}/>} size={'xl'}>
+			<RequirementListForm list={modal} onSuccess={closeModal}/>
+        </Modal>
 	</>;
 }
 

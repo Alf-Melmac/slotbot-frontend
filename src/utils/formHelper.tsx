@@ -80,15 +80,23 @@ export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: 
 }
 
 function removeFrontendIds(list: any[]): void {
-	list.forEach(field => {
-		const id = field.id;
-		if (typeof id === 'string' && id.startsWith('mantine-')) {
-			delete field.id;
+	list.forEach(removeFrontendId);
+}
+
+export function removeFrontendIdsFromElement<Field extends FrontendIdDto>(element: Field): Field {
+	const newElement = structuredClone(element);
+	removeFrontendId(newElement);
+	return newElement;
+}
+
+function removeFrontendId(element: any): void {
+	const id = element.id;
+	if (typeof id === 'string' && id.startsWith('mantine-')) {
+		delete element.id;
+	}
+	for (const value of Object.values(element)) {
+		if (Array.isArray(value)) {
+			removeFrontendIds(value);
 		}
-		for (const value of Object.values(field)) {
-			if (Array.isArray(value)) {
-				removeFrontendIds(value);
-			}
-		}
-	});
+	}
 }
