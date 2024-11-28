@@ -1,4 +1,4 @@
-import {Box, Paper, Stack, Title} from '@mantine/core';
+import {Badge, Box, Paper, Stack, Title} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useGetGuild, useGetGuildConfig} from '../useGetGuild';
 import {GuildEventTypes} from './GuildEventTypes';
@@ -17,6 +17,9 @@ import classes from './GuildConfig.module.css';
 import {TextKey} from '../../../../contexts/language/Language';
 import {GuildBans} from './GuildBans';
 import {GuildConfigLoading} from './GuildConfigLoading';
+import {GuildRequirementList} from './requirement/GuildRequirementList';
+import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
+import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
 
 export default function GuildConfig(): JSX.Element {
 	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'documentTitle.guild');
@@ -60,6 +63,21 @@ export default function GuildConfig(): JSX.Element {
 			</Box>
 
 			<GuildPageProvider guildId={guildId} isAdmin={true}>
+				<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
+					<ConfigItem title={'guild.requirementList'} description={'guild.requirementList.description'}
+								preview>
+						<GuildRequirementList/>
+					</ConfigItem>
+				</RequireFeatureFlag>
+
+				<ConfigItem title={'event.eventTypes'}>
+					<GuildEventTypes/>
+				</ConfigItem>
+
+				<ConfigItem title={'guild.bans'}>
+					<GuildBans/>
+				</ConfigItem>
+
 				<ConfigItem title={'integration.discord'}>
 					<Stack>
 						<GuildLanguage {...guildConfig}/>
@@ -69,14 +87,6 @@ export default function GuildConfig(): JSX.Element {
 						</GuildDiscordConfig>
 					</Stack>
 				</ConfigItem>
-
-				<ConfigItem title={'event.eventTypes'}>
-					<GuildEventTypes/>
-				</ConfigItem>
-
-				<ConfigItem title={'guild.bans'}>
-					<GuildBans/>
-				</ConfigItem>
 			</GuildPageProvider>
 		</Stack>
 	</>;
@@ -84,11 +94,16 @@ export default function GuildConfig(): JSX.Element {
 
 type ConfigItemProps = {
 	title: TextKey;
+	description?: TextKey;
+	preview?: boolean;
 }
 
 function ConfigItem(props: Readonly<PropsWithChildren<ConfigItemProps>>): JSX.Element {
 	return <Stack gap={'xs'}>
-		<Title order={2} size={'h3'}><T k={props.title}/></Title>
+		<Title order={2}><T k={props.title}/>{props.preview && <Badge ml={'md'} color={'pink'}>Preview</Badge>}</Title>
+		{props.description &&
+            <T k={props.description}/>
+		}
 		<Paper p={'md'} withBorder className={classes.card}>
 			{props.children}
 		</Paper>

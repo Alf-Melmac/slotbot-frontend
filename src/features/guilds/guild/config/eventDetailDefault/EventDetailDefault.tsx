@@ -1,12 +1,12 @@
 import {JSX, useState} from 'react';
-import {EventTypeDto} from '../../../event/eventTypes';
-import {useEventDetailsDefault} from '../../../eventDetailsDefault/useEventDetailsDefault';
+import {EventTypeDto} from '../../../../event/eventTypes';
+import {useEventDetailsDefault} from '../../../../eventDetailsDefault/useEventDetailsDefault';
 import {ActionIcon, Modal} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faReceipt} from '@fortawesome/free-solid-svg-icons';
-import {T} from '../../../../components/T';
+import {T} from '../../../../../components/T';
 import {EventDetailDefaultForm, EventDetailDefaultFormProps} from './EventDetailDefaultForm';
-import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
+import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 
 export type EventDetailDefaultProps = {
 	name: EventTypeDto['name'];

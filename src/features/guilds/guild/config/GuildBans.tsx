@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
-import {ActionIcon, Center, ScrollArea, Skeleton, Table, Tooltip} from '@mantine/core';
+import {ActionIcon, Center, ScrollArea, Table, Tooltip} from '@mantine/core';
 import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServerClient';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {GuildBanDto} from '../../guildTypes';
@@ -12,6 +12,7 @@ import {T} from '../../../../components/T';
 import {showNotification} from '@mantine/notifications';
 import {errorNotification} from '../../../../utils/notificationHelper';
 import {AxiosError} from 'axios';
+import {LoadingRows} from '../../../../components/Table/LoadingRows';
 
 export function GuildBans(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -23,7 +24,7 @@ export function GuildBans(): JSX.Element {
 	});
 
 	return <ScrollArea h={250}>
-		<Table highlightOnHover>
+		<Table highlightOnHover stickyHeader>
 			<Table.Thead>
 				<Table.Tr>
 					<Table.Th><T k={'user.name'}/></Table.Th>
@@ -34,16 +35,7 @@ export function GuildBans(): JSX.Element {
 			</Table.Thead>
 			<Table.Tbody>
 				{isLoading ?
-					<>{
-						[...Array(3)].map((_, i) => (
-							<Table.Tr key={i}>
-								<Table.Td><Skeleton height={28}/></Table.Td>
-								<Table.Td><Skeleton height={28}/></Table.Td>
-								<Table.Td><Skeleton height={28}/></Table.Td>
-								<Table.Td><Skeleton height={28}/></Table.Td>
-							</Table.Tr>
-						))
-					}</>
+					<LoadingRows columns={4}/>
 					:
 					data?.map((ban) => (
 						<Table.Tr key={ban.user.id}>

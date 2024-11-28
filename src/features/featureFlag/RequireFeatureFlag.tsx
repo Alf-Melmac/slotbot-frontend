@@ -10,7 +10,7 @@ type RequireFeatureFlagProps = {
 	/**
 	 * Element to render if the feature is not enabled
 	 */
-	notEnabled: ReactNode,
+	notEnabled?: ReactNode,
 	/**
 	 * The feature to check for
 	 */
