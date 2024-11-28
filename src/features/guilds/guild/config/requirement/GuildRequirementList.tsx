@@ -3,13 +3,14 @@ import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {RequirementListDto, RequirementListPostDto} from './requirementTypes';
-import {ActionIcon, Avatar, Checkbox, Modal, ScrollArea, Skeleton, Table, Tooltip} from '@mantine/core';
+import {ActionIcon, Avatar, Checkbox, Modal, ScrollArea, Table, Tooltip} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPen, faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
 import {AddButton} from '../../../../../components/Button/AddButton';
 import {useDisclosure} from '@mantine/hooks';
 import {RequirementListForm} from './RequirementListForm';
+import {LoadingRows} from '../../../../../components/Table/LoadingRows';
 
 export function GuildRequirementList(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -22,6 +23,7 @@ export function GuildRequirementList(): JSX.Element {
 
 	const [modal, setModal] = useState<RequirementListPostDto | undefined>(undefined);
 	const [opened, {open, close}] = useDisclosure(false);
+
 	function openModal(list?: RequirementListDto) {
 		setModal(list as RequirementListPostDto | undefined);
 		open();
@@ -46,17 +48,7 @@ export function GuildRequirementList(): JSX.Element {
 				</Table.Thead>
 				<Table.Tbody>
 					{isLoading ?
-						<>{
-							[...Array(3)].map((_, i) => (
-								<Table.Tr key={i}>
-									<Table.Td><Skeleton height={28}/></Table.Td>
-									<Table.Td><Skeleton height={28}/></Table.Td>
-									<Table.Td><Skeleton height={28}/></Table.Td>
-									<Table.Td><Skeleton height={28}/></Table.Td>
-									<Table.Td><Skeleton height={28}/></Table.Td>
-								</Table.Tr>
-							))
-						}</>
+						<LoadingRows columns={5}/>
 						:
 						data?.map((list) => (
 							<Table.Tr key={list.id}>
@@ -90,7 +82,7 @@ export function GuildRequirementList(): JSX.Element {
 
 		<Modal opened={opened} onClose={closeModal} title={<T k={'guild.requirementList.new'}/>} size={'xl'}>
 			<RequirementListForm list={modal} onSuccess={closeModal}/>
-        </Modal>
+		</Modal>
 	</>;
 }
 
