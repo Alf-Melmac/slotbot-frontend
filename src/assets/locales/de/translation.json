@@ -150,6 +150,7 @@
   "guild.config.roles.description": "Konfiguriere die Synchronisierung der Mitgliederrollen mit Discord-Rollen. Das bedeutet, dass in Zukunft das Hinzufügen oder Entfernen von konfigurierten Discord-Rollen hier widergespiegelt wird. Ist keine Rolle für Mitglieder konfiguriert, bleiben die Mitglieder Teil der Community, wenn die anderen Rollen entfernt werden. Ansonsten werden sie entfernt. Auch in umgekehrter Richtung, wenn die Rollen in der Mitgliederliste angepasst werden, werden die Discord-Rollen aktualisiert.",
   "guild.manage": "Community verwalten",
   "guild.requirementList": "Voraussetzung",
+  "guild.requirementList.available": "Verfügbar",
   "guild.requirementList.description": "Voraussetzungen schränken den Personenkreis der Teilnehmenden ein oder weisen darauf hin, dass eine bestimmte Bedingung erfüllt sein muss. Voraussetzungen werden für Event-Typen aktiviert und können dann vom Event-Ersteller auf ganze Events, Squads oder Slots angewendet werden. Für jede Voraussetzung kann entschieden werden, ob sich Teilnehmende auch ohne Erfüllung der Voraussetzung anmelden können und ob Teilnehmenden selbst über die Erfüllung einer Voraussetzung entscheiden können.",
   "guild.requirementList.enforced": "Verpflichtend",
   "guild.requirementList.enforced.tooltip": "Teilnehmende müssen die Voraussetzung erfüllen, um sich für den Slot anmelden zu können.",

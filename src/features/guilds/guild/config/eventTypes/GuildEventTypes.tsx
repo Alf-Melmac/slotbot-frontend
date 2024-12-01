@@ -12,6 +12,8 @@ import {useDisclosure} from '@mantine/hooks';
 import {faListCheck, faReceipt} from '@fortawesome/free-solid-svg-icons';
 import {EventTypeDto} from '../../../../event/eventTypes';
 import {EventDetailRequirementLists} from './requirementList/EventDetailRequirementLists';
+import {FeatureFlag} from '../../../../featureFlag/useGetFeatureFlags';
+import {RequireFeatureFlag} from '../../../../featureFlag/RequireFeatureFlag';
 
 export function GuildEventTypes(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -89,12 +91,14 @@ export function GuildEventTypes(): JSX.Element {
 												<FontAwesomeIcon icon={faReceipt}/>
 											</ActionIcon>
 										</Tooltip>
-										<Tooltip label={<T k={'event.details.requirementList'}/>}>
-											<ActionIcon variant={'default'} disabled={!eventType.guild}
-														onClick={() => openDetailsRequirementListModal(eventType)}>
-												<FontAwesomeIcon icon={faListCheck}/>
-											</ActionIcon>
-										</Tooltip>
+										<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
+											<Tooltip label={<T k={'event.details.requirementList'}/>}>
+												<ActionIcon variant={'default'} disabled={!eventType.guild}
+															onClick={() => openDetailsRequirementListModal(eventType)}>
+													<FontAwesomeIcon icon={faListCheck}/>
+												</ActionIcon>
+											</Tooltip>
+										</RequireFeatureFlag>
 									</ActionIcon.Group>
 								</Table.Td>
 							</Table.Tr>
