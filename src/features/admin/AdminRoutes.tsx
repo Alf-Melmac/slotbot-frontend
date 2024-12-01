@@ -1,4 +1,4 @@
-import {RouteObject} from 'react-router-dom';
+import {RouteObject} from 'react-router';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {ApplicationRoles} from '../../contexts/authentication/authenticationTypes';
 import {JSX, lazy, PropsWithChildren, Suspense} from 'react';

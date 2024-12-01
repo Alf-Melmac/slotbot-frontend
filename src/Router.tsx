@@ -1,4 +1,4 @@
-import {Navigate, RouteObject} from 'react-router-dom';
+import {Navigate, RouteObject} from 'react-router';
 import {eventRoutes} from './features/event/EventRoutes';
 import {profileRoutes} from './features/profile/ProfileRoutes';
 import {adminRoutes} from './features/admin/AdminRoutes';

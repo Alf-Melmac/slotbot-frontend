@@ -4,7 +4,7 @@ import {DelayedSkeleton} from '../../components/Delayed/DelayedSkeleton';
 import {NAV_HEIGHT} from '../../components/nav/Nav';
 import {AnchorLink} from '../../components/Text/AnchorLink';
 import {SpotlightActionData} from '@mantine/spotlight';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router';
 import {Dispatch, JSX, SetStateAction, useEffect} from 'react';
 import {SearchControl} from './SearchControl';
 import {GuildPageParams} from './GuildRoutes';

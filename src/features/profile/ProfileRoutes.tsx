@@ -1,4 +1,4 @@
-import {Navigate, RouteObject} from 'react-router-dom';
+import {Navigate, RouteObject} from 'react-router';
 import {RequireAuth} from '../../contexts/authentication/RequireAuth';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {notFoundRoute} from '../error/ErrorRoutes';

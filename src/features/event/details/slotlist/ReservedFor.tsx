@@ -1,6 +1,6 @@
 import {ActionIcon, Image, Text, useMantineTheme} from '@mantine/core';
 import {EventSlotlistProps} from './EventSlotlist';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
 import {JSX} from 'react';
 
 type ReservedForProps = {

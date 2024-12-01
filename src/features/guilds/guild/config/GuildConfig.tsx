@@ -9,7 +9,7 @@ import {GuildRoles} from './discord/GuildRoles';
 import {JSX, PropsWithChildren, useEffect} from 'react';
 import {GuildDiscordConfig} from './discord/GuildDiscordConfig';
 import {useDynamicDocumentTitleForItem} from '../../../../hooks/useDocumentTitle';
-import {useParams} from 'react-router-dom';
+import {useParams} from 'react-router';
 import {GuildPageParams} from '../../GuildRoutes';
 import {NotFoundPage} from '../../../error/ErrorRoutes';
 import {Breadcrumb} from '../../../../components/Breadcrumb';

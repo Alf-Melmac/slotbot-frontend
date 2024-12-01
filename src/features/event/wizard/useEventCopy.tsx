@@ -1,4 +1,4 @@
-import {useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {EventPostDto} from '../eventTypes';

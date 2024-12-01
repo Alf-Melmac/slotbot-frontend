@@ -11,7 +11,7 @@ import {useDisclosure} from '@mantine/hooks';
 import slotbotServerClient, {voidFunction} from '../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 type EventDetailsButtonsProps = {

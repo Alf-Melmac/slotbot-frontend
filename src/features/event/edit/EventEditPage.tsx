@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams} from 'react-router';
 import {EventPageParams} from '../EventRoutes';
 import {useFetchEventForEdit} from '../EventFetcher';
 import {GeneralError} from '../../../components/error/GeneralError';

@@ -4,7 +4,7 @@ import {Nav} from '../../components/nav/Nav';
 import {Spotlight, SpotlightActionData} from '@mantine/spotlight';
 import {voidFunction} from '../../hooks/slotbotServerClient';
 import {useLanguage} from '../../contexts/language/Language';
-import {Outlet} from 'react-router-dom';
+import {Outlet} from 'react-router';
 import {JSX, useState} from 'react';
 
 export default function GuildsPage(): JSX.Element {

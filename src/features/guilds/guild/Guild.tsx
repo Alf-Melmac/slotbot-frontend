@@ -1,7 +1,7 @@
 import {Button, Group, Image, Stack, Title} from '@mantine/core';
 import {GuildUsers} from './users/GuildUsers';
 import {T} from '../../../components/T';
-import {Link, useParams, useResolvedPath} from 'react-router-dom';
+import {Link, useParams, useResolvedPath} from 'react-router';
 import {useDynamicDocumentTitle} from '../../../hooks/useDocumentTitle';
 import {Breadcrumb} from '../../../components/Breadcrumb';
 import {useGetGuild} from './useGetGuild';

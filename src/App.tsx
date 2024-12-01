@@ -9,7 +9,7 @@ import './global.css';
 import {MantineProvider, Skeleton} from '@mantine/core';
 import {JSX, Suspense} from 'react';
 import {routes} from './Router';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider} from 'react-router';
 import {useGetThemeOverride} from './contexts/theme/Theme';
 import {Notifications} from '@mantine/notifications';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -44,15 +44,7 @@ export function App(): JSX.Element {
 function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and GuildProvider in the theme this needs to be its own component*/
 	const {language} = useLanguage();
 
-	const router = createBrowserRouter(routes, {
-		future: {
-			v7_fetcherPersist: true,
-			v7_normalizeFormMethod: true,
-			v7_partialHydration: true,
-			v7_relativeSplatPath: true,
-			v7_skipActionErrorRevalidation: true,
-		},
-	});
+	const router = createBrowserRouter(routes);
 
 	return (
 		<MantineProvider theme={useGetThemeOverride()} defaultColorScheme={'dark'}>
@@ -60,7 +52,7 @@ function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and Gu
 			<Notifications/>
 			<DatesProvider settings={{locale: language}}>
 				<AuthProvider>
-					<RouterProvider router={router} future={{v7_startTransition: true}}/>
+					<RouterProvider router={router}/>
 				</AuthProvider>
 			</DatesProvider>
 		</MantineProvider>

@@ -1,4 +1,4 @@
-import {RouteObject} from 'react-router-dom';
+import {RouteObject} from 'react-router';
 import {JSX, lazy, Suspense} from 'react';
 
 export const notFoundRoute: RouteObject = {

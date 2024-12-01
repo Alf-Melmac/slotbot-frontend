@@ -1,6 +1,6 @@
 import {Button, Group, Stack, Text} from '@mantine/core';
 import {JSX, PropsWithChildren} from 'react';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
 import {T} from '../../components/T';
 import {TextKey} from '../../contexts/language/Language';
 import {Bold} from '../../components/Text/Bold';

@@ -1,4 +1,4 @@
-import {RouteObject, useParams} from 'react-router-dom';
+import {RouteObject, useParams} from 'react-router';
 import {notFoundRoute} from '../error/ErrorRoutes';
 import {Guilds} from './Guilds';
 import {Guild} from './guild/Guild';

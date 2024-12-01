@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams} from 'react-router';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {UserProfileDto} from './profileTypes';

@@ -1,5 +1,5 @@
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {generatePath, useNavigate} from 'react-router-dom';
+import {generatePath, useNavigate} from 'react-router';
 import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {Alert, Center, Code, Loader, Stack, Text} from '@mantine/core';

@@ -1,7 +1,7 @@
 import {ActionIcon, ActionIconProps, PolymorphicComponentProps, Tooltip} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
-import {Link, LinkProps} from 'react-router-dom';
+import {Link, LinkProps} from 'react-router';
 import {JSX} from 'react';
 import {TextKey} from '../../../contexts/language/Language';
 import {T} from '../../../components/T';

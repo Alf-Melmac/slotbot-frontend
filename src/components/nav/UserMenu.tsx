@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {ApplicationRoles, DiscordUserDto} from '../../contexts/authentication/authenticationTypes';
 import {ThemeSwitchAsMenuItem} from '../ThemeSwitch';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {useCheckAccess} from '../../contexts/authentication/useCheckAccess';
 import {T} from '../T';

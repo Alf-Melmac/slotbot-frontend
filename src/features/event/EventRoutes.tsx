@@ -1,4 +1,4 @@
-import {Navigate, RouteObject, useParams} from 'react-router-dom';
+import {Navigate, RouteObject, useParams} from 'react-router';
 import {EventDetails} from './details/EventDetails';
 import {Events} from './calendar/Events';
 import {notFoundRoute} from '../error/ErrorRoutes';

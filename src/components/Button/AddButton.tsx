@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {Group, GroupProps, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
-import {Link, LinkProps} from 'react-router-dom';
+import {Link, LinkProps} from 'react-router';
 import {TextKey} from '../../contexts/language/Language';
 import {T} from '../T';
 import {JSX} from 'react';

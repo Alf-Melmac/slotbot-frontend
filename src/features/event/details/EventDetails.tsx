@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams} from 'react-router';
 import {Alert, ColorSwatch, Group, Tabs, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';

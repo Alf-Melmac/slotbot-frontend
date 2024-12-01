@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../components/T';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
-import {Navigate} from 'react-router-dom';
+import {Navigate} from 'react-router';
 import {JSX} from 'react';
 import {useRequireFeatureFlagSave} from '../featureFlag/useRequireFeatureFlag';
 import {FeatureFlag} from '../featureFlag/useGetFeatureFlags';
