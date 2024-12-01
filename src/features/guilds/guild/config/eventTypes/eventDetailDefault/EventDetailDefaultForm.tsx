@@ -1,14 +1,14 @@
 import {Fragment, JSX, useState} from 'react';
-import {EventDetailDefaultDto, EventDetailType} from '../../../../eventDetailsDefault/eventDetailsDefaultTypes';
+import {EventDetailDefaultDto, EventDetailType} from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
 import {EventDetailDefaultProps} from './EventDetailDefault';
 import {useForm} from '@mantine/form';
-import {maxLengthField, requiredField, requiredFieldWithMaxLength} from '../../../../../utils/formValidation';
-import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../../utils/maxLength';
-import {filterFrontendIds} from '../../../../../utils/formHelper';
+import {maxLengthField, requiredField, requiredFieldWithMaxLength} from '../../../../../../utils/formValidation';
+import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../../../utils/maxLength';
+import {filterFrontendIds} from '../../../../../../utils/formHelper';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
+import slotbotServerClient from '../../../../../../hooks/slotbotServerClient';
 import {AxiosError} from 'axios';
-import {successNotification} from '../../../../../utils/notificationHelper';
+import {successNotification} from '../../../../../../utils/notificationHelper';
 import {
 	ActionIcon,
 	Button,
@@ -21,20 +21,19 @@ import {
 	TagsInput,
 	TextInput,
 } from '@mantine/core';
-import {AddButton} from '../../../../../components/Button/AddButton';
+import {AddButton} from '../../../../../../components/Button/AddButton';
 import {randomId} from '@mantine/hooks';
-import {MAX_DETAILS} from '../../../../event/action/details/EventDetails';
-import {CounterBadge} from '../../../../../components/Form/CounterBadge';
-import {T} from '../../../../../components/T';
-import {useLanguage} from '../../../../../contexts/language/Language';
+import {MAX_DETAILS} from '../../../../../event/action/details/EventDetails';
+import {CounterBadge} from '../../../../../../components/Form/CounterBadge';
+import {T} from '../../../../../../components/T';
+import {useLanguage} from '../../../../../../contexts/language/Language';
 import classes from './EventDetailDefaultForm.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
+import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
 
-export type EventDetailDefaultFormProps = {
+type EventDetailDefaultFormProps = {
 	defaultFields: EventDetailDefaultDto[] | undefined;
-	onSuccess: () => void;
 } & EventDetailDefaultProps;
 
 type DetailDefaultFormType = {
@@ -174,7 +173,8 @@ function OneDefault(props: Readonly<{
 						   key={form.key(`fields.${index}.text`)}/>
 			}
 
-			<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('fields', index)}>
+			<ActionIcon color={'gray'} variant={'subtle'} size={'input-md'} style={{alignSelf: 'flex-end'}}
+						onClick={() => form.removeListItem('fields', index)}>
 				<FontAwesomeIcon icon={faTrashCan}/>
 			</ActionIcon>
 		</Group>

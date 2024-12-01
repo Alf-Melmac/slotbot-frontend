@@ -12,6 +12,10 @@ export interface RequirementListDto extends AbstractIdEntityDto {
 	enforced: boolean;
 }
 
+export interface EventTypeRequirementListDto extends RequirementListDto {
+	active: boolean;
+}
+
 export interface RequirementListPostDto extends FrontendIdDto {
 	name: string;
 	requirements: RequirementPostDto[];

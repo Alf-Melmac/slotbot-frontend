@@ -86,7 +86,7 @@ export function GuildRequirementList(): JSX.Element {
 	</>;
 }
 
-function Requirements({requirements}: Readonly<{ requirements: RequirementListDto['requirements'] }>): JSX.Element {
+export function Requirements({requirements}: Readonly<{ requirements: RequirementListDto['requirements'] }>): JSX.Element {
 	return <Avatar.Group>
 		{requirements.slice(0, 4).map((requirement, index) => (
 			<Tooltip

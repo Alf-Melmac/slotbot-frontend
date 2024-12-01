@@ -1,7 +1,7 @@
 import {Badge, Box, Paper, Stack, Title} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useGetGuild, useGetGuildConfig} from '../useGetGuild';
-import {GuildEventTypes} from './GuildEventTypes';
+import {GuildEventTypes} from './eventTypes/GuildEventTypes';
 import {GuildLanguage} from './discord/GuildLanguage';
 import {GuildArchive} from './discord/GuildArchive';
 import {GuildPageProvider} from '../../../../contexts/guild/GuildPageContext';
