@@ -1,6 +1,13 @@
-import {FrontendIdDto} from '../../contexts/sharedTypes';
+import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
 
-export interface EventDetailDefaultDto extends FrontendIdDto {
+export interface EventDetailDefaultDto extends AbstractIdEntityDto {
+	title: string;
+	type: EventDetailType;
+	selection: string[];
+	text: string;
+}
+
+export interface EventDetailDefaultPostDto extends FrontendIdDto {
 	title: string;
 	type: EventDetailType;
 	selection: string[];

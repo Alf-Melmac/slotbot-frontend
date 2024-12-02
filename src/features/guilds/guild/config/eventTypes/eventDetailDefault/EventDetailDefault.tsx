@@ -1,21 +1,21 @@
 import {JSX} from 'react';
 import {EventTypeDto} from '../../../../../event/eventTypes';
-import {useEventDetailsDefault} from '../../../../../eventDetailsDefault/useEventDetailsDefault';
+import {useEventTypesDefault} from '../../../../../eventDetailsDefault/useEventDetailsDefault';
 import {Skeleton} from '@mantine/core';
 import {EventDetailDefaultForm} from './EventDetailDefaultForm';
 import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
+import {EventDetailDefaultPostDto} from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
 
-export type EventDetailDefaultProps = {
-	name: EventTypeDto['name'];
+export type EventDetailDefaultProps = Pick<EventTypeDto, 'id'> & {
 	onSuccess: () => void;
 };
 
 export function EventDetailDefault(props: Readonly<EventDetailDefaultProps>): JSX.Element {
-	const {name, onSuccess} = props;
+	const {id} = props;
 
 	const {guildId} = useGuildPage();
-	const {query, defaultFields} = useEventDetailsDefault(name, false, guildId);
+	const {query, defaultFields} = useEventTypesDefault(id, guildId);
 	if (query.isLoading) return <Skeleton height={90}/>;
 
-	return <EventDetailDefaultForm defaultFields={defaultFields} name={name} onSuccess={onSuccess}/>;
+	return <EventDetailDefaultForm defaultFields={defaultFields as unknown as EventDetailDefaultPostDto[]} {...props}/>;
 }
