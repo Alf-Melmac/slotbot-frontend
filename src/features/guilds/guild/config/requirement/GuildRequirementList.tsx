@@ -3,14 +3,15 @@ import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 import {RequirementListDto, RequirementListPostDto} from './requirementTypes';
-import {ActionIcon, Avatar, Checkbox, Modal, ScrollArea, Table, Tooltip} from '@mantine/core';
+import {ActionIcon, Checkbox, Modal, ScrollArea, Table, ThemeIcon, Tooltip} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPen, faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faRobot} from '@fortawesome/free-solid-svg-icons';
 import {AddButton} from '../../../../../components/Button/AddButton';
 import {useDisclosure} from '@mantine/hooks';
 import {RequirementListForm} from './RequirementListForm';
 import {LoadingRows} from '../../../../../components/Table/LoadingRows';
+import {Requirements} from './Requirements';
 
 export function GuildRequirementList(): JSX.Element {
 	const {guildId} = useGuildPage();
@@ -65,11 +66,19 @@ export function GuildRequirementList(): JSX.Element {
 									<Requirements requirements={list.requirements}/>
 								</Table.Td>
 								<Table.Td>
-									<Tooltip label={<T k={'action.edit'}/>}>
-										<ActionIcon variant={'default'} onClick={() => openModal(list)}>
-											<FontAwesomeIcon icon={faPen}/>
-										</ActionIcon>
-									</Tooltip>
+									{list.global ?
+										<Tooltip label={<T k={'guild.requirementList.global'}/>}>
+											<ThemeIcon variant={'transparent'} color={'gray'}>
+												<FontAwesomeIcon icon={faRobot}/>
+											</ThemeIcon>
+										</Tooltip>
+										:
+										<Tooltip label={<T k={'action.edit'}/>}>
+											<ActionIcon variant={'default'} onClick={() => openModal(list)}>
+												<FontAwesomeIcon icon={faPen}/>
+											</ActionIcon>
+										</Tooltip>
+									}
 								</Table.Td>
 							</Table.Tr>
 						))
@@ -84,22 +93,4 @@ export function GuildRequirementList(): JSX.Element {
 			<RequirementListForm list={modal} onSuccess={closeModal}/>
 		</Modal>
 	</>;
-}
-
-function Requirements({requirements}: Readonly<{ requirements: RequirementListDto['requirements'] }>): JSX.Element {
-	return <Avatar.Group>
-		{requirements.slice(0, 4).map((requirement, index) => (
-			<Tooltip
-				key={requirement.id}
-				label={index < 3 ?
-					requirement.name :
-					requirements.slice(3).map(requirement => <div key={requirement.id}>{requirement.name}</div>)}
-				withArrow
-			>
-				<Avatar src={requirement.icon}>
-					{index < 3 ? <FontAwesomeIcon icon={faPuzzlePiece}/> : `+${requirements.length - 3}`}
-				</Avatar>
-			</Tooltip>
-		))}
-	</Avatar.Group>;
 }
