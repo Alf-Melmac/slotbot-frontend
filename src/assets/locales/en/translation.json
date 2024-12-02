@@ -154,6 +154,7 @@
   "guild.requirementList.description": "Requirements restrict the group of participants or indicate that a certain condition must be met. Requirements are enabled for event types and can then be applied by the event creator to entire events, squads or slots. For each requirement, you can decide whether attendees can register without meeting the requirement, and whether attendees can choose to meet the requirement independently.",
   "guild.requirementList.enforced": "Mandatory",
   "guild.requirementList.enforced.tooltip": "Participants must fulfill the requirements to be able to register for the slot.",
+  "guild.requirementList.global": "This list is available to everyone and is automatically kept up to date.",
   "guild.requirementList.memberAssignable": "Self-assignment allowed",
   "guild.requirementList.memberAssignable.tooltip": "Allows participants to decide for themselves whether or not they meet the requirements for taking part.",
   "guild.requirementList.name": "List name",

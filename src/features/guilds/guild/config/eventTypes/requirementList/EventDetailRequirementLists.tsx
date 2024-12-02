@@ -7,7 +7,7 @@ import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
 import {Checkbox, Switch, Table} from '@mantine/core';
 import {T} from '../../../../../../components/T';
 import {LoadingRows} from '../../../../../../components/Table/LoadingRows';
-import {Requirements} from '../../requirement/GuildRequirementList';
+import {Requirements} from '../../requirement/Requirements';
 import {successNotification} from '../../../../../../utils/notificationHelper';
 import {FeatureFlag} from '../../../../../featureFlag/useGetFeatureFlags';
 import {RequireFeatureFlag} from '../../../../../featureFlag/RequireFeatureFlag';

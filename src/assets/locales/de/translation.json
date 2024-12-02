@@ -154,6 +154,7 @@
   "guild.requirementList.description": "Voraussetzungen schränken den Personenkreis der Teilnehmenden ein oder weisen darauf hin, dass eine bestimmte Bedingung erfüllt sein muss. Voraussetzungen werden für Event-Typen aktiviert und können dann vom Event-Ersteller auf ganze Events, Squads oder Slots angewendet werden. Für jede Voraussetzung kann entschieden werden, ob sich Teilnehmende auch ohne Erfüllung der Voraussetzung anmelden können und ob Teilnehmenden selbst über die Erfüllung einer Voraussetzung entscheiden können.",
   "guild.requirementList.enforced": "Verpflichtend",
   "guild.requirementList.enforced.tooltip": "Teilnehmende müssen die Voraussetzung erfüllen, um sich für den Slot anmelden zu können.",
+  "guild.requirementList.global": "Diese Liste steht allen zur Verfügung und wird automatisch auf dem neuesten Stand gehalten.",
   "guild.requirementList.memberAssignable": "Selbstzuweisung erlaubt",
   "guild.requirementList.memberAssignable.tooltip": "Lässt Teilnehmenden die Möglichkeit, selbst zu entscheiden, ob sie die Voraussetzungen für die Teilnahme erfüllen.",
   "guild.requirementList.name": "Listenname",

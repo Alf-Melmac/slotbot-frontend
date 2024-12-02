@@ -10,6 +10,7 @@ export interface RequirementListDto extends AbstractIdEntityDto {
 	requirements: RequirementDto[];
 	memberAssignable: boolean;
 	enforced: boolean;
+	global: boolean;
 }
 
 export interface EventTypeRequirementListDto extends RequirementListDto {
