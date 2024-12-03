@@ -12,9 +12,7 @@ import {successNotification} from '../../../../../../utils/notificationHelper';
 import {FeatureFlag} from '../../../../../featureFlag/useGetFeatureFlags';
 import {RequireFeatureFlag} from '../../../../../featureFlag/RequireFeatureFlag';
 
-type EventDetailRequirementListsProps = {
-	id: EventTypeDto['id'];
-};
+type EventDetailRequirementListsProps = Pick<EventTypeDto, 'id'>;
 
 export function EventDetailRequirementLists(props: Readonly<EventDetailRequirementListsProps>): JSX.Element {
 	const {id} = props;

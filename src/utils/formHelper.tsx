@@ -1,6 +1,5 @@
 import {UseFormReturnType} from '@mantine/form';
 import {ReactNode} from 'react';
-import {PartialBy} from './typesHelper';
 import {FrontendIdDto} from '../contexts/sharedTypes';
 import {IdEntity} from '../features/event/eventTypes';
 import {T} from '../components/T';
@@ -71,10 +70,8 @@ export function getFormFieldValue(form: UseFormReturnType<any>, path: string) {
 	return form.getInputProps(path).value;
 }
 
-export type FilteredEventAction<Field extends FrontendIdDto | IdEntity> = PartialBy<Field, 'id'>
-
-export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: FilteredEventAction<Field>[]): FilteredEventAction<Field>[] {
-	const newList: FilteredEventAction<Field>[] = structuredClone(list);
+export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: Field[]): Field[] {
+	const newList = structuredClone(list);
 	removeFrontendIds(newList);
 	return newList;
 }

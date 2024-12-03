@@ -1,5 +1,5 @@
 import {useGetEventTypeForGuild} from '../../../../event/action/generalInformation/useGetEventTypes';
-import {ActionIcon, Badge, ColorSwatch, CopyButton, Modal, ScrollArea, Stack, Table, Tooltip} from '@mantine/core';
+import {ActionIcon, ColorSwatch, CopyButton, Modal, ScrollArea, Stack, Table, Tooltip} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCopy} from '@fortawesome/free-regular-svg-icons';
@@ -23,12 +23,12 @@ export function GuildEventTypes(): JSX.Element {
 	const [modalContent, setModalContent] = useState<JSX.Element>();
 	const [opened, {open, close}] = useDisclosure(false);
 
-	function openDetailsDefaultModal(type: EventTypeDto['name']) {
+	function openDetailsDefaultModal(type: EventTypeDto) {
 		setModalContent(<Stack>
-			<T k={'event.details.default.description'} args={[type]}/>
-			<EventDetailDefault name={type} onSuccess={closeModal}/>
+			<T k={'event.details.default.description'} args={[type.name]}/>
+			<EventDetailDefault id={type.id} onSuccess={closeModal}/>
 		</Stack>);
-		openModal(type);
+		openModal(type.name);
 	}
 
 	function openDetailsRequirementListModal(type: EventTypeDto) {
@@ -56,13 +56,12 @@ export function GuildEventTypes(): JSX.Element {
 					<Table.Tr>
 						<Table.Th><T k={'color'}/></Table.Th>
 						<Table.Th><T k={'name'}/></Table.Th>
-						<Table.Th/>
 						<Table.Th><T k={'settings'}/></Table.Th>
 					</Table.Tr>
 				</Table.Thead>
 				<Table.Tbody>
 					{isLoading ?
-						<LoadingRows columns={4}/>
+						<LoadingRows columns={3}/>
 						:
 						eventTypes?.map((eventType) => (
 							<Table.Tr key={eventType.id}>
@@ -81,13 +80,10 @@ export function GuildEventTypes(): JSX.Element {
 									{eventType.name}
 								</Table.Td>
 								<Table.Td>
-									{!eventType.guild && <Badge variant={'outline'}>Global</Badge>}
-								</Table.Td>
-								<Table.Td>
 									<ActionIcon.Group>
 										<Tooltip label={<T k={'event.details.default'}/>}>
 											<ActionIcon variant={'default'}
-														onClick={() => openDetailsDefaultModal(eventType.name)}>
+														onClick={() => openDetailsDefaultModal(eventType)}>
 												<FontAwesomeIcon icon={faReceipt}/>
 											</ActionIcon>
 										</Tooltip>

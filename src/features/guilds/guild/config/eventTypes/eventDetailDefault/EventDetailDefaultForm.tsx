@@ -1,5 +1,8 @@
 import {Fragment, JSX, useState} from 'react';
-import {EventDetailDefaultDto, EventDetailType} from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
+import {
+	EventDetailDefaultDto,
+	EventDetailDefaultPostDto,
+} from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
 import {EventDetailDefaultProps} from './EventDetailDefault';
 import {useForm} from '@mantine/form';
 import {maxLengthField, requiredField, requiredFieldWithMaxLength} from '../../../../../../utils/formValidation';
@@ -33,15 +36,15 @@ import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
 
 type EventDetailDefaultFormProps = {
-	defaultFields: EventDetailDefaultDto[] | undefined;
+	defaultFields: EventDetailDefaultPostDto[] | undefined;
 } & EventDetailDefaultProps;
 
 type DetailDefaultFormType = {
-	fields: EventDetailDefaultDto[]
+	fields: EventDetailDefaultPostDto[];
 };
 
 export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormProps>): JSX.Element {
-	const {defaultFields, name, onSuccess} = props;
+	const {defaultFields, id, onSuccess} = props;
 
 	const form = useForm<DetailDefaultFormType>({
 		mode: 'uncontrolled',
@@ -64,7 +67,7 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 			},
 		},
 		transformValues: (values) => ({
-			fields: filterFrontendIds<EventDetailDefaultDto>(values.fields) as EventDetailDefaultDto[],
+			fields: filterFrontendIds(values.fields),
 		}),
 	});
 
@@ -72,17 +75,15 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 
 	const {guildId} = useGuildPage();
 	const queryClient = useQueryClient();
-	const putEventFieldDefaults = (details: EventDetailDefaultDto[]) => slotbotServerClient
-		.put(`/events/details/defaults/${guildId}`,
-			details,
-			{params: {eventTypeName: name}})
+	const putEventTypeDefaults = (details: EventDetailDefaultPostDto[]) => slotbotServerClient
+		.put(`/events/types/${guildId}/${id}/defaults`, details)
 		.then((res) => res.data);
-	const {mutate} = useMutation<EventDetailDefaultDto[], AxiosError, EventDetailDefaultDto[]>({
-		mutationFn: putEventFieldDefaults,
+	const {mutate, isPending} = useMutation<EventDetailDefaultDto[], AxiosError, EventDetailDefaultPostDto[]>({
+		mutationFn: putEventTypeDefaults,
 		onSuccess: (data) => {
 			onSuccess();
 			successNotification();
-			queryClient.setQueryData(['field-defaults', name], () => data);
+			queryClient.setQueryData(['field-defaults', id], () => data);
 		},
 	});
 
@@ -101,12 +102,14 @@ export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormPro
 							   title: '',
 							   type: 'TEXT',
 							   text: '',
-						   } as EventDetailDefaultDto)}
+						   } as EventDetailDefaultPostDto)}
 						   disabled={detailsCount >= MAX_DETAILS}/>
 				<CounterBadge currentValue={detailsCount} maxValue={MAX_DETAILS} yellowPhase/>
 			</Group>
 
-			<Button type={'submit'} disabled={!form.isDirty() || !form.isValid()}><T k={'action.save'}/></Button>
+			<Button type={'submit'} disabled={!form.isDirty() || !form.isValid()} loading={isPending}>
+				<T k={'action.save'}/>
+			</Button>
 		</Stack>
 	</form>;
 }
@@ -153,7 +156,7 @@ function OneDefault(props: Readonly<{
 							value: 'BOOLEAN',
 							label: t('event.details.default.type.boolean'),
 						},
-					] satisfies { value: EventDetailType, label: ComboboxItem['label'] }[]}
+					] satisfies { value: EventDetailDefaultPostDto['type'], label: ComboboxItem['label'] }[]}
 					{...form.getInputProps(`fields.${index}.type`)}
 					key={form.key(`fields.${index}.type`)}/>
 			{isBooleanField ?

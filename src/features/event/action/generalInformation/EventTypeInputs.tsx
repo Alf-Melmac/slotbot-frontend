@@ -32,9 +32,12 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	useEffect(() => {
 		const existingEventType = eventTypes?.find(value => form.values.eventType.name === value.name);
 		if (existingEventType) {
+			form.setFieldValue('eventType.id', existingEventType.id);
 			setEventTypeColor(existingEventType.color);
 			setColorInputDisabled(true);
 		} else {
+			// @ts-ignore Reset the id
+			form.setFieldValue('eventType.id', undefined);
 			if (colorInputDisabled) {
 				setEventTypeColor(randomColor());
 			}
