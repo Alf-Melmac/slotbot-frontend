@@ -2,7 +2,6 @@ import {Fragment, JSX, useState} from 'react';
 import {
 	EventDetailDefaultDto,
 	EventDetailDefaultPostDto,
-	EventDetailType,
 } from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
 import {EventDetailDefaultProps} from './EventDetailDefault';
 import {useForm} from '@mantine/form';
@@ -157,7 +156,7 @@ function OneDefault(props: Readonly<{
 							value: 'BOOLEAN',
 							label: t('event.details.default.type.boolean'),
 						},
-					] satisfies { value: EventDetailType, label: ComboboxItem['label'] }[]}
+					] satisfies { value: EventDetailDefaultPostDto['type'], label: ComboboxItem['label'] }[]}
 					{...form.getInputProps(`fields.${index}.type`)}
 					key={form.key(`fields.${index}.type`)}/>
 			{isBooleanField ?

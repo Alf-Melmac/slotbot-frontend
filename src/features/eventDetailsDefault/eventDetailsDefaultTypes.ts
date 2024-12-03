@@ -14,4 +14,4 @@ export interface EventDetailDefaultPostDto extends FrontendIdDto {
 	text: string;
 }
 
-export type EventDetailType = 'TEXT' | 'TEXT_WITH_SELECTION' | 'BOOLEAN';
+type EventDetailType = 'TEXT' | 'TEXT_WITH_SELECTION' | 'BOOLEAN';

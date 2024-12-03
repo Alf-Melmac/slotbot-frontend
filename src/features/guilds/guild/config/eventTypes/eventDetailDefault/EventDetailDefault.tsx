@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {EventTypeDto} from '../../../../../event/eventTypes';
-import {useEventTypesDefault} from '../../../../../eventDetailsDefault/useEventDetailsDefault';
+import {useEventTypeDefaultsForGuild} from '../../../../../eventDetailsDefault/useEventTypeDefaults';
 import {Skeleton} from '@mantine/core';
 import {EventDetailDefaultForm} from './EventDetailDefaultForm';
 import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
@@ -14,7 +14,7 @@ export function EventDetailDefault(props: Readonly<EventDetailDefaultProps>): JS
 	const {id} = props;
 
 	const {guildId} = useGuildPage();
-	const {query, defaultFields} = useEventTypesDefault(id, guildId);
+	const {query, defaultFields} = useEventTypeDefaultsForGuild(id, guildId);
 	if (query.isLoading) return <Skeleton height={90}/>;
 
 	return <EventDetailDefaultForm defaultFields={defaultFields as unknown as EventDetailDefaultPostDto[]} {...props}/>;

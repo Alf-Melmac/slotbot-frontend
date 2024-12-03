@@ -5,7 +5,7 @@ import {replaceBooleanStringWithBoolean, replaceNullWithEmpty} from '../../utils
 import {EventDetailDefaultDto} from './eventDetailsDefaultTypes';
 import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
-export function useEventTypesDefault(eventTypeId: EventTypeDto['id'], guildId: string) {
+export function useEventTypeDefaultsForGuild(eventTypeId: EventTypeDto['id'], guildId: string, transformBooleanValues: boolean = false) {
 	const getEventTypeDefaults = () => slotbotServerClient.get(`/events/types/${guildId}/${eventTypeId}/defaults`)
 		.then((res) => res.data);
 	const query = useQuery<EventDetailDefaultDto[], Error>({
@@ -13,28 +13,28 @@ export function useEventTypesDefault(eventTypeId: EventTypeDto['id'], guildId: s
 		queryFn: getEventTypeDefaults,
 	});
 
-	const defaultFields = buildDefaultFields(query.data, false);
+	const defaultFields = buildDefaultFields(query.data, transformBooleanValues);
 	return {query, defaultFields};
 }
 
-export function useEventDetailsDefault(eventTypeName: EventTypeDto['name'], transformBooleanValues: boolean, guildId?: string) {
-	const {guild} = useGuildContext();
-	let url;
-	if (guildId) {
-		url = `/events/details/defaults/${guildId}`;
-	} else {
-		const guildIdentifierUrl = guild ? `/guild/${guild}` : '';
-		url = `/events/details/defaults${guildIdentifierUrl}`;
+export function useEventTypeDefaults(eventTypeId: EventTypeDto['id'] | undefined, guildId?: string) {
+	if (!eventTypeId) {
+		return {defaultFields: undefined};
 	}
 
-	const getEventFieldDefaults = () => slotbotServerClient.get(url, {params: {eventTypeName: eventTypeName}})
+	if (guildId) {
+		return useEventTypeDefaultsForGuild(eventTypeId, guildId, true);
+	}
+
+	const {guild} = useGuildContext();
+	const getEventTypeDefaults = () => slotbotServerClient.get(`/events/types/guild/${guild}/${eventTypeId}/defaults`)
 		.then((res) => res.data);
 	const query = useQuery<EventDetailDefaultDto[], Error>({
-		queryKey: ['field-defaults', eventTypeName, guildId],
-		queryFn: getEventFieldDefaults,
+		queryKey: ['field-defaults-by-identifier', eventTypeId, guild],
+		queryFn: getEventTypeDefaults,
 	});
 
-	const defaultFields = buildDefaultFields(query.data, transformBooleanValues);
+	const defaultFields = buildDefaultFields(query.data, true);
 	return {query, defaultFields};
 }
 
