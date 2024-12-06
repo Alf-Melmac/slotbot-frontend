@@ -55,7 +55,7 @@
     "mantine-flagpack": "^4.0.1",
     "mantine-react-table": "^2.0.0-beta.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.0.0",
     "react-router": "^7.0.1",
     "tiptap-extension-upload-image": "^1.0.1"
   },
@@ -68,7 +68,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "browserslist-to-esbuild": "^2.1.1",
     "postcss": "^8.4.49",
