@@ -41,6 +41,7 @@ export default function EventWizard(): JSX.Element {
 			date: date,
 			startTime: getTimeShort(date),
 			creator: user?.name ?? '',
+			// @ts-ignore No existing id
 			eventType: {
 				name: '',
 				color: randomColor(),
