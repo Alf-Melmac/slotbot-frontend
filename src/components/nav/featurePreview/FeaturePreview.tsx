@@ -49,10 +49,6 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
                         Page</Tabs.Tab>
                     <Tabs.Tab value={FeatureFlag.REQUIREMENTS}
                               leftSection={leftSide(FeatureFlag.REQUIREMENTS)}>Requirements</Tabs.Tab>
-                    <Tabs.Tab value={FeatureFlag.REQUIREMENTS_MORE_DETAILS}
-                              leftSection={leftSide(FeatureFlag.REQUIREMENTS_MORE_DETAILS)}>
-						Detailed requirement list
-					</Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value={FeatureFlag.BLOG}>
@@ -84,21 +80,6 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
                             can register without meeting the requirement, and whether attendees can choose to meet the
                             requirement independently.<br/>
                             To get started, go into your community settings and create the first requirement list.
-                        </Text>
-                        <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
-                    </Stack>
-                </Tabs.Panel>
-                <Tabs.Panel value={FeatureFlag.REQUIREMENTS_MORE_DETAILS}>
-                    <Stack p={'md'}>
-                        <Group justify={'space-between'}>
-                            <Title order={3}>More Requirement Details List Details</Title>
-                            <FeatureToggle feature={FeatureFlag.REQUIREMENTS_MORE_DETAILS}
-                                           featureFlags={featureQuery.data} mutate={mutate} isPending={isPending}/>
-                        </Group>
-                        <Text>
-                            Shows more details about a requirement list while editing the available lists for an event
-                            type.<br/>
-                            This requires the "Requirements" feature flag.
                         </Text>
                         <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
                     </Stack>

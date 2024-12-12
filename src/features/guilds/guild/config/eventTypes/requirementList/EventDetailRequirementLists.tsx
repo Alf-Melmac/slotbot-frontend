@@ -4,13 +4,11 @@ import slotbotServerClient, {voidFunction} from '../../../../../../hooks/slotbot
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {EventTypeRequirementListDto} from '../../requirement/requirementTypes';
 import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
-import {Checkbox, Switch, Table} from '@mantine/core';
+import {Switch, Table} from '@mantine/core';
 import {T} from '../../../../../../components/T';
 import {LoadingRows} from '../../../../../../components/Table/LoadingRows';
 import {Requirements} from '../../requirement/Requirements';
 import {successNotification} from '../../../../../../utils/notificationHelper';
-import {FeatureFlag} from '../../../../../featureFlag/useGetFeatureFlags';
-import {RequireFeatureFlag} from '../../../../../featureFlag/RequireFeatureFlag';
 
 type EventDetailRequirementListsProps = Pick<EventTypeDto, 'id'>;
 
@@ -53,10 +51,6 @@ export function EventDetailRequirementLists(props: Readonly<EventDetailRequireme
 		<Table.Thead>
 			<Table.Tr>
 				<Table.Th><T k={'guild.requirementList.name'}/></Table.Th>
-				<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS_MORE_DETAILS}>
-					<Table.Th><T k={'guild.requirementList.memberAssignable'}/></Table.Th>
-					<Table.Th><T k={'guild.requirementList.enforced'}/></Table.Th>
-				</RequireFeatureFlag>
 				<Table.Th><T k={'guild.requirementList'}/></Table.Th>
 				<Table.Th><T k={'guild.requirementList.available'}/></Table.Th>
 			</Table.Tr>
@@ -70,14 +64,6 @@ export function EventDetailRequirementLists(props: Readonly<EventDetailRequireme
 						<Table.Td>
 							{list.name}
 						</Table.Td>
-						<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS_MORE_DETAILS}>
-							<Table.Td>
-								<Checkbox.Indicator checked={list.memberAssignable}/>
-							</Table.Td>
-							<Table.Td>
-								<Checkbox.Indicator checked={list.enforced}/>
-							</Table.Td>
-						</RequireFeatureFlag>
 						<Table.Td>
 							<Requirements requirements={list.requirements}/>
 						</Table.Td>

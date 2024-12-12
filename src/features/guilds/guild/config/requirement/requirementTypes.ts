@@ -13,7 +13,9 @@ export interface RequirementListDto extends AbstractIdEntityDto {
 	global: boolean;
 }
 
-export interface EventTypeRequirementListDto extends RequirementListDto {
+export interface EventTypeRequirementListDto extends AbstractIdEntityDto {
+	name: string;
+	requirements: RequirementDto[];
 	active: boolean;
 }
 
