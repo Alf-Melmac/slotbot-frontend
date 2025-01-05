@@ -4,7 +4,7 @@ import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {filterFrontendIds} from '../../../../utils/formHelper';
 import {randomId} from '@mantine/hooks';
@@ -13,6 +13,7 @@ import {T} from '../../../../components/T';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
+import {EventUpdateDto} from '../../eventTypes';
 
 export const MAX_DETAILS = 23;
 
@@ -27,7 +28,8 @@ export function EventDetails(): JSX.Element {
 		});
 	};
 
-	const {mutate} = useEventUpdate({details: filterFrontendIds<EventActionFormType['details'][number]>(form.values.details)},
+	const details = filterFrontendIds<EventActionFormType['details'][number]>(form.values.details) as EventUpdateDto['details'];
+	const {mutate} = useEventUpdate({details},
 		result => {
 			// @ts-ignore Details matches here
 			form.setFieldValue('details', result.details);
@@ -46,7 +48,7 @@ export function EventDetails(): JSX.Element {
 			<CounterBadge currentValue={detailsCount} maxValue={MAX_DETAILS} yellowPhase/>
 		</Group>
 
-		{useEditMode() &&
+		{useEventAction().editMode &&
             <Group justify={'right'}>
                 <ScrollAffix show={form.isDirty('details')}>
                     <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>

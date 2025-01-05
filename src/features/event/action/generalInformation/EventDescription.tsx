@@ -24,7 +24,7 @@ import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {T} from '../../../../components/T';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {validate} from '../../../../utils/formHelper';
 import {ListItem} from '@tiptap/extension-list-item';
 import {BulletList} from '@tiptap/extension-bullet-list';
@@ -131,7 +131,7 @@ export function EventDescription(): JSX.Element {
                     <CounterBadge currentValue={editor?.storage.characterCount.characters()}
                                   maxValue={EMBEDDABLE_DESCRIPTION}/>
 				}
-				{useEditMode() &&
+				{useEventAction().editMode &&
                     <Box ml={'auto'}>
                         <ScrollAffix show={form.isDirty('description')}>
                             <PulsatingButton onClick={() => mutate()}

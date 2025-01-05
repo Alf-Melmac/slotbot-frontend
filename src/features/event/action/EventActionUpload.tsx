@@ -7,7 +7,7 @@ import {InlineEditableTextAndUpload} from '../../../components/Input/InlineEdita
 import {TextKey} from '../../../contexts/language/Language';
 import {useTranslationIfPresent} from '../../../utils/translationHelper';
 import {ImageUploadModal} from '../../../components/Input/UploadImage/ImageUploadModal';
-import {useEditMode} from '../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../contexts/event/action/EventActionContext';
 
 interface TranslatableTextInputProps extends TextInputProps {
 	label?: TextKey;
@@ -31,7 +31,7 @@ export function EventActionUpload(props: Readonly<FormTextInputProps>): JSX.Elem
 
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label']);
 	return (
-		useEditMode() ?
+		useEventAction().editMode ?
 			<InlineEditableTextAndUpload {...translatedInputProps} position={'group'} wrap={'nowrap'}
 										 {...formInputProps}
 										 onSubmit={() => mutate()}

@@ -1,7 +1,7 @@
 import {TextInputMaxLength} from '../../../components/Input/MaxLength/TextInputMaxLength';
 import {TextInputProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../contexts/event/action/EventActionContext';
 import {JSX, useState} from 'react';
 import {useEventTextChange} from './useEventUpdate';
 import {InlineEditableText} from '../../../components/Input/InlineEditable/InlineEditables';
@@ -30,7 +30,7 @@ export function EventActionTextInput(props: Readonly<FormTextInputProps>): JSX.E
 
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
-		{useEditMode() ?
+		{useEventAction().editMode ?
 			<InlineEditableText {...translatedInputProps} position={'group'} {...formInputProps}
 								onSubmit={() => mutate()} onCancel={() => form.setFieldValue(formPath, oldValue)}/>
 			:

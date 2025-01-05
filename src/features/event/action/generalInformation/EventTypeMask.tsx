@@ -2,12 +2,9 @@ import {Skeleton} from '@mantine/core';
 import {EventTypeInputs} from './EventTypeInputs';
 import {useGetEventTypes} from './useGetEventTypes';
 import {JSX} from 'react';
-import {EventEditDto} from '../../eventTypes';
 
-export type EventTypeMaskProps = Partial<Pick<EventEditDto, 'ownerGuild'>>;
-
-export function EventTypeMask(props: Readonly<EventTypeMaskProps>): JSX.Element {
-	const query = useGetEventTypes(props.ownerGuild);
+export function EventTypeMask(): JSX.Element {
+	const query = useGetEventTypes();
 
 	return <>
 		{query.isLoading ?

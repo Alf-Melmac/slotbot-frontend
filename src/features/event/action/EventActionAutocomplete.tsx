@@ -1,7 +1,7 @@
 import {JSX, useState} from 'react';
 import {Autocomplete, AutocompleteProps} from '@mantine/core';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../contexts/event/action/EventActionContext';
 import {InlineEditableAutocomplete} from '../../../components/Input/InlineEditable/InlineEditables';
 import {useEventTextChange} from './useEventUpdate';
 import {TextKey} from '../../../contexts/language/Language';
@@ -29,7 +29,7 @@ export function EventActionAutocomplete(props: Readonly<FormTextInputProps>): JS
 
 	const translatedInputProps = useTranslationIfPresent(inputProps, ['label', 'placeholder']);
 	return <>
-		{useEditMode() ?
+		{useEventAction().editMode ?
 			<InlineEditableAutocomplete {...translatedInputProps} position={'group'} {...formInputProps}
 										onSubmit={() => mutate()}
 										onCancel={() => form.setFieldValue(formPath, oldValue)}/>

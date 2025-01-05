@@ -6,7 +6,7 @@ import {TEXT} from '../../../../utils/maxLength';
 import {JSX, useEffect, useState} from 'react';
 import {UseQueryResult} from '@tanstack/react-query';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {T} from '../../../../components/T';
 import {randomColor} from '../utils';
@@ -24,7 +24,6 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	const form = useFormContext();
 
 	function setEventTypeColor(color: EventTypeDto['color']): void {
-		// @ts-ignore eventType.color accepts strings
 		form.setFieldValue('eventType.color', color);
 	}
 
@@ -52,7 +51,7 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 			form.resetDirty(convertDtoToFormEvent(result));
 		});
 
-	const editMode = useEditMode();
+	const {editMode} = useEventAction();
 	return (
 		<>
 			{!eventTypes &&

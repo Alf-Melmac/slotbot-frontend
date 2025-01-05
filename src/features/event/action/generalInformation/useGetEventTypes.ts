@@ -2,10 +2,12 @@ import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useQuery, UseQueryResult} from '@tanstack/react-query';
 import {EventTypeDto} from '../../eventTypes';
 import {useGuildContext} from '../../../../contexts/guildcontext/GuildContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 
-export function useGetEventTypes(guildId?: string): UseQueryResult<EventTypeDto[], Error> {
-	if (guildId) {
-		return useGetEventTypeForGuild(guildId);
+export function useGetEventTypes(): UseQueryResult<EventTypeDto[], Error> {
+	const {ownerGuild} = useEventAction();
+	if (ownerGuild) {
+		return useGetEventTypeForGuild(ownerGuild);
 	}
 	const {guild} = useGuildContext();
 	const getEventTypes = () => slotbotServerClient.get(`/events/types/guild/${guild}`).then((res) => res.data);

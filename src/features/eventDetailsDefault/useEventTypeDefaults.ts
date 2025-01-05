@@ -4,6 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import {replaceBooleanStringWithBoolean, replaceNullWithEmpty} from '../../utils/typesHelper';
 import {EventDetailDefaultDto} from './eventDetailsDefaultTypes';
 import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
+import {useEventAction} from '../../contexts/event/action/EventActionContext';
 
 export function useEventTypeDefaultsForGuild(eventTypeId: EventTypeDto['id'], guildId: string, transformBooleanValues: boolean = false) {
 	const getEventTypeDefaults = () => slotbotServerClient.get(`/events/types/${guildId}/${eventTypeId}/defaults`)
@@ -17,13 +18,14 @@ export function useEventTypeDefaultsForGuild(eventTypeId: EventTypeDto['id'], gu
 	return {query, defaultFields};
 }
 
-export function useEventTypeDefaults(eventTypeId: EventTypeDto['id'] | undefined, guildId?: string) {
+export function useEventTypeDefaults(eventTypeId: EventTypeDto['id'] | undefined) {
 	if (!eventTypeId) {
 		return {defaultFields: undefined};
 	}
 
-	if (guildId) {
-		return useEventTypeDefaultsForGuild(eventTypeId, guildId, true);
+	const {ownerGuild} = useEventAction();
+	if (ownerGuild) {
+		return useEventTypeDefaultsForGuild(eventTypeId, ownerGuild, true);
 	}
 
 	const {guild} = useGuildContext();

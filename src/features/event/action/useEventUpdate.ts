@@ -2,10 +2,10 @@ import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useEventPage} from '../../../contexts/event/EventPageContext';
-import {EventEditDto} from '../eventTypes';
+import {EventEditDto, EventUpdateDto} from '../eventTypes';
 import {errorNotification, successNotification} from '../../../utils/notificationHelper';
 import {useFormContext} from '../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../contexts/event/action/EventActionContext';
 import {usePrevious} from '@mantine/hooks';
 import {useEffect} from 'react';
 import {convertUtcDateTimeToLocal} from '../../../utils/dateHelper';
@@ -31,7 +31,7 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 	return {mutate};
 }
 
-export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) => void) {
+export function useEventUpdate(data: Partial<EventUpdateDto>, onSuccess?: (saved: EventEditDto) => void) {
 	const queryClient = useQueryClient();
 	const eventId = useEventPage();
 	const postEventUpdate = () => slotbotServerClient.put(`/events/${eventId}`, data).then((res) => res.data);
@@ -50,7 +50,7 @@ export function useEventUpdate(data: unknown, onSuccess?: (saved: EventEditDto) 
 
 export function useChangeWatcher(field: string) {
 	const form = useFormContext();
-	const editMode = useEditMode();
+	const {editMode} = useEventAction();
 
 	// @ts-ignore
 	const formValue = form.values[field];

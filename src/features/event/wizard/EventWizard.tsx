@@ -53,6 +53,7 @@ export default function EventWizard(): JSX.Element {
 			details: [],
 			squadList: [],
 			reserveParticipating: undefined,
+			requirements: [],
 		},
 		validate: (values) => eventActionValidate(values, active),
 		//Works only on first page as no state can be used inside on change validation (https://discord.com/channels/854810300876062770/1026255061241839627)

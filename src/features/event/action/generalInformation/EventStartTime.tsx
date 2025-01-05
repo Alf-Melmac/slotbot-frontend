@@ -6,7 +6,7 @@ import {useFormContext} from '../../../../contexts/event/action/EventActionFormC
 import {useEventUpdate} from '../useEventUpdate';
 import {formatLocalDateTimeToUtcDate, getTimeShort} from '../../../../utils/dateHelper';
 import {JSX, useEffect} from 'react';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 
@@ -22,7 +22,7 @@ export function EventStartTime(): JSX.Element {
 		});
 	const previous = usePrevious(debounced);
 
-	const editMode = useEditMode();
+	const {editMode} = useEventAction();
 	useEffect(() => {
 		if (!editMode || previous === undefined || previous === debounced) return;
 		mutate();

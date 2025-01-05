@@ -2,40 +2,52 @@ import {Checkbox, Group} from '@mantine/core';
 import {UploadSlotlist} from './UploadSlotlist';
 import {RenumberSlots} from './RenumberSlots';
 import {SquadList} from './SquadList';
-import {EventEditDto} from '../../eventTypes';
+import {EventEditDto, EventUpdateDto} from '../../eventTypes';
 import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
-import {useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {useChangeWatcher, useEventUpdate} from '../useEventUpdate';
 import {filterFrontendIds} from '../../../../utils/formHelper';
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
+import {useQueryClient} from '@tanstack/react-query';
+import {useEventPage} from '../../../../contexts/event/EventPageContext';
+import {EventRequirements} from './EventRequirements';
+import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
+import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
 export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element {
 	const {canUploadSlotlist = true} = props;
 	const form = useFormContext();
-	const editMode = useEditMode();
+	const {editMode} = useEventAction();
 
-	const squadListInvalid = (): boolean => {
+	function slotListDirty(): boolean {
+		return form.isDirty('squadList') || form.isDirty('requirements');
+	}
+
+	function squadListInvalid(): boolean {
 		return form.values.squadList.some((squad, i) =>
 			!form.isValid(`squadList.${i}.name`)
 			|| squad.slotList.some((_, j) =>
 				!form.isValid(`squadList.${i}.slotList.${j}.name`) || !form.isValid(`squadList.${i}.slotList.${j}.number`)),
 		);
-	};
+	}
 
-	const squadList = filterFrontendIds<EventActionFormType['squadList'][number]>(form.values.squadList);
-
-	const {mutate} = useEventUpdate({squadList: squadList},
+	const queryClient = useQueryClient();
+	const eventId = useEventPage();
+	const squadList = filterFrontendIds<EventActionFormType['squadList'][number]>(form.values.squadList) as EventUpdateDto['squadList'];
+	const {mutate} = useEventUpdate({squadList, requirements: form.values.requirements.map(r => parseInt(r))},
 		result => {
+			queryClient.setQueryData(['eventForEdit', eventId], result);
 			// @ts-ignore SquadList matches here
 			form.setFieldValue('squadList', result.squadList);
+			form.setFieldValue('requirements', result.requirements.map(r => `${r}`));
 			// @ts-ignore
 			form.resetDirty(convertDtoToFormEvent(result));
 		});
@@ -57,12 +69,16 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 			</Group>
 		</Group>
 
+		<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
+			<EventRequirements/>
+		</RequireFeatureFlag>
+
 		<SquadList/>
 		{editMode &&
             <Group justify={'right'}>
-                <ScrollAffix show={form.isDirty('squadList')}>
+                <ScrollAffix show={slotListDirty()}>
                     <PulsatingButton onClick={() => mutate()}
-                                     disabled={!form.isDirty('squadList') || squadListInvalid()}>
+                                     disabled={!slotListDirty() || squadListInvalid()}>
                         <T k={'slotlist.save'}/>
                     </PulsatingButton>
                 </ScrollAffix>

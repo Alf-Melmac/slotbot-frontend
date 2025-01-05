@@ -61,6 +61,7 @@ interface EventActionDto {
 	missionLength: string;
 	pictureUrl: string;
 	reserveParticipating?: boolean;
+	requirements: number[];
 }
 
 //region event post
@@ -91,7 +92,7 @@ export interface SlotDto extends FrontendIdDto {
 //endregion event post
 
 //region event edit
-interface EventUpdateDto extends EventActionDto {
+export interface EventUpdateDto extends EventActionDto {
 	details: EventFieldIdDto[];
 	squadList: SquadIdDto[];
 }

@@ -47,14 +47,14 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 	// The form type is not allowed to have this, but we know that EventEditDto has this value
 	const ownerGuild: EventEditDto['ownerGuild'] = (event as unknown as EventEditDto).ownerGuild;
 	return (
-		<EventEditProvider form={form} eventId={eventId}>
+		<EventEditProvider form={form} eventId={eventId} ownerGuild={ownerGuild}>
 			<Breadcrumb items={breadcrumbItems}/>
 
-			<EventGeneralInformation canRevokeShareable={canRevokeShareable} ownerGuild={ownerGuild}/>
+			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
 
 			<Divider my={'lg'}/>
 
-			<EventDetailsPage ownerGuild={ownerGuild}/>
+			<EventDetailsPage/>
 
 			<Divider my={'lg'}/>
 

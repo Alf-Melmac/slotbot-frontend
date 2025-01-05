@@ -1,15 +1,16 @@
 import {EventEditDto, EventPostDto} from '../../../features/event/eventTypes';
 import {createFormContext} from '@mantine/form';
-import {EditModeProvider, useEditMode} from './EditModeContext';
+import {EventAction, EventActionProvider, useEventAction} from './EventActionContext';
 import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
 import {JSX, PropsWithChildren} from 'react';
 
-export type EventEditFormType = Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist'>
-	& { date: Date, startTime: string };
+export type EventEditFormType =
+	Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist' | 'requirements'>
+	& { date: Date, startTime: string, requirements: string[] };
 
-type EventWizardFormType = Omit<EventPostDto, 'dateTime'>
-	& { date: Date, startTime: string };
+type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements'>
+	& { date: Date, startTime: string, requirements: string[] };
 
 export type EventActionFormType = EventEditFormType | EventWizardFormType;
 
@@ -22,16 +23,18 @@ type EventWizardFormReturn = ReturnType<typeof useEventWizardFormContext>;
 export type EventActionFormReturn = EventEditFormReturn | EventWizardFormReturn;
 
 type EventEditProviderProps = {
-	form: ReturnType<typeof useEventEditForm>;
-} & Pick<EventPageParams, 'eventId'>;
+		form: ReturnType<typeof useEventEditForm>;
+	}
+	& Pick<EventPageParams, 'eventId'>
+	& Pick<EventAction, 'ownerGuild'>;
 
 export function EventEditProvider(props: Readonly<PropsWithChildren<EventEditProviderProps>>): JSX.Element {
-	const {eventId, children, ...formProps} = props;
+	const {eventId, ownerGuild, children, ...formProps} = props;
 	return (
 		<EventPageProvider eventId={eventId}>
-			<EditModeProvider editMode={true}>
+			<EventActionProvider editMode={true} ownerGuild={ownerGuild}>
 				<EventEditFormProvider {...formProps}>{children}</EventEditFormProvider>
-			</EditModeProvider>
+			</EventActionProvider>
 		</EventPageProvider>
 	);
 }
@@ -43,12 +46,12 @@ type EventWizardProviderProps = {
 export function EventWizardProvider(props: Readonly<PropsWithChildren<EventWizardProviderProps>>): JSX.Element {
 	const {children, ...formProps} = props;
 	return (
-		<EditModeProvider editMode={false}>
+		<EventActionProvider editMode={false}>
 			<EventWizardFormProvider {...formProps}>{children}</EventWizardFormProvider>
-		</EditModeProvider>
+		</EventActionProvider>
 	);
 }
 
-export function useFormContext(editMode = useEditMode()): EventActionFormReturn {
+export function useFormContext(editMode = useEventAction().editMode): EventActionFormReturn {
 	return editMode ? useEventEditFormContext() : useEventWizardFormContext();
 }

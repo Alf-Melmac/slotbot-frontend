@@ -11,10 +11,10 @@ import {getTimeShort} from '../../../utils/dateHelper';
  * Converts a {@link EventEditDto} to the format {@link EventEditFormType expected by the form}.
  */
 export function convertDtoToFormEvent(dto: EventEditDto): EventEditFormType {
-	const {dateTime, ...eventDto} = dto;
+	const {dateTime, requirements, ...eventDto} = dto;
 	replaceNullWithEmpty(eventDto, ['description', 'missionLength', 'missionType', 'pictureUrl']);
 	replaceNullWithUndefined(eventDto, ['reserveParticipating']);
 	eventDto.details.forEach(detail => replaceBooleanStringWithBoolean(detail, 'text'));
 	const date = new Date(dateTime);
-	return {...eventDto, date: date, startTime: getTimeShort(date)};
+	return {...eventDto, date, startTime: getTimeShort(date), requirements: requirements.map(r => `${r}`)};
 }

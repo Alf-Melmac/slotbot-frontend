@@ -1,5 +1,5 @@
 import {ActionIcon, Checkbox, Group} from '@mantine/core';
-import {EditModeProvider, useEditMode} from '../../../../contexts/event/action/EditModeContext';
+import {EventActionProvider, useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../utils/maxLength';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -24,7 +24,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 	};
 
 	const form = useFormContext();
-	const editMode = useEditMode();
+	const {editMode} = useEventAction();
 
 	const fieldDefault = useEventFieldDefaultsContext(item.title);
 	let text;
@@ -44,7 +44,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 
 	return (
 		<Group>
-			<EditModeProvider editMode={false}>
+			<EventActionProvider editMode={false}>
 				<EventActionTextInput inputProps={{
 					placeholder: 'event.details.title',
 					maxLength: EMBEDDABLE_TITLE,
@@ -56,7 +56,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 				<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('details', index)}>
 					<FontAwesomeIcon icon={faTrashCan}/>
 				</ActionIcon>
-			</EditModeProvider>
+			</EventActionProvider>
 		</Group>
 	);
 }
