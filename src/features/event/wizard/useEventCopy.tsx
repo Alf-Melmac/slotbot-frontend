@@ -7,10 +7,10 @@ import {randomId} from '@mantine/hooks';
 import {showNotification} from '@mantine/notifications';
 import {EventWizardLocation} from './EventWizard';
 import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
-import {replaceNullWithEmpty, replaceNullWithUndefined} from '../../../utils/typesHelper';
 import {T} from '../../../components/T';
 import {useEffect, useState} from 'react';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
+import {convertDtoToWizardFormEvent} from '../edit/utils';
 
 export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 	const state = useLocation().state as EventWizardLocation | null;
@@ -36,13 +36,10 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 				squad.id = randomId();
 				squad.slotList.forEach(slot => slot.id = randomId());
 			});
-			replaceNullWithEmpty(data, ['description', 'missionLength', 'missionType', 'pictureUrl']);
-			replaceNullWithUndefined(data, ['reserveParticipating']);
 			if (user) {
 				data.creator = user.name;
 			}
-			const {dateTime, ...formData} = data;
-			form.setValues(formData);
+			form.setValues(convertDtoToWizardFormEvent(data));
 			setUpdated(true);
 		}
 	}, [query.data]);

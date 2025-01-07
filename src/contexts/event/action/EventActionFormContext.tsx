@@ -9,7 +9,7 @@ export type EventEditFormType =
 	Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist' | 'requirements'>
 	& { date: Date, startTime: string, requirements: string[] };
 
-type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements'>
+export type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements'>
 	& { date: Date, startTime: string, requirements: string[] };
 
 export type EventActionFormType = EventEditFormType | EventWizardFormType;

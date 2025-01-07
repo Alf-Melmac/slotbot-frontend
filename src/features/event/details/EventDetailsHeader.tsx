@@ -1,7 +1,7 @@
 import {Button, Card, Grid, Group, Image, Paper, Text, Title} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarDay, faHourglassEnd} from '@fortawesome/free-solid-svg-icons';
-import {JSX, MutableRefObject} from 'react';
+import {JSX, RefObject} from 'react';
 import {T} from '../../../components/T';
 import {EventDetail} from '../EventFetcher';
 import classes from './EventDetailsHeader.module.css';
@@ -9,7 +9,7 @@ import {EventDescription} from './EventDescription';
 import {EventDetailsButtons} from './EventDetailsButtons';
 
 type EventDetailsHeaderProps = EventDetail & {
-	descriptionRef: MutableRefObject<HTMLButtonElement>;
+	descriptionRef: RefObject<HTMLButtonElement>;
 	scrollToDescription: () => void;
 };
 
