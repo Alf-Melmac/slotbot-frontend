@@ -15,12 +15,12 @@ interface LastEventInfo extends AbstractIdEntityDto {
 
 export interface UserOwnProfileDto {
 	steamId64?: string;
-	notificationSettings: NotificationSettings[];
+	notificationSettings: NotificationSettingDto[];
 	externalCalendarIntegrationActive: boolean;
 	icsCalendarUrl: string;
 }
 
-interface NotificationSettings extends FrontendIdEntityDto {
+interface NotificationSettingDto extends FrontendIdEntityDto {
 	hoursBeforeEvent: number;
 	minutesBeforeEvent: number;
 }
