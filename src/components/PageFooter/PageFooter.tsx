@@ -20,7 +20,7 @@ type IconType = {
 
 export function PageFooter(): JSX.Element {
 	let icons: IconType[];
-	let publisher: string;
+	let publisher = 'https://docs.slotbot.de/policies/datenschutzerklarung';
 
 	const guild = useGetGuild();
 	switch (guild) {
@@ -47,7 +47,6 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			publisher = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 		case Guild.DAA:
 			icons = [
@@ -113,32 +112,29 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			publisher = 'https://wiki.armamachtbock.de/de/Impressum';
 			break;
 	}
 
-	return (
-		<Container className={classes.container} py={40}>
-			<Stack>
-				<Group gap={'xs'}>
-					<Logo small/>
-					<ThemeSwitch/>
-				</Group>
-				<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
-			</Stack>
-			<Stack gap={'xs'}>
-				<Group gap={'lg'} justify={'right'}>
-					{icons.map((icon) =>
-						<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
-									className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
-							<FontAwesomeIcon icon={icon.icon} size={'lg'}/>
-						</ActionIcon>,
-					)}
-				</Group>
-				<Text size={'xs'}>
-					<AnchorBlank className={classes.link} href={publisher}><T k={'footer.legal'}/></AnchorBlank>
-				</Text>
-			</Stack>
-		</Container>
-	);
+	return <Container className={classes.container} py={40}>
+		<Stack>
+			<Group gap={'xs'}>
+				<Logo small/>
+				<ThemeSwitch/>
+			</Group>
+			<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
+		</Stack>
+		<Stack gap={'xs'}>
+			<Group gap={'lg'} justify={'right'}>
+				{icons.map((icon) =>
+					<ActionIcon component={AnchorBlank} key={icon.icon.iconName}
+								className={cx(classes.iconLink, icon.iconClass)} href={icon.href}>
+						<FontAwesomeIcon icon={icon.icon} size={'lg'}/>
+					</ActionIcon>,
+				)}
+			</Group>
+			<Text size={'xs'}>
+				<AnchorBlank className={classes.link} href={publisher}><T k={'footer.legal'}/></AnchorBlank>
+			</Text>
+		</Stack>
+	</Container>;
 }
