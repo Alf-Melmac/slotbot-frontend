@@ -1,5 +1,6 @@
 import {AbstractIdEntityDto, FrontendIdDto} from '../../contexts/sharedTypes';
 import {GuildDto} from '../guilds/guildTypes';
+import {RequirementListDto} from '../guilds/guild/config/requirement/requirementTypes';
 
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
@@ -29,11 +30,10 @@ export interface EventFieldReferencelessDto extends AbstractIdEntityDto {
 	link: string;
 }
 
-export interface EventDetailsSquadDto extends AbstractIdEntityDto {
+interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	name: string;
 	reservedFor: GuildDto;
 	slotList: EventDetailsSlotDto[];
-	notEmpty: boolean;
 }
 
 interface EventDetailsSlotDto extends AbstractIdEntityDto {
@@ -41,10 +41,24 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	number: number;
 	reservedFor: GuildDto;
 	text: string;
-	occupied: boolean;
-	blocked: boolean;
-	own: boolean;
-	slottable: boolean | null;
+	slottable: SlottableDto;
+}
+
+interface SlottableDto {
+	state: SlottableState;
+	requirementsNotMet: RequirementListDto[];
+}
+
+export enum SlottableState {
+	YES = "YES",
+	YES_OWN = "YES_OWN",
+	YES_REQUIREMENTS_NOT_MET = "YES_REQUIREMENTS_NOT_MET",
+	NO = "NO",
+	NO_BLOCKED = "NO_BLOCKED",
+	NO_RESERVED = "NO_RESERVED",
+	NO_REQUIREMENTS_NOT_MET = "NO_REQUIREMENTS_NOT_MET",
+	NO_BANNED = "NO_BANNED",
+	NOT_AVAILABLE = "NOT_AVAILABLE"
 }
 
 //endregion event details

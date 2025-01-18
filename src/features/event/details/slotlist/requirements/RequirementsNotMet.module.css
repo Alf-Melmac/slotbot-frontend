@@ -1,0 +1,18 @@
+.listLabel {
+	color: var(--mantine-color-dimmed);
+	font-size: calc(var(--mantine-font-size-sm) * 0.85);
+
+	&::after {
+		content: '';
+		flex: 1;
+		inset-inline: 0;
+		height: 1px;
+		margin-inline-start: var(--mantine-spacing-xs);
+
+		background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+	}
+}
+
+.required {
+	color: var(--mantine-color-error);
+}
