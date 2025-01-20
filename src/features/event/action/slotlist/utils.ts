@@ -1,6 +1,11 @@
 import {randomId} from '@mantine/hooks';
-import {EventActionFormReturn, EventActionFormType} from '../../../../contexts/event/action/EventActionFormContext';
-import {SlotDto, SquadDto} from '../../eventTypes';
+import {
+	EventActionFormReturn,
+	EventActionFormType,
+	EventEditFormType,
+} from '../../../../contexts/event/action/EventActionFormContext';
+import {EventUpdateDto, SlotDto, SquadDto} from '../../eventTypes';
+import {filterFrontendIds} from '../../../../utils/formHelper';
 
 /**
  * Creates a new empty squad with a single slot.
@@ -11,6 +16,7 @@ export function buildNewSquad(form: EventActionFormReturn): SquadDto {
 		name: '',
 		slotList: [buildNewSlot(form)],
 		reservedFor: '',
+		requirements: [],
 		id: randomId(),
 	};
 }
@@ -42,6 +48,7 @@ export function buildNewSlot(form: EventActionFormReturn): SlotDto {
 		number: findFirstUnusedSlotNumber(form.values.squadList),
 		name: '',
 		reservedFor: '',
+		requirements: [],
 		blocked: false,
 		replacementText: 'Gesperrt',
 		id: randomId(),
@@ -74,4 +81,16 @@ export function duplicateSlot(form: EventActionFormReturn, slot: SlotDto, additi
 		id: randomId(),
 		number: findFirstUnusedSlotNumber(form.values.squadList, additionalUsedSlotNumbers),
 	};
+}
+
+export function prepareForMutation(squadList: EventEditFormType['squadList']): EventUpdateDto['squadList'] {
+	const filtered = filterFrontendIds<EventEditFormType['squadList'][number]>(squadList);
+	return filtered.map(squad => ({
+		...squad,
+		requirements: squad.requirements.map(r => parseInt(r)),
+		slotList: squad.slotList.map(slot => ({
+			...slot,
+			requirements: slot.requirements.map(r => parseInt(r)),
+		})),
+	}));
 }

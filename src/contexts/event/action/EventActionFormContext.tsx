@@ -5,12 +5,17 @@ import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
 import {JSX, PropsWithChildren} from 'react';
 
+//We just need the requirements to be strings...
+type EventEditFormSlotType = Omit<EventEditDto['squadList'][number]['slotList'][number], 'requirements'> & { requirements: string[] };
+type EventEditFormSquadType = Omit<EventEditDto['squadList'][number], 'slotList' | 'requirements'> & { slotList: EventEditFormSlotType[], requirements: string[] };
 export type EventEditFormType =
-	Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist' | 'requirements'>
-	& { date: Date, startTime: string, requirements: string[] };
+	Omit<EventEditDto, 'dateTime' | 'ownerGuild' | 'canRevokeShareable' | 'canUploadSlotlist' | 'requirements' | 'squadList'>
+	& { date: Date, startTime: string, requirements: string[], squadList: EventEditFormSquadType[] };
 
-export type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements'>
-	& { date: Date, startTime: string, requirements: string[] };
+type EventWizardSlotType = Omit<EventPostDto['squadList'][number]['slotList'][number], 'requirements'> & { requirements: string[] };
+type EventWizardSquadType = Omit<EventPostDto['squadList'][number], 'slotList' | 'requirements'> & { slotList: EventWizardSlotType[], requirements: string[] };
+export type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements' | 'squadList'>
+	& { date: Date, startTime: string, requirements: string[], squadList: EventWizardSquadType[] };
 
 export type EventActionFormType = EventEditFormType | EventWizardFormType;
 

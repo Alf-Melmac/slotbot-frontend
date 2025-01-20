@@ -93,12 +93,14 @@ export interface SquadDto extends FrontendIdDto {
 	name: string;
 	slotList: SlotDto[];
 	reservedFor?: string;
+	requirements: number[];
 }
 
 export interface SlotDto extends FrontendIdDto {
 	name: string;
 	number: number;
 	reservedFor?: string;
+	requirements: number[];
 	blocked: boolean;
 	replacementText?: string;
 }
@@ -118,6 +120,7 @@ interface SquadIdDto extends AbstractIdEntityDto {
 	name: string;
 	slotList: SlotIdDto[];
 	reservedFor: string;
+	requirements: number[];
 }
 
 export interface SlotIdDto extends Omit<SlotDto, 'id'>, IdEntity {

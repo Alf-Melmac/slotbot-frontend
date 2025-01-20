@@ -1,42 +1,47 @@
-import {SlotDto} from '../../eventTypes';
 import {JSX, useState} from 'react';
-import {ActionIcon, Menu, Modal, Skeleton} from '@mantine/core';
+import {ActionIcon, Menu, Modal, Stack} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClone, faEllipsisH, faTrashCan, faUserGear} from '@fortawesome/free-solid-svg-icons';
 import {SlotBlockedSetting} from './SlotBlockedSetting';
 import {SlotListEntryReservationSetting} from './SlotListEntryReservationSetting';
-import {UseQueryResult} from '@tanstack/react-query';
 import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
-import {GuildDto} from '../../../guilds/guildTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {duplicateSlot, duplicateSquad} from './utils';
+import {useGetGuilds} from '../../../guilds/useGetGuilds';
+import {useGetEventTypeRequirements} from './useGetEventTypeRequirements';
+import {SlotListEntryRequirementSetting} from './SlotListEntryRequirementSetting';
+import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
+import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
 	path: string;
 	index: number;
 	slot?: boolean;
-	guildsQuery: UseQueryResult<GuildDto[], Error>
+	guildsQuery: ReturnType<typeof useGetGuilds>;
+	requirementsQuery: ReturnType<typeof useGetEventTypeRequirements>;
 };
 
 export function SlotListEntrySettings(props: Readonly<SlotListEntrySettingsProps>): JSX.Element {
-	const {entry, path, index, slot = false, guildsQuery} = props;
+	const {entry, path, index, slot = false, guildsQuery, requirementsQuery} = props;
 	const [opened, setOpened] = useState(false);
 	const form = useFormContext();
 
 	return <>
 		<Modal opened={opened} onClose={() => setOpened(false)}
 			   title={<SlotListEntryModalHeader entry={entry} isSlot={slot}/>}>
-			{guildsQuery.isLoading ?
-				<Skeleton width={'100%'} height={60}/>
-				:
-				<SlotListEntryReservationSetting data={guildsQuery.data} path={path} index={index} slot={slot}/>
-			}
-			{slot &&
-                <SlotBlockedSetting path={path} index={index}/>
-			}
+			<Stack gap={'sm'}>
+				<SlotListEntryReservationSetting guildsQuery={guildsQuery} path={path} index={index} slot={slot}/>
+				<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
+					<SlotListEntryRequirementSetting requirementsQuery={requirementsQuery} path={path} index={index}
+													 slot={slot}/>
+				</RequireFeatureFlag>
+				{slot &&
+                    <SlotBlockedSetting path={path} index={index}/>
+				}
+			</Stack>
 		</Modal>
 		<Menu>
 			<Menu.Target>
@@ -75,7 +80,7 @@ function SlotListEntryModalHeader(props: Readonly<SlotListEntryModalHeaderModalH
 	const {t} = useLanguage();
 
 	let header = t('slotlistEntry.settings.header');
-	const slot: SlotDto | undefined = isSlot ? entry as SlotDto : undefined;
+	const slot = isSlot ? entry as EventActionFormType['squadList'][number]['slotList'][number] : undefined;
 	if (isSlot && slot?.number && !Number.isNaN(slot.number)) {
 		header += ` (${slot.number})`;
 	}

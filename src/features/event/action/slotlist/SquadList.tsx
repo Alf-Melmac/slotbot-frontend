@@ -8,12 +8,14 @@ import {useGetGuilds} from '../../../guilds/useGetGuilds';
 import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {buildNewSlot, buildNewSquad} from './utils';
 import {JSX} from 'react';
+import {useGetEventTypeRequirements} from './useGetEventTypeRequirements';
 
 export function SquadList(): JSX.Element {
-	const guildsQuery = useGetGuilds();
-
 	const form = useFormContext();
 	const {t} = useLanguage();
+
+	const guildsQuery = useGetGuilds();
+	const requirementsQuery = useGetEventTypeRequirements(form.values.eventType.id);
 
 	return <>
 		<SortableList<typeof form.values.squadList[number]>
@@ -28,7 +30,7 @@ export function SquadList(): JSX.Element {
 						<SlotListEntrySettings
 							entry={form.values.squadList[squadIndex]}
 							path={'squadList'} index={squadIndex}
-							guildsQuery={guildsQuery}/>
+							guildsQuery={guildsQuery} requirementsQuery={requirementsQuery}/>
 					</Group>
 					<Box ml={'lg'}>
 						<SortableList<typeof form.values.squadList[number]['slotList'][number]>
@@ -44,7 +46,8 @@ export function SquadList(): JSX.Element {
 												   {...form.getInputProps(`${slotList}.${slotIndex}.name`)}/>
 										<SlotListEntrySettings
 											entry={form.values.squadList[squadIndex].slotList[slotIndex]} slot
-											path={slotList} index={slotIndex} guildsQuery={guildsQuery}/>
+											path={slotList} index={slotIndex}
+											guildsQuery={guildsQuery} requirementsQuery={requirementsQuery}/>
 									</Group>
 								);
 							}}/>

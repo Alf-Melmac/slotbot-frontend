@@ -19,8 +19,7 @@ export function SlotBlockedSetting(props: Readonly<SlotBlockedSettingProps>): JS
 
 	return (
 		<Input.Wrapper label={<T k={'slotlistEntry.settings.blocked.label'}/>}
-					   description={<T k={'slotlistEntry.settings.blocked.description'}/>}
-					   mt={'sm'}>
+					   description={<T k={'slotlistEntry.settings.blocked.description'}/>}>
 			<Group gap={'xs'} mt={6}>
 				<ActionIcon color={'gray'} variant={'transparent'} size={'lg'}
 					/*@ts-ignore blocked is always a boolean*/

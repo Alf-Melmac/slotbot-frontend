@@ -2,14 +2,13 @@ import {Checkbox, Group} from '@mantine/core';
 import {UploadSlotlist} from './UploadSlotlist';
 import {RenumberSlots} from './RenumberSlots';
 import {SquadList} from './SquadList';
-import {EventEditDto, EventUpdateDto} from '../../eventTypes';
+import {EventEditDto} from '../../eventTypes';
 import {ButtonWithDisabledTooltip} from '../../../../components/Button/ButtonWithDisabledTooltip';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
-import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {useChangeWatcher, useEventUpdate} from '../useEventUpdate';
-import {filterFrontendIds} from '../../../../utils/formHelper';
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
@@ -19,6 +18,7 @@ import {useEventPage} from '../../../../contexts/event/EventPageContext';
 import {EventRequirements} from './EventRequirements';
 import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
 import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
+import {prepareForMutation} from './utils';
 
 type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
 
@@ -41,7 +41,8 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 
 	const queryClient = useQueryClient();
 	const eventId = useEventPage();
-	const squadList = filterFrontendIds<EventActionFormType['squadList'][number]>(form.values.squadList) as EventUpdateDto['squadList'];
+	// @ts-ignore Only during edit mode
+	const squadList = prepareForMutation(form.values.squadList);
 	const {mutate} = useEventUpdate({squadList, requirements: form.values.requirements.map(r => parseInt(r))},
 		result => {
 			queryClient.setQueryData(['eventForEdit', eventId], result);

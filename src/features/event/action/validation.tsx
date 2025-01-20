@@ -1,4 +1,3 @@
-import {SlotDto, SlotIdDto} from '../eventTypes';
 import {FormErrors} from '@mantine/form';
 import {
 	colorField,
@@ -92,6 +91,8 @@ function reserveParticipatingFieldSize(reserveParticipating: EventActionFormType
 	return 18 + (reserveParticipating ? 2 : 4);
 }
 
+type SlotNumberValidationResult = Record<number, { path: string[], count: number }>;
+
 function validateSquadList(values: EventActionFormType, errors: FormErrors): void {
 	values.squadList.forEach((squad, squadIndex) => {
 		errors[`squadList.${squadIndex}.name`] = requiredFieldWithMaxLength(squad.name, TEXT);
@@ -100,8 +101,7 @@ function validateSquadList(values: EventActionFormType, errors: FormErrors): voi
 			errors[`squadList.${squadIndex}.slotList.${slotIndex}.number`] =
 				validate(!Number.isSafeInteger(slot.number) || slot.number <= 0, <T k={'no'}/>);
 		});
-		// @ts-ignore
-		const count = squad.slotList.reduce((result: Record<number, { path: string[], count: number }>, c: SlotDto | SlotIdDto, i: number) => ({
+		const count = squad.slotList.reduce<SlotNumberValidationResult>((result, c, i) => ({
 			...result,
 			[c.number]: {
 				path: [...(result[c.number]?.path || []), `squadList.${squadIndex}.slotList.${i}.number`],

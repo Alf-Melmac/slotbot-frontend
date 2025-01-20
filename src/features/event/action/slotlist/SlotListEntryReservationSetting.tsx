@@ -1,24 +1,27 @@
-import {Alert, Select} from '@mantine/core';
+import {Alert, Select, Skeleton} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {SlotListEntrySettingsProps} from './SlotListEntrySettings';
-import {GuildDto} from '../../../guilds/guildTypes';
 import {getFormFieldValue} from '../../../../utils/formHelper';
 import {find} from 'lodash-es';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {JSX} from 'react';
+import {RequiredPick} from '../../../../utils/typesHelper';
 
-type SlotListEntryReservationSettingProps = {
-	data?: GuildDto[];
-	slot: boolean;
-} & Pick<SlotListEntrySettingsProps, 'path' | 'index'>;
+type SlotListEntryReservationSettingProps = RequiredPick<SlotListEntrySettingsProps, 'guildsQuery' | 'path' | 'index' | 'slot'>;
 
 export function SlotListEntryReservationSetting(props: Readonly<SlotListEntryReservationSettingProps>): JSX.Element {
+	const {guildsQuery} = props;
 	const {t} = useLanguage();
+
+	if (guildsQuery.isLoading) {
+		return <Skeleton width={'100%'} height={60}/>;
+	}
+
 	return (
-		!props.data ?
+		!guildsQuery.data ?
 			<>
 				<Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'}>
 					<T k={'slotlistEntry.settings.reservation.error'}/>
@@ -34,7 +37,7 @@ export function SlotListEntryReservationSetting(props: Readonly<SlotListEntryRes
 }
 
 function SlotListEntryReservationSettingSelect(props: Readonly<SlotListEntryReservationSettingProps>): JSX.Element {
-	const {data = [], path, index, slot} = props; //Shouldn't be used with undefined data prop
+	const {guildsQuery: {data = []}, path, index, slot} = props; //Shouldn't be used with undefined data prop
 	const form = useFormContext();
 	const {t} = useLanguage();
 
