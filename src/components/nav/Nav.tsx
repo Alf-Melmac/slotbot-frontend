@@ -10,6 +10,7 @@ import {useFavicon} from '@mantine/hooks';
 import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
+import gtoFavicon from './favicon/favicon-gto.ico';
 import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
 import classes from './Nav.module.css';
@@ -31,6 +32,8 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 		favicon = daaFavicon;
 	} else if (guild === Guild.TTT) {
 		favicon = tttFavicon;
+	} else if (guild === Guild.GTO) {
+		favicon = gtoFavicon;
 	}
 	favicon && useFavicon(favicon);
 

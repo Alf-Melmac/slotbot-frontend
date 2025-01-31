@@ -4,6 +4,7 @@ import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import tttLogo from './slotbot_ttt-logo-black.png';
 import tttLogoWhite from './slotbot_ttt-logo-white.png';
+import gtoLogo from './gto_unit_logo.png';
 import defaultLogo from './slotbot-256-256.png';
 import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
@@ -71,6 +72,12 @@ function useGetInfo(): LogoInfo {
 				title: 'Tactical Training Team',
 				logo: colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
 				logoWithName: true,
+			};
+		}
+		case Guild.GTO: {
+			return {
+				title: 'German Tactical Ops',
+				logo: gtoLogo,
 			};
 		}
 		case Guild.SLOTBOT:

@@ -7,7 +7,7 @@ import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
 import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {T} from '../T';
-import {faCircleQuestion} from '@fortawesome/free-regular-svg-icons';
+import {faCircleQuestion, faClipboard} from '@fortawesome/free-regular-svg-icons';
 import {JSX} from 'react';
 import cx from 'clsx';
 import classes from './PageFooter.module.css';
@@ -97,6 +97,20 @@ export function PageFooter(): JSX.Element {
 				},
 			];
 			publisher = 'https://www.tacticalteam.de/impressum';
+			break;
+		case Guild.GTO:
+			icons = [
+				{
+					icon: faClipboard,
+					href: 'https://mip.gto-kompanie.de/',
+					iconClass: classes.wiki,
+				},
+				{
+					icon: faDiscord,
+					href: 'https://discord.gg/gCqkPWHrWj',
+					iconClass: classes.discord,
+				},
+			];
 			break;
 		case Guild.SLOTBOT:
 		default:

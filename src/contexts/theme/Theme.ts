@@ -39,6 +39,11 @@ const advancedGuilds: AdvancedGuild[] = [
 		identifier: 'TTT',
 	},
 	{
+		guild: Guild.GTO,
+		urlPattern: /.*gto-kompanie.de.*/,
+		identifier: 'GTO',
+	},
+	{
 		guild: Guild.FortyThird,
 		urlPattern: /.*the-43rd.slotbot.de.*/,
 		identifier: '43rd',
@@ -52,11 +57,6 @@ const advancedGuilds: AdvancedGuild[] = [
 		guild: Guild.OPT,
 		urlPattern: /.*opt.slotbot.de.*/,
 		identifier: 'OPT',
-	},
-	{
-		guild: Guild.GTO,
-		urlPattern: /.*gto.slotbot.de.*/,
-		identifier: 'GTO',
 	},
 	{
 		guild: Guild.R,
