@@ -82,7 +82,7 @@ export function EventDetails(): JSX.Element {
 			</Tabs.List>
 
 			<Tabs.Panel value={'slotlist'} pt={'xs'}>
-				<EventSlotlist squadList={event.squadList} eventId={event.id}/>
+				<EventSlotlist id={event.id} squadList={event.squadList} requirements={event.requirements}/>
 			</Tabs.Panel>
 			{event.descriptionAsHtml &&
                 <Tabs.Panel value={'description'} pt={'xs'}>

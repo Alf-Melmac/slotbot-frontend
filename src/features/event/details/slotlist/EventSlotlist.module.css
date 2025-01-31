@@ -1,0 +1,6 @@
+.requirementsContainer {
+	display: grid;
+	grid-template-columns: max-content auto;
+	gap: var(--mantine-spacing-sm);
+	align-items: center;
+}

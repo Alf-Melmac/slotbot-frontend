@@ -16,6 +16,7 @@ export interface EventDetailsDto extends AbstractIdEntityDto {
 	creator: string;
 	squadList: EventDetailsSquadDto[];
 	details: EventFieldReferencelessDto[];
+	requirements: RequirementListDto[];
 }
 
 export interface EventTypeDto extends AbstractIdEntityDto {
@@ -34,6 +35,7 @@ interface EventDetailsSquadDto extends AbstractIdEntityDto {
 	name: string;
 	reservedFor: GuildDto;
 	slotList: EventDetailsSlotDto[];
+	requirements: RequirementListDto[];
 }
 
 interface EventDetailsSlotDto extends AbstractIdEntityDto {
@@ -41,6 +43,7 @@ interface EventDetailsSlotDto extends AbstractIdEntityDto {
 	number: number;
 	reservedFor: GuildDto;
 	text: string;
+	requirements: RequirementListDto[];
 	slottable: SlottableDto;
 }
 
