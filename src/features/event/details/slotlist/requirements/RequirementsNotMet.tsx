@@ -6,12 +6,26 @@ import {SlotTextProps} from '../SlotText';
 import classes from './RequirementsNotMet.module.css';
 import {T} from '../../../../../components/T';
 import {ButtonWithDisabledTooltip} from '../../../../../components/Button/ButtonWithDisabledTooltip';
+import slotbotServerClient, {voidFunction} from '../../../../../hooks/slotbotServerClient';
+import {AxiosError} from 'axios';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 type RequirementsNotMetProps = {
 	requirementsNotMet: SlotTextProps['slot']['slottable']['requirementsNotMet'];
 };
 
 export function RequirementsNotMet({requirementsNotMet}: Readonly<RequirementsNotMetProps>): JSX.Element {
+	const queryClient = useQueryClient();
+	const fulfillRequirement = (requirementId: number) => slotbotServerClient.put(`/user/requirements/${requirementId}`).then(voidFunction);
+	const {mutate, isPending} = useMutation<void, AxiosError, number>({
+		mutationFn: fulfillRequirement,
+		onSuccess: () => {
+			// Other events also have requirements, so we need to invalidate all of them
+			queryClient.invalidateQueries({queryKey: ['eventDetails']});
+			// Consider removing the now fulfilled requirement from all slots instead of invalidating the complete details
+		},
+	});
+
 	if (requirementsNotMet.length === 0) {
 		return <></>;
 	}
@@ -40,7 +54,8 @@ export function RequirementsNotMet({requirementsNotMet}: Readonly<RequirementsNo
 							</Group>
 							<ButtonWithDisabledTooltip
 								size={'compact-sm'} variant={'outline'} disabled={!list.memberAssignable}
-								tooltip={'event.details.action.slot.requirementsNotMet.mark.disabled'}>
+								tooltip={'event.details.action.slot.requirementsNotMet.mark.disabled'}
+								onClick={() => mutate(requirement.id)} loading={isPending}>
 								<T k={'event.details.action.slot.requirementsNotMet.mark'}/>
 							</ButtonWithDisabledTooltip>
 						</Group>)}
