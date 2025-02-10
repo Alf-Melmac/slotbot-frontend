@@ -10,8 +10,29 @@ import {GuildUserCell} from './GuildUser';
 import {GuildUserActions} from './GuildUserActions';
 import {GuildUserRole} from './GuildUserRole';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
+import {SharedModal, SharedModalChild} from '../../../../components/SharedModal';
+
+export type TableCellProps = {
+	renderedCellValue: ReactNode;
+	row: MRT_Row<UserInGuildDto>;
+}
 
 export function GuildUsers(): JSX.Element {
+	const {isAdmin} = useGuildPage();
+
+	return <>
+		{isAdmin && false && //TODO Allow member addition via web interface
+            <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
+
+		<SharedModal>
+			{(openModal, closeModal) =>
+				<GuildUsersTable openModal={openModal} closeModal={closeModal}/>
+			}
+		</SharedModal>
+	</>;
+}
+
+function GuildUsersTable({openModal, closeModal}: Readonly<SharedModalChild>): JSX.Element {
 	const {guildId, isAdmin} = useGuildPage();
 	const {data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching} = useGetGuildUsers(guildId);
 	const {t} = useLanguage();
@@ -31,11 +52,12 @@ export function GuildUsers(): JSX.Element {
 			columnsDef.push({
 				id: 'guild-user-action',
 				header: '',
-				Cell: GuildUserActions,
+				Cell: (cellProps: TableCellProps) => <GuildUserActions {...cellProps}
+																	   openModal={openModal} closeModal={closeModal}/>,
 			});
 		}
 		return columnsDef;
-	}, [isAdmin]);
+	}, [isAdmin, openModal, closeModal]);
 
 	const [flatData, setFlatData] = useState<UserInGuildDto[]>([]);
 	useEffect(() => {
@@ -57,22 +79,12 @@ export function GuildUsers(): JSX.Element {
 		fetchMoreOnBottomReached(tableContainerRef.current);
 	}, [fetchMoreOnBottomReached]); //Initial load
 
-	return <>
-		{isAdmin && false && //TODO Allow member addition via web interface
-            <AddButton label={'guild.user.add'} mb={'sm'} onClick={voidFunction} disabled/>}
-
-		<MRTable columns={columns} data={flatData}
-				 localization={{noRecordsToDisplay: t('guild.users.none')}}
-				 mantineTableContainerProps={{
-					 ref: tableContainerRef,
-					 style: {maxHeight: '318px'},
-					 onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
-				 }}
-				 state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>
-	</>;
-}
-
-export type TableCellProps = {
-	renderedCellValue: ReactNode;
-	row: MRT_Row<UserInGuildDto>;
+	return <MRTable columns={columns} data={flatData}
+					localization={{noRecordsToDisplay: t('guild.users.none')}}
+					mantineTableContainerProps={{
+						ref: tableContainerRef,
+						style: {maxHeight: '318px'},
+						onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
+					}}
+					state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>;
 }

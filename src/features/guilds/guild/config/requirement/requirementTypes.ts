@@ -1,6 +1,6 @@
 import {AbstractIdEntityDto, FrontendIdDto} from '../../../../../contexts/sharedTypes';
 
-interface RequirementDto extends AbstractIdEntityDto {
+export interface RequirementDto extends AbstractIdEntityDto {
 	name: string;
 	icon: string;
 }
@@ -17,6 +17,16 @@ export interface EventTypeRequirementListDto extends AbstractIdEntityDto {
 	name: string;
 	requirements: RequirementDto[];
 	active: boolean;
+}
+
+interface ManagedRequirementDto extends RequirementDto {
+	fulfilled: boolean;
+}
+
+export interface ManagedRequirementListDto {
+	id: number;
+	name: string;
+	requirements: ManagedRequirementDto[];
 }
 
 export interface RequirementListPostDto extends FrontendIdDto {

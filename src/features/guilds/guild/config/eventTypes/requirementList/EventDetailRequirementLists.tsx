@@ -7,7 +7,7 @@ import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
 import {Switch, Table} from '@mantine/core';
 import {T} from '../../../../../../components/T';
 import {LoadingRows} from '../../../../../../components/Table/LoadingRows';
-import {Requirements} from '../../requirement/Requirements';
+import {Requirements} from '../../../../../requirements/Requirements';
 import {successNotification} from '../../../../../../utils/notificationHelper';
 
 type EventDetailRequirementListsProps = Pick<EventTypeDto, 'id'>;

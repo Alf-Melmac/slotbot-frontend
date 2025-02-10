@@ -6,7 +6,7 @@ import {Fragment, JSX} from 'react';
 import {Slots} from './Slots';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
-import {Requirements} from '../../../guilds/guild/config/requirement/Requirements';
+import {Requirements} from '../../../requirements/Requirements';
 import classes from './EventSlotlist.module.css';
 import {T} from '../../../../components/T';
 import {Required} from './requirements/Required';

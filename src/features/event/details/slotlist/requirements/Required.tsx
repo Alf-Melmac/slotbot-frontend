@@ -1,7 +1,7 @@
 import {JSX} from 'react';
 import {EventSlotlistProps} from '../EventSlotlist';
 import {Box, Text} from '@mantine/core';
-import {Requirements} from '../../../../guilds/guild/config/requirement/Requirements';
+import {Requirements} from '../../../../requirements/Requirements';
 
 type RequiredProps = {
 	itemBefore: boolean;

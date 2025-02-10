@@ -6,8 +6,9 @@ import {EventStartTime} from './EventStartTime';
 import {EventActionTextInput} from '../EventActionTextInput';
 import {EventEditDto} from '../../eventTypes';
 import {JSX} from 'react';
+import {PartialPick} from '../../../../utils/typesHelper';
 
-export type RequiredInformationProps = Partial<Pick<EventEditDto, 'canRevokeShareable'>>;
+export type RequiredInformationProps = PartialPick<EventEditDto, 'canRevokeShareable'>;
 
 export function RequiredInformation(props: Readonly<RequiredInformationProps>): JSX.Element {
 	return <>

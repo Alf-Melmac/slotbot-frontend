@@ -1,7 +1,7 @@
 import {JSX} from 'react';
-import {ActionIcon, Avatar, Flex, Group, Popover, Stack} from '@mantine/core';
+import {ActionIcon, Flex, Group, Popover, Stack} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPuzzlePiece, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons';
+import {faTriangleExclamation} from '@fortawesome/free-solid-svg-icons';
 import {SlotTextProps} from '../SlotText';
 import classes from './RequirementsNotMet.module.css';
 import {T} from '../../../../../components/T';
@@ -9,6 +9,7 @@ import {ButtonWithDisabledTooltip} from '../../../../../components/Button/Button
 import slotbotServerClient, {voidFunction} from '../../../../../hooks/slotbotServerClient';
 import {AxiosError} from 'axios';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {Requirement} from '../../../../requirements/Requirements';
 
 type RequirementsNotMetProps = {
 	requirementsNotMet: SlotTextProps['slot']['slottable']['requirementsNotMet'];
@@ -16,7 +17,7 @@ type RequirementsNotMetProps = {
 
 export function RequirementsNotMet({requirementsNotMet}: Readonly<RequirementsNotMetProps>): JSX.Element {
 	const queryClient = useQueryClient();
-	const fulfillRequirement = (requirementId: number) => slotbotServerClient.put(`/user/requirements/${requirementId}`).then(voidFunction);
+	const fulfillRequirement = (requirementId: number) => slotbotServerClient.put(`/requirements/${requirementId}`).then(voidFunction);
 	const {mutate, isPending} = useMutation<void, AxiosError, number>({
 		mutationFn: fulfillRequirement,
 		onSuccess: () => {
@@ -46,12 +47,7 @@ export function RequirementsNotMet({requirementsNotMet}: Readonly<RequirementsNo
 					</Flex>
 					{list.requirements.map(requirement =>
 						<Group key={requirement.id} justify={'space-between'} wrap={'nowrap'}>
-							<Group gap={2}>
-								<Avatar src={requirement.icon} size={'sm'}>
-									<FontAwesomeIcon icon={faPuzzlePiece}/>
-								</Avatar>
-								{requirement.name}
-							</Group>
+							<Requirement requirement={requirement}/>
 							<ButtonWithDisabledTooltip
 								size={'compact-sm'} variant={'outline'} disabled={!list.memberAssignable}
 								tooltip={'event.details.action.slot.requirementsNotMet.mark.disabled'}

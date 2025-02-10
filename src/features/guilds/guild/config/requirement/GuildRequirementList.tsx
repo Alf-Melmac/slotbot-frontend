@@ -11,7 +11,7 @@ import {AddButton} from '../../../../../components/Button/AddButton';
 import {useDisclosure} from '@mantine/hooks';
 import {RequirementListForm} from './RequirementListForm';
 import {LoadingRows} from '../../../../../components/Table/LoadingRows';
-import {Requirements} from './Requirements';
+import {Requirements} from '../../../../requirements/Requirements';
 
 export function GuildRequirementList(): JSX.Element {
 	const {guildId} = useGuildPage();

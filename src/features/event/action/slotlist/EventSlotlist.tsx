@@ -19,8 +19,9 @@ import {EventRequirements} from './EventRequirements';
 import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
 import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 import {prepareForMutation} from './utils';
+import {PartialPick} from '../../../../utils/typesHelper';
 
-type EventSlotlistProps = Partial<Pick<EventEditDto, 'canUploadSlotlist'>>;
+type EventSlotlistProps = PartialPick<EventEditDto, 'canUploadSlotlist'>;
 
 export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element {
 	const {canUploadSlotlist = true} = props;
