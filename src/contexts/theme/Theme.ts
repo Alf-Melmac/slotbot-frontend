@@ -9,11 +9,7 @@ export enum Guild {
 	AMB,
 	DAA,
 	TTT,
-	FortyThird,
-	CSA,
-	OPT,
 	GTO,
-	R,
 	SLOTBOT,
 }
 
@@ -42,26 +38,6 @@ const advancedGuilds: AdvancedGuild[] = [
 		guild: Guild.GTO,
 		urlPattern: /.*gto-kompanie.de.*/,
 		identifier: 'GTO',
-	},
-	{
-		guild: Guild.FortyThird,
-		urlPattern: /.*the-43rd.slotbot.de.*/,
-		identifier: '43rd',
-	},
-	{
-		guild: Guild.CSA,
-		urlPattern: /.*csa.slotbot.de.*/,
-		identifier: 'CSA',
-	},
-	{
-		guild: Guild.OPT,
-		urlPattern: /.*opt.slotbot.de.*/,
-		identifier: 'OPT',
-	},
-	{
-		guild: Guild.R,
-		urlPattern: /.*r.slotbot.de.*/,
-		identifier: 'R',
 	},
 ];
 
