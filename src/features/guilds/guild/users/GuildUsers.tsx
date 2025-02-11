@@ -3,11 +3,10 @@ import {voidFunction} from '../../../../hooks/slotbotServerClient';
 import {useGetGuildUsers} from '../useGetGuild';
 import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
 import {UserInGuildDto} from '../../guildTypes';
-import {JSX, ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {JSX, lazy, ReactNode, Suspense, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {MRTable} from '../../../../components/Table/MRTable';
 import {GuildUserCell} from './GuildUser';
-import {GuildUserActions} from './GuildUserActions';
 import {GuildUserRole} from './GuildUserRole';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {SharedModal, SharedModalChild} from '../../../../components/SharedModal';
@@ -49,11 +48,13 @@ function GuildUsersTable({openModal, closeModal}: Readonly<SharedModalChild>): J
 			},
 		];
 		if (isAdmin) {
+			const GuildUserActions = lazy(() => import('./actions/GuildUserActions'));
 			columnsDef.push({
 				id: 'guild-user-action',
 				header: '',
-				Cell: (cellProps: TableCellProps) => <GuildUserActions {...cellProps}
-																	   openModal={openModal} closeModal={closeModal}/>,
+				Cell: (cellProps: TableCellProps) => <Suspense fallback={<></>}>
+					<GuildUserActions {...cellProps} openModal={openModal} closeModal={closeModal}/>
+				</Suspense>,
 			});
 		}
 		return columnsDef;
