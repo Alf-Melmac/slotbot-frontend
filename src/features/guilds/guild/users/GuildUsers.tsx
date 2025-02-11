@@ -84,7 +84,7 @@ function GuildUsersTable({openModal, closeModal}: Readonly<SharedModalChild>): J
 					localization={{noRecordsToDisplay: t('guild.users.none')}}
 					mantineTableContainerProps={{
 						ref: tableContainerRef,
-						style: {maxHeight: '318px'},
+						style: {maxHeight: '550px'},
 						onScroll: (event) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
 					}}
 					state={{showProgressBars: isFetching, showSkeletons: isFetching && !isFetchingNextPage}}/>;
