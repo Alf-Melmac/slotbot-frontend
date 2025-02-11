@@ -18,19 +18,21 @@ import {LanguageProvider, useLanguage} from './contexts/language/Language';
 import {DatesProvider} from '@mantine/dates';
 import {ThemeLoader} from './contexts/theme/ThemeLoader';
 import {GuildProvider} from './contexts/guildcontext/GuildContext';
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			retry: false,
+		},
+	},
+});
 
 export function App(): JSX.Element {
-	const queryClient = new QueryClient({
-		defaultOptions: {
-			queries: {
-				retry: false,
-			},
-		},
-	});
-
 	return (
 		<Suspense fallback={<Skeleton/>}>
 			<QueryClientProvider client={queryClient}>
+				<ReactQueryDevtools/>
 				<LanguageProvider>
 					<GuildProvider>
 						<MantineApp/>
