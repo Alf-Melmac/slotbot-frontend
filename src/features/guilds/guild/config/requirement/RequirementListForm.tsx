@@ -4,7 +4,7 @@ import {RequirementListDto, RequirementListPostDto} from './requirementTypes';
 import {randomId, useUncontrolled} from '@mantine/hooks';
 import {requiredField} from '../../../../../utils/formValidation';
 import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
 import {useLanguage} from '../../../../../contexts/language/Language';
 import {
@@ -24,6 +24,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faImage, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {AddButton} from '../../../../../components/Button/AddButton';
 import {removeFrontendIdsFromElement} from '../../../../../utils/formHelper';
+import {AxiosError} from 'axios';
+import {LooseKeys} from '../../../../../utils/typesHelper';
 
 type RequirementListFormProps = {
 	list: RequirementListPostDto | undefined;
@@ -97,10 +99,8 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 							  {...form.getInputProps('memberAssignable', {type: 'checkbox'})}
 							  key={form.key('memberAssignable')}/>
 				</Tooltip>
-				{/*'guild.requirementList.enforced.tooltip'*/}
-				<Tooltip label={<T k={'featurePreview.disabledDuringPreview'}/>} refProp={'rootRef'}>
-					<Checkbox disabled
-							  label={<T k={'guild.requirementList.enforced'}/>}
+				<Tooltip label={<T k={'guild.requirementList.enforced.tooltip'}/>} refProp={'rootRef'}>
+					<Checkbox label={<T k={'guild.requirementList.enforced'}/>}
 							  {...form.getInputProps('enforced', {type: 'checkbox'})}
 							  key={form.key('enforced')}/>
 				</Tooltip>
@@ -111,6 +111,7 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 				{form.getValues().requirements.map((requirement, index) => (
 					<Group key={requirement.id} wrap={'nowrap'}>
 						<IconUploadFormInput
+							form={form} formPath={`requirements.${index}.icon`}
 							{...form.getInputProps(`requirements.${index}.icon`)}
 							key={form.key(`requirements.${index}.icon`)}
 						/>
@@ -138,13 +139,15 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 }
 
 type IconUploadFormInputProps = {
-	value?: File | null;
-	defaultValue?: File;
-	onChange?: (value: File | null) => void;
+	form: ReturnType<typeof useForm<RequirementListPostDto>>;
+	formPath: LooseKeys<RequirementListPostDto>,
+	value?: string | null;
+	defaultValue?: string;
+	onChange?: (value: string | null) => void;
 }
 
 function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Element {
-	const {value, defaultValue, onChange} = props;
+	const {form, formPath, value, defaultValue, onChange, ...rest} = props;
 
 	const [_value, handleChange] = useUncontrolled({
 		value,
@@ -153,16 +156,45 @@ function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Ele
 		onChange,
 	});
 
-	return <Tooltip label={<T k={'featurePreview.disabledDuringPreview'}/>}>
-		<FileInput disabled
-				   accept={'image/*'} label={<T k={'icon'}/>}
-				   value={_value}
-				   placeholder={<FontAwesomeIcon icon={faImage}/>}
-				   valueComponent={({value}) => {
-					   if (value === null || Array.isArray(value)) return null;
-					   return <Avatar size={'sm'} src={URL.createObjectURL(value)}/>;
-				   }}
-				   onChange={file => handleChange(file)}
-				   clearable/>
-	</Tooltip>;
+	const postImageFile = (file: File) => {
+		const formData = new FormData();
+		formData.append('file', file);
+		return slotbotServerClient.post('/files/uploadImage', formData, {
+			headers: {'Content-Type': 'multipart/form-data'},
+		}).then((res) => res.data);
+	};
+	const {mutate, isPending} = useMutation<string, AxiosError, File>({
+		mutationFn: postImageFile,
+		onSuccess: fileUrl => {
+			handleChange(fileUrl);
+		},
+		onError: error => {
+			form.setFieldError(formPath, error.message);
+		},
+	});
+
+	const getImage = () => slotbotServerClient.get(_value ?? '', {responseType: 'blob'})
+		.then(res => res.data);
+	const {data} = useQuery({
+		queryKey: ['image', _value],
+		queryFn: getImage,
+		enabled: !!_value,
+	});
+
+	return <FileInput label={<T k={'icon'}/>}
+					  accept={'image/*'}
+					  value={_value !== null ? data : undefined}
+					  valueComponent={RequirementImage}
+					  onChange={file => file ? mutate(file) : handleChange(null)}
+					  placeholder={<FontAwesomeIcon icon={faImage}/>}
+					  clearable
+					  disabled={isPending}
+					  {...rest}/>;
+}
+
+function RequirementImage({value}: Readonly<{value: null | File | File[] }>): JSX.Element {
+	if (value === null || Array.isArray(value)) {
+		return <></>;
+	}
+	return <Avatar size={'sm'} src={URL.createObjectURL(value)}/>;
 }

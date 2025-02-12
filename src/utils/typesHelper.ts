@@ -6,6 +6,8 @@ export type RequiredPick<T, K extends keyof T> = Required<Pick<T, K>>;
 
 export type PartialPick<T, K extends keyof T> = Partial<Pick<T, K>>;
 
+export type LooseKeys<Values> = keyof Values | string;
+
 export function replaceNullWithUndefined<T>(obj: T, keys: Array<keyof T>): T {
 	return replaceNullWith(obj, keys, undefined);
 }
