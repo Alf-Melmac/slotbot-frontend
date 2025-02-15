@@ -7,6 +7,8 @@ import {SharedModalChild} from '../../../../../components/SharedModal';
 import {RequirementsGuildUser} from './RequirementsGuildUser';
 import {RemoveGuildUser} from './RemoveGuildUser';
 import {BanGuildUser} from './BanGuildUser';
+import {FeatureFlag} from '../../../../featureFlag/useGetFeatureFlags';
+import {RequireFeatureFlag} from '../../../../featureFlag/RequireFeatureFlag';
 
 type GuildUserActionsProps = TableCellProps & SharedModalChild;
 
@@ -26,7 +28,9 @@ export default function GuildUserActions({
 
 	const actionProps = {user, guildId, queryClient, openModal, closeModal};
 	return <Group justify={'right'} gap={'xs'}>
-		<RequirementsGuildUser {...actionProps}/>
+		<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
+			<RequirementsGuildUser {...actionProps}/>
+		</RequireFeatureFlag>
 		<RemoveGuildUser {...actionProps}/>
 		<BanGuildUser {...actionProps}/>
 	</Group>;
