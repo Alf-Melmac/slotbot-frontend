@@ -19,7 +19,7 @@ export type EventSlotlistProps = Pick<EventDetailsDto, 'id' | 'squadList' | 'req
 export function EventSlotlist({id, squadList, requirements}: Readonly<EventSlotlistProps>): JSX.Element {
 	return <>
 		{requirements.length > 0 &&
-            <Alert variant={'outline'} color={'violet'} title={'Für alle Plätze gelten die folgenden Voraussetzungen'}
+            <Alert variant={'outline'} color={'violet'} title={<T k={'slotlist.requirements'}/>}
                    icon={<FontAwesomeIcon icon={faPuzzlePiece}/>} mb={'md'}>
                 <Box className={classes.requirementsContainer}>
 					{requirements.map((requirementList) => <Fragment key={requirementList.id}>
