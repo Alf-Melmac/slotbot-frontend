@@ -1,5 +1,4 @@
 import {JSX, useState} from 'react';
-import {EventDetailsDto} from '../eventTypes';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {Button, Checkbox, Group, Modal, Stack} from '@mantine/core';
@@ -13,37 +12,38 @@ import {useMutation} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useNavigate} from 'react-router';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
+import {EventDetail} from '../EventFetcher';
 
-type EventDetailsButtonsProps = {
-	eventId: EventDetailsDto['id'];
-	ownerGuildIdentifier: EventDetailsDto['ownerGuildIdentifier'];
-};
+type EventDetailsButtonsProps = EventDetail['event'];
 
-export function EventDetailsButtons(props: Readonly<EventDetailsButtonsProps>): JSX.Element {
-	const {eventId, ownerGuildIdentifier} = props;
-
+export function EventDetailsButtons({
+										id: eventId,
+										name,
+										ownerGuildIdentifier,
+									}: Readonly<EventDetailsButtonsProps>): JSX.Element {
 	const eventManage = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE, undefined, eventId);
-	const admin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, undefined, props.eventId);
+	const admin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, undefined, eventId);
 
 	if (!eventManage && !admin) return <></>;
 
 	return <Group gap={'xs'}>
 		{eventManage && <>
             <EventDetailsLinkButton icon={faClone}
-                                    to={`/events/${ownerGuildIdentifier}/new`} state={{copy: props.eventId} as EventWizardLocation}
+                                    to={`/events/${ownerGuildIdentifier}/new`}
+                                    state={{copy: eventId} as EventWizardLocation}
                                     tooltip={'action.duplicate'}/>
-            <EventDetailsLinkButton icon={faEdit} to={`/events/${props.eventId}/edit`} tooltip={'action.edit'}/>
+            <EventDetailsLinkButton icon={faEdit} to={`/events/${eventId}/edit`} tooltip={'action.edit'}/>
         </>}
-		{admin && <EventDeletion eventId={eventId}/>}
+		{admin && <EventDeletion id={eventId} name={name}/>}
 	</Group>;
 }
 
-function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>>): JSX.Element {
+function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'id' | 'name'>>): JSX.Element {
 	const {guildUrlPath} = useGuildContext();
 	const [opened, {open, close}] = useDisclosure(false);
 	const [checked, setChecked] = useState(false);
 
-	const deleteEvent = () => slotbotServerClient.delete(`/events/${props.eventId}`).then(voidFunction);
+	const deleteEvent = () => slotbotServerClient.delete(`/events/${props.id}`).then(voidFunction);
 	const navigate = useNavigate();
 	const {mutate, isPending} = useMutation<void, AxiosError>({
 		mutationFn: deleteEvent,
@@ -56,10 +56,12 @@ function EventDeletion(props: Readonly<Pick<EventDetailsButtonsProps, 'eventId'>
 		close();
 		setChecked(false);
 	}
+
 	return <>
 		<EventDetailsButton icon={faTrashCan} onClick={open} tooltip={'action.delete'}/>
 
-		<Modal opened={opened} onClose={closeAndReset} size={'lg'} title={<T k={'event.delete'}/>}>
+		<Modal opened={opened} onClose={closeAndReset} size={'lg'}
+			   title={<T k={'action.delete.item'} args={[props.name]}/>}>
 			<Stack>
 				<T k={'event.delete.description'}/>
 				<Checkbox
