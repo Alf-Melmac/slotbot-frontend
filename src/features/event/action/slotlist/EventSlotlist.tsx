@@ -13,8 +13,6 @@ import {EventActionPageTitle} from '../EventActionPageTitle';
 import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
-import {useQueryClient} from '@tanstack/react-query';
-import {useEventPage} from '../../../../contexts/event/EventPageContext';
 import {EventRequirements} from './EventRequirements';
 import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
 import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
@@ -40,18 +38,16 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 		);
 	}
 
-	const queryClient = useQueryClient();
-	const eventId = useEventPage();
 	// @ts-ignore Only during edit mode
 	const squadList = prepareForMutation(form.values.squadList);
 	const {mutate} = useEventUpdate({squadList, requirements: form.values.requirements.map(r => parseInt(r))},
 		result => {
-			queryClient.setQueryData(['eventForEdit', eventId], result);
+			const convertedResult = convertDtoToFormEvent(result);
 			// @ts-ignore SquadList matches here
-			form.setFieldValue('squadList', result.squadList);
-			form.setFieldValue('requirements', result.requirements.map(r => `${r}`));
+			form.setFieldValue('squadList', convertedResult.squadList);
+			form.setFieldValue('requirements', convertedResult.requirements);
 			// @ts-ignore
-			form.resetDirty(convertDtoToFormEvent(result));
+			form.resetDirty(convertedResult);
 		});
 	useChangeWatcher('reserveParticipating');
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});

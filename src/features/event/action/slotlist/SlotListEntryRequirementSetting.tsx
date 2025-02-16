@@ -66,7 +66,7 @@ export function SlotListEntryRequirementSetting(props: Readonly<SlotListEntryReq
 	if (slot) {
 		applySelectedRequirements(
 			getFormFieldValue(form, `${path.slice(0, path.lastIndexOf('.'))}.requirements`),
-			'Durch den Squad vorausgesetzt',
+			'slotlistEntry.settings.requirements.inheritedFromSquad',
 		);
 	}
 

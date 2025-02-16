@@ -38,9 +38,10 @@ export function useEventUpdate(data: Partial<EventUpdateDto>, onSuccess?: (saved
 	const {mutate} = useMutation<EventEditDto, AxiosError>({
 		mutationFn: postEventUpdate,
 		onSuccess: (response: EventEditDto) => {
-			onSuccess?.({...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)});
+			const result = {...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)};
+			queryClient.setQueryData(['eventForEdit', eventId], result);
+			onSuccess?.(result);
 			successNotification();
-			queryClient.invalidateQueries({queryKey: ['eventForEdit', eventId]});
 		},
 		onError: errorNotification,
 	});
