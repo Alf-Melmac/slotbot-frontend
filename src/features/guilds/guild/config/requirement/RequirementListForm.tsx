@@ -119,7 +119,9 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 						<TextInput label={<T k={'name'}/>} required flex={1}
 								   {...form.getInputProps(`requirements.${index}.name`)}
 								   key={form.key(`requirements.${index}.name`)}/>
-
+						<TextInput label={<T k={'abbreviation'}/>}
+								   {...form.getInputProps(`requirements.${index}.abbreviation`)}
+								   key={form.key(`requirements.${index}.abbreviation`)}/>
 						<ActionIcon color={'gray'} variant={'subtle'} size={'input-md'} style={{alignSelf: 'flex-end'}}
 									onClick={() => form.removeListItem('requirements', index)}>
 							<FontAwesomeIcon icon={faTrashCan}/>

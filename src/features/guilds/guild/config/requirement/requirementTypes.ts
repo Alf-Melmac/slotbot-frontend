@@ -2,6 +2,7 @@ import {AbstractIdEntityDto, FrontendIdDto} from '../../../../../contexts/shared
 
 export interface RequirementDto extends AbstractIdEntityDto {
 	name: string;
+	abbreviation: string;
 	icon: string;
 }
 
@@ -38,5 +39,6 @@ export interface RequirementListPostDto extends FrontendIdDto {
 
 interface RequirementPostDto extends FrontendIdDto {
 	name: string;
+	abbreviation?: string;
 	icon?: string;
 }
