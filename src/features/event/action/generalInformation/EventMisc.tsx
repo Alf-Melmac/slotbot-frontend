@@ -28,6 +28,7 @@ export function EventMisc(): JSX.Element {
 					label: 'event.missionLength',
 					placeholder: 'input.unrestricted',
 					maxLength: TEXT,
+					clearable: true,
 					data: [t('length.twoHours'), t('length.threeHours'), t('length.fourHours'), t('length.overFourHours')],
 				}} formPath={'missionLength'}/>
 			</Grid.Col>
