@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import {RequirementDto, RequirementListDto} from '../guilds/guild/config/requirement/requirementTypes';
-import {Avatar, AvatarProps, Group, GroupProps, Tooltip} from '@mantine/core';
+import {Avatar, AvatarProps, Group, GroupProps, Tooltip, useComputedColorScheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,7 @@ type RequirementsProps = {
  */
 export function Requirements({requirements, size}: Readonly<RequirementsProps>): JSX.Element {
 	const lessThanFive = requirements.length < 5;
+	const isLight = useComputedColorScheme() !== 'dark';
 
 	return <Avatar.Group>
 		{requirements.slice(0, 4).map((requirement, index) => {
@@ -26,7 +27,7 @@ export function Requirements({requirements, size}: Readonly<RequirementsProps>):
 					<RequirementsOverflow requirements={requirements.slice(3)}/>}
 				withArrow
 			>
-				<Avatar src={displayIcon ? requirement.icon : undefined} size={size}>
+				<Avatar src={displayIcon ? getIcon(requirement, isLight) : undefined} size={size}>
 					{displayIcon ? <FontAwesomeIcon icon={faPuzzlePiece}/> : `+${requirements.length - 3}`}
 				</Avatar>
 			</Tooltip>;
@@ -49,10 +50,15 @@ type RequirementProps = {
  * Displays a single requirement with an icon and the name
  */
 export function Requirement({requirement, gap = 2}: Readonly<RequirementProps>): JSX.Element {
+	const isLight = useComputedColorScheme() !== 'dark';
 	return <Group gap={gap} wrap={'nowrap'}>
-		<Avatar src={requirement.icon} size={'sm'}>
+		<Avatar src={getIcon(requirement, isLight)} size={'sm'}>
 			<FontAwesomeIcon icon={faPuzzlePiece}/>
 		</Avatar>
 		{requirement.name}
 	</Group>;
+}
+
+function getIcon(requirement: RequirementDto, isLight: boolean) {
+	return (isLight && requirement.iconLight) ? requirement.iconLight : requirement.icon;
 }

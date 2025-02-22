@@ -194,6 +194,7 @@
   "hour.plural": "hours",
   "hour.singular": "hour",
   "icon": "Icon",
+  "icon.light": "Icon Dark",
   "information": "Information",
   "input.select.placeholder": "Select...",
   "input.unrestricted": "Free-text",

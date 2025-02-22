@@ -4,6 +4,7 @@ export interface RequirementDto extends AbstractIdEntityDto {
 	name: string;
 	abbreviation: string;
 	icon: string;
+	iconLight: string;
 }
 
 export interface RequirementListDto extends AbstractIdEntityDto {
@@ -41,4 +42,5 @@ interface RequirementPostDto extends FrontendIdDto {
 	name: string;
 	abbreviation?: string;
 	icon?: string;
+	iconLight?: string;
 }

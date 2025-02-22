@@ -6,7 +6,7 @@ import {requiredField} from '../../../../../utils/formValidation';
 import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import slotbotServerClient from '../../../../../hooks/slotbotServerClient';
-import {useLanguage} from '../../../../../contexts/language/Language';
+import {TextKey, useLanguage} from '../../../../../contexts/language/Language';
 import {
 	ActionIcon,
 	Avatar,
@@ -113,9 +113,18 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 					<Group key={requirement.id} wrap={'nowrap'}>
 						<IconUploadFormInput
 							form={form} formPath={`requirements.${index}.icon`}
+							label={'icon'}
 							{...form.getInputProps(`requirements.${index}.icon`)}
 							key={form.key(`requirements.${index}.icon`)}
 						/>
+						{!!requirement.icon &&
+                            <IconUploadFormInput
+                                form={form} formPath={`requirements.${index}.iconLight`}
+                                label={'icon.light'}
+								{...form.getInputProps(`requirements.${index}.iconLight`)}
+                                key={form.key(`requirements.${index}.iconLight`)}
+                            />
+						}
 						<TextInput label={<T k={'name'}/>} required flex={1}
 								   {...form.getInputProps(`requirements.${index}.name`)}
 								   key={form.key(`requirements.${index}.name`)}/>
@@ -144,13 +153,14 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 type IconUploadFormInputProps = {
 	form: ReturnType<typeof useForm<RequirementListPostDto>>;
 	formPath: LooseKeys<RequirementListPostDto>,
+	label: TextKey;
 	value?: string | null;
 	defaultValue?: string;
 	onChange?: (value: string | null) => void;
 }
 
 function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Element {
-	const {form, formPath, value, defaultValue, onChange, ...rest} = props;
+	const {form, formPath, label, value, defaultValue, onChange, ...rest} = props;
 
 	const [_value, handleChange] = useUncontrolled({
 		value,
@@ -184,7 +194,7 @@ function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Ele
 		enabled: !!_value,
 	});
 
-	return <FileInput label={<T k={'icon'}/>}
+	return <FileInput label={<T k={label}/>}
 					  accept={'image/*'}
 					  value={_value !== null ? data : undefined}
 					  valueComponent={RequirementImage}
@@ -195,7 +205,7 @@ function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Ele
 					  {...rest}/>;
 }
 
-function RequirementImage({value}: Readonly<{value: null | File | File[] }>): JSX.Element {
+function RequirementImage({value}: Readonly<{ value: null | File | File[] }>): JSX.Element {
 	if (value === null || Array.isArray(value)) {
 		return <></>;
 	}

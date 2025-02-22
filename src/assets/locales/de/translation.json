@@ -194,6 +194,7 @@
   "hour.plural": "Stunden",
   "hour.singular": "Stunde",
   "icon": "Icon",
+  "icon.light": "Icon Dunkel",
   "information": "Information",
   "input.select.placeholder": "Auswählen...",
   "input.unrestricted": "Freitext",
