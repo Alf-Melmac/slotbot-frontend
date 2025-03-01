@@ -5,9 +5,8 @@ import {adminRoutes} from './features/admin/AdminRoutes';
 import {notFoundRoute} from './features/error/ErrorRoutes';
 import {guildRoutes} from './features/guilds/GuildRoutes';
 import {StandardPage} from './features/StandardPage';
-import {RequireFeatureFlag} from './features/featureFlag/RequireFeatureFlag';
-import {FeatureFlag} from './features/featureFlag/useGetFeatureFlags';
 import {JSX, lazy, Suspense} from 'react';
+import {useHomeNavigation} from './features/home/useHomeNavigation';
 
 export const routes: RouteObject[] = [
 	{
@@ -51,9 +50,7 @@ export const routes: RouteObject[] = [
 		element: <StandardPage/>,
 		children: [{
 			path: '/',
-			element: <RequireFeatureFlag feature={FeatureFlag.BLOG} notEnabled={<Navigate to={'/events'} replace/>}>
-				<HomePage/>
-			</RequireFeatureFlag>,
+			element: <HomePage/>,
 		}],
 	},
 	{
@@ -88,6 +85,14 @@ function SessionExpiredPage(): JSX.Element {
 }
 
 function HomePage(): JSX.Element {
+	const homeNavigation = useHomeNavigation();
+	if (homeNavigation) {
+		return <HomePageContent/>;
+	}
+	return <Navigate to={'/events'} replace/>;
+}
+
+function HomePageContent(): JSX.Element {
 	const Home = lazy(() => import('./features/home/Home'));
 
 	return <Suspense fallback={<></>}>

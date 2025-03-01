@@ -1,11 +1,10 @@
 import {JSX} from 'react';
-import {Button, Group, Image, Modal, ModalProps, Stack, Tabs, Text, Title} from '@mantine/core';
+import {Button, Group, Modal, ModalProps, Stack, Tabs, Text, Title} from '@mantine/core';
 import {T} from '../../T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleCheck, faCircleXmark} from '@fortawesome/free-regular-svg-icons';
 import classes from './FeaturePreview.module.css';
 import {FeatureFlag, MaybeFeatureFlag, useGetFeatureFlags} from '../../../features/featureFlag/useGetFeatureFlags';
-import blogPreview from './Blog-Loading.png';
 import slotbotServerClient from '../../../hooks/slotbotServerClient';
 import {UseMutateFunction, useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
@@ -43,29 +42,12 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
 	return <Modal opened={props.opened} onClose={props.onClose} title={<T k={'userMenu.featurePreview'}/>}
 				  size={'xl'} classNames={{body: classes.card}}>
 		{featureQuery.isSuccess &&
-            <Tabs orientation={'vertical'} defaultValue={FeatureFlag.BLOG}>
+            <Tabs orientation={'vertical'} defaultValue={FeatureFlag.REQUIREMENTS}>
                 <Tabs.List>
-                    <Tabs.Tab value={FeatureFlag.BLOG} leftSection={leftSide(FeatureFlag.BLOG)}>Guild Home
-                        Page</Tabs.Tab>
                     <Tabs.Tab value={FeatureFlag.REQUIREMENTS}
                               leftSection={leftSide(FeatureFlag.REQUIREMENTS)}>Requirements</Tabs.Tab>
                 </Tabs.List>
 
-                <Tabs.Panel value={FeatureFlag.BLOG}>
-                    <Stack p={'md'}>
-                        <Group justify={'space-between'}>
-                            <Title order={3}>Guild Home Page</Title>
-                            <FeatureToggle feature={FeatureFlag.BLOG} featureFlags={featureQuery.data}
-                                           mutate={mutate} isPending={isPending}/>
-                        </Group>
-                        <Image src={blogPreview}/>
-                        <Text>
-                            Adds a home page for your guild instead of the default calendar view. This page contains
-                            messages from the community admins and the upcoming events.
-                        </Text>
-                        <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
-                    </Stack>
-                </Tabs.Panel>
                 <Tabs.Panel value={FeatureFlag.REQUIREMENTS}>
                     <Stack p={'md'}>
                         <Group justify={'space-between'}>

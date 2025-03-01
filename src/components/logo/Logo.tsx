@@ -9,9 +9,7 @@ import defaultLogo from './slotbot-256-256.png';
 import {Guild, useGetGuild} from '../../contexts/theme/Theme';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
-import {useRequireFeatureFlagSave} from '../../features/featureFlag/useRequireFeatureFlag';
-import {FeatureFlag} from '../../features/featureFlag/useGetFeatureFlags';
-import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
+import {useHomeNavigationPath} from '../../features/home/useHomeNavigation';
 
 type LogoProps = {
 	small?: boolean;
@@ -19,10 +17,10 @@ type LogoProps = {
 
 export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
-	const {guildUrlPath} = useGuildContext();
+	const homePath = useHomeNavigationPath();
 	const {title, logo, logoWithName = false} = useGetInfo();
 	return (
-		<UnstyledAnchorLink to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', `/events/calendar${guildUrlPath}`)}>
+		<UnstyledAnchorLink to={homePath}>
 			<Group gap={'xs'} wrap={'nowrap'}>
 				{!small &&
                     <Image visibleFrom={'xs'} w={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>

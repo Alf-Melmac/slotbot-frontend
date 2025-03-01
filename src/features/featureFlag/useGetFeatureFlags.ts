@@ -14,7 +14,6 @@ export function useGetFeatureFlags() {
  * Not complete list of available feature flags
  */
 export enum FeatureFlag {
-	BLOG = 'BLOG',
 	REQUIREMENTS = 'REQUIREMENTS',
 }
 

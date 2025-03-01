@@ -5,14 +5,12 @@ import {T} from '../../components/T';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {Navigate} from 'react-router';
 import {JSX} from 'react';
-import {useRequireFeatureFlagSave} from '../featureFlag/useRequireFeatureFlag';
-import {FeatureFlag} from '../featureFlag/useGetFeatureFlags';
-import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
+import {useHomeNavigationPath} from '../home/useHomeNavigation';
 
 export default function SessionExpired(): JSX.Element {
-	const {guildUrlPath} = useGuildContext();
+	const homePath = useHomeNavigationPath();
 	if (useAuth().user) {
-		return <Navigate to={useRequireFeatureFlagSave(FeatureFlag.BLOG, '/', `/events/calendar${guildUrlPath}`)} replace/>;
+		return <Navigate to={homePath} replace/>;
 	}
 
 	return (
