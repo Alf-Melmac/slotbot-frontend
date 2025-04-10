@@ -46,6 +46,8 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
                 <Tabs.List>
                     <Tabs.Tab value={FeatureFlag.REQUIREMENTS}
                               leftSection={leftSide(FeatureFlag.REQUIREMENTS)}>Requirements</Tabs.Tab>
+                    <Tabs.Tab value={FeatureFlag.PARTICIPANT_LOG}
+                              leftSection={leftSide(FeatureFlag.PARTICIPANT_LOG)}>Participant Log</Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value={FeatureFlag.REQUIREMENTS}>
@@ -62,6 +64,20 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
                             can register without meeting the requirement, and whether attendees can choose to meet the
                             requirement independently.<br/>
                             To get started, go into your community settings and create the first requirement list.
+                        </Text>
+                        <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
+                    </Stack>
+                </Tabs.Panel>
+                <Tabs.Panel value={FeatureFlag.PARTICIPANT_LOG}>
+                    <Stack p={'md'}>
+                        <Group justify={'space-between'}>
+                            <Title order={3}>Participant Log</Title>
+                            <FeatureToggle feature={FeatureFlag.PARTICIPANT_LOG}
+                                           featureFlags={featureQuery.data} mutate={mutate} isPending={isPending}/>
+                        </Group>
+                        <Text>
+                            Shows the time at which event participants slotted, unslotted or swapped in the event
+                            details.
                         </Text>
                         <AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
                     </Stack>

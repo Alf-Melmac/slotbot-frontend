@@ -1,7 +1,13 @@
 import {useParams} from 'react-router';
 import {Alert, ColorSwatch, Group, Tabs, useMantineTheme} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEyeLowVision, faFileLines, faMagnifyingGlass, faUserGroup} from '@fortawesome/free-solid-svg-icons';
+import {
+	faEyeLowVision,
+	faFileLines,
+	faMagnifyingGlass,
+	faTimeline,
+	faUserGroup,
+} from '@fortawesome/free-solid-svg-icons';
 import {useScrollIntoView} from '@mantine/hooks';
 import {useFetchEventDetails} from '../EventFetcher';
 import {EventDetailsHeader} from './EventDetailsHeader';
@@ -17,6 +23,11 @@ import {T} from '../../../components/T';
 import {EventDescription} from './EventDescription';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 import {useDynamicDocumentTitle} from '../../../hooks/useDocumentTitle';
+import {ActionLog} from './actionLog/ActionLog';
+import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
+import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
+import {RequireFeatureFlag} from '../../featureFlag/RequireFeatureFlag';
+import {FeatureFlag} from '../../featureFlag/useGetFeatureFlags';
 
 export function EventDetails(): JSX.Element {
 	const setTitle = useDynamicDocumentTitle('event');
@@ -28,6 +39,8 @@ export function EventDetails(): JSX.Element {
 
 	const theme = useMantineTheme();
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();
+
+	const eventManage = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE, undefined, Number(eventId));
 
 	const {event, eventDate, isLoading, error} = useFetchEventDetails(eventId);
 
@@ -79,6 +92,13 @@ export function EventDetails(): JSX.Element {
                         <T k={'moreDetails'}/>
                     </Tabs.Tab>
 				}
+				<RequireFeatureFlag feature={FeatureFlag.PARTICIPANT_LOG}>
+					{eventManage &&
+                        <Tabs.Tab value={'log'} leftSection={<FontAwesomeIcon icon={faTimeline}/>}>
+                            <T k={'event.details.log'}/>
+                        </Tabs.Tab>
+					}
+				</RequireFeatureFlag>
 			</Tabs.List>
 
 			<Tabs.Panel value={'slotlist'} pt={'xs'}>
@@ -94,6 +114,13 @@ export function EventDetails(): JSX.Element {
                     <EventFields fields={event.details}/>
                 </Tabs.Panel>
 			}
+			<RequireFeatureFlag feature={FeatureFlag.PARTICIPANT_LOG}>
+				{eventManage &&
+                    <Tabs.Panel value={'log'} pt={'xs'}>
+                        <ActionLog eventId={event.id}/>
+                    </Tabs.Panel>
+				}
+			</RequireFeatureFlag>
 		</Tabs>
 	</>;
 }

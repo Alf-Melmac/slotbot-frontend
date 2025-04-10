@@ -105,6 +105,7 @@
   "event.details.default.type.textWithSelection": "Text with suggestions",
   "event.details.emptySlot": "Empty slot",
   "event.details.hiddenEventWarning": "This event isn't yet visible in the participant's calendar. If slotting should start, start it in the edit mode.",
+  "event.details.log": "Participant log",
   "event.details.requirementList": "Select applicable requirements",
   "event.details.requirementList.description": "The requirements selected here are available when creating and editing events. They can be applied to entire events, squads or slots.",
   "event.details.save": "Save fields",
