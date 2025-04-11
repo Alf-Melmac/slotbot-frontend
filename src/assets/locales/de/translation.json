@@ -106,6 +106,7 @@
   "event.details.emptySlot": "Freier Slot",
   "event.details.hiddenEventWarning": "Dieses Event ist für Mitspieler noch nicht im Kalender sichtbar. Wenn das Slotten beginnen kann, gebe das Event über den Editiermodus frei.",
   "event.details.log": "Teilnehmer-Protokoll",
+  "event.details.log.empty": "Noch keine Einträge vorhanden.",
   "event.details.requirementList": "Anwendbare Voraussetzungen auswählen",
   "event.details.requirementList.description": "Die hier ausgewählten Voraussetzungen stehen bei der Erstellung und Bearbeitung von Events zur Verfügung. Sie können auf ganze Events, Squads oder Slots angewendet werden.",
   "event.details.save": "Felder speichern",
