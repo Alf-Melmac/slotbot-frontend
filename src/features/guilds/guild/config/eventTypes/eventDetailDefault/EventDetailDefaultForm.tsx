@@ -3,7 +3,6 @@ import {
 	EventDetailDefaultDto,
 	EventDetailDefaultPostDto,
 } from '../../../../../eventDetailsDefault/eventDetailsDefaultTypes';
-import {EventDetailDefaultProps} from './EventDetailDefault';
 import {useForm} from '@mantine/form';
 import {maxLengthField, requiredField, requiredFieldWithMaxLength} from '../../../../../../utils/formValidation';
 import {EMBEDDABLE_TITLE, EMBEDDABLE_VALUE} from '../../../../../../utils/maxLength';
@@ -20,6 +19,7 @@ import {
 	Input,
 	SegmentedControl,
 	Select,
+	Skeleton,
 	Stack,
 	TagsInput,
 	TextInput,
@@ -34,16 +34,30 @@ import classes from './EventDetailDefaultForm.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useGuildPage} from '../../../../../../contexts/guild/GuildPageContext';
+import {EventTypeDto} from '../../../../../event/eventTypes';
+import {useEventTypeDefaultsForGuild} from '../../../../../eventDetailsDefault/useEventTypeDefaults';
 
-type EventDetailDefaultFormProps = {
-	defaultFields: EventDetailDefaultPostDto[] | undefined;
-} & EventDetailDefaultProps;
+type EventDetailDefaultFormProps = Pick<EventTypeDto, 'id'> & {
+	onSuccess: () => void;
+};
 
 type DetailDefaultFormType = {
 	fields: EventDetailDefaultPostDto[];
 };
 
-export function EventDetailDefaultForm(props: Readonly<EventDetailDefaultFormProps>): JSX.Element {
+export function EventDetailDefaultForm({id, onSuccess}: Readonly<EventDetailDefaultFormProps>): JSX.Element {
+	const {guildId} = useGuildPage();
+	const {query, defaultFields} = useEventTypeDefaultsForGuild(id, guildId);
+	if (query.isLoading) return <Skeleton height={90}/>;
+
+	return <Form defaultFields={defaultFields as unknown as EventDetailDefaultPostDto[]} id={id} onSuccess={onSuccess}/>;
+}
+
+type FormProps = EventDetailDefaultFormProps & {
+	defaultFields: EventDetailDefaultPostDto[] | undefined;
+}
+
+export function Form(props: Readonly<FormProps>): JSX.Element {
 	const {defaultFields, id, onSuccess} = props;
 
 	const form = useForm<DetailDefaultFormType>({

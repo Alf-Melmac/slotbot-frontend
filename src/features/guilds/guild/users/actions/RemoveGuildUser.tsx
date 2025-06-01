@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 import slotbotServerClient, {voidFunction} from '../../../../../hooks/slotbotServerClient';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {showNotification} from '@mantine/notifications';
 import {T} from '../../../../../components/T';
@@ -11,8 +11,9 @@ import {faUserMinus} from '@fortawesome/free-solid-svg-icons';
 import {GuildUserActionProps} from './GuildUserActions';
 
 export function RemoveGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
-    const {user, guildId, queryClient} = props;
+    const {user, guildId} = props;
 
+    const queryClient = useQueryClient();
     const deleteGuildUser = () => slotbotServerClient.delete(`/guilds/${guildId}/users/${user.id}`).then(voidFunction);
     const {mutate} = useMutation<void, AxiosError>({
         mutationFn: deleteGuildUser,

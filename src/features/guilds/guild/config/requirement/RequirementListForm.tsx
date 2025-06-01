@@ -26,11 +26,10 @@ import {AddButton} from '../../../../../components/Button/AddButton';
 import {removeFrontendIdsFromElement} from '../../../../../utils/formHelper';
 import {AxiosError} from 'axios';
 import {LooseKeys} from '../../../../../utils/typesHelper';
-import {CloseSharedModalType} from '../../../../../components/SharedModal';
 
 type RequirementListFormProps = {
 	list?: RequirementListPostDto;
-	onSuccess: CloseSharedModalType;
+	onSuccess: () => void;
 }
 
 export function RequirementListForm(props: Readonly<RequirementListFormProps>): JSX.Element {

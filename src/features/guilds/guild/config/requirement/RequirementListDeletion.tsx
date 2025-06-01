@@ -2,13 +2,12 @@ import {Button, Group, Stack} from '@mantine/core';
 import {JSX} from 'react';
 import {T} from '../../../../../components/T';
 import {RequirementListDto} from './requirementTypes';
-import {SharedModalChild} from '../../../../../components/SharedModal';
 import slotbotServerClient, {voidFunction} from '../../../../../hooks/slotbotServerClient';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
 
-type RequirementListDeletionProps = Pick<RequirementListDto, 'id'> & Pick<SharedModalChild, 'closeModal'>;
+type RequirementListDeletionProps = Pick<RequirementListDto, 'id'> & { closeModal: () => void };
 
 export function RequirementListDeletion({id, closeModal}: Readonly<RequirementListDeletionProps>): JSX.Element {
 	const queryClient = useQueryClient();

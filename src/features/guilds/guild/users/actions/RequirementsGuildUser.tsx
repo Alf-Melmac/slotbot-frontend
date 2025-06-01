@@ -1,7 +1,7 @@
 import {Fragment, JSX} from 'react';
 import slotbotServerClient, {voidFunction} from '../../../../../hooks/slotbotServerClient';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {ActionIcon, Stack, Switch, Table, Title, Tooltip} from '@mantine/core';
+import {ActionIcon, Modal, Stack, Switch, Table, Title, Tooltip} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUserTag} from '@fortawesome/free-solid-svg-icons';
@@ -11,9 +11,11 @@ import {errorNotification, successNotification} from '../../../../../utils/notif
 import {LoadingRows} from '../../../../../components/Table/LoadingRows';
 import {Requirement} from '../../../../requirements/Requirements';
 import {GuildUserActionProps} from './GuildUserActions';
+import {useDisclosure} from '@mantine/hooks';
 
 export function RequirementsGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
-	const {user, guildId, openModal} = props;
+	const {user, guildId} = props;
+	const [opened, {open, close}] = useDisclosure(false);
 
 	const hasManagedRequirementLists = () => slotbotServerClient.get(`/requirement-list/guild/${guildId}`)
 		.then((res) => res.data);
@@ -25,15 +27,17 @@ export function RequirementsGuildUser(props: Readonly<GuildUserActionProps>): JS
 		return <></>;
 	}
 
-	return <Tooltip label={<T k={'guild.user.manageRequirements'}/>}>
-		<ActionIcon color={'gray'} variant={'subtle'}
-					onClick={() => openModal(
-						<T k={'guild.user.manageRequirements.title'} args={[user.name]}/>,
-						<RequirementsGuildUserModal {...props}/>,
-					)}>
-			<FontAwesomeIcon icon={faUserTag}/>
-		</ActionIcon>
-	</Tooltip>;
+	return <>
+		<Modal opened={opened} onClose={close} title={<T k={'guild.user.manageRequirements.title'} args={[user.name]}/>}>
+			<RequirementsGuildUserModal {...props}/>
+		</Modal>
+		<Tooltip label={<T k={'guild.user.manageRequirements'}/>}>
+			<ActionIcon color={'gray'} variant={'subtle'}
+						onClick={open}>
+				<FontAwesomeIcon icon={faUserTag}/>
+			</ActionIcon>
+		</Tooltip>
+	</>;
 }
 
 function RequirementsGuildUserModal({user, guildId}: Readonly<GuildUserActionProps>): JSX.Element {
