@@ -28,6 +28,7 @@ import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {RequireFeatureFlag} from '../../featureFlag/RequireFeatureFlag';
 import {FeatureFlag} from '../../featureFlag/useGetFeatureFlags';
+import {PreviewBadge} from '../../featureFlag/PreviewBadge';
 
 export function EventDetails(): JSX.Element {
 	const setTitle = useDynamicDocumentTitle('event');
@@ -95,7 +96,7 @@ export function EventDetails(): JSX.Element {
 				<RequireFeatureFlag feature={FeatureFlag.PARTICIPANT_LOG}>
 					{eventManage &&
                         <Tabs.Tab value={'log'} leftSection={<FontAwesomeIcon icon={faTimeline}/>}>
-                            <T k={'event.details.log'}/>
+                            <T k={'actionLog'}/> <PreviewBadge ml={2}/>
                         </Tabs.Tab>
 					}
 				</RequireFeatureFlag>

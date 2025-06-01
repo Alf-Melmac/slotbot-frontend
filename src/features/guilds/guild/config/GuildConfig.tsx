@@ -1,4 +1,4 @@
-import {Badge, Box, Paper, Stack, Title} from '@mantine/core';
+import {Box, Paper, Stack, Title} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useGetGuild, useGetGuildConfig} from '../useGetGuild';
 import {GuildEventTypes} from './eventTypes/GuildEventTypes';
@@ -20,6 +20,7 @@ import {GuildConfigLoading} from './GuildConfigLoading';
 import {GuildRequirementList} from './requirement/GuildRequirementList';
 import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
+import {PreviewBadge} from '../../../featureFlag/PreviewBadge';
 
 export default function GuildConfig(): JSX.Element {
 	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'documentTitle.guild');
@@ -100,7 +101,7 @@ type ConfigItemProps = {
 
 function ConfigItem(props: Readonly<PropsWithChildren<ConfigItemProps>>): JSX.Element {
 	return <Stack gap={'xs'}>
-		<Title order={2}><T k={props.title}/>{props.preview && <Badge ml={'md'} color={'pink'}>Preview</Badge>}</Title>
+		<Title order={2}><T k={props.title}/>{props.preview && <PreviewBadge ml={'md'}/>}</Title>
 		{props.description &&
             <T k={props.description}/>
 		}

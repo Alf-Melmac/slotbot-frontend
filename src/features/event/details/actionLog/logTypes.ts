@@ -3,7 +3,7 @@ import {DiscordUserDto} from '../../../../contexts/authentication/authentication
 export interface ActionLogDto {
 	id: number;
 	action: LogAction;
-	timeGap: string; //TODO https://day.js.org/docs/en/durations/as-iso-string
+	timeGap: string;
 	user: DiscordUserDto;
 }
 

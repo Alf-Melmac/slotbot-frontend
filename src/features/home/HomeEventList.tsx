@@ -46,9 +46,9 @@ export function HomeEventList(): JSX.Element {
 			}
 			{showToday &&
                 <Flex align={'center'}>
-                    <hr className={cx(classes.todayRuler, classes.todayRulerLeft)}/>
+                    <hr className={cx(utilsClasses.timelineRuler, utilsClasses.timelineRulerLeft)}/>
                     <Text mx={'sm'} size={'sm'}><T k={'today'}/></Text>
-                    <hr className={cx(classes.todayRuler, classes.todayRulerRight)}/>
+                    <hr className={cx(utilsClasses.timelineRuler, utilsClasses.timelineRulerRight)}/>
                 </Flex>
 			}
 			<AnchorLink to={`/events/${event.id}`}>

@@ -15,3 +15,17 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.timelineRuler {
+	height: 0;
+	border: none;
+	border-top: rem(1px) solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+}
+
+.timelineRulerLeft {
+	width: 1rem;
+}
+
+.timelineRulerRight {
+	flex-grow: 1;
+}

@@ -10,20 +10,6 @@
 	color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
 }
 
-.todayRuler {
-	height: 0;
-	border: none;
-	border-top: rem(1px) solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
-}
-
-.todayRulerLeft {
-	width: 1rem;
-}
-
-.todayRulerRight {
-	flex-grow: 1;
-}
-
 .item {
 	padding-left: var(--mantine-spacing-md);
 	padding-right: var(--mantine-spacing-md);
