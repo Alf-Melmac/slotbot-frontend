@@ -4,8 +4,7 @@ import cx from 'clsx';
 import classes from './HomeBlogItem.module.css';
 import styleUtils from '../../../utils/styleUtils.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEllipsis, faThumbTack, faThumbTackSlash, faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {faEdit} from '@fortawesome/free-regular-svg-icons';
+import {faEdit, faEllipsis, faThumbTack, faThumbTackSlash, faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {T} from '../../../components/T';
 import {BlogPostDto} from '../homeTypes';
 import slotbotServerClient, {voidFunction} from '../../../hooks/slotbotServerClient';
@@ -55,23 +54,19 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		</Menu.Target>
 
 		<Menu.Dropdown>
-			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit} className={'fa-fw'}/>}
-					   onClick={() => setEditMode(true)}>
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faEdit}/>} onClick={() => setEditMode(true)}>
 				<T k={'action.edit'}/>
 			</Menu.Item>
 			{post.pinned ?
-				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTackSlash} className={'fa-fw'}/>}
-						   onClick={() => unpinBlogPost()}>
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTackSlash}/>} onClick={() => unpinBlogPost()}>
 					<T k={'home.blog.unpin'}/>
 				</Menu.Item>
 				:
-				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTack} className={'fa-fw'}/>}
-						   onClick={() => pinBlogPost()}>
+				<Menu.Item leftSection={<FontAwesomeIcon icon={faThumbTack}/>} onClick={() => pinBlogPost()}>
 					<T k={'home.blog.pin'}/>
 				</Menu.Item>
 			}
-			<Menu.Item leftSection={<FontAwesomeIcon icon={faTrashCan} className={'fa-fw'}/>}
-					   onClick={() => deleteBlogPostMutation()}>
+			<Menu.Item leftSection={<FontAwesomeIcon icon={faTrashCan}/>} onClick={() => deleteBlogPostMutation()}>
 				<T k={'action.delete'}/>
 			</Menu.Item>
 		</Menu.Dropdown>

@@ -45,7 +45,7 @@ export function UserMenu(props: Readonly<UserMenuProps>): JSX.Element {
 							{user.name}
 						</Text>
 
-						<FontAwesomeIcon icon={faChevronDown}/>
+						<FontAwesomeIcon icon={faChevronDown} widthAuto/>
 					</Group>
 				</UnstyledButton>
 			</Menu.Target>
@@ -75,7 +75,7 @@ function MainMenu({user, setShowLanguageMenu, openFeaturePreview}: Readonly<Main
 		</Menu.Item>
 		<ThemeSwitchAsMenuItem/>
 		<Menu.Item leftSection={<FontAwesomeIcon icon={faLanguage}/>}
-				   rightSection={<FontAwesomeIcon icon={faCaretRight}/>}
+				   rightSection={<FontAwesomeIcon icon={faCaretRight} size={'sm'} widthAuto/>}
 				   onClick={() => setShowLanguageMenu(true)}
 				   closeMenuOnClick={false}>
 			<T k={'userMenu.selectLanguage'}/>

@@ -35,7 +35,7 @@ function IconSwitchElement(props: Readonly<IconSwitchProps>): JSX.Element {
 	const {onIcon, offIcon, title: _, ...rest} = props;
 
 	return <Switch size={'md'}
-				   onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'} fixedWidth/>}
-				   offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'} fixedWidth/>}
+				   onLabel={<FontAwesomeIcon icon={onIcon} size={'2x'}/>}
+				   offLabel={<FontAwesomeIcon icon={offIcon} size={'2x'}/>}
 				   {...rest}/>;
 }

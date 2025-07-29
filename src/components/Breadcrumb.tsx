@@ -42,7 +42,7 @@ export function Breadcrumb(props: Readonly<BreadcrumbProps>): JSX.Element {
 			<AnchorLink to={href} className={ellipsisClassName} key={index}>
 				{index == 0 ?
 					<Group gap={4} wrap={'nowrap'}>
-						<FontAwesomeIcon icon={faCircleChevronLeft} className={classes.chevron}/>
+						<FontAwesomeIcon icon={faCircleChevronLeft} className={classes.chevron} widthAuto/>
 						<Text className={ellipsisClassName}>{text}</Text>
 					</Group>
 					:

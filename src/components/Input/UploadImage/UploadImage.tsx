@@ -6,8 +6,7 @@ import {AxiosError} from 'axios';
 import {T} from '../../T';
 import {Dropzone, MIME_TYPES} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faFileCircleXmark, faFileImport} from '@fortawesome/free-solid-svg-icons';
-import {faImage} from '@fortawesome/free-regular-svg-icons';
+import {faFileCircleXmark, faFileImport, faImage} from '@fortawesome/free-solid-svg-icons';
 import {FileRejection} from 'react-dropzone-esm';
 import {useLanguage} from '../../../contexts/language/Language';
 

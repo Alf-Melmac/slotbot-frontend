@@ -45,7 +45,7 @@ function InfoTooltipIcon(props: Readonly<TextWithInfoProps>): JSX.Element {
 	return <Tooltip label={tooltip} multiline={multiline} w={tooltipWidth}
 					position={tooltipPosition}>
 		<Box>
-			<FontAwesomeIcon icon={faCircleInfo}/>
+			<FontAwesomeIcon icon={faCircleInfo} widthAuto/>
 		</Box>
 	</Tooltip>;
 }
