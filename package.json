@@ -50,7 +50,7 @@
     "@tiptap/extension-underline": "^2.26.1",
     "@tiptap/react": "^2.26.1",
     "axios": "^1.11.0",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.15",
     "lodash-es": "^4.17.21",
     "mantine-flagpack": "^4.1.1",
     "mantine-react-table": "^2.0.0-beta.9",
