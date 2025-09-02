@@ -2,12 +2,8 @@ import {Box, Paper, Stack, Title} from '@mantine/core';
 import {T} from '../../../../components/T';
 import {useGetGuild, useGetGuildConfig} from '../useGetGuild';
 import {GuildEventTypes} from './eventTypes/GuildEventTypes';
-import {GuildLanguage} from './discord/GuildLanguage';
-import {GuildArchive} from './discord/GuildArchive';
 import {GuildPageProvider} from '../../../../contexts/guild/GuildPageContext';
-import {GuildRoles} from './discord/GuildRoles';
 import {JSX, PropsWithChildren, useEffect} from 'react';
-import {GuildDiscordConfig} from './discord/GuildDiscordConfig';
 import {useDynamicDocumentTitleForItem} from '../../../../hooks/useDocumentTitle';
 import {useParams} from 'react-router';
 import {GuildPageParams} from '../../GuildRoutes';
@@ -21,6 +17,7 @@ import {GuildRequirementList} from './requirement/GuildRequirementList';
 import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
 import {PreviewBadge} from '../../../featureFlag/PreviewBadge';
+import {GuildDiscordIntegrationConfig} from './discord/GuildDiscordIntegrationConfig';
 
 export default function GuildConfig(): JSX.Element {
 	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'documentTitle.guild');
@@ -80,13 +77,7 @@ export default function GuildConfig(): JSX.Element {
 				</ConfigItem>
 
 				<ConfigItem title={'integration.discord'}>
-					<Stack>
-						<GuildLanguage {...guildConfig}/>
-						<GuildDiscordConfig>
-							<GuildArchive {...guildConfig}/>
-							<GuildRoles {...guildConfig}/>
-						</GuildDiscordConfig>
-					</Stack>
+					<GuildDiscordIntegrationConfig {...guildConfig}/>
 				</ConfigItem>
 			</GuildPageProvider>
 		</Stack>

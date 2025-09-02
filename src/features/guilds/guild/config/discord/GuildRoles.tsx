@@ -1,5 +1,5 @@
 import {GuildConfigDto, GuildDiscordIntegrationDto} from '../../../guildTypes';
-import {Select, Skeleton, TextInput} from '@mantine/core';
+import {Select, Skeleton, Stack, TextInput} from '@mantine/core';
 import {T} from '../../../../../components/T';
 import {useLanguage} from '../../../../../contexts/language/Language';
 import {useGuildPage} from '../../../../../contexts/guild/GuildPageContext';
@@ -11,6 +11,7 @@ import {errorNotification, successNotification} from '../../../../../utils/notif
 import {useDidUpdate} from '@mantine/hooks';
 import {GuildRolesPageWrapper} from './GuildRolesPageWrapper';
 import {useGuildDiscordConfig} from '../../../../../contexts/guild/GuildDiscordConfigContext';
+import {GuildRolesSync} from './GuildRolesSync';
 
 export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {memberRole, eventManageRole, adminRole} = props;
@@ -25,19 +26,27 @@ export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 		<RoleSelectLoadingError roleName={'eventManage'} role={roleEventManage}/>
 		<RoleSelectLoadingError roleName={'admin'} role={roleAdmin}/>
 	</GuildRolesPageWrapper>;
-	if (integrationQuery.isLoading || !integrationQuery.data) return <GuildRolesPageWrapper>
-		<Skeleton height={80.2}/>
-		<Skeleton height={80.2}/>
-		<Skeleton height={80.2}/>
-	</GuildRolesPageWrapper>;
-	const {roles} = integrationQuery.data;
+	if (integrationQuery.isLoading || !integrationQuery.data) return <Stack>
+		<GuildRolesPageWrapper>
+			<Skeleton height={80.2}/>
+			<Skeleton height={80.2}/>
+			<Skeleton height={80.2}/>
+		</GuildRolesPageWrapper>
+		<Skeleton height={36}/>
+	</Stack>;
 
-	return <GuildRolesPageWrapper
-		warning={!integrationQuery.data.allowedToManageRoles ? 'guild.config.role.noPermission' : undefined}>
-		<RoleSelect roleName={'member'} role={roleMember} setRole={setRoleMember} roles={roles}/>
-		<RoleSelect roleName={'eventManage'} role={roleEventManage} setRole={setRoleEventManage} roles={roles}/>
-		<RoleSelect roleName={'admin'} role={roleAdmin} setRole={setRoleAdmin} roles={roles}/>
-	</GuildRolesPageWrapper>;
+	const {roles} = integrationQuery.data;
+	return <Stack>
+		<GuildRolesPageWrapper
+			warning={!integrationQuery.data.allowedToManageRoles ? 'guild.config.role.noPermission' : undefined}>
+			<RoleSelect roleName={'member'} role={roleMember} setRole={setRoleMember} roles={roles}/>
+			<RoleSelect roleName={'eventManage'} role={roleEventManage} setRole={setRoleEventManage} roles={roles}/>
+			<RoleSelect roleName={'admin'} role={roleAdmin} setRole={setRoleAdmin} roles={roles}/>
+		</GuildRolesPageWrapper>
+		{(roleMember || roleEventManage || roleAdmin) &&
+            <GuildRolesSync/>
+		}
+	</Stack>;
 }
 
 type RoleSelectType = {

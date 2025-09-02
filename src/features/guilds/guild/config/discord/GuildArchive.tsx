@@ -31,14 +31,14 @@ export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	}, [archive]);
 
 	const integrationQuery = useGuildDiscordConfig();
-	if (integrationQuery.isError) return <TextInput label={<T k={'guild.config.archive.description'}/>}
+	if (integrationQuery.isError) return <TextInput label={<T k={'guild.config.archive.label'}/>}
 													error={<T k={'guild.config.archive.loadingError'}/>}
 													disabled value={archive ?? '—'}/>;
 	if (integrationQuery.isLoading || !integrationQuery.data) return <Skeleton width={'100%'} height={60.8}/>;
 	const {categories} = integrationQuery.data;
 
 	return (
-		<Select label={<T k={'guild.config.archive.description'}/>} placeholder={t('guild.config.archive.select')}
+		<Select label={<T k={'guild.config.archive.label'}/>} placeholder={t('guild.config.archive.select')}
 				clearable searchable value={archive} onChange={setArchive}
 				error={archive && categories.find(category => category.textChannels
 					.find(textChannel => textChannel.id === archive) !== undefined) === undefined

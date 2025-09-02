@@ -34,7 +34,7 @@ export function GuildLanguage(props: Readonly<GuildConfigDto>): JSX.Element {
 	}, [selectedLanguage]);
 
 	return (
-		<Radio.Group label={<T k={'guild.config.language.description'}/>} withAsterisk
+		<Radio.Group label={<T k={'guild.config.language'}/>} withAsterisk
 					 value={selectedLanguage} onChange={(value) => setSelectedLanguage(value as Language)}>
 			<Group mt={'xs'}>
 				<Radio value={Language.DE}
