@@ -18,7 +18,7 @@ export default function GuildsPage(): JSX.Element {
 
 	return <>
 		<Spotlight actions={actions} shortcut={['mod + K']} highlightQuery/>
-		<Nav navbar={<GuildsNavbar setActions={setActions}/>} navbarProps={{width: {xs: 200, sm: 300}, breakpoint: 'xs'}}>
+		<Nav navbar={<GuildsNavbar setActions={setActions}/>} navbarProps={{width: {xs: 200, sm: 300}, breakpoint: 'xs', collapsed: {mobile: true}}}>
 			<Container py={'md'}>
 				<Outlet/>
 			</Container>
