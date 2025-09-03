@@ -192,6 +192,8 @@
   "guild.user.removed": "Member removed",
   "guild.users.none": "No members",
   "guilds": "Communities",
+  "guilds.inactive": "Inactive",
+  "guilds.inactive.description": "Communities are considered inactive if they have not created their own event yet, or if their last event was more than six months ago.",
   "guilds.search": "Search Communities",
   "home.blog.add": "Add entry",
   "home.blog.empty": "No post has landed here yet.",

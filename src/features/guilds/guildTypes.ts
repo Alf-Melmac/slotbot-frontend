@@ -6,6 +6,11 @@ export interface GuildDto {
 	emojiUrl?: string;
 }
 
+export interface GuildsCategorisedDto {
+	active: GuildDto[];
+	inactive: GuildDto[];
+}
+
 export interface GuildDetailsDto extends AbstractDiscordIdEntityDto {
 	advanced: boolean;
 	baseUrl?: string;
