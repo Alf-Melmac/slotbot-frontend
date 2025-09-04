@@ -29,6 +29,8 @@ updates:
         patterns:
           - "@tiptap/*"
     ignore:
+      - dependency-name: "@mantine/*"
+        versions: [ "8.x" ] # Waiting for mantine-react-table support
       - dependency-name: "@tanstack/react-query" # Spams too much
       - dependency-name: "@tiptap/*" # Spams too much
 
