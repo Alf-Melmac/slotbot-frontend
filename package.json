@@ -49,7 +49,7 @@
     "@tiptap/extension-text-align": "^2.26.1",
     "@tiptap/extension-underline": "^2.26.1",
     "@tiptap/react": "^2.26.1",
-    "axios": "^1.11.0",
+    "axios": "^1.12.2",
     "dayjs": "^1.11.18",
     "lodash-es": "^4.17.21",
     "mantine-flagpack": "^4.1.1",
