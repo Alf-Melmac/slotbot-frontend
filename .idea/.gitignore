@@ -11,5 +11,6 @@ sonarlint/
 #Discord Integration
 discord.xml
 
-# GitHub Copilot persisted chat sessions
-/copilot/chatSessions
+# GitHub Copilot
+copilot.data.migration.*.xml
+copilotDiffState.xml
