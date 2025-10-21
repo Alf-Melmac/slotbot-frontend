@@ -1,0 +1,7 @@
+.list {
+	gap: unset;
+   /*This number just guesses when the second day wraps. Otherwise the second row also has space between*/
+	@media (min-width: 354px) {
+		justify-content: space-between;
+	}
+}

@@ -78,3 +78,26 @@ export function expandTimeTemplateShort(date: string): string {
 export function isDateEqual(date1: Date, date2: Date): boolean {
 	return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
 }
+
+/**
+ * @see dayjsRange
+ */
+export function dateRange(start: Date, end: Date) {
+	return dayjsRange(dayjs(start), dayjs(end));
+}
+
+/**
+ * Builds an array containing every date between and including the two given dates
+ *
+ * @param start first day of the range
+ * @param end last day of the range
+ */
+export function dayjsRange(start: Dayjs, end: Dayjs) {
+	const range = [];
+	let current = start;
+	while (current.isBefore(end)) {
+		range.push(current);
+		current = current.add(1, 'day');
+	}
+	return range;
+}

@@ -141,8 +141,14 @@ export interface EventEditDto extends EventUpdateDto {
 export interface CalendarEventDto extends AbstractIdEntityDto {
 	title: string;
 	start: Date;
-	color: string;
+	eventType: VisibleEventTypeDto;
+	ownerGuild: GuildDto;
 	shortInformation: ShortEventInformationDto;
+}
+
+interface VisibleEventTypeDto {
+	name: string;
+	color: string;
 }
 
 interface ShortEventInformationDto {

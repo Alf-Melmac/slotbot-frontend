@@ -30,13 +30,11 @@ function enforceTwoDigits(val: number): string {
 	return val < 10 ? `0${val}` : val.toString();
 }
 
-type LoadingCalendarProps = {
+export type LoadingCalendarProps = {
 	animated: boolean;
 };
 
-export function LoadingCalendar(props: Readonly<LoadingCalendarProps>): JSX.Element {
-	const {animated} = props;
-
+export function LoadingCalendar({animated}: Readonly<LoadingCalendarProps>): JSX.Element {
 	const eventContent: CustomContentGenerator<EventContentArg> = (arg: EventContentArg) => {
 		return (
 			<Skeleton animate={animated}>
@@ -44,17 +42,15 @@ export function LoadingCalendar(props: Readonly<LoadingCalendarProps>): JSX.Elem
 			</Skeleton>
 		);
 	};
-	return (
-		<FullCalendar
-			plugins={[dayGridPlugin]}
-			initialView="dayGridMonth"
-			locale={useIsGerman() ? de : undefined}
-			eventSources={getLoadingEvents()}
-			eventContent={eventContent}
-			validRange={{
-				start: currentDay.startOf('month').format(DATE_TEMPLATE),
-				end: currentDay.endOf('month').format(DATE_TEMPLATE),
-			}}
-		/>
-	);
+	return <FullCalendar
+		plugins={[dayGridPlugin]}
+		initialView={'dayGridMonth'}
+		locale={useIsGerman() ? de : undefined}
+		eventSources={getLoadingEvents()}
+		eventContent={eventContent}
+		validRange={{
+			start: currentDay.startOf('month').format(DATE_TEMPLATE),
+			end: currentDay.endOf('month').format(DATE_TEMPLATE),
+		}}
+	/>;
 }
