@@ -1,5 +1,5 @@
 import {JSX, lazy, Suspense} from 'react';
-import {Guild, useGetGuild} from './Theme';
+import {Guild, useGetGuild} from '../guildcontext/GuildContext';
 import './themeStandard.css';
 
 export function ThemeLoader(): JSX.Element {

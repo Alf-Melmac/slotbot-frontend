@@ -5,7 +5,7 @@ import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
 import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
-import {Guild, useGetGuild} from '../../contexts/theme/Theme';
+import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
 import {T} from '../T';
 import {faCircleQuestion, faClipboard} from '@fortawesome/free-regular-svg-icons';
 import {JSX} from 'react';

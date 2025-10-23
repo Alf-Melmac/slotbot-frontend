@@ -2,16 +2,19 @@ import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery} from '@tanstack/react-query';
 
-export function useHomeNavigation(): boolean {
+export function useHomeNavigation(): boolean | null {
 	const {guild} = useGuildContext();
 
 	const getGuildAdvanced = () => slotbotServerClient.get(`/guilds/${guild}/advanced`).then((res) => res.data);
-	const {data} = useQuery<boolean, Error>({
+	const {data, isLoading} = useQuery<boolean, Error>({
 		queryKey: ['guildAdvanced', guild],
 		queryFn: getGuildAdvanced,
 		staleTime: 1000 * 60 * 60,
 		enabled: !!guild,
 	});
+	if (isLoading) {
+		return null;
+	}
 
 	return !!data;
 }

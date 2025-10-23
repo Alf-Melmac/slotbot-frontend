@@ -86,6 +86,9 @@ function SessionExpiredPage(): JSX.Element {
 
 function HomePage(): JSX.Element {
 	const homeNavigation = useHomeNavigation();
+	if (homeNavigation === null) {
+		return <></>;
+	}
 	if (homeNavigation) {
 		return <HomePageContent/>;
 	}

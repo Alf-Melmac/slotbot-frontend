@@ -6,7 +6,7 @@ import tttLogo from './slotbot_ttt-logo-black.png';
 import tttLogoWhite from './slotbot_ttt-logo-white.png';
 import gtoLogo from './gto_unit_logo.png';
 import defaultLogo from './slotbot-256-256.png';
-import {Guild, useGetGuild} from '../../contexts/theme/Theme';
+import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
 import {useHomeNavigationPath} from '../../features/home/useHomeNavigation';
@@ -60,7 +60,7 @@ function useGetInfo(): LogoInfo {
 			const colorScheme = useComputedColorScheme();
 			return {
 				title: 'Deutsche Arma Allianz',
-				logo: colorScheme !== 'dark' ? daaLogo : daaLogoTransparent,
+				logo: colorScheme === 'dark' ? daaLogoTransparent : daaLogo,
 				logoWithName: true,
 			};
 		}
@@ -68,7 +68,7 @@ function useGetInfo(): LogoInfo {
 			const colorScheme = useComputedColorScheme();
 			return {
 				title: 'Tactical Training Team',
-				logo: colorScheme !== 'dark' ? tttLogo : tttLogoWhite,
+				logo: colorScheme === 'dark' ? tttLogoWhite : tttLogo,
 				logoWithName: true,
 			};
 		}

@@ -2,64 +2,7 @@ import {createTheme, MantineProviderProps, MantineThemeOverride, Portal, rem} fr
 import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
-import {useGuildContext} from '../guildcontext/GuildContext';
-import {useEffect} from 'react';
-
-export enum Guild {
-	AMB,
-	DAA,
-	TTT,
-	GTO,
-	SLOTBOT,
-}
-
-type AdvancedGuild = {
-	guild: Guild,
-	urlPattern: RegExp,
-	identifier: string,
-}
-const advancedGuilds: AdvancedGuild[] = [
-	{
-		guild: Guild.AMB,
-		urlPattern: /.*armamachtbock.de.*/,
-		identifier: 'AMB',
-	},
-	{
-		guild: Guild.DAA,
-		urlPattern: /.*deutsche-arma-allianz.de.*/,
-		identifier: 'DAA',
-	},
-	{
-		guild: Guild.TTT,
-		urlPattern: /.*tacticalteam.de.*/,
-		identifier: 'TTT',
-	},
-	{
-		guild: Guild.GTO,
-		urlPattern: /.*gto-kompanie.de.*/,
-		identifier: 'GTO',
-	},
-];
-
-export function useGetGuild(): Guild {
-	const {guild, setGuild} = useGuildContext();
-
-	let detectedGuild: AdvancedGuild | undefined = undefined;
-	for (const advancedGuild of advancedGuilds) {
-		if (advancedGuild.urlPattern.test(window.location.origin)) {
-			detectedGuild = advancedGuild;
-			break;
-		}
-	}
-
-	useEffect(() => {
-		if (!guild && detectedGuild) {
-			setGuild(detectedGuild.identifier);
-		}
-	}, [detectedGuild]);
-
-	return detectedGuild?.guild ?? Guild.SLOTBOT;
-}
+import {useGetGuild, Guild} from '../guildcontext/GuildContext';
 
 function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 	const {t} = useLanguage();

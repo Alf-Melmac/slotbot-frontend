@@ -11,10 +11,9 @@ import ambFavicon from './favicon/favicon-amb.ico';
 import daaFavicon from './favicon/favicon-daa.ico';
 import tttFavicon from './favicon/favicon-ttt.ico';
 import gtoFavicon from './favicon/favicon-gto.ico';
-import {Guild, useGetGuild} from '../../contexts/theme/Theme';
+import {Guild, useGetGuild, useGuildContext} from '../../contexts/guildcontext/GuildContext';
 import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
 import classes from './Nav.module.css';
-import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 type NavProps = {
 	navbar?: JSX.Element;
