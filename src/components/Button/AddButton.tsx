@@ -30,7 +30,7 @@ export function AddButton(props: Readonly<AddButtonProps>): JSX.Element {
 		<UnstyledButton onClick={onClick} disabled={disabled}
 						{/*@ts-ignore TS doesn't understand this component*/...{}}
 						component={to ? Link : UnstyledButton} to={to}>
-			<Group gap={6} mt={mt} mb={mb}>
+			<Group gap={6} mt={mt} mb={mb} wrap={'nowrap'}>
 				<ThemeIcon variant={'filled'} radius={'xl'} className={classes.actionIcon}
 						   mod={{disabled}}>
 					<FontAwesomeIcon icon={faPlus}/>

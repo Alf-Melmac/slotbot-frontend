@@ -1,4 +1,4 @@
-import {Box, Center, Title} from '@mantine/core';
+import {Box, Center, Group, Text, Title} from '@mantine/core';
 import {LoadingCalendar} from './LoadingCalendar';
 import {EventCalendar} from './EventCalendar';
 import {JSX, useState} from 'react';
@@ -12,6 +12,9 @@ import {LoadingMobileCalendar} from './mobile/LoadingMobileCalendar';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
 import {AddButton} from '../../../components/Button/AddButton';
+import {AnchorBlank} from '../../../components/Text/AnchorBlank';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons';
 
 export function Events(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.events');
@@ -25,6 +28,14 @@ export function Events(): JSX.Element {
 			<Title><T k={'calendar.events'} args={[guild]}/></Title>
 		</Center>
 
+		{!guild &&
+			<AnchorBlank href={'https://docs.slotbot.de/jetzt-starten'} size={'lg'} maw={'max-content'}>
+				<Group gap={6} wrap={'nowrap'}>
+					<FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
+					<Text><T k={'calendar.gettingStarted'}/></Text>
+				</Group>
+			</AnchorBlank>
+		}
 		{useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE) &&
 			<AddButton label={'event.add'} to={`/events${guildUrlPath}/new`} mb={'sm'}/>
 		}
