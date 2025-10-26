@@ -3,14 +3,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDiscord, faTwitch, faWikipediaW, faXTwitter, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {IconDefinition} from '@fortawesome/fontawesome-svg-core';
-import {ThemeSwitch} from '../ThemeSwitch';
 import {Logo} from '../logo/Logo';
 import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
 import {T} from '../T';
-import {faCircleQuestion, faClipboard} from '@fortawesome/free-regular-svg-icons';
+import {faCircleQuestion, faClipboard, faCopyright} from '@fortawesome/free-regular-svg-icons';
 import {JSX} from 'react';
 import cx from 'clsx';
 import classes from './PageFooter.module.css';
+
+export const PUBLISHER = 'https://docs.slotbot.de/policies/datenschutzerkl%C3%A4rung';
 
 type IconType = {
 	icon: IconDefinition;
@@ -20,7 +21,6 @@ type IconType = {
 
 export function PageFooter(): JSX.Element {
 	let icons: IconType[];
-	let publisher = 'https://docs.slotbot.de/policies/datenschutzerklarung';
 
 	const guild = useGetGuild();
 	switch (guild) {
@@ -71,7 +71,6 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.discord,
 				},
 			];
-			publisher = 'https://www.deutsche-arma-allianz.de/impressum.html';
 			break;
 		case Guild.TTT:
 			icons = [
@@ -96,7 +95,6 @@ export function PageFooter(): JSX.Element {
 					iconClass: classes.wiki,
 				},
 			];
-			publisher = 'https://www.tacticalteam.de/impressum';
 			break;
 		case Guild.GTO:
 			icons = [
@@ -130,12 +128,11 @@ export function PageFooter(): JSX.Element {
 	}
 
 	return <Container className={classes.container} py={40}>
-		<Stack>
-			<Group gap={'xs'}>
-				<Logo small/>
-				<ThemeSwitch/>
-			</Group>
-			<Text size={'sm'} className={classes.description}><T k={'footer.author'}/></Text>
+		<Stack gap={'xs'}>
+			<Logo small/>
+			<Text size={'sm'} className={classes.description} visibleFrom={'xs'}>
+				<FontAwesomeIcon icon={faCopyright} size={'xs'}/> <T k={'footer.author'}/>
+			</Text>
 		</Stack>
 		<Stack gap={'xs'}>
 			<Group gap={'lg'} justify={'right'}>
@@ -146,8 +143,8 @@ export function PageFooter(): JSX.Element {
 					</ActionIcon>,
 				)}
 			</Group>
-			<Text size={'xs'}>
-				<AnchorBlank className={classes.link} href={publisher}><T k={'footer.legal'}/></AnchorBlank>
+			<Text size={'xs'} visibleFrom={'xs'}>
+				<AnchorBlank className={classes.link} href={PUBLISHER}><T k={'footer.legal'}/></AnchorBlank>
 			</Text>
 		</Stack>
 	</Container>;

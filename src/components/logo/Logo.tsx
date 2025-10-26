@@ -10,6 +10,7 @@ import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
 import {useHomeNavigationPath} from '../../features/home/useHomeNavigation';
+import {useMediaQuery} from '@mantine/hooks';
 
 type LogoProps = {
 	small?: boolean;
@@ -19,13 +20,14 @@ export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
 	const homePath = useHomeNavigationPath();
 	const {title, logo, logoWithName = false} = useGetInfo();
+	const isXs = !!useMediaQuery(`(max-width: 36em)`);
 	return (
 		<UnstyledAnchorLink to={homePath}>
 			<Group gap={'xs'} wrap={'nowrap'}>
 				{!small &&
                     <Image visibleFrom={'xs'} w={logoWithName ? 230 : 50} src={logo} alt={title} radius={'lg'}/>
 				}
-				{(!logoWithName || small) &&
+				{(!logoWithName || small || isXs) &&
                     <Text size={'lg'} tt={'uppercase'} fw={700} lts={1}>{title}</Text>
 				}
 			</Group>

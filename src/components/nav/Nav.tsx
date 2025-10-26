@@ -2,7 +2,6 @@ import {AppShell, AppShellProps, Container, Group, rem} from '@mantine/core';
 import {Logo} from '../logo/Logo';
 import {faArrowRightToBracket, faCalendarDay, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {NavIconAction, NavIconLink} from './NavIcon';
-import {ThemeSwitch} from '../ThemeSwitch';
 import {UserMenu} from './UserMenu';
 import {useAuth} from '../../contexts/authentication/AuthProvider';
 import {PageFooter} from '../PageFooter/PageFooter';
@@ -14,6 +13,7 @@ import gtoFavicon from './favicon/favicon-gto.ico';
 import {Guild, useGetGuild, useGuildContext} from '../../contexts/guildcontext/GuildContext';
 import {JSX, PropsWithChildren, useEffect, useRef, useState} from 'react';
 import classes from './Nav.module.css';
+import {NavMenu} from './NavMenu';
 
 type NavProps = {
 	navbar?: JSX.Element;
@@ -37,6 +37,7 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 	favicon && useFavicon(favicon);
 
 	const {user, login} = useAuth();
+	const {guildUrlPath} = useGuildContext();
 
 	const [footerHeight, setFooterHeight] = useState(STANDARD_FOOTER_HEIGHT);
 	const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +50,6 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 		return () => resizeObserver.disconnect();
 	}, []);
 
-	const {guildUrlPath} = useGuildContext();
 	return (
 		<AppShell
 			header={{height: NAV_HEIGHT}}
@@ -65,15 +65,13 @@ export function Nav(props: Readonly<PropsWithChildren<NavProps>>): JSX.Element {
 									 width={135} visibleFrom={'xs'}/>
 						<NavIconLink link={`/events/calendar${guildUrlPath}`} text={'nav.calendar'} icon={faCalendarDay}
 									 width={110} visibleFrom={'xs'}/>
-						{(user) ?
+						{user ?
 							<UserMenu user={user}/>
 							:
-							<>
-								<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket}
-											   width={90}/>
-								<ThemeSwitch/>
-							</>
+							<NavIconAction onClick={login} text={'nav.login'} icon={faArrowRightToBracket} width={90}/>
 						}
+
+						<NavMenu/>
 					</Group>
 				</Container>
 			</AppShell.Header>
