@@ -1,14 +1,18 @@
 {
-  "short_name": "Slotbot",
   "name": "Slotbot",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "slotbot-256-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
     }
   ],
-  "start_url": ".",
+  "start_url": "../",
   "display": "standalone",
   "theme_color": "#00FFFF",
   "background_color": "#f1f3f5"

@@ -5,7 +5,7 @@ import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import tttLogo from './slotbot_ttt-logo-black.png';
 import tttLogoWhite from './slotbot_ttt-logo-white.png';
 import gtoLogo from './gto_unit_logo.png';
-import defaultLogo from './slotbot-256-256.png';
+import defaultLogo from '/slotbot-256-256.png?url'; //NOSONAR typescript:S6859 - need the url import
 import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
 import {UnstyledAnchorLink} from '../Text/UnstyledAnchorLink';
 import {JSX} from 'react';
@@ -20,7 +20,7 @@ export function Logo(props: Readonly<LogoProps>): JSX.Element {
 	const {small = false} = props;
 	const homePath = useHomeNavigationPath();
 	const {title, logo, logoWithName = false} = useGetInfo();
-	const isXs = !!useMediaQuery(`(max-width: 36em)`);
+	const isXs = useMediaQuery(`(max-width: 36em)`);
 	return (
 		<UnstyledAnchorLink to={homePath}>
 			<Group gap={'xs'} wrap={'nowrap'}>
