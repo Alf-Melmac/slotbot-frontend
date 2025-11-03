@@ -175,7 +175,7 @@ function OneDefault(props: Readonly<{
 					key={form.key(`fields.${index}.type`)}/>
 			{isBooleanField ?
 				<Input.Wrapper label={<T k={'event.details.default.standard'}/>} flex={1}
-							   className={classes.segmentedControlWrapper}>
+							   className={classes.segmentedControlWrapper}> //TODO SegmentedControl default height values were changed to match sizes of Input components
 					<SegmentedControl data={[
 						{label: <T k={'event.details.default.type.boolean.yes'}/>, value: 'true'},
 						{label: <T k={'event.details.default.type.boolean.no'}/>, value: 'false'},

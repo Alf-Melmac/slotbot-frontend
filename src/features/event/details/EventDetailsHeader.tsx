@@ -9,7 +9,7 @@ import {EventDescription} from './EventDescription';
 import {EventDetailsButtons} from './EventDetailsButtons';
 
 type EventDetailsHeaderProps = EventDetail & {
-	descriptionRef: RefObject<HTMLButtonElement>;
+	descriptionRef: RefObject<HTMLButtonElement | null>;
 	scrollToDescription: () => void;
 };
 

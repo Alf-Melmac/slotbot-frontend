@@ -6,12 +6,11 @@ import {Underline} from '@tiptap/extension-underline';
 import {Bold} from '@tiptap/extension-bold';
 import {Italic} from '@tiptap/extension-italic';
 import {Strike} from '@tiptap/extension-strike';
-import {BulletList} from '@tiptap/extension-bullet-list';
-import {ListItem} from '@tiptap/extension-list-item';
+import {BulletList, ListItem, OrderedList} from '@tiptap/extension-list';
 import {Node} from 'prosemirror-model';
-import {OrderedList} from '@tiptap/extension-ordered-list';
 import {Small} from './Small';
 
+//TODO check @tiptap/markdown
 /**
  * Converts the editor content to discord markdown, closely matching the backend implementation
  */

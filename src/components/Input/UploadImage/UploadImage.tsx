@@ -7,7 +7,7 @@ import {T} from '../../T';
 import {Dropzone, MIME_TYPES} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileCircleXmark, faFileImport, faImage} from '@fortawesome/free-solid-svg-icons';
-import {FileRejection} from 'react-dropzone-esm';
+import {FileRejection} from 'react-dropzone';
 import {useLanguage} from '../../../contexts/language/Language';
 
 export type UploadImageProps = {

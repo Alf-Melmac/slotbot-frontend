@@ -1,6 +1,7 @@
-import {JSX} from 'react';
+import {ForwardRefExoticComponent, JSX, RefAttributes} from 'react';
 import {TextKey, useLanguage} from '../../../contexts/language/Language';
-import {BubbleMenu, EditorOptions, useEditor} from '@tiptap/react';
+import {EditorOptions, useEditor} from '@tiptap/react';
+import {BubbleMenu} from '@tiptap/react/menus';
 import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
 import {Paragraph} from '@tiptap/extension-paragraph';
@@ -13,23 +14,18 @@ import {Highlight} from '@tiptap/extension-highlight';
 import {Heading} from '@tiptap/extension-heading';
 import {Blockquote} from '@tiptap/extension-blockquote';
 import {HorizontalRule} from '@tiptap/extension-horizontal-rule';
-import {ListItem} from '@tiptap/extension-list-item';
-import {BulletList} from '@tiptap/extension-bullet-list';
-import {OrderedList} from '@tiptap/extension-ordered-list';
+import {BulletList, ListItem, ListKeymap, OrderedList} from '@tiptap/extension-list';
 import {Link, RichTextEditor} from '@mantine/tiptap';
 import {TextAlign} from '@tiptap/extension-text-align';
-import {Placeholder} from '@tiptap/extension-placeholder';
-import {History} from '@tiptap/extension-history';
-import UploadImage from 'tiptap-extension-upload-image';
-import 'tiptap-extension-upload-image/dist/upload-image.min.css';
+import {Dropcursor, Placeholder, UndoRedo} from '@tiptap/extensions';
+import Image from '@tiptap/extension-image';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
 import {faAlignLeft, faCaretDown, faHeading} from '@fortawesome/free-solid-svg-icons';
-import {faImage} from '@fortawesome/free-regular-svg-icons';
 import {Button, Group, Menu, Stack} from '@mantine/core';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {T} from '../../../components/T';
-import classes from './HomeBlogItem.module.css';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
+import classes from './BlogPostInput.module.css';
+import {ImageFileHandler, ImageUpload} from '../../../utils/tiptap/ImageUpload';
 
 type BlogPostInputProps = {
 	onSave: (htmlContent: string) => void;
@@ -37,21 +33,6 @@ type BlogPostInputProps = {
 	onCancel?: () => void;
 	content?: EditorOptions['content'];
 };
-
-/**
- * Function that uploads the given file. Returns the URL of the uploaded file on success.
- */
-function uploadFn(file: File): Promise<string> {
-	const formData = new FormData();
-	formData.append('file', file);
-	return slotbotServerClient.post('/files/uploadImage', formData, {
-		headers: {'Content-Type': 'multipart/form-data'},
-	}).then((fileUrl) => {
-		return fileUrl.data;
-	}).catch((e) => {
-		throw e.response.data.error;
-	});
-}
 
 export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element {
 	const {onSave, isSaving, onCancel, content} = props;
@@ -74,17 +55,22 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 			ListItem,
 			BulletList,
 			OrderedList,
+			ListKeymap,
 			Link,
 			TextAlign.configure({types: ['heading', 'paragraph']}),
 			Placeholder.configure({placeholder: t('home.blog.placeholder')}),
-			History,
-			UploadImage.configure({uploadFn: uploadFn}),
+			UndoRedo,
+			Dropcursor,
+			Image,
+			ImageFileHandler,
 		],
+		shouldRerenderOnTransaction: true,
 		content: content,
 	});
 
-	return <Stack gap={4} py={onCancel ? 'sm' : undefined}> {/*If there is a cancel button, we're probably embedded in a card*/}
-		<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
+	return <Stack gap={4}
+				  py={onCancel ? 'sm' : undefined}> {/*If there is a cancel button, we're probably embedded in a card*/}
+		<RichTextEditor editor={editor} withCodeHighlightStyles={false} className={classes.editor}>
 			<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
 				<RichTextEditor.ControlsGroup>
 					<RichTextEditor.Bold/>
@@ -116,37 +102,35 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup>
 					<RichTextEditor.Link/>
-					<RichTextEditor.Control onClick={() => editor?.chain().focus().addImage().run()}>
-						<FontAwesomeIcon icon={faImage} size={'xs'}/>
-					</RichTextEditor.Control>
+					<ImageUpload/>
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup ml={'auto'}>
 					<RichTextEditor.Undo/>
 					<RichTextEditor.Redo/>
 				</RichTextEditor.ControlsGroup>
 			</RichTextEditor.Toolbar>
-			{editor && <BubbleMenu editor={editor}>
-                <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.Bold/>
-                    <RichTextEditor.Italic/>
-                    <RichTextEditor.Underline/>
-                    <RichTextEditor.Strikethrough/>
-                    <RichTextEditor.Highlight/>
-                    <RichTextEditor.Link/>
-                    <RichTextEditor.Unlink/>
-                </RichTextEditor.ControlsGroup>
-            </BubbleMenu>}
+			{editor && <BubbleMenu editor={editor} shouldShow={(props) => !props.editor.isActive('image')}>
+				<RichTextEditor.ControlsGroup>
+					<RichTextEditor.Bold/>
+					<RichTextEditor.Italic/>
+					<RichTextEditor.Underline/>
+					<RichTextEditor.Strikethrough/>
+					<RichTextEditor.Highlight/>
+					<RichTextEditor.Link/>
+					<RichTextEditor.Unlink/>
+				</RichTextEditor.ControlsGroup>
+			</BubbleMenu>}
 			<RichTextEditor.Content/>
 		</RichTextEditor>
 
 		<Group className={classes.saveButton} gap={'xs'}>
 			{onCancel &&
-                <Button variant={'default'} onClick={onCancel}><T k={'action.cancel'}/></Button>
+				<Button variant={'default'} onClick={onCancel}><T k={'action.cancel'}/></Button>
 			}
 			{editor &&
-                <Button loading={isSaving} onClick={() => onSave(editor.getHTML())}>
-                    <T k={'action.save'}/>
-                </Button>
+				<Button loading={isSaving} onClick={() => onSave(editor.getHTML())}>
+					<T k={'action.save'}/>
+				</Button>
 			}
 		</Group>
 	</Stack>;
@@ -155,7 +139,7 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 type ControlDropdownProps = {
 	title: TextKey;
 	icon: FontAwesomeIconProps['icon'];
-	items: any[];
+	items: ForwardRefExoticComponent<RefAttributes<HTMLButtonElement>>[]; // Not the complete type, RichTextEditorControlBaseProps isn't exported
 };
 
 function ControlDropdown(props: Readonly<ControlDropdownProps>): JSX.Element {
@@ -173,6 +157,7 @@ function ControlDropdown(props: Readonly<ControlDropdownProps>): JSX.Element {
 				</RichTextEditor.Control>
 			</Menu.Target>
 
+			{/*FIXME These buttons are currently broken https://discordapp.com/channels/854810300876062770/1434681144913170595*/}
 			<Menu.Dropdown>
 				{items.map((item, index) => (
 					<Menu.Item key={index} component={item}/>

@@ -1,0 +1,9 @@
+.saveButton {
+	align-self: end;
+}
+
+.editor {
+	:global(.ProseMirror-selectednode) {
+		outline: 2px dashed var(--mantine-color-dark-3);
+	}
+}

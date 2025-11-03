@@ -3,7 +3,7 @@ import {JSX, useEffect, useState} from 'react';
 import {Dropzone} from '@mantine/dropzone';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFileArrowUp, faFileCircleQuestion, faFileImport} from '@fortawesome/free-solid-svg-icons';
-import {FileRejection} from 'react-dropzone-esm';
+import {FileRejection} from 'react-dropzone';
 import slotbotServerClient from '../../../../hooks/slotbotServerClient';
 import {useMutation} from '@tanstack/react-query';
 import {SquadDto} from '../../eventTypes';

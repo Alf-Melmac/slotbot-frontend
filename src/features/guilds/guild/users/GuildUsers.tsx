@@ -1,7 +1,7 @@
 import {AddButton} from '../../../../components/Button/AddButton';
 import {voidFunction} from '../../../../hooks/slotbotServerClient';
 import {useGetGuildUsers} from '../useGetGuild';
-import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table';
+import {MRT_ColumnDef, MRT_Row} from 'mantine-react-table-open';
 import {UserInGuildDto} from '../../guildTypes';
 import {JSX, lazy, ReactNode, Suspense, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';

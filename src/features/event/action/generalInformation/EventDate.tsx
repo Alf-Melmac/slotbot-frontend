@@ -30,7 +30,7 @@ export function EventDate(): JSX.Element {
 	const previous = usePrevious(form.values.date);
 	const dateInputProps = form.getInputProps('date');
 	return <>
-		{useEventAction().editMode ?
+		{useEventAction().editMode ? //TODO https://mantine.dev/guides/7x-to-8x/#date-string-values
 			<DateInput {...datePickerProps} {...dateInputProps} onDateChange={() => {
 				if (!form.isValid('date') || previous === undefined || isDateEqual(form.values.date, previous)) return;
 				mutate();

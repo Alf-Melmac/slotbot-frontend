@@ -29,7 +29,7 @@ export function EventStartTime(): JSX.Element {
 	}, [debounced]);
 
 	const {t} = useLanguage();
-	return <TimeInput label={<T k={'event.startTime'}/>} placeholder={t('event.startTime.placeholder')}
+	return <TimeInput label={<T k={'event.startTime'}/>} placeholder={t('event.startTime.placeholder')} //TODO https://mantine.dev/guides/7x-to-8x/#datetimepicker-timeinputprops
 					  leftSection={<FontAwesomeIcon icon={faClock}/>} required
 					  {...form.getInputProps('startTime')}/>;
 }
