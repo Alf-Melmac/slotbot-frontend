@@ -10,7 +10,6 @@ import {BulletList, ListItem, OrderedList} from '@tiptap/extension-list';
 import {Node} from 'prosemirror-model';
 import {Small} from './Small';
 
-//TODO check @tiptap/markdown
 /**
  * Converts the editor content to discord markdown, closely matching the backend implementation
  */
@@ -24,7 +23,7 @@ function toMarkdown(editor: Editor): string {
 		if (element.type.name === Heading.name) {
 			markdown += `${'#'.repeat(element.attrs.level)} `;
 		} else if (element.type.name === Small.name) {
-			markdown += '-# '
+			markdown += '-# ';
 		}
 
 		markdown += fragmentToMarkdown(element);
@@ -71,10 +70,21 @@ function escape(text: string): string {
 		.replace(/^(\d)(\.\s)/g, '$1\\\\$2');
 }
 
+type DiscordMarkdownStorage = {
+	markdown: () => string;
+}
+
+declare module '@tiptap/core' {
+	// noinspection JSUnusedGlobalSymbols
+	interface Storage {
+		markdown: DiscordMarkdownStorage;
+	}
+}
+
 /**
- * Adds the editor content in discord markdown format to the storage
+ * Adds the editor content in discord Markdown format to the storage
  */
-export const DiscordMarkdown = Extension.create({
+export const DiscordMarkdown = Extension.create<{}, DiscordMarkdownStorage>({
 	name: 'markdown',
 
 	addStorage() {
@@ -84,8 +94,6 @@ export const DiscordMarkdown = Extension.create({
 	},
 
 	onBeforeCreate() {
-		this.storage.markdown = () => {
-			return toMarkdown(this.editor);
-		};
+		this.storage.markdown = () => toMarkdown(this.editor);
 	},
 });
