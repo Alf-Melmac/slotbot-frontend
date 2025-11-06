@@ -30,6 +30,7 @@ export function BanGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element
 	const {mutate} = useMutation<void, AxiosError, string>({
 		mutationFn: putGuildUserBan,
 		onSuccess: () => {
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['guildUsers', guildId]});
 			showNotification({
 				title: <T k={'guild.user.banned'}/>,

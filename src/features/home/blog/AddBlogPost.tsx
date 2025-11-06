@@ -20,6 +20,7 @@ export function AddBlogPost(props: Readonly<AddBlogPostProps>): JSX.Element {
 		mutationFn: postBlogPost,
 		onSuccess: () => {
 			//For the moment just invalidate everything. Optimistic updates are a bit more complicated
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 			props.onSuccess();
 		},

@@ -1,4 +1,4 @@
-import {createTheme, MantineProviderProps, MantineThemeOverride, rem} from '@mantine/core';
+import {createTheme, MantineProviderProps, MantineThemeOverride, rem, Switch} from '@mantine/core';
 import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
@@ -48,7 +48,11 @@ function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 			Container: {
 				defaultProps: {size: 'lg'},
 			},
-			//TODO https://mantine.dev/guides/7x-to-8x/#switch-withthumbindicator
+			Switch: Switch.extend({
+				defaultProps: {
+					withThumbIndicator: false,
+				},
+			}),
 			DateInput: {
 				defaultProps: {
 					valueFormat: 'L',

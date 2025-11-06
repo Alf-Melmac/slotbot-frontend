@@ -23,6 +23,7 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 			onSuccess?.(response[formPath]);
 			// @ts-ignore
 			successNotification(response[formPath]);
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['eventForEdit', eventId]});
 		},
 		onError: errorNotification,

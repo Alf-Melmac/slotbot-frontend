@@ -2,7 +2,7 @@ import {EventDetailsDto, EventEditDto} from './eventTypes';
 import {Dayjs} from 'dayjs';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
 import {useQuery, UseQueryResult} from '@tanstack/react-query';
-import {convertUtcDateTimeToLocal, convertUtcToLocal} from '../../utils/dateHelper';
+import {convertUtcToLocal} from '../../utils/dateHelper';
 
 export type EventDetail = {
 	/**
@@ -56,10 +56,6 @@ export function useFetchEventForEdit(eventId: string): EventForEdit {
 		queryFn: getEventForEdit,
 	});
 	let event = query.data;
-
-	if (event) {
-		event = {...event, dateTime: convertUtcDateTimeToLocal(event.dateTime)};
-	}
 
 	return {event, isLoading: query.isLoading, error: query.error};
 }

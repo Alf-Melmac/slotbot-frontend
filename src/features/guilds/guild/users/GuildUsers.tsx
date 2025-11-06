@@ -54,6 +54,7 @@ export function GuildUsers(): JSX.Element {
 			const {scrollHeight, scrollTop, clientHeight} = containerRefElement;
 			//If there is more data, load it as soon as the user scrolls closer than 200px to the bottom of the table
 			if (scrollHeight - scrollTop - clientHeight < 200 && !isFetching && hasNextPage) {
+				// noinspection JSIgnoredPromiseFromCall
 				fetchNextPage();
 			}
 		}

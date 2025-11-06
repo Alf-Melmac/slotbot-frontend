@@ -5,7 +5,7 @@ import {
 	replaceNullWithEmpty,
 	replaceNullWithUndefined,
 } from '../../../utils/typesHelper';
-import {getTimeShort} from '../../../utils/dateHelper';
+import {convertUtcToLocal, getDate, getTimeShort} from '../../../utils/dateHelper';
 
 /**
  * Converts a {@link EventEditDto} to the format {@link EventEditFormType expected by the form}.
@@ -14,10 +14,10 @@ export function convertDtoToFormEvent(dto: EventEditDto): EventEditFormType {
 	const {dateTime, requirements, squadList, ...eventDto} = dto;
 	handleNullForForm(eventDto);
 	eventDto.details.forEach(detail => replaceBooleanStringWithBoolean(detail, 'text'));
-	const date = new Date(dateTime);
+	const date = convertUtcToLocal(dateTime);
 	return {
 		...eventDto,
-		date,
+		date: getDate(date),
 		startTime: getTimeShort(date),
 		requirements: requirements.map(r => `${r}`),
 		squadList: squadList.map(squad => ({
