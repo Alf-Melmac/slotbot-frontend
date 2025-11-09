@@ -1,3 +1,7 @@
 .card {
 	padding-left: 0;
 }
+
+.tabLabel {
+	text-align: unset;
+}

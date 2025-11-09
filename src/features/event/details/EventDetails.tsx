@@ -26,9 +26,6 @@ import {useDynamicDocumentTitle} from '../../../hooks/useDocumentTitle';
 import {ActionLog} from './actionLog/ActionLog';
 import {useCheckAccess} from '../../../contexts/authentication/useCheckAccess';
 import {ApplicationRoles} from '../../../contexts/authentication/authenticationTypes';
-import {RequireFeatureFlag} from '../../featureFlag/RequireFeatureFlag';
-import {FeatureFlag} from '../../featureFlag/useGetFeatureFlags';
-import {PreviewBadge} from '../../featureFlag/PreviewBadge';
 
 export function EventDetails(): JSX.Element {
 	const setTitle = useDynamicDocumentTitle('event');
@@ -70,9 +67,9 @@ export function EventDetails(): JSX.Element {
 		<Breadcrumb items={breadcrumbItems}/>
 
 		{event.hidden &&
-            <Alert mb={'xs'} color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
-                <T k={'event.details.hiddenEventWarning'}/>
-            </Alert>}
+			<Alert mb={'xs'} color={'orange'} variant={'filled'} icon={<FontAwesomeIcon icon={faEyeLowVision}/>}>
+				<T k={'event.details.hiddenEventWarning'}/>
+			</Alert>}
 
 		<EventDetailsHeader event={event} eventDate={eventDate} descriptionRef={descriptionRef}
 							scrollToDescription={scrollToDescription}/>
@@ -83,45 +80,41 @@ export function EventDetails(): JSX.Element {
 					<T k={'slotlist'}/>
 				</Tabs.Tab>
 				{event.descriptionAsHtml &&
-                    <Tabs.Tab value={'description'} leftSection={<FontAwesomeIcon icon={faFileLines}/>}
-                              ref={descriptionRef}>
-                        <T k={'description'}/>
-                    </Tabs.Tab>
+					<Tabs.Tab value={'description'} leftSection={<FontAwesomeIcon icon={faFileLines}/>}
+							  ref={descriptionRef}>
+						<T k={'description'}/>
+					</Tabs.Tab>
 				}
 				{event.details.length !== 0 &&
-                    <Tabs.Tab value={'details'} leftSection={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
-                        <T k={'moreDetails'}/>
-                    </Tabs.Tab>
+					<Tabs.Tab value={'details'} leftSection={<FontAwesomeIcon icon={faMagnifyingGlass}/>}>
+						<T k={'moreDetails'}/>
+					</Tabs.Tab>
 				}
-				<RequireFeatureFlag feature={FeatureFlag.PARTICIPANT_LOG}>
-					{eventManage &&
-                        <Tabs.Tab value={'log'} leftSection={<FontAwesomeIcon icon={faTimeline}/>}>
-                            <T k={'actionLog'}/> <PreviewBadge ml={2}/>
-                        </Tabs.Tab>
-					}
-				</RequireFeatureFlag>
+				{eventManage &&
+					<Tabs.Tab value={'log'} leftSection={<FontAwesomeIcon icon={faTimeline}/>}>
+						<T k={'actionLog'}/>
+					</Tabs.Tab>
+				}
 			</Tabs.List>
 
 			<Tabs.Panel value={'slotlist'} pt={'xs'}>
 				<EventSlotlist id={event.id} squadList={event.squadList} requirements={event.requirements}/>
 			</Tabs.Panel>
 			{event.descriptionAsHtml &&
-                <Tabs.Panel value={'description'} pt={'xs'}>
-                    <EventDescription description={event.descriptionAsHtml}/>
-                </Tabs.Panel>
+				<Tabs.Panel value={'description'} pt={'xs'}>
+					<EventDescription description={event.descriptionAsHtml}/>
+				</Tabs.Panel>
 			}
 			{event.details.length !== 0 &&
-                <Tabs.Panel value={'details'} pt={'xs'}>
-                    <EventFields fields={event.details}/>
-                </Tabs.Panel>
+				<Tabs.Panel value={'details'} pt={'xs'}>
+					<EventFields fields={event.details}/>
+				</Tabs.Panel>
 			}
-			<RequireFeatureFlag feature={FeatureFlag.PARTICIPANT_LOG}>
-				{eventManage &&
-                    <Tabs.Panel value={'log'} pt={'xs'}>
-                        <ActionLog eventId={event.id}/>
-                    </Tabs.Panel>
-				}
-			</RequireFeatureFlag>
+			{eventManage &&
+				<Tabs.Panel value={'log'} pt={'xs'}>
+					<ActionLog eventId={event.id}/>
+				</Tabs.Panel>
+			}
 		</Tabs>
 	</>;
 }

@@ -15,7 +15,6 @@ export function useGetFeatureFlags() {
  */
 export enum FeatureFlag {
 	REQUIREMENTS = 'REQUIREMENTS',
-	PARTICIPANT_LOG = 'PARTICIPANT_LOG',
 }
 
 export type MaybeFeatureFlag = FeatureFlag | string;
