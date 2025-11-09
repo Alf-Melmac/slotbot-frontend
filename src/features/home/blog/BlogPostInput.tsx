@@ -157,7 +157,6 @@ function ControlDropdown(props: Readonly<ControlDropdownProps>): JSX.Element {
 				</RichTextEditor.Control>
 			</Menu.Target>
 
-			{/*FIXME These buttons are currently broken https://discordapp.com/channels/854810300876062770/1434681144913170595*/}
 			<Menu.Dropdown>
 				{items.map((item, index) => (
 					<Menu.Item key={index} component={item}/>

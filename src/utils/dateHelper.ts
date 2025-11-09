@@ -45,9 +45,22 @@ export function convertUtcToLocal(date: Parameters<typeof dayjs.utc>[0], format?
 
 /**
  * Formats the given date in the {@link DATE_TIME_TEMPLATE} format to UTC.
+ *
+ * @param date in format {@link DATE_TEMPLATE}
+ * @param time in format {@link TIME_TEMPLATE_SHORT}
  */
-export function formatLocalDateTimeToUtc(date: string): string {
-	return dayjs(date, DATE_TIME_TEMPLATE).utc().format(DATE_TIME_TEMPLATE);
+export function formatLocalDateTimeToUtc(date: string, time: string): string {
+	return dayjs(`${date}T${expandTimeTemplateShort(time)}`, DATE_TIME_TEMPLATE)
+		.utc()
+		.format(DATE_TIME_TEMPLATE);
+}
+
+/**
+ * Builds a {@link TIME_TEMPLATE} from a {@link TIME_TEMPLATE_SHORT}.
+ * Sets the seconds to 0.
+ */
+function expandTimeTemplateShort(date: string): string {
+	return `${date}:00`;
 }
 
 /**
@@ -62,14 +75,6 @@ export function getDate(date: Dayjs): string {
  */
 export function getTimeShort(time: Dayjs): string {
 	return time.format(TIME_TEMPLATE_SHORT);
-}
-
-/**
- * Builds a {@link TIME_TEMPLATE} from a {@link TIME_TEMPLATE_SHORT}.
- * Sets the seconds to 0.
- */
-export function expandTimeTemplateShort(date: string): string {
-	return `${date}:00`;
 }
 
 /**

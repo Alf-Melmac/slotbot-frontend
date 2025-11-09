@@ -10,7 +10,7 @@ import {UseFormReturnType} from '@mantine/form';
 import {JSX, useState} from 'react';
 import {AnchorLink} from '../../../components/Text/AnchorLink';
 import {T} from '../../../components/T';
-import {expandTimeTemplateShort, formatLocalDateTimeToUtc} from '../../../utils/dateHelper';
+import {formatLocalDateTimeToUtc} from '../../../utils/dateHelper';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 
 export function useEventSave() {
@@ -19,7 +19,7 @@ export function useEventSave() {
 
 	const eventPost = {
 		...form.values,
-		dateTime: formatLocalDateTimeToUtc(`${form.values.date}T${expandTimeTemplateShort(form.values.startTime)}`),
+		dateTime: formatLocalDateTimeToUtc(form.values.date, form.values.startTime),
 	};
 
 	const [page, setPage] = useState(
