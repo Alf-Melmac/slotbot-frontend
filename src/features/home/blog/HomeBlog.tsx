@@ -50,6 +50,7 @@ export function HomeBlog(): JSX.Element {
 		if (observer.current) observer.current.disconnect();
 		observer.current = new IntersectionObserver(([entry]) => {
 			if (entry.isIntersecting && !isFetching && hasNextPage) {
+				// noinspection JSIgnoredPromiseFromCall
 				fetchNextPage();
 			}
 		});

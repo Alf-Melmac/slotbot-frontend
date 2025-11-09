@@ -1,8 +1,8 @@
 import {RichTextEditor} from '@mantine/tiptap';
 import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
-import {BubbleMenu, FloatingMenu, useEditor} from '@tiptap/react';
-import {Placeholder} from '@tiptap/extension-placeholder';
+import {useEditor} from '@tiptap/react';
+import {BubbleMenu, FloatingMenu} from '@tiptap/react/menus';
 import {JSX, useEffect, useState} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {Heading} from '@tiptap/extension-heading';
@@ -10,7 +10,7 @@ import {Paragraph} from '@tiptap/extension-paragraph';
 import {Bold} from '@tiptap/extension-bold';
 import {Italic} from '@tiptap/extension-italic';
 import {Underline} from '@tiptap/extension-underline';
-import {History} from '@tiptap/extension-history';
+import {Placeholder, UndoRedo} from '@tiptap/extensions';
 import {NAV_HEIGHT} from '../../../../components/nav/Nav';
 import {EMBEDDABLE_DESCRIPTION} from '../../../../utils/maxLength';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
@@ -26,9 +26,7 @@ import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {validate} from '../../../../utils/formHelper';
-import {ListItem} from '@tiptap/extension-list-item';
-import {BulletList} from '@tiptap/extension-bullet-list';
-import {OrderedList} from '@tiptap/extension-ordered-list';
+import {BulletList, ListItem, ListKeymap, OrderedList} from '@tiptap/extension-list';
 import {Small} from '../../../../utils/tiptap/Small';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faComment} from '@fortawesome/free-regular-svg-icons';
@@ -53,11 +51,13 @@ export function EventDescription(): JSX.Element {
 			ListItem,
 			BulletList,
 			OrderedList,
+			ListKeymap,
 			Placeholder.configure({placeholder: t('description')}),
-			History,
+			UndoRedo,
 			DiscordMarkdown,
 			DiscordMarkdownCharacterCount.configure({limit: EMBEDDABLE_DESCRIPTION}),
 		],
+		shouldRerenderOnTransaction: true,
 		content: form.values.description,
 		onUpdate: ({editor}) => {
 			setIsUpdateFromEditor(true);
@@ -92,7 +92,8 @@ export function EventDescription(): JSX.Element {
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
 							<RichTextEditor.Control onClick={() => editor?.chain().focus().toggleSmall().run()}
-													active={editor?.isActive('small')} title={t('editor.control.small')}>
+													active={editor?.isActive('small')}
+													title={t('editor.control.small')}>
 								<FontAwesomeIcon icon={faComment} size={'xs'}/>
 							</RichTextEditor.Control>
 						</RichTextEditor.ControlsGroup>
@@ -105,15 +106,15 @@ export function EventDescription(): JSX.Element {
 							<RichTextEditor.Redo/>
 						</RichTextEditor.ControlsGroup>
 					</RichTextEditor.Toolbar>
-					{editor && <BubbleMenu editor={editor}>
-                        <RichTextEditor.ControlsGroup>
-                            <RichTextEditor.Bold/>
-                            <RichTextEditor.Italic/>
-                            <RichTextEditor.Underline/>
-                            <RichTextEditor.Strikethrough/>
-                        </RichTextEditor.ControlsGroup>
-                    </BubbleMenu>}
-					{editor && (
+					{editor && <>
+						<BubbleMenu editor={editor}>
+							<RichTextEditor.ControlsGroup>
+								<RichTextEditor.Bold/>
+								<RichTextEditor.Italic/>
+								<RichTextEditor.Underline/>
+								<RichTextEditor.Strikethrough/>
+							</RichTextEditor.ControlsGroup>
+						</BubbleMenu>
 						<FloatingMenu editor={editor}>
 							<RichTextEditor.ControlsGroup>
 								<RichTextEditor.H1/>
@@ -121,25 +122,25 @@ export function EventDescription(): JSX.Element {
 								<RichTextEditor.H3/>
 							</RichTextEditor.ControlsGroup>
 						</FloatingMenu>
-					)}
+					</>}
 					<RichTextEditor.Content/>
 				</RichTextEditor>
 			</Input.Wrapper>
 
 			<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
 				{editor?.isFocused &&
-                    <CounterBadge currentValue={editor?.storage.characterCount.characters()}
-                                  maxValue={EMBEDDABLE_DESCRIPTION}/>
+					<CounterBadge currentValue={editor.storage.characterCount.characters()}
+								  maxValue={EMBEDDABLE_DESCRIPTION}/>
 				}
 				{useEventAction().editMode &&
-                    <Box ml={'auto'}>
-                        <ScrollAffix show={form.isDirty('description')}>
-                            <PulsatingButton onClick={() => mutate()}
-                                             disabled={!form.isDirty('description') || !!form.errors.description}>
-                                <T k={'action.save'}/>
-                            </PulsatingButton>
-                        </ScrollAffix>
-                    </Box>
+					<Box ml={'auto'}>
+						<ScrollAffix show={form.isDirty('description')}>
+							<PulsatingButton onClick={() => mutate()}
+											 disabled={!form.isDirty('description') || !!form.errors.description}>
+								<T k={'action.save'}/>
+							</PulsatingButton>
+						</ScrollAffix>
+					</Box>
 				}
 			</Group>
 		</>

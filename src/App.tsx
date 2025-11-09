@@ -4,7 +4,7 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/spotlight/styles.css';
 import '@mantine/tiptap/styles.css';
-import 'mantine-react-table/styles.css';
+import 'mantine-react-table-open/styles.css';
 import './global.css';
 import {MantineProvider, Skeleton} from '@mantine/core';
 import {JSX, Suspense} from 'react';

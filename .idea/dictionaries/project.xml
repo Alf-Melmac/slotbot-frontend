@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="Alf">
+  <dictionary name="project">
     <words>
+      <w>affero</w>
       <w>arma</w>
       <w>eventkalender</w>
       <w>mantine</w>
@@ -10,8 +11,10 @@
       <w>modset</w>
       <w>noopener</w>
       <w>noreferrer</w>
+      <w>nosonar</w>
       <w>referenceless</w>
       <w>reservistenplätze</w>
+      <w>segoe</w>
       <w>slotbot</w>
       <w>slotlist</w>
       <w>slotliste</w>
@@ -19,6 +22,7 @@
       <w>slottungen</w>
       <w>steamid</w>
       <w>teilnahmeplatzaufzählung</w>
+      <w>tiptap</w>
       <w>unslot</w>
       <w>unslotting</w>
       <w>unstyled</w>

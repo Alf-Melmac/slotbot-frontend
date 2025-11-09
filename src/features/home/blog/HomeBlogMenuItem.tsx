@@ -26,6 +26,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		mutationFn: putBlogPostPin,
 		onSuccess: () => {
 			//Invalidate everything as we don't know if there was another one unpinned
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 		},
 	});
@@ -34,6 +35,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		mutationFn: putBlogPostUnpin,
 		onSuccess: () => {
 			//Invalidate everything as we don't know where to put the unpinned post
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 		},
 	});
@@ -42,6 +44,7 @@ export function HomeBlogMenuItem(props: Readonly<HomeBlogMenuItemProps>): JSX.El
 		mutationFn: deleteBlogPost,
 		onSuccess: () => {
 			//For the moment just invalidate everything. Optimistic updates are a bit more complicated
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['blogPosts']});
 		},
 	});

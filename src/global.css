@@ -1,5 +1,6 @@
 @font-face {
 	font-family: 'Roboto';
+	/*noinspection CssUnknownTarget*/
 	src: url('/fonts/Roboto-400.woff2') format('woff2');
 	font-weight: normal;
 	font-style: normal;
@@ -8,6 +9,7 @@
 
 @font-face {
 	font-family: 'Roboto';
+	/*noinspection CssUnknownTarget*/
 	src: url('/fonts/Roboto-700.woff2') format('woff2');
 	font-weight: bold;
 	font-style: normal;

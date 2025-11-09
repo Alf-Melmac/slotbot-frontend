@@ -22,6 +22,7 @@ export function RequirementsNotMet({requirementsNotMet}: Readonly<RequirementsNo
 		mutationFn: fulfillRequirement,
 		onSuccess: () => {
 			// Other events also have requirements, so we need to invalidate all of them
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['eventDetails']});
 			// Consider removing the now fulfilled requirement from all slots instead of invalidating the complete details
 		},

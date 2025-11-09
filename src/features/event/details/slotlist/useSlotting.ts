@@ -14,6 +14,7 @@ export function useSlotting(id: SlotTextProps['slot']['id']) {
 		onSuccess: (data: EventDetailsDto) => {
 			queryClient.setQueryData(['eventDetails', eventId.toString()], data);
 			setPendingSlotting(false);
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['action-logs', eventId]});
 		},
 		onError: errorNotification,

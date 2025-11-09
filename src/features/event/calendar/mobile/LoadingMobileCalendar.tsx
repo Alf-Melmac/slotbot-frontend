@@ -27,7 +27,6 @@ export function LoadingMobileCalendar({animated}: Readonly<LoadingCalendarProps>
 
 function MobileViewLoading(props: Readonly<Parameters<typeof sliceEvents>[0]>): JSX.Element {
 	const days = dayjsRange(currentDay.startOf('week'), currentDay.endOf('week'));
-	console.log(currentDay.startOf('week'), currentDay.endOf('week'), days);
 	return <Tabs variant={'pills'} classNames={{list: classes.list}}>
 		<Tabs.List>
 			{days.map(day => {

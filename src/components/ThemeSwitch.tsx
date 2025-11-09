@@ -1,28 +1,9 @@
-import {ActionIcon, Menu, useMantineColorScheme} from '@mantine/core';
+import {Menu, useMantineColorScheme} from '@mantine/core';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {T} from './T';
 import {JSX} from 'react';
 import classes from './ThemeSwitch.module.css';
-
-export function ThemeSwitch(): JSX.Element {
-	const {colorScheme, toggleColorScheme} = useMantineColorScheme();
-	const dark = colorScheme === 'dark';
-
-	return (
-		<ActionIcon
-			variant={'outline'}
-			color={dark ? 'yellow' : 'blue'}
-			onClick={() => toggleColorScheme()}
-		>
-			{dark ? (
-				<LightThemeIcon size={'lg'}/>
-			) : (
-				<DarkThemeIcon size={'lg'}/>
-			)}
-		</ActionIcon>
-	);
-}
 
 export function ThemeSwitchAsMenuItem(): JSX.Element {
 	const {colorScheme, toggleColorScheme} = useMantineColorScheme();

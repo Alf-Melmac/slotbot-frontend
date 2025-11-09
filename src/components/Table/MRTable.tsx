@@ -1,4 +1,4 @@
-import {MantineReactTable, MRT_TableOptions} from 'mantine-react-table';
+import {MantineReactTable, MRT_TableOptions} from 'mantine-react-table-open';
 import {PartialExcept} from '../../utils/typesHelper';
 import {JSX} from 'react';
 

@@ -8,9 +8,10 @@ import {EventWizardProvider, useEventWizardForm} from '../../../contexts/event/a
 import {EventWizardSteps} from './EventWizardSteps';
 import {useEventCopy} from './useEventCopy';
 import {useTranslatedDocumentTitle} from '../../../hooks/useDocumentTitle';
-import {getTimeShort} from '../../../utils/dateHelper';
+import {getDate, getTimeShort} from '../../../utils/dateHelper';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
+import dayjs from 'dayjs';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -31,14 +32,14 @@ export default function EventWizard(): JSX.Element {
 
 	const [active, setActive] = useState(0);
 
-	const date = new Date();
+	const date = dayjs();
 	const {user} = useAuth();
 	const form = useEventWizardForm({
 		initialValues: {
 			hidden: false,
 			shareable: true,
 			name: '',
-			date: date,
+			date: getDate(date),
 			startTime: getTimeShort(date),
 			creator: user?.name ?? '',
 			// @ts-ignore No existing id

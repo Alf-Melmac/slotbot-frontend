@@ -6,6 +6,7 @@ export interface SmallOptions {
 }
 
 declare module '@tiptap/core' {
+	// noinspection JSUnusedGlobalSymbols
 	interface Commands<ReturnType> {
 		small: {
 			/**

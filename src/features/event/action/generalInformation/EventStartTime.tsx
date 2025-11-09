@@ -4,11 +4,12 @@ import {TimeInput} from '@mantine/dates';
 import {useDebouncedValue, usePrevious} from '@mantine/hooks';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventUpdate} from '../useEventUpdate';
-import {formatLocalDateTimeToUtcDate, getTimeShort} from '../../../../utils/dateHelper';
+import {formatLocalDateTimeToUtcDate, getDate, getTimeShort} from '../../../../utils/dateHelper';
 import {JSX, useEffect} from 'react';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {T} from '../../../../components/T';
 import {useLanguage} from '../../../../contexts/language/Language';
+import dayjs from 'dayjs';
 
 export function EventStartTime(): JSX.Element {
 	const form = useFormContext();
@@ -16,9 +17,9 @@ export function EventStartTime(): JSX.Element {
 	const [debounced] = useDebouncedValue(form.values.startTime, 1000);
 	const {mutate} = useEventUpdate({dateTime: formatLocalDateTimeToUtcDate(form.values.date, debounced)},
 		result => {
-			const date = new Date(result.dateTime);
-			form.setFieldValue('date', date);
-			form.setFieldValue('startTime', getTimeShort(date));
+			const dateTime = dayjs(result.dateTime);
+			form.setFieldValue('date', getDate(dateTime));
+			form.setFieldValue('startTime', getTimeShort(dateTime));
 		});
 	const previous = usePrevious(debounced);
 

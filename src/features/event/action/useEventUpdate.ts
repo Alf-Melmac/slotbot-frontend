@@ -23,6 +23,7 @@ export function useEventTextChange(formPath: string, value: string, onSuccess?: 
 			onSuccess?.(response[formPath]);
 			// @ts-ignore
 			successNotification(response[formPath]);
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['eventForEdit', eventId]});
 		},
 		onError: errorNotification,
@@ -38,8 +39,8 @@ export function useEventUpdate(data: Partial<EventUpdateDto>, onSuccess?: (saved
 	const {mutate} = useMutation<EventEditDto, AxiosError>({
 		mutationFn: postEventUpdate,
 		onSuccess: (response: EventEditDto) => {
+			queryClient.setQueryData(['eventForEdit', eventId], response);
 			const result = {...response, dateTime: convertUtcDateTimeToLocal(response.dateTime)};
-			queryClient.setQueryData(['eventForEdit', eventId], result);
 			onSuccess?.(result);
 			successNotification();
 		},

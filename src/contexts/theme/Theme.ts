@@ -1,8 +1,8 @@
-import {createTheme, MantineProviderProps, MantineThemeOverride, Portal, rem} from '@mantine/core';
+import {createTheme, MantineProviderProps, MantineThemeOverride, rem, Switch} from '@mantine/core';
 import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
-import {useGetGuild, Guild} from '../guildcontext/GuildContext';
+import {Guild, useGetGuild} from '../guildcontext/GuildContext';
 
 function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 	const {t} = useLanguage();
@@ -48,9 +48,9 @@ function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 			Container: {
 				defaultProps: {size: 'lg'},
 			},
-			Portal: Portal.extend({
+			Switch: Switch.extend({
 				defaultProps: {
-					reuseTargetNode: true,
+					withThumbIndicator: false,
 				},
 			}),
 			DateInput: {

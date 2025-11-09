@@ -19,6 +19,7 @@ export function GuildRolesSync(): JSX.Element {
 		mutationFn: putDiscordSync,
 		onSuccess: () => {
 			successNotification(<T k={'guild.config.roles.sync.submitted'}/>);
+			// noinspection JSIgnoredPromiseFromCall
 			queryClient.invalidateQueries({queryKey: ['guildUsers', guildId]});
 		},
 		onError: errorNotification,

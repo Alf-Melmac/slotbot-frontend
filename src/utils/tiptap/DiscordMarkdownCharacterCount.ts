@@ -1,5 +1,6 @@
-import {CharacterCount} from '@tiptap/extension-character-count';
+import {CharacterCount} from '@tiptap/extensions';
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * Counting characters using the {@link DiscordMarkdown} to calculate length
  */
