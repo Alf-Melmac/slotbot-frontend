@@ -21,5 +21,5 @@ export function RequireFeatureFlag(props: Readonly<RequireFeatureFlagProps>): Re
 	const {children, notEnabled, feature} = props;
 
 	const featureFlag = useRequireFeatureFlag(feature, children, notEnabled);
-	return featureFlag !== undefined ? featureFlag : <></>;
+	return featureFlag === undefined ? <></> : featureFlag;
 }

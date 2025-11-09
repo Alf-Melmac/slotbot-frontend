@@ -14,7 +14,7 @@ export function useGetFeatureFlags() {
  * Not complete list of available feature flags
  */
 export enum FeatureFlag {
-	REQUIREMENTS = 'REQUIREMENTS',
+	FEATURE_FLAG = 'FEATURE_FLAG',
 }
 
 export type MaybeFeatureFlag = FeatureFlag | string;

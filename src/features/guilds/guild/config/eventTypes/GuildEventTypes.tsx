@@ -9,8 +9,6 @@ import classes from './GuildEventTypes.module.css';
 import {LoadingRows} from '../../../../../components/Table/LoadingRows';
 import {faListCheck, faReceipt} from '@fortawesome/free-solid-svg-icons';
 import {EventDetailRequirementLists} from './requirementList/EventDetailRequirementLists';
-import {FeatureFlag} from '../../../../featureFlag/useGetFeatureFlags';
-import {RequireFeatureFlag} from '../../../../featureFlag/RequireFeatureFlag';
 import {useDisclosure} from '@mantine/hooks';
 import {EventTypeDto} from '../../../../event/eventTypes';
 import {EventDetailDefaultForm} from './eventDetailDefault/EventDetailDefaultForm';
@@ -52,10 +50,8 @@ export function GuildEventTypes(): JSX.Element {
 							<Table.Td>
 								<ActionIcon.Group>
 									<EventDetailDefault id={eventType.id} name={eventType.name}/>
-									<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
-										<EventDetailRequirements id={eventType.id} name={eventType.name}
-																 guild={eventType.guild}/>
-									</RequireFeatureFlag>
+									<EventDetailRequirements id={eventType.id} name={eventType.name}
+															 guild={eventType.guild}/>
 								</ActionIcon.Group>
 							</Table.Td>
 						</Table.Tr>

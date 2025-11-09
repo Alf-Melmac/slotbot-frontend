@@ -1,19 +1,16 @@
 import {JSX} from 'react';
-import {Button, Group, Modal, ModalProps, Stack, Tabs, Text, Title} from '@mantine/core';
+import {Box, Button, Modal, ModalProps} from '@mantine/core';
 import {T} from '../../T';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircleCheck, faCircleXmark} from '@fortawesome/free-regular-svg-icons';
 import classes from './FeaturePreview.module.css';
-import {FeatureFlag, MaybeFeatureFlag, useGetFeatureFlags} from '../../../features/featureFlag/useGetFeatureFlags';
-import slotbotServerClient from '../../../hooks/slotbotServerClient';
-import {UseMutateFunction, useMutation, useQueryClient} from '@tanstack/react-query';
+import {MaybeFeatureFlag} from '../../../features/featureFlag/useGetFeatureFlags';
+import {UseMutateFunction} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 import {AnchorBlank} from '../../Text/AnchorBlank';
 
 type FeaturePreviewProps = Pick<ModalProps, 'opened' | 'onClose'>;
 
 export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Element {
-	const featureQuery = useGetFeatureFlags();
+	/*const featureQuery = useGetFeatureFlags();
 
 	const queryClient = useQueryClient();
 	const toggleFeatureFlag = (feature: MaybeFeatureFlag) => slotbotServerClient.post('/feature-flags', feature, {headers: {'Content-Type': 'text/plain'}})
@@ -37,38 +34,38 @@ export function FeaturePreview(props: Readonly<FeaturePreviewProps>): JSX.Elemen
 	function leftSide(feature: MaybeFeatureFlag): JSX.Element {
 		return featureQuery.data?.includes(feature) ? <FontAwesomeIcon icon={faCircleCheck} color={'green'}/> :
 			<FontAwesomeIcon icon={faCircleXmark}/>;
-	}
+	}*/
 
 	return <Modal opened={props.opened} onClose={props.onClose} title={<T k={'userMenu.featurePreview'}/>}
 				  size={'xl'} classNames={{body: classes.card}}>
-		{featureQuery.isSuccess &&
-			<Tabs orientation={'vertical'} defaultValue={FeatureFlag.REQUIREMENTS}
+		<Box pl={'md'}>
+			Thanks for your interest. At the moment, there's no feature being tested. You can find the results of
+			previous trials at <AnchorBlank
+			href={'https://docs.slotbot.de/pers%C3%B6nliche-einstellungen/feature-vorschau'}>https://docs.slotbot.de/persönliche-einstellungen/feature-vorschau</AnchorBlank>
+		</Box>
+		{/*{featureQuery.isSuccess &&
+			<Tabs orientation={'vertical'} defaultValue={FeatureFlag.FEATURE_FLAG}
 				  classNames={{tabLabel: classes.tabLabel}}>
 				<Tabs.List>
-					<Tabs.Tab value={FeatureFlag.REQUIREMENTS}
-							  leftSection={leftSide(FeatureFlag.REQUIREMENTS)}>Requirements</Tabs.Tab>
+					<Tabs.Tab value={FeatureFlag.FEATURE_FLAG}
+							  leftSection={leftSide(FeatureFlag.FEATURE_FLAG)}>FEATURE_FLAG_NAME</Tabs.Tab>
 				</Tabs.List>
 
-				<Tabs.Panel value={FeatureFlag.REQUIREMENTS}>
+				<Tabs.Panel value={FeatureFlag.FEATURE_FLAG}>
 					<Stack p={'md'}>
 						<Group justify={'space-between'}>
-							<Title order={3}>Requirements</Title>
-							<FeatureToggle feature={FeatureFlag.REQUIREMENTS} featureFlags={featureQuery.data}
+							<Title order={3}>FEATURE_FLAG_NAME</Title>
+							<FeatureToggle feature={FeatureFlag.FEATURE_FLAG} featureFlags={featureQuery.data}
 										   mutate={mutate} isPending={isPending}/>
 						</Group>
 						<Text>
-							Requirements restrict the group of participants or indicate that a certain condition must be
-							met. Requirements are enabled for event types and can then be applied by the event creator
-							to entire events, squads or slots. For each requirement, you can decide whether attendees
-							can register without meeting the requirement, and whether attendees can choose to meet the
-							requirement independently.<br/>
-							To get started, go into your community settings and create the first requirement list.
+							FEATURE_FLAG_DESCRIPTION
 						</Text>
 						<AnchorBlank href={'https://discord.gg/HSkgZNhfNK'} size={'sm'}>Give Feedback</AnchorBlank>
 					</Stack>
 				</Tabs.Panel>
 			</Tabs>
-		}
+		}*/}
 	</Modal>;
 }
 

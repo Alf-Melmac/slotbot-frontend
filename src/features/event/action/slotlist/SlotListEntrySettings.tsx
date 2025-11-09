@@ -12,8 +12,6 @@ import {duplicateSlot, duplicateSquad} from './utils';
 import {useGetGuilds} from '../../../guilds/useGetGuilds';
 import {useGetEventTypeRequirements} from './useGetEventTypeRequirements';
 import {SlotListEntryRequirementSetting} from './SlotListEntryRequirementSetting';
-import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
-import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 
 export type SlotListEntrySettingsProps = {
 	entry: SlotListEntryModalHeaderModalHeaderProps['entry'];
@@ -34,12 +32,10 @@ export function SlotListEntrySettings(props: Readonly<SlotListEntrySettingsProps
 			   title={<SlotListEntryModalHeader entry={entry} isSlot={slot}/>}>
 			<Stack gap={'sm'}>
 				<SlotListEntryReservationSetting guildsQuery={guildsQuery} path={path} index={index} slot={slot}/>
-				<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
-					<SlotListEntryRequirementSetting requirementsQuery={requirementsQuery} path={path} index={index}
-													 slot={slot}/>
-				</RequireFeatureFlag>
+				<SlotListEntryRequirementSetting requirementsQuery={requirementsQuery} path={path} index={index}
+												 slot={slot}/>
 				{slot &&
-                    <SlotBlockedSetting path={path} index={index}/>
+					<SlotBlockedSetting path={path} index={index}/>
 				}
 			</Stack>
 		</Modal>

@@ -14,8 +14,6 @@ import {T} from '../../../../components/T';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
 import {EventRequirements} from './EventRequirements';
-import {FeatureFlag} from '../../../featureFlag/useGetFeatureFlags';
-import {RequireFeatureFlag} from '../../../featureFlag/RequireFeatureFlag';
 import {prepareForMutation} from './utils';
 import {PartialPick} from '../../../../utils/typesHelper';
 
@@ -67,20 +65,18 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 			</Group>
 		</Group>
 
-		<RequireFeatureFlag feature={FeatureFlag.REQUIREMENTS}>
-			<EventRequirements/>
-		</RequireFeatureFlag>
+		<EventRequirements/>
 
 		<SquadList/>
 		{editMode &&
-            <Group justify={'right'}>
-                <ScrollAffix show={slotListDirty()}>
-                    <PulsatingButton onClick={() => mutate()}
-                                     disabled={!slotListDirty() || squadListInvalid()}>
-                        <T k={'slotlist.save'}/>
-                    </PulsatingButton>
-                </ScrollAffix>
-            </Group>
+			<Group justify={'right'}>
+				<ScrollAffix show={slotListDirty()}>
+					<PulsatingButton onClick={() => mutate()}
+									 disabled={!slotListDirty() || squadListInvalid()}>
+						<T k={'slotlist.save'}/>
+					</PulsatingButton>
+				</ScrollAffix>
+			</Group>
 		}
 
 		<Checkbox label={<T k={'event.reserveParticipating'}/>} mt={'md'}
