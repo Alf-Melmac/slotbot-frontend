@@ -90,5 +90,5 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
  * getRelativeTimeInputFormatterTranslationOptions
  */
 function getOptions(value: string | undefined): TranslationOptions {
-	return {count: parseInt(value ?? '0')};
+	return {count: Number.parseInt(value ?? '0')};
 }

@@ -10,7 +10,7 @@ const slotbotServerClient = axios.create({
 slotbotServerClient.interceptors.response.use(
 	(response) => {
 		if (response.data === 'This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).') {
-			window.location.replace('/session-expired');
+			globalThis.location.replace('/session-expired');
 		}
 		return response;
 	},
@@ -19,10 +19,10 @@ slotbotServerClient.interceptors.response.use(
 			// The request was made and the server responded with a status code
 			// that falls out of the range of 2xx
 			if (error.response.status === 404) {
-				window.location.replace('/404');
+				globalThis.location.replace('/404');
 			}
 			if (error.response.status === 403) {
-				window.location.replace('/403');
+				globalThis.location.replace('/403');
 			}
 			console.error(error.response.data);
 			console.error(error.response.headers);

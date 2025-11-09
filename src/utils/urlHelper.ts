@@ -1,7 +1,7 @@
 export function getBackendUrl(): string {
-	let hostname = window.location.hostname;
+	let hostname = globalThis.location.hostname;
 	if (import.meta.env.DEV) {
 		hostname = `${hostname}:8090`;
 	}
-	return `${window.location.protocol}//${hostname}/backend`;
+	return `${globalThis.location.protocol}//${hostname}/backend`;
 }

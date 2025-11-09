@@ -30,13 +30,13 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 	}
 
 	if (!activePresent || active === 1) {
-		values.details.forEach((field, i) => {
+		for (const [i, field] of values.details.entries()) {
 			errors[`details.${i}.title`] = requiredFieldWithMaxLength(field.title, EMBEDDABLE_TITLE);
 			// noinspection SuspiciousTypeOfGuard Text may be boolean if using default field
 			if (typeof field.text === 'string') {
 				errors[`details.${i}.text`] = requiredFieldWithMaxLength(field.text, EMBEDDABLE_VALUE);
 			}
-		});
+		}
 		validateEmbedSize(values, errors);
 	}
 
@@ -58,10 +58,10 @@ function validateEmbedSize(values: EventActionFormType, errors: FormErrors): voi
 		const error = <T k={'validation.event.embedSize'} args={[EMBED, embedLength]}/>;
 		errors.name = error;
 		errors.description = error;
-		values.details.forEach((field, i) => {
+		for (let i = 0; i < values.details.length; i++){
 			errors[`details.${i}.title`] = error;
 			errors[`details.${i}.text`] = error;
-		});
+		}
 	}
 }
 
@@ -94,13 +94,13 @@ function reserveParticipatingFieldSize(reserveParticipating: EventActionFormType
 type SlotNumberValidationResult = Record<number, { path: string[], count: number }>;
 
 function validateSquadList(values: EventActionFormType, errors: FormErrors): void {
-	values.squadList.forEach((squad, squadIndex) => {
+	for (const [squadIndex, squad] of values.squadList.entries()) {
 		errors[`squadList.${squadIndex}.name`] = requiredFieldWithMaxLength(squad.name, TEXT);
-		squad.slotList.forEach((slot, slotIndex) => {
+		for (const [slotIndex, slot] of squad.slotList.entries()) {
 			errors[`squadList.${squadIndex}.slotList.${slotIndex}.name`] = requiredFieldWithMaxLength(slot.name, TEXT);
 			errors[`squadList.${squadIndex}.slotList.${slotIndex}.number`] =
 				validate(!Number.isSafeInteger(slot.number) || slot.number <= 0, <T k={'no'}/>);
-		});
+		}
 		const count = squad.slotList.reduce<SlotNumberValidationResult>((result, c, i) => ({
 			...result,
 			[c.number]: {
@@ -111,9 +111,9 @@ function validateSquadList(values: EventActionFormType, errors: FormErrors): voi
 		for (const key in count) {
 			const value = count[key];
 			if (value.count <= 1) continue;
-			value.path.forEach((path: string) => {
+			for (const path of value.path) {
 				errors[path] = <T k={'validation.ambiguous'}/>;
-			});
+			}
 		}
-	});
+	}
 }

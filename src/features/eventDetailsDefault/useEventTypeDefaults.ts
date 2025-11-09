@@ -43,13 +43,13 @@ export function useEventTypeDefaults(eventTypeId: EventTypeDto['id'] | undefined
 function buildDefaultFields(queryData: EventDetailDefaultDto[] | undefined, transformBooleanValues: boolean): EventDetailDefaultDto[] | undefined {
 	const defaultFields = queryData;
 	if (defaultFields) {
-		defaultFields.forEach(field => {
+		for (const field of defaultFields) {
 			replaceNullWithEmpty(field, ['text']);
 			if (transformBooleanValues && field.type === 'BOOLEAN') {
 				// Force boolean values for checkbox usage
 				replaceBooleanStringWithBoolean(field, 'text');
 			}
-		});
+		}
 	}
 	return defaultFields;
 }

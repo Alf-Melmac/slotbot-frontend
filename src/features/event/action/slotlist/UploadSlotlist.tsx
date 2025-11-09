@@ -50,12 +50,12 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 		},
 		onSuccess: squadList => {
 			//Align with manual creation
-			squadList.forEach(squad => {
+			for (const squad of squadList) {
 				squad.id = randomId();
 				if (squad.reservedFor === null) {
 					squad.reservedFor = '';
 				}
-				squad.slotList.forEach(slot => {
+				for (const slot of squad.slotList) {
 					slot.id = randomId();
 					if (slot.reservedFor === null) {
 						slot.reservedFor = '';
@@ -63,8 +63,8 @@ function SqmDropzone(props: Readonly<SqmDropzoneProps>): JSX.Element {
 					if (slot.replacementText === null) {
 						slot.replacementText = t('slot.blocked');
 					}
-				});
-			});
+				}
+			}
 			// @ts-ignore These can no longer be existing slots for editing. Therefore, the "new squad"-type can be forced
 			form.setFieldValue('squadList', squadList);
 			props.closeModal();

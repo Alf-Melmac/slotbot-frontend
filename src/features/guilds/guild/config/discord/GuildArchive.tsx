@@ -40,8 +40,8 @@ export function GuildArchive(props: Readonly<GuildConfigDto>): JSX.Element {
 	return (
 		<Select label={<T k={'guild.config.archive.label'}/>} placeholder={t('guild.config.archive.select')}
 				clearable searchable value={archive} onChange={setArchive}
-				error={archive && categories.find(category => category.textChannels
-					.find(textChannel => textChannel.id === archive) !== undefined) === undefined
+				error={archive && !categories.some(category => category.textChannels
+					.some(textChannel => textChannel.id === archive))
 					? t('guild.config.archive.error')
 					: undefined}
 				data={categories.map(category => ({

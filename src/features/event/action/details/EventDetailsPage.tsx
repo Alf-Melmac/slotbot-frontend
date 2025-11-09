@@ -17,10 +17,10 @@ export function EventDetailsPage(): JSX.Element {
 		<Group justify={'space-between'}>
 			<EventActionPageTitle title={'details'}/>
 			{defaultFields?.length &&
-                <Button variant={'light'} mb={'xs'} onClick={() => {
-					defaultFields.forEach(field => {
+				<Button variant={'light'} mb={'xs'} onClick={() => {
+					for (const field of defaultFields) {
 						form.insertListItem('details', {title: field.title, text: field.text, id: randomId()});
-					});
+					}
 				}
 				}><T k={'event.details.add.default'} args={[form.values.eventType.name]}/></Button>}
 		</Group>

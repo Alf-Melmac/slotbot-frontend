@@ -13,7 +13,9 @@ import {convertUtcToLocal, getDate, getTimeShort} from '../../../utils/dateHelpe
 export function convertDtoToFormEvent(dto: EventEditDto): EventEditFormType {
 	const {dateTime, requirements, squadList, ...eventDto} = dto;
 	handleNullForForm(eventDto);
-	eventDto.details.forEach(detail => replaceBooleanStringWithBoolean(detail, 'text'));
+	for (const detail of eventDto.details) {
+		replaceBooleanStringWithBoolean(detail, 'text');
+	}
 	const date = convertUtcToLocal(dateTime);
 	return {
 		...eventDto,

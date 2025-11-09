@@ -31,11 +31,15 @@ export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
 	useEffect(() => {
 		const data = query.data;
 		if (data) {
-			data.details.forEach(field => field.id = randomId());
-			data.squadList.forEach(squad => {
+			for (const field of data.details) {
+				field.id = randomId();
+			}
+			for (const squad of data.squadList) {
 				squad.id = randomId();
-				squad.slotList.forEach(slot => slot.id = randomId());
-			});
+				for (const slot of squad.slotList) {
+					slot.id = randomId();
+				}
+			}
 			if (user) {
 				data.creator = user.name;
 			}

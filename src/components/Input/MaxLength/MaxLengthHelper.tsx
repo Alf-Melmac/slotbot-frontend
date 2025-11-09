@@ -7,7 +7,7 @@ type InputProps = TextInputProps | TextareaProps;
 export function MaxLengthHelper(maxLength: number | undefined, value: string, props: InputProps): any {
 	const [showRightSection, setShowRightSection] = useState(false);
 	if (!maxLength) {
-		throw Error('MaxLength is missing.');
+		throw new Error('MaxLength is missing.');
 	}
 
 	// noinspection UnnecessaryLocalVariableJS Want to type the variable. Any is required for the usages

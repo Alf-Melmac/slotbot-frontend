@@ -19,7 +19,7 @@ import {GuildDiscordIntegrationConfig} from './discord/GuildDiscordIntegrationCo
 export default function GuildConfig(): JSX.Element {
 	const setTitle = useDynamicDocumentTitleForItem('documentTitle.edit.item', 'documentTitle.guild');
 	const {guildId} = useParams<GuildPageParams>();
-	if (!guildId) throw Error('Invalid state: Guild id required');
+	if (!guildId) throw new Error('Invalid state: Guild id required');
 
 	const {data: guild, isError: isGuildError} = useGetGuild(guildId);
 	useEffect(() => {

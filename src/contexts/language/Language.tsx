@@ -102,9 +102,9 @@ export function LanguageProvider(props: Readonly<PropsWithChildren>): JSX.Elemen
  */
 function resolvePlaceholders(str: string, args: (string | number)[]): string {
 	let newString = str;
-	args.forEach((arg, index) => {
+	for (const [index, arg] of args.entries()) {
 		newString = newString.replace(`{${index}}`, arg.toString());
-	});
+	}
 	return newString;
 }
 

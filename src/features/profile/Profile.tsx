@@ -11,7 +11,7 @@ import {JSX} from 'react';
 export default function Profile(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.profile');
 	const {userId} = useParams<ProfilePageParams>();
-	if (!userId) throw Error('Invalid state: User id required');
+	if (!userId) throw new Error('Invalid state: User id required');
 
 	const getProfileInfo = () => slotbotServerClient.get(`/user/${userId}`).then((res) => res.data);
 	const query = useQuery<UserProfileDto, Error>({

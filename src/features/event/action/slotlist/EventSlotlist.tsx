@@ -38,7 +38,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 
 	// @ts-ignore Only during edit mode
 	const squadList = prepareForMutation(form.values.squadList);
-	const {mutate} = useEventUpdate({squadList, requirements: form.values.requirements.map(r => parseInt(r))},
+	const {mutate} = useEventUpdate({squadList, requirements: form.values.requirements.map(r => Number.parseInt(r))},
 		result => {
 			const convertedResult = convertDtoToFormEvent(result);
 			// @ts-ignore SquadList matches here

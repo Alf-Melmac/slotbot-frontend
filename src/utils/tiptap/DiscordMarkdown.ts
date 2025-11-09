@@ -33,12 +33,12 @@ function toMarkdown(editor: Editor): string {
 
 function fragmentToMarkdown(parent: Node): string {
 	let fragment = '';
-	parent.content.forEach((node, i) => {
+	parent.content.forEach((node) => {
 		if (node.type.name === Text.name) {
 			let item = node.text;
 			if (item === undefined) return;
 			item = escape(item);
-			node.marks.forEach((mark) => {
+			for (const mark of node.marks) {
 				if (mark.type.name === Underline.name) {
 					item = `__${item}__`;
 				} else if (mark.type.name === Bold.name) {
@@ -48,7 +48,7 @@ function fragmentToMarkdown(parent: Node): string {
 				} else if (mark.type.name === Strike.name) {
 					item = `~~${item}~~`;
 				}
-			});
+			}
 			fragment += item;
 		} else if (node.type.name === ListItem.name) {
 			if (parent.type.name === BulletList.name) {
@@ -65,9 +65,9 @@ function fragmentToMarkdown(parent: Node): string {
 }
 
 function escape(text: string): string {
-	return text.replace(/([*_`~\\])/g, '\\$1')
-		.replace(/^((?:#+|-|-#)\s)/g, '\\$1')
-		.replace(/^(\d)(\.\s)/g, '$1\\\\$2');
+	return text.replaceAll(/([*_`~\\])/g, String.raw`\$1`)
+		.replaceAll(/^((?:#+|-|-#)\s)/g, String.raw`\$1`)
+		.replaceAll(/^(\d)(\.\s)/g, String.raw`$1\$2`);
 }
 
 type DiscordMarkdownStorage = {

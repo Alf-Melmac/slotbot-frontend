@@ -27,7 +27,7 @@ export function ActionLog({eventId}: Readonly<ActionLogProps>): JSX.Element {
 
 	if (isLoading) {
 		return <Stack gap={'xs'}>
-			{[...Array(6)].map((_, i) => <DelayedSkeleton h={28} key={i}/>)}
+			{new Array(6).map((_, i) => <DelayedSkeleton h={28} key={i}/>)}
 		</Stack>;
 	}
 

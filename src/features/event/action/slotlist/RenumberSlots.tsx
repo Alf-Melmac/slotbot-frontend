@@ -12,10 +12,11 @@ export function RenumberSlots(): JSX.Element {
 			const formSquadList = form.values['squadList'];
 			if (isEmpty(formSquadList)) return;
 			let num = 1;
-			formSquadList.forEach(squad => squad.slotList.forEach(slot => {
-				slot.number = num;
-				num++;
-			}));
+			for (const squad of formSquadList) {
+				for (const slot of squad.slotList) {
+					slot.number = num++;
+				}
+			}
 			// @ts-ignore Just changed a parameter field of the same object...
 			form.setFieldValue('squadList', formSquadList);
 		}}><T k={'slotlist.renumber'}/></Button>

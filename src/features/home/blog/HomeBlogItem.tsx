@@ -83,18 +83,18 @@ export function HomeBlogItem(props: Readonly<HomeBlogItemProps>): JSX.Element {
                     <Text size={'sm'}><T k={'home.blog.pinned'}/></Text>
                 </Group>
 			}
-			{!editMode ?
+			{editMode ?
+				<BlogPostInput content={post.content}
+							   onSave={mutate} isSaving={isPending}
+							   onCancel={() => setEditMode(false)}/>
+				:
 				<>
 					{isAdmin &&
-                        <HomeBlogMenuItem post={post} show={!hovered && !focused} setEditMode={setEditMode}/>
+						<HomeBlogMenuItem post={post} show={!hovered && !focused} setEditMode={setEditMode}/>
 					}
 					<Text dangerouslySetInnerHTML={{__html: post.content}} ref={contentRef}/>
 					<Text c={'dimmed'} size={'sm'} ta={'end'}>{convertUtcToLocal(post.timestamp).format('L LT')}</Text>
 				</>
-				:
-				<BlogPostInput content={post.content}
-							   onSave={mutate} isSaving={isPending}
-							   onCancel={() => setEditMode(false)}/>
 			}
 		</Card>
 	);

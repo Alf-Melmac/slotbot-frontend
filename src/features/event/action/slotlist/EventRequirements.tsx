@@ -20,7 +20,7 @@ export function EventRequirements(): JSX.Element {
 			//Only keep requirements that are still available
 			form.setFieldValue('requirements', form.values.requirements.filter((requirement) => data
 				.some(requirementList => requirementList.requirements
-					.some(r => r.id === parseInt(requirement)))));
+					.some(r => r.id === Number.parseInt(requirement)))));
 		}
 	}, [data]);
 

@@ -17,7 +17,7 @@ export function GuildConfigLoading(): JSX.Element {
 				<T k={'configuration.description'}/>
 			</Box>
 
-			{[...Array(3)].map((_, i) => (
+			{new Array(3).map((_, i) => (
 				<ConfigItemLoading key={i}/>
 			))}
 		</DelayedVisible>

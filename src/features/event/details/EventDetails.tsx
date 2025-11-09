@@ -33,7 +33,7 @@ export function EventDetails(): JSX.Element {
 
 	const {t} = useLanguage();
 	const {eventId} = useParams<EventPageParams>();
-	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
+	if (!eventId) throw new Error(t('eventPage.error.missingEventId'));
 
 	const theme = useMantineTheme();
 	const {scrollIntoView: scrollToDescription, targetRef: descriptionRef} = useScrollIntoView<HTMLButtonElement>();

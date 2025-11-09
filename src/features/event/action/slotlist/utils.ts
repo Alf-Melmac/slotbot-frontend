@@ -62,11 +62,11 @@ export function buildNewSlot(form: EventActionFormReturn): SlotDto {
  * @param additionalUsedSlotNumbers Additional slot numbers that should be considered as used
  */
 function findFirstUnusedSlotNumber(squadList: EventActionFormType['squadList'], additionalUsedSlotNumbers: number[] = []): number {
-	const slotNumbers = squadList.flatMap((squad => squad.slotList.map(slot => slot.number)))
-		.concat(additionalUsedSlotNumbers)
-		.sort((a, b) => a - b);
+	const slotNumbers = new Set(
+		squadList.flatMap((squad => squad.slotList.map(slot => slot.number)))
+			.concat(additionalUsedSlotNumbers));
 	let slotNumber = 1;
-	while (slotNumbers.includes(slotNumber)) {
+	while (slotNumbers.has(slotNumber)) {
 		slotNumber++;
 	}
 	return slotNumber;
@@ -87,10 +87,10 @@ export function prepareForMutation(squadList: EventEditFormType['squadList']): E
 	const filtered = filterFrontendIds<EventEditFormType['squadList'][number]>(squadList);
 	return filtered.map(squad => ({
 		...squad,
-		requirements: squad.requirements.map(r => parseInt(r)),
+		requirements: squad.requirements.map(r => Number.parseInt(r)),
 		slotList: squad.slotList.map(slot => ({
 			...slot,
-			requirements: slot.requirements.map(r => parseInt(r)),
+			requirements: slot.requirements.map(r => Number.parseInt(r)),
 		})),
 	}));
 }

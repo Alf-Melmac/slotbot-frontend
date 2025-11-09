@@ -21,7 +21,9 @@ export function SlotListEntryReservationSetting(props: Readonly<SlotListEntryRes
 	}
 
 	return (
-		!guildsQuery.data ?
+		guildsQuery.data ?
+			<SlotListEntryReservationSettingSelect {...props}/>
+			:
 			<>
 				<Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'}>
 					<T k={'slotlistEntry.settings.reservation.error'}/>
@@ -31,8 +33,6 @@ export function SlotListEntryReservationSetting(props: Readonly<SlotListEntryRes
 						placeholder={t('slotlistEntry.settings.reservation.placeholder')}
 						data={[]} disabled/>
 			</>
-			:
-			<SlotListEntryReservationSettingSelect {...props}/>
 	);
 }
 

@@ -38,7 +38,7 @@ export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 	const {roles} = integrationQuery.data;
 	return <Stack>
 		<GuildRolesPageWrapper
-			warning={!integrationQuery.data.allowedToManageRoles ? 'guild.config.role.noPermission' : undefined}>
+			warning={integrationQuery.data.allowedToManageRoles ? undefined : 'guild.config.role.noPermission'}>
 			<RoleSelect roleName={'member'} role={roleMember} setRole={setRoleMember} roles={roles}/>
 			<RoleSelect roleName={'eventManage'} role={roleEventManage} setRole={setRoleEventManage} roles={roles}/>
 			<RoleSelect roleName={'admin'} role={roleAdmin} setRole={setRoleAdmin} roles={roles}/>
@@ -75,7 +75,7 @@ function RoleSelect(props: Readonly<RoleSelectType>): JSX.Element {
 
 	return <Select label={<T k={`user.role.${roleName}`}/>} description={<T k={`user.role.${roleName}.description`}/>}
 				   placeholder={t('guild.config.role.select')} clearable searchable value={role} onChange={setRole}
-				   error={role && roles.find(roleItem => roleItem.id === role) === undefined ? t('guild.config.role.error') : undefined}
+				   error={role && !roles.some(roleItem => roleItem.id === role) ? t('guild.config.role.error') : undefined}
 				   data={roles.map(role => ({
 					   value: role.id,
 					   label: role.name,

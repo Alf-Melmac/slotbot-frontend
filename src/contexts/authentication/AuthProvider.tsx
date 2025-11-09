@@ -14,11 +14,11 @@ export function AuthProvider(props: Readonly<PropsWithChildren>): JSX.Element {
 	);
 
 	const login = () => {
-		window.location.href = `${getBackendUrl()}/login?redirectUrl=${window.location.pathname}`;
+		globalThis.location.href = `${getBackendUrl()}/login?redirectUrl=${globalThis.location.pathname}`;
 	};
 
 	const logout = () => {
-		window.location.href = `${getBackendUrl()}/logout`;
+		globalThis.location.href = `${getBackendUrl()}/logout`;
 	};
 
 	const value = useMemo((): AuthContextType => ({user, login, logout}), [user, login, logout]);

@@ -14,7 +14,7 @@ export default function EventEditPage(): JSX.Element {
 
 	const {t} = useLanguage();
 	const {eventId} = useParams<EventPageParams>();
-	if (!eventId) throw Error(t('eventPage.error.missingEventId'));
+	if (!eventId) throw new Error(t('eventPage.error.missingEventId'));
 
 	const {event, isLoading, error} = useFetchEventForEdit(eventId);
 	useEffect(() => {

@@ -76,9 +76,9 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 			slotbotServerClient.get(`/events/calendar${guildUrlPath}`, {params: {start, end}})
 				.then((res) => {
 					const data = res.data;
-					data.forEach((event: any) => {
+					for (const event of data) {
 						event.start = `${event.start}Z`;
-					});
+					}
 					successCallback(data);
 				})
 				.catch(failureCallback);

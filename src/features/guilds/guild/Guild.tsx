@@ -20,7 +20,7 @@ import {faArrowUpRightFromSquare, faGear} from '@fortawesome/free-solid-svg-icon
 export function Guild(): JSX.Element {
 	const setTitle = useDynamicDocumentTitle('documentTitle.guild');
 	const {guildId} = useParams<GuildPageParams>();
-	if (!guildId) throw Error('Invalid state: Guild id required');
+	if (!guildId) throw new Error('Invalid state: Guild id required');
 
 	const {data: guild, isLoading, isError} = useGetGuild(guildId);
 	useEffect(() => {
@@ -46,7 +46,7 @@ export function Guild(): JSX.Element {
 		},
 	];
 
-	const guildUrl = guild.baseUrl ? guild.baseUrl : `${window.location.origin}${guildCalendarPath}`;
+	const guildUrl = guild.baseUrl ? guild.baseUrl : `${globalThis.location.origin}${guildCalendarPath}`;
 
 	return (
 		<>

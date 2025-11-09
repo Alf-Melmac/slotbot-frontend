@@ -195,7 +195,7 @@ function IconUploadFormInput(props: Readonly<IconUploadFormInputProps>): JSX.Ele
 
 	return <FileInput label={<T k={label}/>}
 					  accept={'image/*'}
-					  value={_value !== null ? data : undefined}
+					  value={_value === null ? undefined : data}
 					  valueComponent={RequirementImage}
 					  onChange={file => file ? mutate(file) : handleChange(null)}
 					  placeholder={<FontAwesomeIcon icon={faImage}/>}

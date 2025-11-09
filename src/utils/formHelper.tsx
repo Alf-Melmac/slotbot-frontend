@@ -77,7 +77,9 @@ export function filterFrontendIds<Field extends FrontendIdDto | IdEntity>(list: 
 }
 
 function removeFrontendIds(list: any[]): void {
-	list.forEach(removeFrontendId);
+	for (const element of list) {
+		removeFrontendId(element);
+	}
 }
 
 export function removeFrontendIdsFromElement<Field extends FrontendIdDto>(element: Field): Field {
