@@ -1,10 +1,10 @@
 import {Bold} from '../../../components/Text/Bold';
-import {Badge, Group, Image, Stack, Text, useMantineTheme} from '@mantine/core';
+import {Badge, Group, Stack, Text} from '@mantine/core';
 import {T} from '../../../components/T';
 import {JSX} from 'react';
 import {CalendarEventDto} from '../eventTypes';
-import {GuildDto} from '../../guilds/guildTypes';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
+import {OwnerGuild} from '../OwnerGuild';
 
 type EventTooltipProps = Pick<CalendarEventDto, 'title' | 'eventType' | 'ownerGuild' | 'shortInformation'>;
 
@@ -20,7 +20,7 @@ export function EventTooltip(props: Readonly<EventTooltipProps>): JSX.Element {
 			{!guild &&
 				<Group gap={4}>
 					<T k={'organizedBy'}/>
-					<OwnerGuild {...ownerGuild}/>
+					<OwnerGuild guild={ownerGuild} link={false}/>
 				</Group>
 			}
 			<Text><Text fw={emptySlotsCount > 0 ? 'bold' : ''} span>{emptySlotsCount}/{slotCount}</Text> <T
@@ -30,19 +30,4 @@ export function EventTooltip(props: Readonly<EventTooltipProps>): JSX.Element {
 			{missionLength && <Text><Bold span>Dauer:</Bold> {missionLength}</Text>}
 		</Stack>
 	);
-}
-
-function OwnerGuild({groupIdentifier, emojiUrl}: Readonly<GuildDto>): JSX.Element {
-	const theme = useMantineTheme();
-
-	return <Text c={theme.black}>
-		{emojiUrl ?
-			<Group gap={4}>
-				<Image src={emojiUrl} w={theme.fontSizes.lg}/>
-				{groupIdentifier}
-			</Group>
-			:
-			<Text mx={4}>{groupIdentifier}</Text>
-		}
-	</Text>;
 }

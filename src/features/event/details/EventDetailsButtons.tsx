@@ -19,7 +19,7 @@ type EventDetailsButtonsProps = EventDetail['event'];
 export function EventDetailsButtons({
 										id: eventId,
 										name,
-										ownerGuildIdentifier,
+										ownerGuild: {groupIdentifier: ownerGuildIdentifier},
 									}: Readonly<EventDetailsButtonsProps>): JSX.Element {
 	const eventManage = useCheckAccess(ApplicationRoles.ROLE_EVENT_MANAGE, undefined, eventId);
 	const admin = useCheckAccess(ApplicationRoles.ROLE_ADMIN, undefined, eventId);

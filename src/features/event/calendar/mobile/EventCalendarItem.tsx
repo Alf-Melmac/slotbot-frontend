@@ -1,28 +1,14 @@
 import {EventRenderRange} from '@fullcalendar/core';
 import {JSX} from 'react';
 import {FullCalendarEventType} from '../EventCalendar';
-import {
-	ActionIcon,
-	Badge,
-	Button,
-	Card,
-	Grid,
-	Group,
-	Image,
-	Progress,
-	Stack,
-	Text,
-	Title,
-	Tooltip,
-	useMantineTheme,
-} from '@mantine/core';
+import {Badge, Button, Card, Grid, Group, Progress, Stack, Text, Title, Tooltip} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClock, faHourglassEnd, faMagnifyingGlass, faUsers} from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
 import {T} from '../../../../components/T';
 import {Link} from 'react-router';
-import {GuildDto} from '../../../guilds/guildTypes';
 import {useGuildContext} from '../../../../contexts/guildcontext/GuildContext';
+import {OwnerGuild} from '../../OwnerGuild';
 
 export function EventCalendarItem(props: Readonly<EventRenderRange>): JSX.Element {
 	const {def: event, range} = props;
@@ -61,7 +47,7 @@ export function EventCalendarItem(props: Readonly<EventRenderRange>): JSX.Elemen
 							<Tooltip label={<T k={'organizedBy'}/>}>
 								<FontAwesomeIcon icon={faUsers}/>
 							</Tooltip>
-							<OwnerGuild {...ownerGuild}/>
+							<OwnerGuild guild={ownerGuild}/>
 						</Group>
 					}
 					<Badge autoContrast color={eventType.color}>{eventType.name}</Badge>
@@ -92,19 +78,4 @@ export function EventCalendarItem(props: Readonly<EventRenderRange>): JSX.Elemen
 			</Button>
 		</Stack>
 	</Card>;
-}
-
-function OwnerGuild({id, groupIdentifier, emojiUrl}: Readonly<GuildDto>): JSX.Element {
-	const theme = useMantineTheme();
-
-	return <ActionIcon color={theme.colors.dark[0]} variant={'subtle'} component={Link} to={`/guilds/${id}`} w={'auto'}>
-		{emojiUrl ?
-			<Group gap={4}>
-				<Image src={emojiUrl} w={theme.fontSizes.lg}/>
-				{groupIdentifier}
-			</Group>
-			:
-			<Text mx={4}>{groupIdentifier}</Text>
-		}
-	</ActionIcon>;
 }

@@ -7,6 +7,7 @@ import {EventDetail} from '../EventFetcher';
 import classes from './EventDetailsHeader.module.css';
 import {EventDescription} from './EventDescription';
 import {EventDetailsButtons} from './EventDetailsButtons';
+import {OwnerGuild} from '../OwnerGuild';
 
 type EventDetailsHeaderProps = EventDetail & {
 	descriptionRef: RefObject<HTMLButtonElement | null>;
@@ -57,7 +58,13 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 				</Grid.Col>
 			</Grid>
 
-			<Text size={'xs'} mt={4}><T k={'event.details.creator'}/> <em>{event.creator}</em></Text>
+			<Group gap={4} mt={4}>
+				<Text size={'sm'}><T k={'event.details.creator'}/> <em>{event.creator}</em>.</Text>
+				<Group gap={4}>
+					<Text size={'sm'}><T k={'organizedBy'}/></Text>
+					<OwnerGuild guild={event.ownerGuild} size={'sm'}/>
+				</Group>
+			</Group>
 		</>
 	);
 }

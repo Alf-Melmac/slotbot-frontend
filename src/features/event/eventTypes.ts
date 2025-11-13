@@ -5,7 +5,7 @@ import {RequirementListDto} from '../guilds/guild/config/requirement/requirement
 //region event details
 export interface EventDetailsDto extends AbstractIdEntityDto {
 	hidden: boolean;
-	ownerGuildIdentifier: string;
+	ownerGuild: GuildDto;
 	missionType: string;
 	eventType: EventTypeDto;
 	pictureUrl: string;
