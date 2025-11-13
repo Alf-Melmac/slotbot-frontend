@@ -15,10 +15,12 @@ import {AddButton} from '../../../components/Button/AddButton';
 import {AnchorBlank} from '../../../components/Text/AnchorBlank';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons';
+import {useIsGerman} from '../../../contexts/language/Language';
 
 export function Events(): JSX.Element {
 	useTranslatedDocumentTitle('documentTitle.events');
 	const {guild, guildUrlPath} = useGuildContext();
+	const isGerman = useIsGerman();
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [animated, setAnimated] = useState(true);
@@ -29,7 +31,9 @@ export function Events(): JSX.Element {
 		</Center>
 
 		{!guild &&
-			<AnchorBlank href={'https://docs.slotbot.de/jetzt-starten'} size={'lg'} maw={'max-content'}>
+			<AnchorBlank
+				href={isGerman ? 'https://docs.slotbot.de/jetzt-starten' : 'https://docs.slotbot.de/en/getting-started'}
+				size={'lg'} maw={'max-content'}>
 				<Group gap={6} wrap={'nowrap'}>
 					<FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
 					<Text><T k={'calendar.gettingStarted'}/></Text>
