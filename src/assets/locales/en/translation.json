@@ -168,6 +168,7 @@
   "guild.config.roles.description": "Configure the synchronisation of member roles with Discord roles. This means that adding or removing a configured Discord role will update the permissions in the member list. The same applies vice versa: adjusting the roles in the member list will also update the Discord roles. If no role is configured for members, they remain part of the community even if other roles are removed. Otherwise, they are removed.",
   "guild.config.roles.sync": "Synchronize members",
   "guild.config.roles.sync.description": "Imports the current status of roles in Discord. Especially useful if roles have been newly added or changed here.",
+  "guild.config.roles.sync.noAdminRole": "As there is no configured admin role, all administrators will retain their roles during synchronisation, thus preventing a total loss of access to the community. You can manage the role assignments yourself in the member overview.<br/>Please note that administrators may still lose their roles when adding or removing one of the other configured roles. Please consider whether you want to take this risk.",
   "guild.config.roles.sync.submitted": "Synchronisation has started. Depending on the size of the community, this process may take a moment.",
   "guild.manage": "Manage community",
   "guild.requirementList": "Requirement",

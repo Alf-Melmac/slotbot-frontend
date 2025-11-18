@@ -168,6 +168,7 @@
   "guild.config.roles.description": "Konfiguriere die Synchronisierung der Mitgliederrollen mit den Discord-Rollen. Das bedeutet, dass das Hinzufügen oder Entfernen von konfigurierten Discord-Rollen die Rechte in der Mitgliederliste verändert. Gleiches gilt umgekehrt: Werden die Rollen in der Mitgliederliste angepasst, werden auch die Discord-Rollen aktualisiert. Wenn für Mitglieder keine Rolle konfiguriert ist, bleiben sie Teil der Community, auch wenn andere Rollen entfernt werden. Ansonsten werden sie entfernt.",
   "guild.config.roles.sync": "Mitglieder synchronisieren",
   "guild.config.roles.sync.description": "Übernimmt den aktuellen Stand der Rollen in Discord. Besonders nützlich, wenn hier Rollen neu hinzugefügt oder verändert wurden.",
+  "guild.config.roles.sync.noAdminRole": "Da keine Admin-Rolle konfiguriert ist, behalten alle Administratoren während der Synchronisation ihre Rolle, um einen vollständigen Verlust des Zugriffs auf die Community zu verhindern. In der Mitgliederübersicht kannst du die Rollenzuordnungen selbst verwalten.<br/>Hinweis: Beim Hinzufügen oder Entfernen einer der anderen konfigurierten Rollen können Administratoren dennoch ihre Rolle verlieren. Bitte prüfe, ob du dieses Risiko eingehen möchtest.",
   "guild.config.roles.sync.submitted": "Die Synchronisierung wurde gestartet. Je nach Größe der Community kann dieser Vorgang einen Moment dauern.",
   "guild.manage": "Community verwalten",
   "guild.requirementList": "Voraussetzung",

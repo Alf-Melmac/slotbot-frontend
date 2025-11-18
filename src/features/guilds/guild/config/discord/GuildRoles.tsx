@@ -44,7 +44,7 @@ export function GuildRoles(props: Readonly<GuildConfigDto>): JSX.Element {
 			<RoleSelect roleName={'admin'} role={roleAdmin} setRole={setRoleAdmin} roles={roles}/>
 		</GuildRolesPageWrapper>
 		{(roleMember || roleEventManage || roleAdmin) &&
-            <GuildRolesSync/>
+            <GuildRolesSync hasAdminRole={!!roleAdmin}/>
 		}
 	</Stack>;
 }
