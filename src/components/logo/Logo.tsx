@@ -3,7 +3,9 @@ import ambLogo from './amb-256-256.png';
 import daaLogo from './daa-full-crop.gif';
 import daaLogoTransparent from './daa-full-crop-transparent.gif';
 import tttLogo from './slotbot_ttt-logo-black.png';
+import tttLogoWinter from './slotbot_ttt-logo-winter-black.png';
 import tttLogoWhite from './slotbot_ttt-logo-white.png';
+import tttLogoWinterWhite from './slotbot_ttt-logo-winter-white.png';
 import gtoLogo from './gto_unit_logo.png';
 import defaultLogo from '/slotbot-256-256.png?url'; //NOSONAR typescript:S6859 - need the url import
 import {Guild, useGetGuild} from '../../contexts/guildcontext/GuildContext';
@@ -68,9 +70,12 @@ function useGetInfo(): LogoInfo {
 		}
 		case Guild.TTT: {
 			const colorScheme = useComputedColorScheme();
+			const isWinter = isWinterSeason();
 			return {
 				title: 'Tactical Training Team',
-				logo: colorScheme === 'dark' ? tttLogoWhite : tttLogo,
+				logo: colorScheme === 'dark'
+					? isWinter ? tttLogoWinterWhite : tttLogoWhite
+					: isWinter ? tttLogoWinter : tttLogo,
 				logoWithName: true,
 			};
 		}
@@ -87,4 +92,16 @@ function useGetInfo(): LogoInfo {
 				logo: defaultLogo,
 			};
 	}
+}
+
+/**
+ * Returns true if today is between November 24th and January 6th (inclusive)
+ */
+function isWinterSeason(): boolean {
+	const today = new Date();
+	const month = today.getMonth();
+	const day = today.getDate();
+
+	// Avoid creating two separate date objects and compare month and day directly
+	return (month === 10 && day >= 24) || (month === 11) || (month === 0 && day <= 6);
 }
