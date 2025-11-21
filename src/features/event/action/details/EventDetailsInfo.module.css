@@ -1,0 +1,15 @@
+.content {
+	& > div {
+		/*https://github.com/mantinedev/mantine/blob/v7/packages/%40mantine/core/src/components/Input/Input.module.css*/
+		--input-bg: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+
+		background-color: var(--input-bg);
+		min-height: var(--input-size);
+		line-height: var(--input-size); /*line-height is too small*/
+		font-size: var(--input-fz, var(--input-fz, var(--mantine-font-size-sm)));
+		padding-inline-start: var(--input-padding-inline-start) !important;
+		padding-inline-end: var(--input-padding-inline-end) !important;
+		padding-top: var(--input-padding-y, 0rem) !important;
+		padding-bottom: var(--input-padding-y, 0rem) !important;
+	}
+}

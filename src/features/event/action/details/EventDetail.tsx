@@ -8,6 +8,7 @@ import {EventActionFormType, useFormContext} from '../../../../contexts/event/ac
 import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {JSX} from 'react';
+import {EventDetailsInfo} from './EventDetailsInfo';
 
 type EventDetailProps = {
 	item: EventActionFormType['details'][number];
@@ -37,9 +38,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 		const booleanInputProps = form.getInputProps(`details.${index}.text`, {type: 'checkbox'});
 		text = <Checkbox flex={1} indeterminate={booleanInputProps.checked === ''} {...booleanInputProps}/>;
 	} else { // Default and type TEXT
-		text = <EventActionTextInput inputProps={staticInputProps}
-									 formPath={`details.${index}.text`}
-									 overrideFormContextEditMode={editMode}/>;
+		text = <EventDetailsInfo inputProps={staticInputProps} formPath={`details.${index}.text`}/>;
 	}
 
 	return (
