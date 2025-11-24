@@ -21,6 +21,7 @@ import {Link} from 'react-router';
 import {AnchorBlank} from '../Text/AnchorBlank';
 import {faCopyright} from '@fortawesome/free-regular-svg-icons';
 import {PUBLISHER} from '../PageFooter/PageFooter';
+import {useGuildContext} from '../../contexts/guildcontext/GuildContext';
 
 export function NavMenu(): JSX.Element {
 	const {t} = useLanguage();
@@ -42,11 +43,15 @@ export function NavMenu(): JSX.Element {
 }
 
 function MainMenu({setShowLanguageMenu}: Readonly<LanguageMenuProps>): JSX.Element {
+	const {guildUrlPath} = useGuildContext();
+
 	return <>
-		<Menu.Item leftSection={<FontAwesomeIcon icon={faCalendarDay}/>} hiddenFrom={'xs'}>
+		<Menu.Item leftSection={<FontAwesomeIcon icon={faCalendarDay}/>} hiddenFrom={'xs'}
+				   component={Link} to={`/events/calendar${guildUrlPath}`}>
 			<T k={'nav.calendar'}/>
 		</Menu.Item>
-		<Menu.Item leftSection={<FontAwesomeIcon icon={faUsers}/>} hiddenFrom={'xs'}>
+		<Menu.Item leftSection={<FontAwesomeIcon icon={faUsers}/>} hiddenFrom={'xs'}
+				   component={Link} to={'/guilds'}>
 			<T k={'nav.guilds'}/>
 		</Menu.Item>
 
