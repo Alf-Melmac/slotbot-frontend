@@ -53,7 +53,7 @@
     "mantine-flagpack": "^4.1.1",
     "mantine-react-table-open": "^8.0.4",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.2.1",
     "react-router": "^7.9.6"
   },
   "scripts": {
