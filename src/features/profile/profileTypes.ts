@@ -14,7 +14,7 @@ interface LastEventInfo extends AbstractIdEntityDto {
 }
 
 export interface UserOwnProfileDto {
-	steamId64?: string;
+	steamId64: string | null;
 	notificationSettings: NotificationSettingDto[];
 	externalCalendarIntegrationActive: boolean;
 	icsCalendarUrl: string;

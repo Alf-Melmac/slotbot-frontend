@@ -322,5 +322,6 @@
   "validation.maxLength": "Nicht länger als {0} Zeichen",
   "validation.onlyFuture": "Muss in der Zukunft liegen",
   "validation.required": "Pflichtfeld",
+  "validation.steamId": "Steams 64 bit ID ist eine 17-stellige Zahl",
   "validation.url": "Muss eine gültige http(s) oder attachment URL sein"
 }
