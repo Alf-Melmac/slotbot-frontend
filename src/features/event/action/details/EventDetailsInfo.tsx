@@ -32,13 +32,16 @@ type EventDetailsInfoInputProps = {
 type EventDetailsInfoProps = {
 	inputProps: EventDetailsInfoInputProps;
 	formPath: string;
+	/** Forces edit mode in form context **/
+	overrideFormContextEditMode?: boolean;
 };
 
 export function EventDetailsInfo({
 									 inputProps: {placeholder, maxLength, flex},
 									 formPath,
+									 overrideFormContextEditMode = false,
 								 }: Readonly<EventDetailsInfoProps>): JSX.Element {
-	const form = useFormContext();
+	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);
 
 	const {t} = useLanguage();
@@ -78,7 +81,7 @@ export function EventDetailsInfo({
 						<RichTextEditor.Italic/>
 						<RichTextEditor.Underline/>
 						<RichTextEditor.Strikethrough/>
-						<RTEControlSmall editor={editor}/>
+						<RTEControlSmall/>
 					</RichTextEditor.ControlsGroup>
 				</BubbleMenu>}
 				<RichTextEditor.Content/>

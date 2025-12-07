@@ -49,7 +49,7 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 
 function validateEmbedSize(values: EventActionFormType, errors: FormErrors): void {
 	const embedLength =
-		//Title + Description + eventTypeName + " Mission von " + creator
+		//Title + Description + eventTypeName + " Mission von " + creator TODO tiptap description
 		length(values.name) + length(values.description) + length(values.eventType.name) + 13 + length(values.creator) +
 		values.details.map(detailsFieldTextLength).reduce((previous, current) => previous + current, 0) +
 		//"Zeitplan" + Datum + " Uhr" + (" und dauert " + missionLength) + ("Missionstyp" + missionType) + #reserveParticipatingFieldSize
@@ -78,7 +78,7 @@ function detailsFieldTextLength(field: EventActionFormType['details'][number]): 
 	} else if (field.text === 'false' || field.text === false) {
 		fieldLength += 4; //"Nein"
 	} else {
-		fieldLength += length(field.text); //Currently this doesn't respect auto generated links
+		fieldLength += length(field.text); //TODO tiptap markdown
 	}
 	return fieldLength;
 }

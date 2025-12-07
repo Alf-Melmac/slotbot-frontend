@@ -50,7 +50,9 @@ export function EventDetailDefaultForm({id, onSuccess}: Readonly<EventDetailDefa
 	const {query, defaultFields} = useEventTypeDefaultsForGuild(id, guildId);
 	if (query.isLoading) return <Skeleton height={90}/>;
 
-	return <Form defaultFields={defaultFields as unknown as EventDetailDefaultPostDto[]} id={id} onSuccess={onSuccess}/>;
+	return <Form defaultFields={defaultFields as unknown as EventDetailDefaultPostDto[]}
+				 id={id}
+				 onSuccess={onSuccess}/>;
 }
 
 type FormProps = EventDetailDefaultFormProps & {
@@ -69,7 +71,7 @@ export function Form(props: Readonly<FormProps>): JSX.Element {
 		validate: {
 			fields: {
 				title: requiredFieldWithMaxLength(EMBEDDABLE_TITLE),
-				text: maxLengthField(EMBEDDABLE_VALUE),
+				text: maxLengthField(EMBEDDABLE_VALUE), /*TODO tiptap markdown*/
 				selection: (value, values, path) => {
 					//path is fields.INDEX.selection
 					const index = Number(path.split('.').at(-2));
@@ -176,16 +178,17 @@ function OneDefault(props: Readonly<{
 			{isBooleanField ?
 				<Input.Wrapper label={<T k={'event.details.default.standard'}/>} flex={1}
 							   className={classes.segmentedControlWrapper}>
-					<SegmentedControl data={[
-						{label: <T k={'event.details.default.type.boolean.yes'}/>, value: 'true'},
-						{label: <T k={'event.details.default.type.boolean.no'}/>, value: 'false'},
-						{label: <T k={'event.details.default.type.boolean.none'}/>, value: ''},
-					]}
-									  {...form.getInputProps(`fields.${index}.text`)}
-									  key={form.key(`fields.${index}.text`)}/>
+					<SegmentedControl
+						data={[
+							{label: <T k={'event.details.default.type.boolean.yes'}/>, value: 'true'},
+							{label: <T k={'event.details.default.type.boolean.no'}/>, value: 'false'},
+							{label: <T k={'event.details.default.type.boolean.none'}/>, value: ''},
+						]}
+						{...form.getInputProps(`fields.${index}.text`)}
+						key={form.key(`fields.${index}.text`)}/>
 				</Input.Wrapper>
 				:
-				<TextInput label={<T k={'event.details.default.standard'}/>} flex={1}
+				<TextInput label={<T k={'event.details.default.standard'}/>} flex={1} /*TODO tiptap*/
 						   {...form.getInputProps(`fields.${index}.text`)}
 						   key={form.key(`fields.${index}.text`)}/>
 			}
@@ -197,13 +200,13 @@ function OneDefault(props: Readonly<{
 		</Group>
 
 		{showSelection &&
-            <TagsInput
-                label={<T k={'event.details.default.selection'}/>}
-                description={<T k={'event.details.default.selection.description'}/>}
-                ml={'xl'}
-                required
+			<TagsInput
+				label={<T k={'event.details.default.selection'}/>}
+				description={<T k={'event.details.default.selection.description'}/>}
+				ml={'xl'}
+				required
 				{...form.getInputProps(`fields.${index}.selection`)}
-                key={form.key(`fields.${index}.selection`)}/>
+				key={form.key(`fields.${index}.selection`)}/>
 		}
 	</>;
 }

@@ -75,69 +75,67 @@ export function EventDescription(): JSX.Element {
 
 	const {mutate} = useEventTextChange('description', form.values.description, () => form.resetDirty());
 
-	return (
-		<>
-			<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
-				<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
-					<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
+	return <>
+		<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
+			<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
+				<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.Bold/>
+						<RichTextEditor.Italic/>
+						<RichTextEditor.Underline/>
+						<RichTextEditor.Strikethrough/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.H1/>
+						<RichTextEditor.H2/>
+						<RichTextEditor.H3/>
+						<RTEControlSmall/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.BulletList/>
+						<RichTextEditor.OrderedList/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup ml={'auto'}>
+						<RichTextEditor.Undo/>
+						<RichTextEditor.Redo/>
+					</RichTextEditor.ControlsGroup>
+				</RichTextEditor.Toolbar>
+				{editor && <>
+					<BubbleMenu editor={editor}>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.Bold/>
 							<RichTextEditor.Italic/>
 							<RichTextEditor.Underline/>
 							<RichTextEditor.Strikethrough/>
 						</RichTextEditor.ControlsGroup>
+					</BubbleMenu>
+					<FloatingMenu editor={editor}>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
-							<RTEControlSmall editor={editor}/>
 						</RichTextEditor.ControlsGroup>
-						<RichTextEditor.ControlsGroup>
-							<RichTextEditor.BulletList/>
-							<RichTextEditor.OrderedList/>
-						</RichTextEditor.ControlsGroup>
-						<RichTextEditor.ControlsGroup ml={'auto'}>
-							<RichTextEditor.Undo/>
-							<RichTextEditor.Redo/>
-						</RichTextEditor.ControlsGroup>
-					</RichTextEditor.Toolbar>
-					{editor && <>
-						<BubbleMenu editor={editor}>
-							<RichTextEditor.ControlsGroup>
-								<RichTextEditor.Bold/>
-								<RichTextEditor.Italic/>
-								<RichTextEditor.Underline/>
-								<RichTextEditor.Strikethrough/>
-							</RichTextEditor.ControlsGroup>
-						</BubbleMenu>
-						<FloatingMenu editor={editor}>
-							<RichTextEditor.ControlsGroup>
-								<RichTextEditor.H1/>
-								<RichTextEditor.H2/>
-								<RichTextEditor.H3/>
-							</RichTextEditor.ControlsGroup>
-						</FloatingMenu>
-					</>}
-					<RichTextEditor.Content/>
-				</RichTextEditor>
-			</Input.Wrapper>
+					</FloatingMenu>
+				</>}
+				<RichTextEditor.Content/>
+			</RichTextEditor>
+		</Input.Wrapper>
 
-			<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
-				{editor?.isFocused &&
-					<CounterBadge currentValue={editor.storage.characterCount.characters()}
-								  maxValue={EMBEDDABLE_DESCRIPTION}/>
-				}
-				{useEventAction().editMode &&
-					<Box ml={'auto'}>
-						<ScrollAffix show={form.isDirty('description')}>
-							<PulsatingButton onClick={() => mutate()}
-											 disabled={!form.isDirty('description') || !!form.errors.description}>
-								<T k={'action.save'}/>
-							</PulsatingButton>
-						</ScrollAffix>
-					</Box>
-				}
-			</Group>
-		</>
-	);
+		<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
+			{editor?.isFocused &&
+				<CounterBadge currentValue={editor.storage.characterCount.characters()}
+							  maxValue={EMBEDDABLE_DESCRIPTION}/>
+			}
+			{useEventAction().editMode &&
+				<Box ml={'auto'}>
+					<ScrollAffix show={form.isDirty('description')}>
+						<PulsatingButton onClick={() => mutate()}
+										 disabled={!form.isDirty('description') || !!form.errors.description}>
+							<T k={'action.save'}/>
+						</PulsatingButton>
+					</ScrollAffix>
+				</Box>
+			}
+		</Group>
+	</>;
 }

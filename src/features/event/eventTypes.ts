@@ -27,8 +27,7 @@ export interface EventTypeDto extends AbstractIdEntityDto {
 
 export interface EventFieldReferencelessDto extends AbstractIdEntityDto {
 	title: string;
-	text: string;
-	link: string;
+	textAsHtml: string;
 }
 
 interface EventDetailsSquadDto extends AbstractIdEntityDto {

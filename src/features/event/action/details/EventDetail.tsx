@@ -38,7 +38,8 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 		const booleanInputProps = form.getInputProps(`details.${index}.text`, {type: 'checkbox'});
 		text = <Checkbox flex={1} indeterminate={booleanInputProps.checked === ''} {...booleanInputProps}/>;
 	} else { // Default and type TEXT
-		text = <EventDetailsInfo inputProps={staticInputProps} formPath={`details.${index}.text`}/>;
+		text = <EventDetailsInfo inputProps={staticInputProps} formPath={`details.${index}.text`}
+								 overrideFormContextEditMode={editMode}/>;
 	}
 
 	return (
