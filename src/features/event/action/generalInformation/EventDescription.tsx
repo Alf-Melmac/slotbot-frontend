@@ -28,8 +28,7 @@ import {useEventAction} from '../../../../contexts/event/action/EventActionConte
 import {validate} from '../../../../utils/formHelper';
 import {BulletList, ListItem, ListKeymap, OrderedList} from '@tiptap/extension-list';
 import {Small} from '../../../../utils/tiptap/Small';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faComment} from '@fortawesome/free-regular-svg-icons';
+import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
@@ -91,11 +90,7 @@ export function EventDescription(): JSX.Element {
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
-							<RichTextEditor.Control onClick={() => editor?.chain().focus().toggleSmall().run()}
-													active={editor?.isActive('small')}
-													title={t('editor.control.small')}>
-								<FontAwesomeIcon icon={faComment} size={'xs'}/>
-							</RichTextEditor.Control>
+							<RTEControlSmall editor={editor}/>
 						</RichTextEditor.ControlsGroup>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.BulletList/>

@@ -1,24 +1,27 @@
 import {JSX} from 'react';
-import {BubbleMenu, useEditor} from '@tiptap/react';
+import {useEditor} from '@tiptap/react';
+import {BubbleMenu} from '@tiptap/react/menus';
 import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
 import {Bold} from '@tiptap/extension-bold';
 import {Italic} from '@tiptap/extension-italic';
 import {Underline} from '@tiptap/extension-underline';
 import {Strike} from '@tiptap/extension-strike';
-import {Placeholder} from '@tiptap/extension-placeholder';
-import {History} from '@tiptap/extension-history';
+import {Placeholder, UndoRedo} from '@tiptap/extensions';
 import {DiscordMarkdown} from '../../../../utils/tiptap/DiscordMarkdown';
 import {DiscordMarkdownCharacterCount} from '../../../../utils/tiptap/DiscordMarkdownCharacterCount';
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {Input} from '@mantine/core';
-import {Link, RichTextEditor} from '@mantine/tiptap';
+import {RichTextEditor} from '@mantine/tiptap';
 import {Paragraph} from '@tiptap/extension-paragraph';
 import classes from './EventDetailsInfo.module.css';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {T} from '../../../../components/T';
 import {requiredField, validate} from '../../../../utils/formHelper';
+import {Small} from '../../../../utils/tiptap/Small';
+import {HardBreak} from '@tiptap/extension-hard-break';
+import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
 
 type EventDetailsInfoInputProps = {
 	placeholder: TextKey;
@@ -44,16 +47,18 @@ export function EventDetailsInfo({
 			Document,
 			Text,
 			Paragraph,
+			HardBreak,
 			Bold,
 			Italic,
 			Underline,
 			Strike,
-			Link,
+			Small,
 			Placeholder.configure({placeholder: t(placeholder)}),
-			History,
+			UndoRedo,
 			DiscordMarkdown,
 			DiscordMarkdownCharacterCount.configure({limit: maxLength}),
 		],
+		shouldRerenderOnTransaction: true,
 		content: formInputProps.value,
 		onUpdate: ({editor}) => {
 			form.setFieldValue(formPath, editor.getHTML());
@@ -68,20 +73,20 @@ export function EventDetailsInfo({
 			<RichTextEditor editor={editor} withCodeHighlightStyles={false} variant={'subtle'}
 							classNames={{content: classes.content}}>
 				{editor && <BubbleMenu editor={editor}>
-                    <RichTextEditor.ControlsGroup>
-                        <RichTextEditor.Bold/>
-                        <RichTextEditor.Italic/>
-                        <RichTextEditor.Underline/>
-                        <RichTextEditor.Strikethrough/>
-                        <RichTextEditor.Link/>
-                    </RichTextEditor.ControlsGroup>
-                </BubbleMenu>}
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.Bold/>
+						<RichTextEditor.Italic/>
+						<RichTextEditor.Underline/>
+						<RichTextEditor.Strikethrough/>
+						<RTEControlSmall editor={editor}/>
+					</RichTextEditor.ControlsGroup>
+				</BubbleMenu>}
 				<RichTextEditor.Content/>
 			</RichTextEditor>
 		</Input.Wrapper>
 
 		{editor?.isFocused &&
-            <CounterBadge currentValue={editor?.storage.characterCount.characters()} maxValue={maxLength}/>
+			<CounterBadge currentValue={editor.storage.characterCount.characters()} maxValue={maxLength}/>
 		}
 	</>;
 }
