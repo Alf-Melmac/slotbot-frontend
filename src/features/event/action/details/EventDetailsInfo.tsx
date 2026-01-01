@@ -13,7 +13,7 @@ import {DiscordMarkdownCharacterCount} from '../../../../utils/tiptap/DiscordMar
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
 import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {Input} from '@mantine/core';
-import {RichTextEditor} from '@mantine/tiptap';
+import {Link, RichTextEditor} from '@mantine/tiptap';
 import {Paragraph} from '@tiptap/extension-paragraph';
 import classes from './EventDetailsInfo.module.css';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
@@ -56,6 +56,7 @@ export function EventDetailsInfo({
 			Underline,
 			Strike,
 			Small,
+			Link,
 			Placeholder.configure({placeholder: t(placeholder)}),
 			UndoRedo,
 			DiscordMarkdown,
@@ -82,6 +83,7 @@ export function EventDetailsInfo({
 						<RichTextEditor.Underline/>
 						<RichTextEditor.Strikethrough/>
 						<RTEControlSmall/>
+						<RichTextEditor.Link/>
 					</RichTextEditor.ControlsGroup>
 				</BubbleMenu>}
 				<RichTextEditor.Content/>

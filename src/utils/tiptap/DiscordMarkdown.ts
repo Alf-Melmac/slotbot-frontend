@@ -9,6 +9,7 @@ import {Strike} from '@tiptap/extension-strike';
 import {BulletList, ListItem, OrderedList} from '@tiptap/extension-list';
 import {Node} from 'prosemirror-model';
 import {Small} from './Small';
+import {Link} from '@mantine/tiptap';
 
 /**
  * Converts the editor content to discord markdown, closely matching the backend implementation
@@ -47,6 +48,8 @@ function fragmentToMarkdown(parent: Node): string {
 					item = `*${item}*`;
 				} else if (mark.type.name === Strike.name) {
 					item = `~~${item}~~`;
+				} else if (mark.type.name === Link.name) {
+					item = `[${item}](${mark.attrs.href})`;
 				}
 			}
 			fragment += item;
