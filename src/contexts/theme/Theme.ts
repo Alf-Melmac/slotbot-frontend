@@ -82,6 +82,8 @@ function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 						undoControlLabel: t('editor.control.undo'),
 						redoControlLabel: t('editor.control.redo'),
 						linkEditorInputLabel: t('editor.linkEditor.inputLabel'),
+						linkEditorExternalLink: t('editor.linkEditor.openInNewTab'),
+						linkEditorInternalLink: t('editor.linkEditor.openInSameTab'),
 						linkEditorSave: t('action.save'),
 					} as RichTextEditorLabels,
 				},
