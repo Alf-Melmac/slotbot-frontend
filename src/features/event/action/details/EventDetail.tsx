@@ -9,6 +9,7 @@ import {useEventFieldDefaultsContext} from '../../../../contexts/event/EventFiel
 import {EventActionAutocomplete} from '../EventActionAutocomplete';
 import {JSX} from 'react';
 import {EventDetailsInfo} from './EventDetailsInfo';
+import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
 type EventDetailProps = {
 	item: EventActionFormType['details'][number];
@@ -42,6 +43,13 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 								 overrideFormContextEditMode={editMode}/>;
 	}
 
+	const {removeDetailsItem} = useCharacterCountCache();
+
+	function handleRemove() {
+		form.removeListItem('details', index);
+		removeDetailsItem(index);
+	}
+
 	return (
 		<Group>
 			<EventActionProvider editMode={false}>
@@ -53,7 +61,7 @@ export function EventDetail(props: Readonly<EventDetailProps>): JSX.Element {
 
 				{text}
 
-				<ActionIcon color={'gray'} variant={'subtle'} onClick={() => form.removeListItem('details', index)}>
+				<ActionIcon color={'gray'} variant={'subtle'} onClick={handleRemove}>
 					<FontAwesomeIcon icon={faTrashCan}/>
 				</ActionIcon>
 			</EventActionProvider>

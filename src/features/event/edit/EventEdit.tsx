@@ -13,6 +13,10 @@ import {eventActionValidate} from '../action/validation';
 import {EventEditDto} from '../eventTypes';
 import {JSX} from 'react';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
+import {
+	CharacterCountCacheProvider,
+	useCharacterCountCache,
+} from '../../../contexts/event/action/CharacterCountCacheContext';
 
 type EventEditProps = EventPageParams & {
 	event: EventEditFormType;
@@ -20,7 +24,7 @@ type EventEditProps = EventPageParams & {
 }
 
 export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
-	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
+	const {event, eventId} = props;
 	const {guildUrlPath} = useGuildContext();
 
 	const breadcrumbItems = [
@@ -38,9 +42,22 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 			title: 'action.edit',
 		}];
 
+	return <>
+		<Breadcrumb items={breadcrumbItems}/>
+		<CharacterCountCacheProvider>
+			<EventEditFormWrapper {...props}/>
+		</CharacterCountCacheProvider>
+	</>;
+}
+
+function EventEditFormWrapper(props: Readonly<EventEditProps>): JSX.Element {
+	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
+	const {cache} = useCharacterCountCache();
+	console.log(cache);
+
 	const form = useEventEditForm({
 		initialValues: event,
-		validate: (values) => eventActionValidate(values),
+		validate: (values) => eventActionValidate(values, cache),
 		validateInputOnChange: true,
 	});
 
@@ -48,8 +65,6 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 	const ownerGuild: EventEditDto['ownerGuild'] = (event as unknown as EventEditDto).ownerGuild;
 	return (
 		<EventEditProvider form={form} eventId={eventId} ownerGuild={ownerGuild}>
-			<Breadcrumb items={breadcrumbItems}/>
-
 			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
 
 			<Divider my={'lg'}/>

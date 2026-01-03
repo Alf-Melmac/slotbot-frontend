@@ -28,10 +28,11 @@ export type BaseItem = {
 type SortableListProps<T extends BaseItem> = {
 	formPath: string;
 	renderItem: (item: T, index: number) => JSX.Element;
+	onReorder?: (fromIndex: number, toIndex: number) => void;
 } & Pick<SortableItemProps, 'itemProps' | 'iconProps'>;
 
 export function SortableList<T extends BaseItem>(props: Readonly<SortableListProps<T>>): JSX.Element {
-	const {formPath, renderItem, ...sortableItemProps} = props;
+	const {formPath, renderItem, onReorder, ...sortableItemProps} = props;
 	const form = useFormContext();
 	const formValues: T[] = form.getInputProps(formPath).value;
 
@@ -50,6 +51,7 @@ export function SortableList<T extends BaseItem>(props: Readonly<SortableListPro
 			const newIndex = formValues.findIndex(({id}) => id === over.id);
 
 			form.reorderListItem(formPath, {from: oldIndex, to: newIndex});
+			onReorder?.(oldIndex, newIndex);
 		}
 	}
 

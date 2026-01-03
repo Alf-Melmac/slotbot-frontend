@@ -17,11 +17,10 @@ import {Link, RichTextEditor} from '@mantine/tiptap';
 import {Paragraph} from '@tiptap/extension-paragraph';
 import classes from './EventDetailsInfo.module.css';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
-import {T} from '../../../../components/T';
-import {requiredField, validate} from '../../../../utils/formHelper';
 import {Small} from '../../../../utils/tiptap/Small';
 import {HardBreak} from '@tiptap/extension-hard-break';
 import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
+import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
 type EventDetailsInfoInputProps = {
 	placeholder: TextKey;
@@ -43,6 +42,7 @@ export function EventDetailsInfo({
 								 }: Readonly<EventDetailsInfoProps>): JSX.Element {
 	const form = useFormContext(overrideFormContextEditMode ? true : undefined);
 	const formInputProps = form.getInputProps(formPath);
+	const {setCharacterCount} = useCharacterCountCache();
 
 	const {t} = useLanguage();
 	const editor = useEditor({
@@ -64,11 +64,15 @@ export function EventDetailsInfo({
 		],
 		shouldRerenderOnTransaction: true,
 		content: formInputProps.value,
+		onCreate: ({editor}) => {
+			// Initialize cache
+			setCharacterCount(formPath, editor.storage.characterCount.characters());
+		},
 		onUpdate: ({editor}) => {
 			form.setFieldValue(formPath, editor.getHTML());
-			const characters = editor.storage.characterCount.characters();
-			form.setFieldError(formPath, requiredField(characters, () => validate(characters > maxLength,
-				<T k={'validation.maxLength'} args={[maxLength]}/>)));
+
+			// Update cache
+			setCharacterCount(formPath, editor.storage.characterCount.characters());
 		},
 	});
 

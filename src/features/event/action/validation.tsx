@@ -3,16 +3,18 @@ import {
 	colorField,
 	length,
 	maxLengthField,
+	requiredField,
 	requiredFieldWithMaxLength,
 	urlField,
 	validate,
 } from '../../../utils/formHelper';
-import {EMBED, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT} from '../../../utils/maxLength';
+import {EMBED, EMBEDDABLE_DESCRIPTION, EMBEDDABLE_TITLE, EMBEDDABLE_VALUE, TEXT} from '../../../utils/maxLength';
 import {EventActionFormType} from '../../../contexts/event/action/EventActionFormContext';
 import dayjs from 'dayjs';
 import {T} from '../../../components/T';
+import {CharacterCountCache} from '../../../contexts/event/action/CharacterCountCacheContext';
 
-export const eventActionValidate = (values: EventActionFormType, active?: number) => {
+export const eventActionValidate = (values: EventActionFormType, characterCountCache: CharacterCountCache, active?: number) => {
 	const activePresent = active != undefined;
 	let errors: FormErrors = {};
 	if (!activePresent || active === 0) {
@@ -22,11 +24,13 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
 			'eventType.color': colorField(values.eventType.color),
+			description: validate(characterCountCache.description > EMBEDDABLE_DESCRIPTION,
+				<T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>),
 			missionType: maxLengthField(values.missionType, TEXT),
 			missionLength: maxLengthField(values.missionLength, TEXT),
 			pictureUrl: urlField(values.pictureUrl),
 		};
-		validateEmbedSize(values, errors);
+		validateEmbedSize(values, errors, characterCountCache);
 	}
 
 	if (!activePresent || active === 1) {
@@ -34,10 +38,12 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 			errors[`details.${i}.title`] = requiredFieldWithMaxLength(field.title, EMBEDDABLE_TITLE);
 			// noinspection SuspiciousTypeOfGuard Text may be boolean if using default field
 			if (typeof field.text === 'string') {
-				errors[`details.${i}.text`] = requiredFieldWithMaxLength(field.text, EMBEDDABLE_VALUE);
+				const characters = characterCountCache.details[i] ?? length(field.text);
+				errors[`details.${i}.text`] = requiredField(characters, () => validate(characters > EMBEDDABLE_VALUE,
+					<T k={'validation.maxLength'} args={[EMBEDDABLE_VALUE]}/>));
 			}
 		}
-		validateEmbedSize(values, errors);
+		validateEmbedSize(values, errors, characterCountCache);
 	}
 
 	if (!activePresent || active === 2) {
@@ -47,18 +53,18 @@ export const eventActionValidate = (values: EventActionFormType, active?: number
 	return errors;
 };
 
-function validateEmbedSize(values: EventActionFormType, errors: FormErrors): void {
+function validateEmbedSize(values: EventActionFormType, errors: FormErrors, characterCountCache: CharacterCountCache): void {
 	const embedLength =
-		//Title + Description + eventTypeName + " Mission von " + creator TODO tiptap description
-		length(values.name) + length(values.description) + length(values.eventType.name) + 13 + length(values.creator) +
-		values.details.map(detailsFieldTextLength).reduce((previous, current) => previous + current, 0) +
+		//Title + Description + eventTypeName + " Mission von " + creator
+		length(values.name) + characterCountCache.description + length(values.eventType.name) + 13 + length(values.creator) +
+		values.details.map((detail, i) => detailsFieldTextLength(detail, i, characterCountCache)).reduce((previous, current) => previous + current, 0) +
 		//"Zeitplan" + Datum + " Uhr" + (" und dauert " + missionLength) + ("Missionstyp" + missionType) + #reserveParticipatingFieldSize
 		8 + 16 + 4 + ifPresentAddLength(values.missionLength, 12) + ifPresentAddLength(values.missionType, 11) + reserveParticipatingFieldSize(values.reserveParticipating);
 	if (embedLength > EMBED) {
 		const error = <T k={'validation.event.embedSize'} args={[EMBED, embedLength]}/>;
 		errors.name = error;
 		errors.description = error;
-		for (let i = 0; i < values.details.length; i++){
+		for (let i = 0; i < values.details.length; i++) {
 			errors[`details.${i}.title`] = error;
 			errors[`details.${i}.text`] = error;
 		}
@@ -69,7 +75,7 @@ function ifPresentAddLength(field: string, supplementaryText = 0): number {
 	return field ? length(field) + supplementaryText : 0;
 }
 
-function detailsFieldTextLength(field: EventActionFormType['details'][number]): number {
+function detailsFieldTextLength(field: EventActionFormType['details'][number], index: number, characterCountCache: CharacterCountCache): number {
 	let fieldLength = length(field.title);
 	// @ts-ignore Text may be boolean if using default field
 	if (field.text === 'true' || field.text === true) {
@@ -77,8 +83,9 @@ function detailsFieldTextLength(field: EventActionFormType['details'][number]): 
 		// @ts-ignore Text may be boolean if using default field
 	} else if (field.text === 'false' || field.text === false) {
 		fieldLength += 4; //"Nein"
-	} else {
-		fieldLength += length(field.text); //TODO tiptap markdown
+	} else if (typeof field.text === 'string') {
+		const cachedLength = characterCountCache.details[index];
+		fieldLength += cachedLength;
 	}
 	return fieldLength;
 }

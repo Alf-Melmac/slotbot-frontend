@@ -25,14 +25,15 @@ import {T} from '../../../../components/T';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
-import {validate} from '../../../../utils/formHelper';
 import {BulletList, ListItem, ListKeymap, OrderedList} from '@tiptap/extension-list';
 import {Small} from '../../../../utils/tiptap/Small';
 import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
+import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
 	const [isUpdateFromEditor, setIsUpdateFromEditor] = useState(false);
+	const {setCharacterCount} = useCharacterCountCache();
 
 	const {t} = useLanguage();
 	const editor = useEditor({
@@ -61,8 +62,9 @@ export function EventDescription(): JSX.Element {
 		onUpdate: ({editor}) => {
 			setIsUpdateFromEditor(true);
 			form.setFieldValue('description', editor.getHTML());
-			form.setFieldError('description', validate(editor.storage.characterCount.characters() > EMBEDDABLE_DESCRIPTION,
-				<T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>));
+
+			// Update cache
+			setCharacterCount('description', editor.storage.characterCount.characters());
 		},
 	});
 
