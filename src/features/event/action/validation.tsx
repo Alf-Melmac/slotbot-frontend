@@ -84,8 +84,7 @@ function detailsFieldTextLength(field: EventActionFormType['details'][number], i
 	} else if (field.text === 'false' || field.text === false) {
 		fieldLength += 4; //"Nein"
 	} else if (typeof field.text === 'string') {
-		const cachedLength = characterCountCache.details[index];
-		fieldLength += cachedLength;
+		fieldLength += characterCountCache.details[index] ?? length(field.text);
 	}
 	return fieldLength;
 }

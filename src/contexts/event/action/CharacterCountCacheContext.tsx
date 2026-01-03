@@ -5,11 +5,6 @@ export type CharacterCountCache = {
 	details: number[];
 };
 
-const EMPTY_CACHE: CharacterCountCache = {
-	description: 0,
-	details: [],
-};
-
 type CharacterCountCacheContextType = {
 	/**
 	 * Current character count cache
@@ -33,7 +28,10 @@ type CharacterCountCacheContextType = {
  * Cache character counts in event action forms for validation purposes
  */
 export function CharacterCountCacheProvider({children}: Readonly<PropsWithChildren>): JSX.Element {
-	const [cache, setCache] = useState<CharacterCountCache>(EMPTY_CACHE);
+	const [cache, setCache] = useState<CharacterCountCache>({
+		description: 0,
+		details: [],
+	});
 
 	const setCharacterCount = useCallback((path: string, count: number) =>
 		setCache((prevCache) => {
