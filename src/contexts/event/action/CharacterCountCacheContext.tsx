@@ -42,7 +42,6 @@ export function CharacterCountCacheProvider({children}: Readonly<PropsWithChildr
 				const index = Number(path.split('.')[1]);
 				newCache.details[index] = count;
 			}
-			console.log('Updating count from', prevCache, 'to', newCache, 'for path', path, 'with count', count);
 			return newCache;
 		}), []);
 
@@ -51,23 +50,17 @@ export function CharacterCountCacheProvider({children}: Readonly<PropsWithChildr
 			const details = [...prevCache.details];
 			const [movedItem] = details.splice(fromIndex, 1);
 			details.splice(toIndex, 0, movedItem);
-			const newCache = {
+			return {
 				...prevCache,
 				details,
 			};
-			console.log('Reordering cache from', prevCache, 'to', newCache, 'moving from', fromIndex, 'to', toIndex);
-			return newCache;
 		}), []);
 
 	const removeDetailsItem = useCallback((removedIndex: number) =>
-		setCache((prevCache) => {
-			const newCache = {
-				...prevCache,
-				details: prevCache.details.toSpliced(removedIndex, 1),
-			};
-			console.log('Updating cache from', prevCache, 'to', newCache, 'after removing index', removedIndex);
-			return newCache;
-		}), []);
+		setCache((prevCache) => ({
+			...prevCache,
+			details: prevCache.details.toSpliced(removedIndex, 1),
+		})), []);
 
 	const value = useMemo(() => ({
 		cache,

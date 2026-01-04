@@ -53,7 +53,6 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 function EventEditFormWrapper(props: Readonly<EventEditProps>): JSX.Element {
 	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
 	const {cache} = useCharacterCountCache();
-	console.log(cache);
 
 	const form = useEventEditForm({
 		initialValues: event,

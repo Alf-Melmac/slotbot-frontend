@@ -26,7 +26,6 @@ import {CounterBadge} from '../../../../../../components/Form/CounterBadge';
 export function EventDetailDefaultFormTextField({form, index}: Readonly<EventDetailDefaultFormItemProps>): JSX.Element {
 	const formPath = `fields.${index}.text`;
 	const formInputProps = form.getInputProps(formPath);
-	console.log(formInputProps);
 
 	const editor = useEditor({
 		extensions: [
@@ -46,9 +45,8 @@ export function EventDetailDefaultFormTextField({form, index}: Readonly<EventDet
 		],
 		shouldRerenderOnTransaction: true,
 		content: formInputProps.defaultValue,
-		//FIXME onUpdate looses focus after any keypress https://discordapp.com/channels/854810300876062770/1457154933001551894
-		onBlur: ({editor}) => {
-			form.setFieldValue(formPath, editor.getHTML());
+		onUpdate: ({editor}) => {
+			form.setFieldValue(formPath, editor.getHTML(), {forceUpdate: false});
 
 			form.setFieldError(formPath, validate(editor.storage.characterCount.characters() > EMBEDDABLE_VALUE,
 				<T k={'validation.maxLength'} args={[EMBEDDABLE_VALUE]}/>));

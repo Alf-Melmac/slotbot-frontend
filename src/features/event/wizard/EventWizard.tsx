@@ -45,7 +45,6 @@ export default function EventWizard(): JSX.Element {
 function EventWizardContent(): JSX.Element {
 	const [active, setActive] = useState(0);
 	const {cache} = useCharacterCountCache();
-	console.log(cache);
 
 	const date = dayjs();
 	const {user} = useAuth();
