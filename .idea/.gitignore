@@ -4,6 +4,8 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 
+/compiler.xml
+
 #Sonarlint
 sonarlint-state.xml
 sonarlint/
