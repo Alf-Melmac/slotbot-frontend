@@ -29,9 +29,6 @@ export default function AdminUtils(): JSX.Element {
 
 	return (
 		<Stack>
-			<Button size={'lg'} onClick={() => setAction('listFiles')}>
-				Update file list
-			</Button>
 			<Button size={'lg'} color={'red'} onClick={() => setAction('deleteUnusedEventTypes')}>
 				Remove unused event types
 			</Button>

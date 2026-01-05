@@ -25,15 +25,15 @@ import {T} from '../../../../components/T';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
 import {useEventTextChange} from '../useEventUpdate';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
-import {validate} from '../../../../utils/formHelper';
 import {BulletList, ListItem, ListKeymap, OrderedList} from '@tiptap/extension-list';
 import {Small} from '../../../../utils/tiptap/Small';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faComment} from '@fortawesome/free-regular-svg-icons';
+import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
+import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
 export function EventDescription(): JSX.Element {
 	const form = useFormContext();
 	const [isUpdateFromEditor, setIsUpdateFromEditor] = useState(false);
+	const {setCharacterCount} = useCharacterCountCache();
 
 	const {t} = useLanguage();
 	const editor = useEditor({
@@ -62,8 +62,9 @@ export function EventDescription(): JSX.Element {
 		onUpdate: ({editor}) => {
 			setIsUpdateFromEditor(true);
 			form.setFieldValue('description', editor.getHTML());
-			form.setFieldError('description', validate(editor.storage.characterCount.characters() > EMBEDDABLE_DESCRIPTION,
-				<T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>));
+
+			// Update cache
+			setCharacterCount('description', editor.storage.characterCount.characters());
 		},
 	});
 
@@ -76,73 +77,67 @@ export function EventDescription(): JSX.Element {
 
 	const {mutate} = useEventTextChange('description', form.values.description, () => form.resetDirty());
 
-	return (
-		<>
-			<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
-				<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
-					<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
+	return <>
+		<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
+			<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
+				<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.Bold/>
+						<RichTextEditor.Italic/>
+						<RichTextEditor.Underline/>
+						<RichTextEditor.Strikethrough/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.H1/>
+						<RichTextEditor.H2/>
+						<RichTextEditor.H3/>
+						<RTEControlSmall/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.BulletList/>
+						<RichTextEditor.OrderedList/>
+					</RichTextEditor.ControlsGroup>
+					<RichTextEditor.ControlsGroup ml={'auto'}>
+						<RichTextEditor.Undo/>
+						<RichTextEditor.Redo/>
+					</RichTextEditor.ControlsGroup>
+				</RichTextEditor.Toolbar>
+				{editor && <>
+					<BubbleMenu editor={editor}>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.Bold/>
 							<RichTextEditor.Italic/>
 							<RichTextEditor.Underline/>
 							<RichTextEditor.Strikethrough/>
 						</RichTextEditor.ControlsGroup>
+					</BubbleMenu>
+					<FloatingMenu editor={editor}>
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.H1/>
 							<RichTextEditor.H2/>
 							<RichTextEditor.H3/>
-							<RichTextEditor.Control onClick={() => editor?.chain().focus().toggleSmall().run()}
-													active={editor?.isActive('small')}
-													title={t('editor.control.small')}>
-								<FontAwesomeIcon icon={faComment} size={'xs'}/>
-							</RichTextEditor.Control>
 						</RichTextEditor.ControlsGroup>
-						<RichTextEditor.ControlsGroup>
-							<RichTextEditor.BulletList/>
-							<RichTextEditor.OrderedList/>
-						</RichTextEditor.ControlsGroup>
-						<RichTextEditor.ControlsGroup ml={'auto'}>
-							<RichTextEditor.Undo/>
-							<RichTextEditor.Redo/>
-						</RichTextEditor.ControlsGroup>
-					</RichTextEditor.Toolbar>
-					{editor && <>
-						<BubbleMenu editor={editor}>
-							<RichTextEditor.ControlsGroup>
-								<RichTextEditor.Bold/>
-								<RichTextEditor.Italic/>
-								<RichTextEditor.Underline/>
-								<RichTextEditor.Strikethrough/>
-							</RichTextEditor.ControlsGroup>
-						</BubbleMenu>
-						<FloatingMenu editor={editor}>
-							<RichTextEditor.ControlsGroup>
-								<RichTextEditor.H1/>
-								<RichTextEditor.H2/>
-								<RichTextEditor.H3/>
-							</RichTextEditor.ControlsGroup>
-						</FloatingMenu>
-					</>}
-					<RichTextEditor.Content/>
-				</RichTextEditor>
-			</Input.Wrapper>
+					</FloatingMenu>
+				</>}
+				<RichTextEditor.Content/>
+			</RichTextEditor>
+		</Input.Wrapper>
 
-			<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
-				{editor?.isFocused &&
-					<CounterBadge currentValue={editor.storage.characterCount.characters()}
-								  maxValue={EMBEDDABLE_DESCRIPTION}/>
-				}
-				{useEventAction().editMode &&
-					<Box ml={'auto'}>
-						<ScrollAffix show={form.isDirty('description')}>
-							<PulsatingButton onClick={() => mutate()}
-											 disabled={!form.isDirty('description') || !!form.errors.description}>
-								<T k={'action.save'}/>
-							</PulsatingButton>
-						</ScrollAffix>
-					</Box>
-				}
-			</Group>
-		</>
-	);
+		<Group justify={'space-between'} align={'flex-start'} mt={'xs'}>
+			{editor?.isFocused &&
+				<CounterBadge currentValue={editor.storage.characterCount.characters()}
+							  maxValue={EMBEDDABLE_DESCRIPTION}/>
+			}
+			{useEventAction().editMode &&
+				<Box ml={'auto'}>
+					<ScrollAffix show={form.isDirty('description')}>
+						<PulsatingButton onClick={() => mutate()}
+										 disabled={!form.isDirty('description') || !!form.errors.description}>
+							<T k={'action.save'}/>
+						</PulsatingButton>
+					</ScrollAffix>
+				</Box>
+			}
+		</Group>
+	</>;
 }

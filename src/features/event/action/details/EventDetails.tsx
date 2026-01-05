@@ -14,11 +14,13 @@ import {SortableList} from '../../../../components/Form/Sortable/SortableList';
 import {convertDtoToFormEvent} from '../../edit/utils';
 import {JSX} from 'react';
 import {EventUpdateDto} from '../../eventTypes';
+import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
 export const MAX_DETAILS = 23;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();
+	const {reorderDetailsItem} = useCharacterCountCache();
 
 	const detailsCount = form.values.details.length;
 
@@ -39,8 +41,8 @@ export function EventDetails(): JSX.Element {
 	return <>
 		<SortableList<typeof form.values.details[number]> formPath={'details'} itemProps={{mt: 'sm'}}
 														  renderItem={(item, index) =>
-															  <EventDetail item={item} index={index} key={item.id}/>}/>
-
+															  <EventDetail item={item} index={index} key={item.id}/>}
+														  onReorder={reorderDetailsItem}/>
 		<Group gap={'xs'} mt={'xs'}>
 			<AddButton label={'event.details.add'}
 					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
@@ -49,13 +51,13 @@ export function EventDetails(): JSX.Element {
 		</Group>
 
 		{useEventAction().editMode &&
-            <Group justify={'right'}>
-                <ScrollAffix show={form.isDirty('details')}>
-                    <PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
-                        <T k={'event.details.save'}/>
-                    </PulsatingButton>
-                </ScrollAffix>
-            </Group>
+			<Group justify={'right'}>
+				<ScrollAffix show={form.isDirty('details')}>
+					<PulsatingButton onClick={() => mutate()} disabled={!form.isDirty('details') || detailsInvalid()}>
+						<T k={'event.details.save'}/>
+					</PulsatingButton>
+				</ScrollAffix>
+			</Group>
 		}
 	</>;
 }

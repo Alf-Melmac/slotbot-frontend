@@ -12,6 +12,10 @@ import {getDate, getTimeShort} from '../../../utils/dateHelper';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {useGuildContext} from '../../../contexts/guildcontext/GuildContext';
 import dayjs from 'dayjs';
+import {
+	CharacterCountCacheProvider,
+	useCharacterCountCache,
+} from '../../../contexts/event/action/CharacterCountCacheContext';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -30,7 +34,17 @@ export default function EventWizard(): JSX.Element {
 		},
 	];
 
+	return <>
+		<Breadcrumb items={breadcrumbItems}/>
+		<CharacterCountCacheProvider>
+			<EventWizardContent/>
+		</CharacterCountCacheProvider>
+	</>;
+}
+
+function EventWizardContent(): JSX.Element {
 	const [active, setActive] = useState(0);
+	const {cache} = useCharacterCountCache();
 
 	const date = dayjs();
 	const {user} = useAuth();
@@ -56,18 +70,16 @@ export default function EventWizard(): JSX.Element {
 			reserveParticipating: undefined,
 			requirements: [],
 		},
-		validate: (values) => eventActionValidate(values, active),
+		validate: (values) => eventActionValidate(values, cache, active),
 		//Works only on first page as no state can be used inside on change validation (https://discord.com/channels/854810300876062770/1026255061241839627)
-		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'missionType', 'missionLength', 'pictureUrl'],
-		validateInputOnBlur: true,
+		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'description', 'missionType', 'missionLength', 'pictureUrl'],
+		validateInputOnBlur: true, //FIXME Doesn't work for details text (tiptap editor)
 	});
 
 	const {isLoading} = useEventCopy(form);
 
 	return (
 		<EventWizardProvider form={form}>
-			<Breadcrumb items={breadcrumbItems}/>
-
 			<LoadingOverlay visible={isLoading}/>
 			<EventWizardSteps active={active} setActive={setActive}/>
 		</EventWizardProvider>

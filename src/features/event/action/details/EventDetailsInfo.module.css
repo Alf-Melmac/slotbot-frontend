@@ -1,0 +1,25 @@
+.content {
+	& > :global(.ProseMirror) {
+		/*https://github.com/mantinedev/mantine/blob/v7/packages/%40mantine/core/src/components/Input/Input.module.css*/
+		--input-bg: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+
+		color: var(--input-color);
+		border: rem(1px) solid var(--input-bd);
+		background-color: var(--input-bg);
+		min-height: var(--input-size);
+		&:has(> p:only-child) { /*Replacement for line height, center text if there is only one line*/
+			display: flex;
+			align-items: center;
+		}
+		font-size: var(--input-fz, var(--input-fz, var(--mantine-font-size-sm)));
+		border-radius: var(--input-radius);
+		padding-inline-start: var(--input-padding-inline-start) !important;
+		padding-inline-end: var(--input-padding-inline-end) !important;
+		padding-top: var(--input-padding-y, 0rem) !important;
+		padding-bottom: var(--input-padding-y, 0rem) !important;
+
+		& > p:global(.is-editor-empty):first-of-type::before { /*Beating tiptap specificity*/
+			color: var(--input-placeholder-color);
+		}
+	}
+}

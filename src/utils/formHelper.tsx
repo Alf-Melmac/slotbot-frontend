@@ -13,7 +13,7 @@ import {URL} from './maxLength';
 /**
  * Validates that the field is not empty
  */
-function requiredField(length: number, check: () => ReactNode): ReactNode {
+export function requiredField(length: number, check: () => ReactNode): ReactNode {
 	return validateChain(length < 1, <T k={'validation.required'}/>, check);
 }
 

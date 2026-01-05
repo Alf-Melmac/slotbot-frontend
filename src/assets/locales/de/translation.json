@@ -72,6 +72,8 @@
   "editor.control.underline": "Unterstrichen (Strg+U)",
   "editor.control.undo": "Rückgängig (Strg+Z)",
   "editor.linkEditor.inputLabel": "Link eingeben",
+  "editor.linkEditor.openInNewTab": "Link in neuem Tab öffnen",
+  "editor.linkEditor.openInSameTab": "Link in demselben Tab öffnen",
   "error.notAllowed": "Hier darfst du leider nicht hin",
   "error.notFound.description": "Die Seite, die du gerade zu öffnen versuchst, existiert nicht. Hast du dich bei der Adresse vertippt?",
   "error.notFound.title": "Irgendetwas stimmt hier nicht...",

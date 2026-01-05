@@ -72,6 +72,8 @@
   "editor.control.underline": "Underline (Ctrl+U)",
   "editor.control.undo": "Undo (Ctrl+Z)",
   "editor.linkEditor.inputLabel": "Enter URL",
+  "editor.linkEditor.openInNewTab": "Open link in new tab",
+  "editor.linkEditor.openInSameTab": "Open link in same tab",
   "error.notAllowed": "You're not allowed here",
   "error.notFound.description": "The site you are trying to access doesn't exist. Did you write the wrong address perhaps?",
   "error.notFound.title": "Something isn't right here...",
