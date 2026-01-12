@@ -1,7 +1,7 @@
 import {EventActionPageTitle} from '../EventActionPageTitle';
 import {EventDetails} from './EventDetails';
 import {Button, Group} from '@mantine/core';
-import {useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {EventActionFormTypeWorkaround, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventTypeDefaults} from '../../../eventDetailsDefault/useEventTypeDefaults';
 import {EventFieldDefaultsProvider} from '../../../../contexts/event/EventFieldDefaultsContext';
 import {randomId} from '@mantine/hooks';
@@ -19,7 +19,11 @@ export function EventDetailsPage(): JSX.Element {
 			{defaultFields?.length &&
 				<Button variant={'light'} mb={'xs'} onClick={() => {
 					for (const field of defaultFields) {
-						form.insertListItem('details', {title: field.title, text: field.text, id: randomId()});
+						form.insertListItem('details', {
+							title: field.title,
+							text: field.text,
+							id: randomId(),
+						} as EventActionFormTypeWorkaround['details'][number]);
 					}
 				}
 				}><T k={'event.details.add.default'} args={[form.values.eventType.name]}/></Button>}

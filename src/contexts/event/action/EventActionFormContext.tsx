@@ -18,6 +18,11 @@ export type EventWizardFormType = Omit<EventPostDto, 'dateTime' | 'requirements'
 	& { date: string, startTime: string, requirements: string[], squadList: EventWizardSquadType[] };
 
 export type EventActionFormType = EventEditFormType | EventWizardFormType;
+/**
+ * A workaround type that combines both EventEditFormType and EventWizardFormType.
+ * This is necessary because some mantine type safety doesn't work with the union type.
+ */
+export type EventActionFormTypeWorkaround = EventEditFormType & EventWizardFormType;
 
 const [EventEditFormProvider, useEventEditFormContext, useEventEditForm] = createFormContext<EventEditFormType>();
 const [EventWizardFormProvider, useEventWizardFormContext, useEventWizardForm] = createFormContext<EventWizardFormType>();

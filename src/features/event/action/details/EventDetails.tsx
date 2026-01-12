@@ -3,7 +3,11 @@ import {AddButton} from '../../../../components/Button/AddButton';
 import {CounterBadge} from '../../../../components/Form/CounterBadge';
 import {PulsatingButton} from '../../../../components/Button/PulsatingButton';
 import {ScrollAffix} from '../../../../components/Button/ScrollAffix';
-import {EventActionFormType, useFormContext} from '../../../../contexts/event/action/EventActionFormContext';
+import {
+	EventActionFormType,
+	EventActionFormTypeWorkaround,
+	useFormContext,
+} from '../../../../contexts/event/action/EventActionFormContext';
 import {useEventAction} from '../../../../contexts/event/action/EventActionContext';
 import {useEventUpdate} from '../useEventUpdate';
 import {filterFrontendIds} from '../../../../utils/formHelper';
@@ -45,7 +49,11 @@ export function EventDetails(): JSX.Element {
 														  onReorder={reorderDetailsItem}/>
 		<Group gap={'xs'} mt={'xs'}>
 			<AddButton label={'event.details.add'}
-					   onClick={() => form.insertListItem('details', {title: '', text: '', id: randomId()})}
+					   onClick={() => form.insertListItem('details', {
+						   title: '',
+						   text: '',
+						   id: randomId(),
+					   } as EventActionFormTypeWorkaround['details'][number])}
 					   disabled={detailsCount >= MAX_DETAILS}/>
 			<CounterBadge currentValue={detailsCount} maxValue={MAX_DETAILS} yellowPhase/>
 		</Group>

@@ -2,6 +2,7 @@ import {randomId} from '@mantine/hooks';
 import {
 	EventActionFormReturn,
 	EventActionFormType,
+	EventActionFormTypeWorkaround,
 	EventEditFormType,
 } from '../../../../contexts/event/action/EventActionFormContext';
 import {EventUpdateDto, SlotDto, SquadDto} from '../../eventTypes';
@@ -11,14 +12,14 @@ import {filterFrontendIds} from '../../../../utils/formHelper';
  * Creates a new empty squad with a single slot.
  * @see buildNewSlot
  */
-export function buildNewSquad(form: EventActionFormReturn): SquadDto {
+export function buildNewSquad(form: EventActionFormReturn): EventActionFormTypeWorkaround['squadList'][number] {
 	return {
 		name: '',
-		slotList: [buildNewSlot(form)],
+		slotList: [_buildNewSlot(form)],
 		reservedFor: '',
 		requirements: [],
 		id: randomId(),
-	};
+	} satisfies SquadDto as unknown as EventActionFormTypeWorkaround['squadList'][number];
 }
 
 /**
@@ -43,7 +44,11 @@ export function duplicateSquad(form: EventActionFormReturn, squad: SquadDto): Sq
 /**
  * Creates a new empty slot
  */
-export function buildNewSlot(form: EventActionFormReturn): SlotDto {
+export function buildNewSlot(form: EventActionFormReturn): EventActionFormTypeWorkaround['squadList'][number]['slotList'][number] {
+	return _buildNewSlot(form) as unknown as EventActionFormTypeWorkaround['squadList'][number]['slotList'][number];
+}
+
+function _buildNewSlot(form: EventActionFormReturn): SlotDto {
 	return {
 		number: findFirstUnusedSlotNumber(form.values.squadList),
 		name: '',
