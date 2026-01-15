@@ -68,6 +68,7 @@ export function EventCalendar(props: Readonly<EventCalendarProps>): JSX.Element 
 		ref={calendarRef}
 		plugins={[dayGridPlugin, EventCalendarMobile]}
 		initialView={isMobile ? 'custom' : 'dayGridMonth'}
+		height={isMobile ? 'auto' : undefined}
 		locale={useIsGerman() ? de : undefined}
 		dayCellContent={DayCellContent}
 		events={(info, successCallback, failureCallback) => {
