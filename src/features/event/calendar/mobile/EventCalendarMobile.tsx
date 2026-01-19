@@ -30,7 +30,7 @@ function MobileView(props: Readonly<Parameters<typeof sliceEvents>[0]>): JSX.Ele
 					<Tabs.Tab value={`${unix}`} disabled={(eventCount || 0) < 1}>
 						<Stack gap={2} align={'center'}>
 							<Text>{day.format('dd')}</Text>
-							<Bold>{day.format('DD')}</Bold>
+							<Bold className={classes.day} mod={{today: day.isToday()}}>{day.format('DD')}</Bold>
 							{day.date() === 1 && <Text>{day.format('MMM')}</Text>}
 						</Stack>
 					</Tabs.Tab>

@@ -16,7 +16,6 @@ export function EventDate(): JSX.Element {
 		label: t('event.date'),
 		placeholder: t('event.date.placeholder'),
 		leftSection: <FontAwesomeIcon icon={faCalendarDay}/>,
-		clearable: false,
 		required: true,
 	};
 

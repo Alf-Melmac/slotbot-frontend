@@ -5,3 +5,15 @@
 		justify-content: space-between;
 	}
 }
+
+.day {
+	&[data-today]:not([data-active]) {
+		height: 25px;
+		width: 25px;
+		background-color: var(--mantine-color-red-8);
+		border-radius: 50%;
+		@mixin light {
+			color: white;
+		}
+	}
+}

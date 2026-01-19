@@ -8,6 +8,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import utc from 'dayjs/plugin/utc';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isToday from 'dayjs/plugin/isToday';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {useLocalStorage} from '@mantine/hooks';
@@ -44,6 +45,7 @@ function currentDayJsLocale(language: LanguageTag): string {
 	dayjs.extend(utc);
 	dayjs.extend(customParseFormat);
 	dayjs.extend(isSameOrBefore);
+	dayjs.extend(isToday);
 	dayjs.extend(duration);
 	dayjs.extend(relativeTime);
 	switch (language) {
