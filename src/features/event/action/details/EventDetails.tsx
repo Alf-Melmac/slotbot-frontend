@@ -20,7 +20,7 @@ import {JSX} from 'react';
 import {EventUpdateDto} from '../../eventTypes';
 import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
-export const MAX_DETAILS = 23;
+export const MAX_DETAILS = 22;
 
 export function EventDetails(): JSX.Element {
 	const form = useFormContext();
