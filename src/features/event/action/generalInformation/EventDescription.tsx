@@ -61,10 +61,11 @@ export function EventDescription(): JSX.Element {
 		content: form.values.description,
 		onUpdate: ({editor}) => {
 			setIsUpdateFromEditor(true);
-			form.setFieldValue('description', editor.getHTML());
 
-			// Update cache
+			// Update cache before validation is triggered by form update
 			setCharacterCount('description', editor.storage.characterCount.characters());
+
+			form.setFieldValue('description', editor.getHTML());
 		},
 	});
 

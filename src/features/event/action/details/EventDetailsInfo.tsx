@@ -69,10 +69,10 @@ export function EventDetailsInfo({
 			setCharacterCount(formPath, editor.storage.characterCount.characters());
 		},
 		onUpdate: ({editor}) => {
-			form.setFieldValue(formPath, editor.getHTML());
-
-			// Update cache
+			// Update cache before validation is triggered by form update
 			setCharacterCount(formPath, editor.storage.characterCount.characters());
+
+			form.setFieldValue(formPath, editor.getHTML());
 		},
 	});
 
