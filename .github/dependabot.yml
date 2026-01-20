@@ -10,6 +10,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 14
     open-pull-requests-limit: 10
     allow:
       - dependency-type: production
