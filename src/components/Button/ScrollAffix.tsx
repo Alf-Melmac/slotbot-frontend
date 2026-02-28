@@ -6,18 +6,29 @@ import {T} from '../T';
 import {JSX} from 'react';
 
 type ScrollAffixProps = {
+	/**
+	 * Decides if the affix needs to be shown at all, even if the children element is not visible
+	 */
 	show: boolean;
 	children: JSX.Element;
+	/**
+	 * Function triggered just before the scroll is triggered
+	 */
+	onScroll?: () => void;
 }
 
 /**
  * Affix to scroll to children element is shown if children element is not visible on screen and <code>props.show</code> is true
  */
-export function ScrollAffix(props: Readonly<ScrollAffixProps>): JSX.Element {
-	const {children, show} = props;
+export function ScrollAffix({children, show, onScroll}: Readonly<ScrollAffixProps>): JSX.Element {
 	const {scrollIntoView, targetRef} = useScrollIntoView<HTMLDivElement>();
 	const {ref, entry} = useIntersection();
 	const mergedRef = useMergedRef(targetRef, ref);
+
+	function onClick() {
+		onScroll?.();
+		scrollIntoView({alignment: 'center'});
+	}
 
 	return <>
 		<Box ref={mergedRef}>
@@ -31,7 +42,7 @@ export function ScrollAffix(props: Readonly<ScrollAffixProps>): JSX.Element {
 					<Button style={transitionStyles}
 							leftSection={<FontAwesomeIcon
 								icon={(entry?.boundingClientRect.top || 0) > 0 ? faArrowDown : faArrowUp}/>}
-							onClick={() => scrollIntoView({alignment: 'center'})}><T k={'unsavedChanges'}/></Button>
+							onClick={onClick}><T k={'unsavedChanges'}/></Button>
 				)}
 			</Transition>
 		</Affix>

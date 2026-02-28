@@ -3,7 +3,7 @@ import {Document} from '@tiptap/extension-document';
 import {Text} from '@tiptap/extension-text';
 import {useEditor} from '@tiptap/react';
 import {BubbleMenu, FloatingMenu} from '@tiptap/react/menus';
-import {JSX, useEffect, useState} from 'react';
+import {JSX} from 'react';
 import {useLanguage} from '../../../../contexts/language/Language';
 import {Heading} from '@tiptap/extension-heading';
 import {Paragraph} from '@tiptap/extension-paragraph';
@@ -30,9 +30,15 @@ import {Small} from '../../../../utils/tiptap/Small';
 import {RTEControlSmall} from '../../../../utils/tiptap/RTEControlSmall';
 import {useCharacterCountCache} from '../../../../contexts/event/action/CharacterCountCacheContext';
 
-export function EventDescription(): JSX.Element {
+export type EventDescriptionProps = {
+	/**
+	 * Function to show the description if the user triggered an action related to this description
+	 */
+	showDescription?: () => void;
+}
+
+export function EventDescription({showDescription}: Readonly<EventDescriptionProps>): JSX.Element {
 	const form = useFormContext();
-	const [isUpdateFromEditor, setIsUpdateFromEditor] = useState(false);
 	const {setCharacterCount} = useCharacterCountCache();
 
 	const {t} = useLanguage();
@@ -60,8 +66,6 @@ export function EventDescription(): JSX.Element {
 		shouldRerenderOnTransaction: true,
 		content: form.values.description,
 		onUpdate: ({editor}) => {
-			setIsUpdateFromEditor(true);
-
 			// Update cache before validation is triggered by form update
 			setCharacterCount('description', editor.storage.characterCount.characters());
 
@@ -69,17 +73,10 @@ export function EventDescription(): JSX.Element {
 		},
 	});
 
-	useEffect(() => {
-		if (!isUpdateFromEditor) {
-			form.values.description && editor?.commands.setContent(form.values.description);
-		}
-		setIsUpdateFromEditor(false); // reset flag after checking
-	}, [form.values.description]);
-
 	const {mutate} = useEventTextChange('description', form.values.description, () => form.resetDirty());
 
 	return <>
-		<Input.Wrapper label={<T k={'description'}/>} error={form.errors.description}>
+		<Input.Wrapper error={form.errors.description}>
 			<RichTextEditor editor={editor} withCodeHighlightStyles={false}>
 				<RichTextEditor.Toolbar sticky stickyOffset={NAV_HEIGHT}>
 					<RichTextEditor.ControlsGroup>
@@ -131,7 +128,7 @@ export function EventDescription(): JSX.Element {
 			}
 			{useEventAction().editMode &&
 				<Box ml={'auto'}>
-					<ScrollAffix show={form.isDirty('description')}>
+					<ScrollAffix show={form.isDirty('description')} onScroll={showDescription}>
 						<PulsatingButton onClick={() => mutate()}
 										 disabled={!form.isDirty('description') || !!form.errors.description}>
 							<T k={'action.save'}/>

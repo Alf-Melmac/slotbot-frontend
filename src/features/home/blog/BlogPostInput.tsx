@@ -1,5 +1,5 @@
-import {ForwardRefExoticComponent, JSX, RefAttributes} from 'react';
-import {TextKey, useLanguage} from '../../../contexts/language/Language';
+import {JSX} from 'react';
+import {useLanguage} from '../../../contexts/language/Language';
 import {EditorOptions, useEditor} from '@tiptap/react';
 import {BubbleMenu} from '@tiptap/react/menus';
 import {Document} from '@tiptap/extension-document';
@@ -20,12 +20,12 @@ import {TextAlign} from '@tiptap/extension-text-align';
 import {Dropcursor, Placeholder, UndoRedo} from '@tiptap/extensions';
 import Image from '@tiptap/extension-image';
 import {NAV_HEIGHT} from '../../../components/nav/Nav';
-import {faAlignLeft, faCaretDown, faHeading} from '@fortawesome/free-solid-svg-icons';
-import {Button, Group, Menu, Stack} from '@mantine/core';
-import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
+import {faAlignLeft, faHeading} from '@fortawesome/free-solid-svg-icons';
+import {Button, Group, Stack} from '@mantine/core';
 import {T} from '../../../components/T';
 import classes from './BlogPostInput.module.css';
 import {ImageFileHandler, ImageUpload} from '../../../utils/tiptap/ImageUpload';
+import {ControlDropdown} from '../../../utils/tiptap/ControlDropdown';
 
 type BlogPostInputProps = {
 	onSave: (htmlContent: string) => void;
@@ -80,7 +80,7 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 					<RichTextEditor.Highlight/>
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup>
-					<ControlDropdown title={'editor.control.formatting'} icon={faHeading}
+					<ControlDropdown title={'editor.control.headings'} icon={faHeading}
 									 items={[
 										 RichTextEditor.H1,
 										 RichTextEditor.H2,
@@ -134,34 +134,4 @@ export function BlogPostInput(props: Readonly<BlogPostInputProps>): JSX.Element 
 			}
 		</Group>
 	</Stack>;
-}
-
-type ControlDropdownProps = {
-	title: TextKey;
-	icon: FontAwesomeIconProps['icon'];
-	items: ForwardRefExoticComponent<RefAttributes<HTMLButtonElement>>[]; // Not the complete type, RichTextEditorControlBaseProps isn't exported
-};
-
-function ControlDropdown(props: Readonly<ControlDropdownProps>): JSX.Element {
-	const {title, icon, items} = props;
-
-	const {t} = useLanguage();
-	return (
-		<Menu>
-			<Menu.Target>
-				<RichTextEditor.Control title={t(title)}>
-					<Group gap={2} px={4}>
-						<FontAwesomeIcon icon={icon} size={'xs'}/>
-						<FontAwesomeIcon icon={faCaretDown} size={'xs'}/>
-					</Group>
-				</RichTextEditor.Control>
-			</Menu.Target>
-
-			<Menu.Dropdown>
-				{items.map((item, index) => (
-					<Menu.Item key={index} component={item}/>
-				))}
-			</Menu.Dropdown>
-		</Menu>
-	);
 }

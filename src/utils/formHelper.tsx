@@ -14,7 +14,7 @@ import {URL} from './maxLength';
  * Validates that the field is not empty
  */
 export function requiredField(length: number, check: () => ReactNode): ReactNode {
-	return validateChain(length < 1, <T k={'validation.required'}/>, check);
+	return validate(length < 1, <T k={'validation.required'}/>, check);
 }
 
 /**
@@ -44,16 +44,12 @@ export function colorField(field: string): ReactNode {
  * Validates that the field contains a valid url
  */
 export function urlField(field: string): ReactNode {
-	return field !== '' && validateChain(!/^(https?|attachment):\/\/\S+$/.test(field), <T k={'validation.url'}/>,
+	return field !== '' && validate(!/^(https?|attachment):\/\/\S+$/.test(field), <T k={'validation.url'}/>,
 		() => maxLengthField(field, URL));
 }
 
-export function validate(check: boolean, error: ReactNode): ReactNode {
-	return check ? error : null;
-}
-
-function validateChain(check: boolean, error: ReactNode, check2: () => ReactNode): ReactNode {
-	return check ? error : check2();
+export function validate(check: boolean, error: ReactNode, check2: (() => ReactNode) | null = null): ReactNode {
+	return check ? error : check2?.();
 }
 
 /**

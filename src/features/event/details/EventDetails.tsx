@@ -102,7 +102,7 @@ export function EventDetails(): JSX.Element {
 			</Tabs.Panel>
 			{event.descriptionAsHtml &&
 				<Tabs.Panel value={'description'} pt={'xs'}>
-					<EventDescription description={event.descriptionAsHtml}/>
+					<EventDescription description={event.extendedDescriptionAsHtml ?? event.descriptionAsHtml}/>
 				</Tabs.Panel>
 			}
 			{event.details.length !== 0 &&

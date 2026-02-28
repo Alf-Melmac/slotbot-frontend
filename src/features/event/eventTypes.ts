@@ -13,6 +13,7 @@ export interface EventDetailsDto extends AbstractIdEntityDto {
 	missionLength: string;
 	dateTime: Date;
 	descriptionAsHtml: string;
+	extendedDescriptionAsHtml: string;
 	creator: string;
 	squadList: EventDetailsSquadDto[];
 	details: EventFieldReferencelessDto[];
@@ -73,6 +74,7 @@ interface EventActionDto {
 	creator: string;
 	eventType: EventTypeDto;
 	description: string;
+	extendedDescription: string;
 	missionType: string;
 	missionLength: string;
 	pictureUrl: string;

@@ -5,6 +5,7 @@ import {faImage} from '@fortawesome/free-regular-svg-icons';
 import {Editor, insertContentAt} from '@tiptap/core';
 import FileHandler from '@tiptap/extension-file-handler';
 import slotbotServerClient from '../../hooks/slotbotServerClient';
+import {useLanguage} from '../../contexts/language/Language';
 
 /**
  * Tiptap extension (file handler) for file uploads
@@ -27,6 +28,7 @@ export const ImageFileHandler = FileHandler.configure({
 export function ImageUpload(): JSX.Element {
 	const {editor} = useRichTextEditorContext();
 	const fileInput = useRef<HTMLInputElement>(null);
+	const {t} = useLanguage();
 
 	function handleFileInput(e: ChangeEvent<HTMLInputElement>) {
 		const files = e.target.files;
@@ -34,7 +36,7 @@ export function ImageUpload(): JSX.Element {
 		uploadImages(files, editor);
 	}
 
-	return <RichTextEditor.Control onClick={() => fileInput.current?.click()}>
+	return <RichTextEditor.Control onClick={() => fileInput.current?.click()} title={t('editor.control.image')}>
 		<FontAwesomeIcon icon={faImage} size={'xs'}/>
 		<input type={'file'} accept={'image/png, image/jpeg'} onChange={handleFileInput} style={{display: 'none'}}
 			   ref={fileInput}/>

@@ -51,7 +51,7 @@ export function EventSlotlist(props: Readonly<EventSlotlistProps>): JSX.Element 
 	const reserveParticipatingInputProps = form.getInputProps('reserveParticipating', {type: 'checkbox'});
 	return <>
 		<Group justify={'space-between'}>
-			<EventActionPageTitle title={'slotlist.alt'}/>
+			<EventActionPageTitle title={'event.wizard.step.slots'}/>
 			<Group gap={'xs'}>
 				{canUploadSlotlist ?
 					<UploadSlotlist/>

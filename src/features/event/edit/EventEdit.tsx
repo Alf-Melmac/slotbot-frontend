@@ -17,6 +17,7 @@ import {
 	CharacterCountCacheProvider,
 	useCharacterCountCache,
 } from '../../../contexts/event/action/CharacterCountCacheContext';
+import {EventDescriptionsForEdit} from './EventDescriptionsForEdit';
 
 type EventEditProps = EventPageParams & {
 	event: EventEditFormType;
@@ -52,11 +53,11 @@ export function EventEdit(props: Readonly<EventEditProps>): JSX.Element {
 
 function EventEditFormWrapper(props: Readonly<EventEditProps>): JSX.Element {
 	const {eventId, event, permissions: {canRevokeShareable, canUploadSlotlist}} = props;
-	const {cache} = useCharacterCountCache();
+	const {cacheRef} = useCharacterCountCache();
 
 	const form = useEventEditForm({
 		initialValues: event,
-		validate: (values) => eventActionValidate(values, cache),
+		validate: (values) => eventActionValidate(values, cacheRef.current),
 		validateInputOnChange: true,
 	});
 
@@ -65,6 +66,10 @@ function EventEditFormWrapper(props: Readonly<EventEditProps>): JSX.Element {
 	return (
 		<EventEditProvider form={form} eventId={eventId} ownerGuild={ownerGuild}>
 			<EventGeneralInformation canRevokeShareable={canRevokeShareable}/>
+
+			<Divider my={'lg'}/>
+
+			<EventDescriptionsForEdit/>
 
 			<Divider my={'lg'}/>
 

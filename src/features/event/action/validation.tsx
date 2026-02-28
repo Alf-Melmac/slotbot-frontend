@@ -24,8 +24,6 @@ export const eventActionValidate = (values: EventActionFormType, characterCountC
 			creator: requiredFieldWithMaxLength(values.creator, TEXT),
 			'eventType.name': requiredFieldWithMaxLength(values.eventType.name, TEXT),
 			'eventType.color': colorField(values.eventType.color),
-			description: validate(characterCountCache.description > EMBEDDABLE_DESCRIPTION,
-				<T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>),
 			missionType: maxLengthField(values.missionType, TEXT),
 			missionLength: maxLengthField(values.missionLength, TEXT),
 			pictureUrl: urlField(values.pictureUrl),
@@ -34,6 +32,17 @@ export const eventActionValidate = (values: EventActionFormType, characterCountC
 	}
 
 	if (!activePresent || active === 1) {
+		errors = {
+			description: validate(
+				characterCountCache.description > EMBEDDABLE_DESCRIPTION, <T k={'validation.maxLength'} args={[EMBEDDABLE_DESCRIPTION]}/>,
+				// Extended description is empty with <p></p>
+				() => validate(characterCountCache.description === 0 && values.extendedDescription.length > 7, <T k={'validation.event.descriptionMissing'}/>)
+			),
+		}
+		validateEmbedSize(values, errors, characterCountCache);
+	}
+
+	if (!activePresent || active === 2) {
 		for (const [i, field] of values.details.entries()) {
 			errors[`details.${i}.title`] = requiredFieldWithMaxLength(field.title, EMBEDDABLE_TITLE);
 			// noinspection SuspiciousTypeOfGuard Text may be boolean if using default field
@@ -46,7 +55,7 @@ export const eventActionValidate = (values: EventActionFormType, characterCountC
 		validateEmbedSize(values, errors, characterCountCache);
 	}
 
-	if (!activePresent || active === 2) {
+	if (!activePresent || active === 3) {
 		validateSquadList(values, errors);
 	}
 

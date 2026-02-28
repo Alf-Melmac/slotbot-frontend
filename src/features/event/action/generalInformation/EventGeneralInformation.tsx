@@ -8,7 +8,7 @@ type EventGeneralInformationProps = RequiredInformationProps;
 
 export function EventGeneralInformation(props: Readonly<EventGeneralInformationProps>): JSX.Element {
 	return <>
-		<EventActionPageTitle title={'generalInformation'}/>
+		<EventActionPageTitle title={'event.wizard.step.general.description'}/>
 
 		<RequiredInformation canRevokeShareable={props.canRevokeShareable}/>
 		<EventTypeMask/>

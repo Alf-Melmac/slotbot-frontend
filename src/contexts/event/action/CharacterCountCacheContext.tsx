@@ -1,4 +1,4 @@
-import {createContext, JSX, PropsWithChildren, useCallback, useContext, useMemo, useState} from 'react';
+import {createContext, JSX, PropsWithChildren, RefObject, useCallback, useContext, useMemo, useRef} from 'react';
 
 export type CharacterCountCache = {
 	description: number;
@@ -7,9 +7,9 @@ export type CharacterCountCache = {
 
 type CharacterCountCacheContextType = {
 	/**
-	 * Current character count cache
+	 * Ref to the current character count cache
 	 */
-	cache: CharacterCountCache;
+	cacheRef: RefObject<CharacterCountCache>;
 	/**
 	 * Sets the character count for a given path
 	 */
@@ -28,46 +28,35 @@ type CharacterCountCacheContextType = {
  * Cache character counts in event action forms for validation purposes
  */
 export function CharacterCountCacheProvider({children}: Readonly<PropsWithChildren>): JSX.Element {
-	const [cache, setCache] = useState<CharacterCountCache>({
+	const cacheRef = useRef<CharacterCountCache>({
 		description: 0,
 		details: [],
 	});
 
-	const setCharacterCount = useCallback((path: string, count: number) =>
-		setCache((prevCache) => {
-			const newCache = {...prevCache};
-			if (path === 'description') {
-				newCache.description = count;
-			} else {
-				const index = Number(path.split('.')[1]);
-				newCache.details[index] = count;
-			}
-			return newCache;
-		}), []);
+	const setCharacterCount = useCallback((path: string, count: number) => {
+		if (path === 'description') {
+			cacheRef.current.description = count;
+		} else {
+			const index = Number(path.split('.')[1]);
+			cacheRef.current.details[index] = count;
+		}
+	}, []);
 
-	const reorderDetailsItem = useCallback((fromIndex: number, toIndex: number) =>
-		setCache((prevCache) => {
-			const details = [...prevCache.details];
-			const [movedItem] = details.splice(fromIndex, 1);
-			details.splice(toIndex, 0, movedItem);
-			return {
-				...prevCache,
-				details,
-			};
-		}), []);
+	const reorderDetailsItem = useCallback((fromIndex: number, toIndex: number) => {
+		const [movedItem] = cacheRef.current.details.splice(fromIndex, 1);
+		cacheRef.current.details.splice(toIndex, 0, movedItem);
+	}, []);
 
-	const removeDetailsItem = useCallback((removedIndex: number) =>
-		setCache((prevCache) => ({
-			...prevCache,
-			details: prevCache.details.toSpliced(removedIndex, 1),
-		})), []);
+	const removeDetailsItem = useCallback((removedIndex: number) => {
+		cacheRef.current.details.splice(removedIndex, 1);
+	}, []);
 
 	const value = useMemo(() => ({
-		cache,
+		cacheRef,
 		setCharacterCount,
 		reorderDetailsItem,
 		removeDetailsItem,
-	}), [cache, setCharacterCount, reorderDetailsItem, removeDetailsItem]);
+	}), [cacheRef, setCharacterCount, reorderDetailsItem, removeDetailsItem]);
 
 	return (
 		<CharacterCountCacheContext.Provider value={value}>

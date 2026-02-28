@@ -55,6 +55,6 @@ export function convertDtoToWizardFormEvent(dto: EventPostDto): EventWizardFormT
 }
 
 function handleNullForForm(dto: Partial<EventEditDto> | Partial<EventPostDto>) {
-	replaceNullWithEmpty(dto, ['description', 'missionLength', 'missionType', 'pictureUrl']);
+	replaceNullWithEmpty(dto, ['description', 'extendedDescription', 'missionLength', 'missionType', 'pictureUrl']);
 	replaceNullWithUndefined(dto, ['reserveParticipating']);
 }

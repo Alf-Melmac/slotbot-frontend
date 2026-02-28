@@ -15,7 +15,7 @@ export function EventDetailsPage(): JSX.Element {
 
 	return <EventFieldDefaultsProvider fieldDefaults={defaultFields}>
 		<Group justify={'space-between'}>
-			<EventActionPageTitle title={'details'}/>
+			<EventActionPageTitle title={'event.wizard.step.details'}/>
 			{defaultFields?.length &&
 				<Button variant={'light'} mb={'xs'} onClick={() => {
 					for (const field of defaultFields) {

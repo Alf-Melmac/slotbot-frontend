@@ -16,6 +16,7 @@ import {
 	CharacterCountCacheProvider,
 	useCharacterCountCache,
 } from '../../../contexts/event/action/CharacterCountCacheContext';
+import {DebugCodeBlock} from './useEventSave';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -44,7 +45,7 @@ export default function EventWizard(): JSX.Element {
 
 function EventWizardContent(): JSX.Element {
 	const [active, setActive] = useState(0);
-	const {cache} = useCharacterCountCache();
+	const {cacheRef} = useCharacterCountCache();
 
 	const date = dayjs();
 	const {user} = useAuth();
@@ -62,6 +63,7 @@ function EventWizardContent(): JSX.Element {
 				color: randomColor(),
 			},
 			description: '',
+			extendedDescription: '',
 			missionType: '',
 			missionLength: '',
 			pictureUrl: '',
@@ -70,9 +72,9 @@ function EventWizardContent(): JSX.Element {
 			reserveParticipating: undefined,
 			requirements: [],
 		},
-		validate: (values) => eventActionValidate(values, cache, active),
+		validate: (values) => eventActionValidate(values, cacheRef.current, active),
 		//Works only on first page as no state can be used inside on change validation (https://discord.com/channels/854810300876062770/1026255061241839627)
-		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'description', 'missionType', 'missionLength', 'pictureUrl'],
+		validateInputOnChange: ['name', 'date', 'creator', 'eventType', 'missionType', 'missionLength', 'pictureUrl'],
 		validateInputOnBlur: true, //FIXME Doesn't work for details text (tiptap editor)
 	});
 
@@ -82,6 +84,8 @@ function EventWizardContent(): JSX.Element {
 		<EventWizardProvider form={form}>
 			<LoadingOverlay visible={isLoading}/>
 			<EventWizardSteps active={active} setActive={setActive}/>
+
+			<DebugCodeBlock formValues={form.values}/>
 		</EventWizardProvider>
 	);
 }
