@@ -43,7 +43,7 @@
     "dayjs": "^1.11.19",
     "lodash-es": "^4.17.23",
     "mantine-flagpack": "^4.1.1",
-    "mantine-react-table-open": "^8.0.4",
+    "mantine-react-table-open": "^9.0.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router": "^7.13.1"
