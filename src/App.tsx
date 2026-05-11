@@ -48,9 +48,12 @@ function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and Gu
 
 	const router = createBrowserRouter(routes, {
 		future: {
+			v8_middleware: true,
 			v8_splitRouteModules: true,
 			v8_viteEnvironmentApi: true,
-		}
+			v8_passTroughRequests: true,
+			v8_trailingSlashAwareDataRequests: true,
+		},
 	});
 
 	return (
