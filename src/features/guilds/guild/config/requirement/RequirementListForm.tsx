@@ -46,7 +46,7 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 			],
 			memberAssignable: true,
 			enforced: false,
-		} as RequirementListPostDto,
+		} satisfies RequirementListPostDto,
 	} = props;
 
 	const editMode = !!props.list;

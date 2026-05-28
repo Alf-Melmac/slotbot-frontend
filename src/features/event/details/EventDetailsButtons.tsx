@@ -30,7 +30,7 @@ export function EventDetailsButtons({
 		{eventManage && <>
             <EventDetailsLinkButton icon={faClone}
                                     to={`/events/${ownerGuildIdentifier}/new`}
-                                    state={{copy: eventId} as EventWizardLocation}
+                                    state={{copy: eventId} satisfies EventWizardLocation}
                                     tooltip={'action.duplicate'}/>
             <EventDetailsLinkButton icon={faEdit} to={`/events/${eventId}/edit`} tooltip={'action.edit'}/>
         </>}
