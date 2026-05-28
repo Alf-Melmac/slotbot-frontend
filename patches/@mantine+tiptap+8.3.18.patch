@@ -1,0 +1,58 @@
+diff --git a/node_modules/@mantine/tiptap/cjs/RichTextEditorControl/RichTextEditorControl.cjs b/node_modules/@mantine/tiptap/cjs/RichTextEditorControl/RichTextEditorControl.cjs
+index 9d8bcbc..51dd78a 100644
+--- a/node_modules/@mantine/tiptap/cjs/RichTextEditorControl/RichTextEditorControl.cjs
++++ b/node_modules/@mantine/tiptap/cjs/RichTextEditorControl/RichTextEditorControl.cjs
+@@ -65,17 +65,21 @@ function createControl({
+   const Control = react.forwardRef((props, ref) => {
+     const { editor, labels } = RichTextEditor_context.useRichTextEditorContext();
+     const _label = labels[label];
++    const safeEditor = editor && !editor.isDestroyed ? editor : null;
+     return /* @__PURE__ */ jsxRuntime.jsx(
+       RichTextEditorControlBase,
+       {
+         "aria-label": _label,
+         title: _label,
+-        active: isActive?.name ? editor?.isActive(isActive.name, isActive.attributes) : false,
++        active: safeEditor && isActive?.name ? safeEditor.isActive(isActive.name, isActive.attributes) : false,
+         ref,
+         icon: props.icon || icon,
+-        disabled: isDisabled?.(editor) || false,
++        disabled: safeEditor ? (isDisabled?.(safeEditor) ?? false) : true,
+         ...props,
+-        onClick: () => editor?.chain().focus()[operation.name](operation.attributes).run()
++        onClick: () => {
++          if (!editor || editor.isDestroyed) return;
++          editor?.chain().focus()[operation.name](operation.attributes).run();
++        }
+       }
+     );
+   });
+diff --git a/node_modules/@mantine/tiptap/esm/RichTextEditorControl/RichTextEditorControl.mjs b/node_modules/@mantine/tiptap/esm/RichTextEditorControl/RichTextEditorControl.mjs
+index 1074027..9cc5609 100644
+--- a/node_modules/@mantine/tiptap/esm/RichTextEditorControl/RichTextEditorControl.mjs
++++ b/node_modules/@mantine/tiptap/esm/RichTextEditorControl/RichTextEditorControl.mjs
+@@ -63,17 +63,21 @@ function createControl({
+   const Control = forwardRef((props, ref) => {
+     const { editor, labels } = useRichTextEditorContext();
+     const _label = labels[label];
++    const safeEditor = editor && !editor.isDestroyed ? editor : null;
+     return /* @__PURE__ */ jsx(
+       RichTextEditorControlBase,
+       {
+         "aria-label": _label,
+         title: _label,
+-        active: isActive?.name ? editor?.isActive(isActive.name, isActive.attributes) : false,
++        active: safeEditor && isActive?.name ? safeEditor.isActive(isActive.name, isActive.attributes) : false,
+         ref,
+         icon: props.icon || icon,
+-        disabled: isDisabled?.(editor) || false,
++        disabled: safeEditor ? (isDisabled?.(safeEditor) ?? false) : true,
+         ...props,
+-        onClick: () => editor?.chain().focus()[operation.name](operation.attributes).run()
++        onClick: () => {
++          if (!editor || editor.isDestroyed) return;
++          editor?.chain().focus()[operation.name](operation.attributes).run();
++        }
+       }
+     );
+   });
