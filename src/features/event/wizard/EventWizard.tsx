@@ -16,7 +16,6 @@ import {
 	CharacterCountCacheProvider,
 	useCharacterCountCache,
 } from '../../../contexts/event/action/CharacterCountCacheContext';
-import {DebugCodeBlock} from './useEventSave';
 
 export type EventWizardLocation = {
 	copy: EventDetailsDto['id'];
@@ -84,8 +83,6 @@ function EventWizardContent(): JSX.Element {
 		<EventWizardProvider form={form}>
 			<LoadingOverlay visible={isLoading}/>
 			<EventWizardSteps active={active} setActive={setActive}/>
-
-			<DebugCodeBlock formValues={form.values}/>
 		</EventWizardProvider>
 	);
 }
