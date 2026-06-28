@@ -1,12 +1,12 @@
 import {createContext, JSX, PropsWithChildren, useContext, useEffect, useMemo, useState} from 'react';
 import {DiscordUserDto} from './authenticationTypes';
-import authenticationQuery from './authenticationQuery';
+import useAuthenticationQuery from './useAuthenticationQuery';
 import {getBackendUrl} from '../../utils/urlHelper';
 
 export function AuthProvider(props: Readonly<PropsWithChildren>): JSX.Element {
 	const [user, setUser] = useState<AuthContextType['user']>();
 
-	const {user: authenticatedUser} = authenticationQuery();
+	const {user: authenticatedUser} = useAuthenticationQuery();
 
 	useEffect(() => {
 			setUser(authenticatedUser);
