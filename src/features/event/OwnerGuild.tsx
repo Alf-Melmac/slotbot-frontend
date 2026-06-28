@@ -2,6 +2,7 @@ import {JSX} from 'react';
 import {GuildDto} from '../guilds/guildTypes';
 import {ActionIcon, Group, Image, Text, TextProps, useMantineTheme} from '@mantine/core';
 import {Link} from 'react-router';
+import styleUtils from '../../utils/styleUtils.module.css';
 
 type OwnerGuildProps = {
 	/**
@@ -20,16 +21,14 @@ type OwnerGuildProps = {
 };
 
 export function OwnerGuild({guild, link = true, size}: Readonly<OwnerGuildProps>): JSX.Element {
-	const theme = useMantineTheme();
-
 	return link ?
-		<ActionIcon color={theme.colors.dark[0]} variant={'subtle'} component={Link} to={`/guilds/${guild.id}`}
+		<ActionIcon className={styleUtils.colorUnset} variant={'subtle'} component={Link} to={`/guilds/${guild.id}`}
 					w={'auto'}
 					size={size}>
 			<OwnerGuildContent guild={guild} size={size}/>
 		</ActionIcon>
 		:
-		<Text c={theme.black} size={size}>
+		<Text size={size}>
 			<OwnerGuildContent guild={guild} size={size}/>
 		</Text>;
 }

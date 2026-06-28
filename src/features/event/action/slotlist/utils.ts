@@ -16,7 +16,7 @@ export function buildNewSquad(form: EventActionFormReturn): EventActionFormTypeW
 	return {
 		name: '',
 		slotList: [_buildNewSlot(form)],
-		reservedFor: '',
+		reservedFor: undefined,
 		requirements: [],
 		id: randomId(),
 	} satisfies SquadDto as unknown as EventActionFormTypeWorkaround['squadList'][number];
@@ -52,7 +52,7 @@ function _buildNewSlot(form: EventActionFormReturn): SlotDto {
 	return {
 		number: findFirstUnusedSlotNumber(form.values.squadList),
 		name: '',
-		reservedFor: '',
+		reservedFor: undefined,
 		requirements: [],
 		blocked: false,
 		replacementText: 'Gesperrt',

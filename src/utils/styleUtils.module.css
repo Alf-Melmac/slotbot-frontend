@@ -29,3 +29,7 @@
 .timelineRulerRight {
 	flex-grow: 1;
 }
+
+.colorUnset {
+	color: unset;
+}

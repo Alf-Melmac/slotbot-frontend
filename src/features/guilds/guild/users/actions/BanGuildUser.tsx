@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faGavel} from '@fortawesome/free-solid-svg-icons';
 import {GuildUserActionProps} from './GuildUserActions';
 import {useDisclosure} from '@mantine/hooks';
+import classes from './GuildUserAction.module.css';
 
 export function BanGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
 	const {user, guildId} = props;
@@ -57,7 +58,7 @@ export function BanGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element
 			</Stack>
 		</Modal>
 		<Tooltip label={<T k={'guild.user.ban'}/>}>
-			<ActionIcon color={'red'} variant={'subtle'}
+			<ActionIcon color={'red'} className={classes.dangerAction} variant={'subtle'}
 						onClick={open}>
 				<FontAwesomeIcon icon={faGavel}/>
 			</ActionIcon>

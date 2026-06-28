@@ -19,7 +19,7 @@ export function EventDetailsHeader(props: Readonly<EventDetailsHeaderProps>): JS
 
 	return (
 		<>
-			<Grid gutter={'lg'}>
+			<Grid gap={'lg'}>
 				<Grid.Col span={{base: 12, sm: 4}}>
 					<Paper shadow={'md'}>
 						<Image src={event.pictureUrl} radius={'sm'}/>

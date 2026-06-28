@@ -58,7 +58,7 @@ export function HomeEventList(): JSX.Element {
 						<Bold size={'md'}>{eventDate.date()}</Bold>
 					</Paper>
 					<Text
-						className={cx(classes.link, utilsClasses.ellipsis, {[classes.linkActive]: dayjs().isSame(eventDate, 'day')})}
+						className={cx(classes.link, utilsClasses.ellipsis, {[utilsClasses.colorUnset]: dayjs().isSame(eventDate, 'day')})}
 					>
 						{event.title}
 					</Text>

@@ -8,7 +8,7 @@ export function EventDetailsLoading(): JSX.Element {
 			<Text>Loading breadcrumb</Text>
 		</DelayedSkeleton>
 
-		<Grid gutter={'xl'} mt={1}>
+		<Grid gap={'xl'} mt={1}>
 			<Grid.Col span={4}>
 				<DelayedSkeleton width={'100%'} height={350}/>
 			</Grid.Col>

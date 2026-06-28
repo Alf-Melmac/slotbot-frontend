@@ -1,0 +1,5 @@
+.dangerAction {
+	@mixin dark {
+		color: var(--mantine-color-red-3);
+	}
+}

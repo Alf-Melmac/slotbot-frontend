@@ -1,5 +1,5 @@
 import {JSX} from 'react';
-import {useForm} from '@mantine/form';
+import {useForm, UseFormReturnType} from '@mantine/form';
 import {RequirementListDto, RequirementListPostDto} from './requirementTypes';
 import {randomId, useUncontrolled} from '@mantine/hooks';
 import {requiredField} from '../../../../../utils/formValidation';
@@ -150,7 +150,7 @@ export function RequirementListForm(props: Readonly<RequirementListFormProps>): 
 }
 
 type IconUploadFormInputProps = {
-	form: ReturnType<typeof useForm<RequirementListPostDto>>;
+	form: UseFormReturnType<RequirementListPostDto>;
 	formPath: LooseKeys<RequirementListPostDto>,
 	label: TextKey;
 	value?: string | null;

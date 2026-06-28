@@ -28,10 +28,6 @@
 	padding-left: var(--mantine-spacing-md);
 }
 
-.linkActive {
-	color: unset;
-}
-
 .date {
 	background-color: light-dark(var(--mantine-color-dark-filled), var(--mantine-color-default-color));
 	color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-text));

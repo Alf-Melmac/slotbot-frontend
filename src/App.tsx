@@ -46,15 +46,7 @@ export function App(): JSX.Element {
 function MantineApp(): JSX.Element { /*To be able to use LanguageProvider and GuildProvider in the theme this needs to be its own component*/
 	const {language} = useLanguage();
 
-	const router = createBrowserRouter(routes, {
-		future: {
-			v8_middleware: true,
-			v8_splitRouteModules: true,
-			v8_viteEnvironmentApi: true,
-			v8_passTroughRequests: true,
-			v8_trailingSlashAwareDataRequests: true,
-		},
-	});
+	const router = createBrowserRouter(routes);
 
 	return (
 		<MantineProvider theme={useGetThemeOverride()} defaultColorScheme={'dark'}>

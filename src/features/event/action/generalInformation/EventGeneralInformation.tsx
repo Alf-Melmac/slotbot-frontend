@@ -3,6 +3,7 @@ import {RequiredInformation, RequiredInformationProps} from './RequiredInformati
 import {EventTypeMask} from './EventTypeMask';
 import {EventMisc} from './EventMisc';
 import {JSX} from 'react';
+import {Grid} from '@mantine/core';
 
 type EventGeneralInformationProps = RequiredInformationProps;
 
@@ -10,8 +11,10 @@ export function EventGeneralInformation(props: Readonly<EventGeneralInformationP
 	return <>
 		<EventActionPageTitle title={'event.wizard.step.general.description'}/>
 
-		<RequiredInformation canRevokeShareable={props.canRevokeShareable}/>
-		<EventTypeMask/>
-		<EventMisc/>
+		<Grid rowGap={'sm'}>
+			<RequiredInformation canRevokeShareable={props.canRevokeShareable}/>
+			<EventTypeMask/>
+			<EventMisc/>
+		</Grid>
 	</>;
 }

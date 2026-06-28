@@ -1,5 +1,5 @@
 import {EventEditDto, EventPostDto} from '../../../features/event/eventTypes';
-import {createFormContext} from '@mantine/form';
+import {createFormContext, UseFormReturnType} from '@mantine/form';
 import {EventAction, EventActionProvider, useEventAction} from './EventActionContext';
 import {EventPageProvider} from '../EventPageContext';
 import {EventPageParams} from '../../../features/event/EventRoutes';
@@ -28,9 +28,7 @@ const [EventEditFormProvider, useEventEditFormContext, useEventEditForm] = creat
 const [EventWizardFormProvider, useEventWizardFormContext, useEventWizardForm] = createFormContext<EventWizardFormType>();
 export {useEventEditForm, useEventWizardForm};
 
-type EventEditFormReturn = ReturnType<typeof useEventEditFormContext>;
-type EventWizardFormReturn = ReturnType<typeof useEventWizardFormContext>;
-export type EventActionFormReturn = EventEditFormReturn | EventWizardFormReturn;
+export type EventActionFormReturn = UseFormReturnType<EventActionFormTypeWorkaround>;
 
 type EventEditProviderProps = {
 		form: ReturnType<typeof useEventEditForm>;
@@ -63,5 +61,5 @@ export function EventWizardProvider(props: Readonly<PropsWithChildren<EventWizar
 }
 
 export function useFormContext(editMode = useEventAction().editMode): EventActionFormReturn {
-	return editMode ? useEventEditFormContext() : useEventWizardFormContext();
+	return (editMode ? useEventEditFormContext() : useEventWizardFormContext()) as unknown as EventActionFormReturn;
 }

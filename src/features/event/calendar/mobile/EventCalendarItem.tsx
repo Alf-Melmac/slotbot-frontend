@@ -60,7 +60,7 @@ export function EventCalendarItem(props: Readonly<EventRenderRange>): JSX.Elemen
 						<T k={'calendar.event.tooltip.emptyReserveSlots'} args={[emptyReserveSlotsCount]}/>
 					}
 				</Group>
-				<Grid gutter={'sm'}>
+				<Grid gap={'sm'}>
 					<Grid.Col span={emptyReserveSlotsCount > 0 ? 8 : 12}>
 						<Progress value={((slotCount - emptySlotsCount) / slotCount) * 100}/>
 					</Grid.Col>

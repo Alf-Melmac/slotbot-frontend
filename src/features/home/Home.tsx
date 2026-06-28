@@ -19,7 +19,7 @@ export default function Home(): JSX.Element {
 				{useCheckAccess(ApplicationRoles.ROLE_ADMIN) &&
                     <>
                         <AddButton label={'home.blog.add'} onClick={toggle}/>
-                        <Collapse in={opened}>
+                        <Collapse expanded={opened}>
                             <AddBlogPost onSuccess={toggle}/>
                         </Collapse>
                     </>

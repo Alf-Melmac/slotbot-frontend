@@ -13,7 +13,7 @@ export function EventMisc(): JSX.Element {
 	const {t} = useLanguage();
 
 	useChangeWatcher('missionType');
-	return <Grid>
+	return <>
 		<Grid.Col span={{base: 6, xs: 4}}>
 			<Select label={<T k={'event.missionType'}/>} placeholder={t('input.select.placeholder')}
 					data={['COOP', 'COOP+', 'Zeus', 'TvT', 'Training', t('event.missionType.special'), t('event.missionType.other')]}
@@ -35,5 +35,5 @@ export function EventMisc(): JSX.Element {
 				maxLength: URL,
 			}} formPath={'pictureUrl'}/>
 		</Grid.Col>
-	</Grid>;
+	</>;
 }

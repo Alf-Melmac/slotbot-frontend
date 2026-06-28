@@ -84,7 +84,7 @@ export function GlobalNotificationSettings(props: Readonly<GlobalNotificationSet
 				           })}/>
 				{(form.values.notificationSettings.length > 0 || form.isDirty()) &&
 					<ElementWithInfo
-						text={<ButtonWithDisabledTooltip color={'green'} onClick={() => mutate()}
+						text={<ButtonWithDisabledTooltip onClick={() => mutate()}
 						                                 disabled={!form.isDirty()} tooltip={'noChanges'}
 						                                 loading={isPending}>
 							<T k={'notifications.save'}/></ButtonWithDisabledTooltip>

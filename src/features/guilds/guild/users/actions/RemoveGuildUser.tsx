@@ -9,6 +9,7 @@ import {ActionIcon, Tooltip} from '@mantine/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUserMinus} from '@fortawesome/free-solid-svg-icons';
 import {GuildUserActionProps} from './GuildUserActions';
+import classes from './GuildUserAction.module.css';
 
 export function RemoveGuildUser(props: Readonly<GuildUserActionProps>): JSX.Element {
     const {user, guildId} = props;
@@ -30,7 +31,7 @@ export function RemoveGuildUser(props: Readonly<GuildUserActionProps>): JSX.Elem
     });
 
     return <Tooltip label={<T k={'guild.user.remove'}/>}>
-        <ActionIcon color={'red'} variant={'subtle'} onClick={() => mutate()}>
+        <ActionIcon color={'red'} className={classes.dangerAction} variant={'subtle'} onClick={() => mutate()}>
             <FontAwesomeIcon icon={faUserMinus}/>
         </ActionIcon>
     </Tooltip>;

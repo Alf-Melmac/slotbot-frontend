@@ -1,14 +1,14 @@
-import {ForwardRefExoticComponent, JSX, RefAttributes} from 'react';
+import {FC, JSX} from 'react';
 import {TextKey, useLanguage} from '../../contexts/language/Language';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {Group, Menu} from '@mantine/core';
-import {RichTextEditor} from '@mantine/tiptap';
+import {H1Control, RichTextEditor} from '@mantine/tiptap';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
 type ControlDropdownProps = {
 	title: TextKey;
 	icon: FontAwesomeIconProps['icon'];
-	items: ForwardRefExoticComponent<RefAttributes<HTMLButtonElement>>[]; // Not the complete type, RichTextEditorControlBaseProps isn't exported
+	items: FC<Parameters<typeof H1Control>[0]>[];  //Extract RichTextEditorControlBaseProps from any control as it isn't exported
 };
 
 export function ControlDropdown({title, icon, items}: Readonly<ControlDropdownProps>): JSX.Element {

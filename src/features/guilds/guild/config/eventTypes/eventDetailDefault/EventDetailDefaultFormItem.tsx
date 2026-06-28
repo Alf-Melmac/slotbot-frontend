@@ -1,5 +1,5 @@
 import {JSX, useState} from 'react';
-import {useForm} from '@mantine/form';
+import {UseFormReturnType} from '@mantine/form';
 import {useLanguage} from '../../../../../../contexts/language/Language';
 import {ActionIcon, ComboboxItem, Group, Input, SegmentedControl, Select, TagsInput, TextInput} from '@mantine/core';
 import {T} from '../../../../../../components/T';
@@ -11,7 +11,7 @@ import {DetailDefaultFormType} from './EventDetailDefaultForm';
 import {EventDetailDefaultFormTextField} from './EventDetailDefaultFormTextField';
 
 export type EventDetailDefaultFormItemProps = {
-	form: ReturnType<typeof useForm<DetailDefaultFormType>>,
+	form: UseFormReturnType<DetailDefaultFormType>,
 	index: number
 };
 

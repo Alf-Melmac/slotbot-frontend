@@ -55,35 +55,35 @@ export function EventTypeInputs(props: Readonly<EventTypeInputsProps>): JSX.Elem
 	return (
 		<>
 			{!eventTypes &&
-                <Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'} mt={'xs'}>
-                    <T k={'event.eventType.error'}/>
-                </Alert>
+				<Grid.Col span={12}>
+					<Alert icon={<FontAwesomeIcon icon={faCircleExclamation}/>} color={'red'}>
+						<T k={'event.eventType.error'}/>
+					</Alert>
+				</Grid.Col>
 			}
-			<Grid>
-				<Grid.Col span={{base: 12, [editMode ? 'sm' : 'xs']: 8}}>
-					<Autocomplete
-						label={<T k={'event.eventType.name'}/>}
-						maxLength={TEXT}
-						required
-						data={eventTypes?.map(type => type.name) ?? []}
-						{...form.getInputProps('eventType.name')}
-					/>
+			<Grid.Col span={{base: 12, [editMode ? 'sm' : 'xs']: 8}}>
+				<Autocomplete
+					label={<T k={'event.eventType.name'}/>}
+					maxLength={TEXT}
+					required
+					data={eventTypes?.map(type => type.name) ?? []}
+					{...form.getInputProps('eventType.name')}
+				/>
+			</Grid.Col>
+			<Grid.Col span={editMode ? {base: 6, sm: 2} : {base: 12, xs: 4}}>
+				<ColorInput label={<T k={'event.eventType.color'}/>}
+				            required
+				            disabled={colorInputDisabled}
+				            {...form.getInputProps('eventType.color')}/>
+			</Grid.Col>
+			{editMode &&
+				<Grid.Col span={{base: 6, sm: 2}} className={classes.editModeControls}>
+					<PulsatingButton onClick={() => mutate()}
+					                 disabled={!form.isDirty('eventType') || !form.isValid('eventType')}>
+						<T k={'event.eventType.save'}/>
+					</PulsatingButton>
 				</Grid.Col>
-				<Grid.Col span={editMode ? {base: 6, sm: 2} : {base: 12, xs: 4}}>
-					<ColorInput label={<T k={'event.eventType.color'}/>}
-								required
-								disabled={colorInputDisabled}
-								{...form.getInputProps('eventType.color')}/>
-				</Grid.Col>
-				{editMode &&
-                    <Grid.Col span={{base: 6, sm: 2}} className={classes.editModeControls}>
-                        <PulsatingButton onClick={() => mutate()}
-                                         disabled={!form.isDirty('eventType') || !form.isValid('eventType')}>
-                            <T k={'event.eventType.save'}/>
-                        </PulsatingButton>
-                    </Grid.Col>
-				}
-			</Grid>
+			}
 		</>
 	);
 }
