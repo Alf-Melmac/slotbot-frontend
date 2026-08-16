@@ -11,6 +11,10 @@ export interface GuildsCategorisedDto {
 	inactive: GuildDto[];
 }
 
+export interface GuildCreateDto {
+	groupIdentifier: string;
+}
+
 export interface GuildDetailsDto extends AbstractDiscordIdEntityDto {
 	advanced: boolean;
 	baseUrl?: string;

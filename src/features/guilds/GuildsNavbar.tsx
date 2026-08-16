@@ -53,18 +53,18 @@ export function GuildsNavbar(props: Readonly<GuildsNavbarProps>): JSX.Element {
 					{guildsQuery.data?.active.map(guild =>
 						<GuildButton key={guild.id} guild={guild} selectedGuildId={guildId}/>)}
 					{!!guildsQuery.data?.inactive.length &&
-					<Accordion mt={'xs'}>
-						<Accordion.Item value="inactive">
-							<Accordion.Control><T k={'guilds.inactive'}/></Accordion.Control>
-							<Accordion.Panel>
-								<Alert variant={'outline'} icon={<FontAwesomeIcon icon={faInfo}/>} color={'blue'}>
-                                    <T k={'guilds.inactive.description'}/>
-								</Alert>
-								{guildsQuery.data.inactive.map(guild =>
-									<GuildButton key={guild.id} guild={guild} selectedGuildId={guildId}/>)}
-							</Accordion.Panel>
-						</Accordion.Item>
-					</Accordion>
+						<Accordion mt={'xs'}>
+							<Accordion.Item value="inactive">
+								<Accordion.Control><T k={'guilds.inactive'}/></Accordion.Control>
+								<Accordion.Panel>
+									<Alert variant={'outline'} icon={<FontAwesomeIcon icon={faInfo}/>} color={'blue'}>
+										<T k={'guilds.inactive.description'}/>
+									</Alert>
+									{guildsQuery.data.inactive.map(guild =>
+										<GuildButton key={guild.id} guild={guild} selectedGuildId={guildId}/>)}
+								</Accordion.Panel>
+							</Accordion.Item>
+						</Accordion>
 					}
 				</>
 			}

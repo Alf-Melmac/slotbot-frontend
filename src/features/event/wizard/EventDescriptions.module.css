@@ -1,3 +1,0 @@
-.secondaryText {
-	color: light-dark(lighten(var(--mantine-color-text), 0.15), darken(var(--mantine-color-text), 0.15));
-}

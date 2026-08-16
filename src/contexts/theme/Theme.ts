@@ -1,8 +1,9 @@
-import {createTheme, MantineProviderProps, MantineThemeOverride, rem, Switch} from '@mantine/core';
+import {createTheme, MantineProviderProps, MantineThemeOverride, rem, Switch, Text} from '@mantine/core';
 import {merge} from 'lodash-es';
 import {useLanguage} from '../language/Language';
 import {RichTextEditorLabels} from '@mantine/tiptap';
 import {Guild, useGetGuild} from '../guildcontext/GuildContext';
+import classes from './globalTheme.module.css';
 
 function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 	const {t} = useLanguage();
@@ -58,6 +59,7 @@ function useGetGlobalTheme(): ReturnType<typeof createTheme> {
 					valueFormat: 'L',
 				},
 			},
+			Text: Text.extend({classNames: {root: classes.text}}),
 			RichTextEditor: {
 				defaultProps: {
 					labels: {

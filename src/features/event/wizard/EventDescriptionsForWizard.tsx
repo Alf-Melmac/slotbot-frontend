@@ -6,19 +6,18 @@ import {EventDescription} from '../action/description/EventDescription';
 import {EventExtendedDescription} from '../action/description/EventExtendedDescription';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircleInfo, faLightbulb} from '@fortawesome/free-solid-svg-icons';
-import classes from './EventDescriptions.module.css';
 
 export function EventDescriptionsForWizard(): JSX.Element {
 	return <>
 		<EventActionPageTitle title={'event.wizard.step.description.title'}/>
-		<Text className={classes.secondaryText} mb={'lg'}>
+		<Text variant={'secondary'} mb={'lg'}>
 			<T k={'event.wizard.step.description.description'}/>
 		</Text>
 
 		<Stack>
 			<Card>
 				<Title order={3}><T k={'event.description.short'}/></Title>
-				<Text className={classes.secondaryText} mb={'sm'}>
+				<Text variant={'secondary'} mb={'sm'}>
 					<T k={'event.description.short.description'}/>
 				</Text>
 				<Alert icon={<FontAwesomeIcon icon={faLightbulb}/>} color={'teal'} mb={'sm'}>
@@ -32,7 +31,7 @@ export function EventDescriptionsForWizard(): JSX.Element {
 					<Title order={3}><T k={'event.description.extended'}/></Title>
 					<Badge color={'gray'}><T k={'optional'}/></Badge>
 				</Group>
-				<Text className={classes.secondaryText} mb={'sm'}>
+				<Text variant={'secondary'} mb={'sm'}>
 					<T k={'event.description.extended.description'}/>
 				</Text>
 				<EventExtendedDescription/>
