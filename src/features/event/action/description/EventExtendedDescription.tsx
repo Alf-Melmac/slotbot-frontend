@@ -33,7 +33,7 @@ export function EventExtendedDescription({showDescription}: Readonly<EventDescri
 		extensions: [
 			StarterKit.configure({link: false}),
 			Link,
-			Details,
+			Details, /*TODO details & table have no buttons https://mantine.dev/changelog/9-6-0/#richtexteditor-table-controls*/
 			DetailsSummary,
 			DetailsContent,
 			TableKit,
