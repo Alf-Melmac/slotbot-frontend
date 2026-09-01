@@ -33,9 +33,7 @@ export function CreateGuild(): JSX.Element {
 			navigate(generatePath('/guilds/:guildId', {guildId: data.id}));
 		},
 	});
-	// TODO only for logged in users
 	// TODO user gets signed out to get the permissions of the new guild
-	// TODO test duplicated name
 
 	return <form className={classes.form} onSubmit={form.onSubmit((values) => mutate(values))}>
 		<Stack>

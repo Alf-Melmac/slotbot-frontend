@@ -221,6 +221,8 @@
   "guild.user.removed": "Member removed",
   "guild.users.none": "No members",
   "guilds.create": "Create from scratch",
+  "guilds.create.anonymous.button": "Log in to Create",
+  "guilds.create.anonymous.description": "Log in to start your own community and host events.",
   "guilds.create.button": "Create Community",
   "guilds.create.description": "Create your own and invite members.",
   "guilds.create.discord": "Import Discord Server",
