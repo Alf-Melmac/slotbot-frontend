@@ -221,6 +221,8 @@
   "guild.user.removed": "Mitglied entfernt",
   "guild.users.none": "Keine Mitglieder",
   "guilds.create": "Neue Community",
+  "guilds.create.anonymous.button": "Community erstellen",
+  "guilds.create.anonymous.description": "Anmelden, um die eigene Community anzulegen und Events zu organisieren.",
   "guilds.create.button": "Community erstellen",
   "guilds.create.description": "Selbst anlegen und Mitglieder einladen.",
   "guilds.create.discord": "Discord Server importieren",
