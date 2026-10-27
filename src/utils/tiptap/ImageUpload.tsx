@@ -25,7 +25,7 @@ export const ImageFileHandler = FileHandler.configure({
 /**
  * RichTextEditor.Control button for uploading images
  */
-export function ImageUpload(): JSX.Element {
+export function ImageUpload(): JSX.Element { /*TODO Mantine image update https://mantine.dev/x/tiptap/#image-upload*/
 	const {editor} = useRichTextEditorContext();
 	const fileInput = useRef<HTMLInputElement>(null);
 	const {t} = useLanguage();

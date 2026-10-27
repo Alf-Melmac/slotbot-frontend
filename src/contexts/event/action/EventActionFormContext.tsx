@@ -31,7 +31,7 @@ export {useEventEditForm, useEventWizardForm};
 export type EventActionFormReturn = UseFormReturnType<EventActionFormTypeWorkaround>;
 
 type EventEditProviderProps = {
-		form: ReturnType<typeof useEventEditForm>;
+		form: UseFormReturnType<EventEditFormType>;
 	}
 	& Pick<EventPageParams, 'eventId'>
 	& Pick<EventAction, 'ownerGuild'>;
@@ -48,7 +48,7 @@ export function EventEditProvider(props: Readonly<PropsWithChildren<EventEditPro
 }
 
 type EventWizardProviderProps = {
-	form: ReturnType<typeof useEventWizardForm>;
+	form: UseFormReturnType<EventWizardFormType>;
 };
 
 export function EventWizardProvider(props: Readonly<PropsWithChildren<EventWizardProviderProps>>): JSX.Element {

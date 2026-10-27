@@ -6,13 +6,14 @@ import {AxiosError} from 'axios';
 import {randomId} from '@mantine/hooks';
 import {showNotification} from '@mantine/notifications';
 import {EventWizardLocation} from './EventWizard';
-import {useEventWizardForm} from '../../../contexts/event/action/EventActionFormContext';
+import {EventWizardFormType} from '../../../contexts/event/action/EventActionFormContext';
+import {UseFormReturnType} from '@mantine/form';
 import {T} from '../../../components/T';
 import {useEffect, useState} from 'react';
 import {useAuth} from '../../../contexts/authentication/AuthProvider';
 import {convertDtoToWizardFormEvent} from '../edit/utils';
 
-export function useEventCopy(form: ReturnType<typeof useEventWizardForm>) {
+export function useEventCopy(form: UseFormReturnType<EventWizardFormType>) {
 	const state = useLocation().state as EventWizardLocation | null;
 	const copyEvent = state?.copy;
 	const [updated, setUpdated] = useState(false);
