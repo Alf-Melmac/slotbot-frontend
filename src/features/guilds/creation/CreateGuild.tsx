@@ -33,7 +33,6 @@ export function CreateGuild(): JSX.Element {
 			navigate(generatePath('/guilds/:guildId', {guildId: data.id}));
 		},
 	});
-	// TODO user gets signed out to get the permissions of the new guild
 
 	return <form className={classes.form} onSubmit={form.onSubmit((values) => mutate(values))}>
 		<Stack>
