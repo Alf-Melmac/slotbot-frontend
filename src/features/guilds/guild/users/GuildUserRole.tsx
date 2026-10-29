@@ -2,15 +2,16 @@ import {TableCellProps} from './GuildUsers';
 import {DefaultMantineColor} from '@mantine/core';
 import {JSX, useState} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
-import {Role} from '../../guildTypes';
+import {Role, UserInGuildDto} from '../../guildTypes';
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
 import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServerClient';
-import {useMutation} from '@tanstack/react-query';
+import {InfiniteData, useMutation, useQueryClient} from '@tanstack/react-query';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {AxiosError} from 'axios';
 import {useDidUpdate} from '@mantine/hooks';
 import {GuildUserRoleSelect} from './GuildUserRoleSelect';
 import {GuildUserRoleSelected} from './GuildUserRoleSelected';
+import {FrontendPageable} from '../../../../utils/pagination';
 
 export type RoleItem = {
 	value: Role | '';
@@ -42,11 +43,26 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 	];
 
 	const {guildId, isAdmin} = useGuildPage();
+	const queryClient = useQueryClient();
 	const putRole = () => slotbotServerClient.put(`/guilds/${guildId}/users/${user.id}`, selectedRole,
 		{headers: {'Content-Type': 'text/plain'}}).then(voidFunction);
 	const {mutate} = useMutation<void, AxiosError>({
 		mutationFn: putRole,
 		onSuccess: () => {
+			queryClient.setQueryData<InfiniteData<FrontendPageable<UserInGuildDto>>>(['guildUsers', guildId], (oldData) => {
+				if (!oldData) {
+					return oldData;
+				}
+
+				const newRole = selectedRole ? selectedRole as Role : null;
+				return {
+					...oldData,
+					pages: oldData.pages.map((page) => ({
+						...page,
+						content: page.content.map((item) => item.user.id === user.id ? {...item, role: newRole} : item),
+					})),
+				};
+			});
 			successNotification();
 		},
 		onError: errorNotification,

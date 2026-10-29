@@ -19,8 +19,7 @@ export function RemoveGuildUser(props: Readonly<GuildUserActionProps>): JSX.Elem
     const {mutate} = useMutation<void, AxiosError>({
         mutationFn: deleteGuildUser,
         onSuccess: () => {
-            // noinspection JSIgnoredPromiseFromCall
-            queryClient.invalidateQueries({queryKey: ['guildUsers', guildId]});
+            void queryClient.invalidateQueries({queryKey: ['guildUsers', guildId]});
             showNotification({
                 title: <T k={'guild.user.removed'}/>,
                 message: <></>,
