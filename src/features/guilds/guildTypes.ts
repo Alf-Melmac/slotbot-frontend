@@ -69,7 +69,7 @@ export enum Role {
 
 export interface UserInGuildDto {
 	user: DiscordUserDto;
-	role: Role;
+	role: Role | null;
 }
 
 export interface GuildBanDto {
