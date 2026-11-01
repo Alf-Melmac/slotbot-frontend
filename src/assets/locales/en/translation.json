@@ -229,6 +229,7 @@
   "guilds.create.discord.description": "Create from Discord server and sync your members instantly.",
   "guilds.create.label": "Community Name",
   "guilds.create.placeholder": "Enter the community name",
+  "guilds.create.taken": "This name is already taken",
   "guilds.explore.description": "Discover your next community or start a space for your own.",
   "guilds.explore.title": "Explore Communities",
   "guilds.inactive": "Inactive",
