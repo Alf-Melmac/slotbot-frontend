@@ -48,6 +48,7 @@ export function CreateGuild(): JSX.Element {
 		mutationFn: postGuild,
 		onSuccess: (data) => {
 			void queryClient.invalidateQueries({queryKey: ['guilds']});
+			void queryClient.invalidateQueries({queryKey: ['authentication']});
 			void navigate(generatePath('/guilds/:guildId', {guildId: data.id}));
 		},
 		onError: errorNotification,

@@ -1,6 +1,6 @@
 import {TableCellProps} from './GuildUsers';
 import {DefaultMantineColor} from '@mantine/core';
-import {JSX, useState} from 'react';
+import {JSX} from 'react';
 import {useGuildPage} from '../../../../contexts/guild/GuildPageContext';
 import {Role, UserInGuildDto} from '../../guildTypes';
 import {TextKey, useLanguage} from '../../../../contexts/language/Language';
@@ -8,10 +8,10 @@ import slotbotServerClient, {voidFunction} from '../../../../hooks/slotbotServer
 import {InfiniteData, useMutation, useQueryClient} from '@tanstack/react-query';
 import {errorNotification, successNotification} from '../../../../utils/notificationHelper';
 import {AxiosError} from 'axios';
-import {useDidUpdate} from '@mantine/hooks';
 import {GuildUserRoleSelect} from './GuildUserRoleSelect';
 import {GuildUserRoleSelected} from './GuildUserRoleSelected';
 import {FrontendPageable} from '../../../../utils/pagination';
+import {useAuth} from '../../../../contexts/authentication/AuthProvider';
 
 export type RoleItem = {
 	value: Role | '';
@@ -23,7 +23,6 @@ export type RoleItem = {
 export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 	const {role, user} = props.row.original;
 	const roleValue = role ?? '';
-	const [selectedRole, setSelectedRole] = useState<string | null>(roleValue);
 
 	const {t} = useLanguage();
 	const roles: RoleItem[] = [
@@ -43,18 +42,19 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 	];
 
 	const {guildId, isAdmin} = useGuildPage();
+	const {user: currentUser} = useAuth();
 	const queryClient = useQueryClient();
-	const putRole = () => slotbotServerClient.put(`/guilds/${guildId}/users/${user.id}`, selectedRole,
+	const putRole = (newRole: string) => slotbotServerClient.put(`/guilds/${guildId}/users/${user.id}`, newRole,
 		{headers: {'Content-Type': 'text/plain'}}).then(voidFunction);
-	const {mutate} = useMutation<void, AxiosError>({
+	const {mutate, isPending, variables} = useMutation<void, AxiosError, string>({
 		mutationFn: putRole,
-		onSuccess: () => {
+		onSuccess: (_, sentRole) => {
 			queryClient.setQueryData<InfiniteData<FrontendPageable<UserInGuildDto>>>(['guildUsers', guildId], (oldData) => {
 				if (!oldData) {
 					return oldData;
 				}
 
-				const newRole = selectedRole ? selectedRole as Role : null;
+				const newRole = sentRole ? sentRole as Role : null;
 				return {
 					...oldData,
 					pages: oldData.pages.map((page) => ({
@@ -63,22 +63,31 @@ export function GuildUserRole(props: Readonly<TableCellProps>): JSX.Element {
 					})),
 				};
 			});
+			// Only update to myself updates my authorities
+			if (user.id === currentUser?.id) {
+				void queryClient.invalidateQueries({queryKey: ['authentication']});
+			}
 			successNotification();
 		},
 		onError: errorNotification,
 	});
 
-	useDidUpdate(() => {
-		mutate();
-	}, [selectedRole]);
+	// Show requested role while the request is running; otherwise role from cache
+	const displayedRole = isPending ? variables : roleValue;
 
-	const matchingRole = roles.find(roleItem => roleItem.value === selectedRole);
-	if (!matchingRole) throw new Error(`Role '${roleValue}' not found`);
+	function changeRole(newRole: string) {
+		if (newRole !== displayedRole) {
+			mutate(newRole);
+		}
+	}
+
+	const matchingRole = roles.find(roleItem => roleItem.value === displayedRole);
+	if (!matchingRole) throw new Error(`Role '${displayedRole}' not found`);
 	if (!isAdmin) {
 		return <GuildUserRoleSelected role={matchingRole}/>;
 	}
 
 	return (
-		<GuildUserRoleSelect roles={roles} matchingRole={matchingRole} setSelectedRole={setSelectedRole}/>
+		<GuildUserRoleSelect roles={roles} matchingRole={matchingRole} onChange={changeRole}/>
 	);
 }

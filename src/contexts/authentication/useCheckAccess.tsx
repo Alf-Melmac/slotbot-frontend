@@ -18,7 +18,7 @@ export function useCheckAccessQuery(authority?: ApplicationRoles, guildId?: stri
 	const getAllowedToAccess = () => slotbotServerClient.get(`/authentication${guildUrlPath}/access/${authority}`, {params: {guildId, eventId}})
 		.then((res) => res.data);
 	const query = useQuery<boolean>({
-		queryKey: ['allowedToAccess', guildUrlPath, authority, guildId, eventId],
+		queryKey: ['authentication', 'allowedToAccess', guildUrlPath, authority, guildId, eventId],
 		queryFn: getAllowedToAccess,
 		enabled: !!authority,
 	});

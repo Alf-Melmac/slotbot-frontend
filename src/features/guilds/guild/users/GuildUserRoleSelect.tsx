@@ -1,5 +1,5 @@
 import {Badge, Combobox, InputBase, Stack, Text, useCombobox} from '@mantine/core';
-import {Dispatch, JSX, SetStateAction} from 'react';
+import {JSX} from 'react';
 import {RoleItem} from './GuildUserRole';
 import {T} from '../../../../components/T';
 import {GuildUserRoleSelected} from './GuildUserRoleSelected';
@@ -8,11 +8,11 @@ import classes from './GuildUserRoleSelect.module.css';
 type GuildUserRoleSelectProps = {
 	roles: RoleItem[];
 	matchingRole: RoleItem;
-	setSelectedRole: Dispatch<SetStateAction<string | null>>;
+	onChange: (role: string) => void;
 };
 
 export function GuildUserRoleSelect(props: Readonly<GuildUserRoleSelectProps>): JSX.Element {
-	const {roles, matchingRole, setSelectedRole} = props;
+	const {roles, matchingRole, onChange} = props;
 
 	const combobox = useCombobox({
 		onDropdownClose: () => combobox.resetSelectedOption(),
@@ -37,7 +37,7 @@ export function GuildUserRoleSelect(props: Readonly<GuildUserRoleSelectProps>): 
 		<Combobox
 			store={combobox}
 			onOptionSubmit={(val) => {
-				setSelectedRole(val);
+				onChange(val);
 				combobox.closeDropdown();
 			}}
 		>
