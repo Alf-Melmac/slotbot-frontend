@@ -9,9 +9,18 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <meta name="theme-color" content="#00FFFF"/>
     <link rel="manifest" href="/manifest.json"/>
     <title>Slotbot</title>
+
+    <!--# block name="social_embed_defaults" -->
+    <meta property="og:site_name" content="Slotbot"/>
+    <meta property="og:title" content="Slotbot"/>
+    <meta property="og:description" content="Focus on the event, we’ll take care of the rest."/>
+    <meta property="og:image" content="https://slotbot.de/slotbot-256-256.png"/>
+    <meta name="theme-color" content="#00FFFF"/>
+    <meta name="twitter:card" content="summary"/>
+    <!--# endblock -->
+    <!--# include virtual="$embed_path" stub="social_embed_defaults" -->
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
